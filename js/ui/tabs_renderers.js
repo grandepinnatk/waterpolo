@@ -71,25 +71,28 @@ function renderDash() {
 // ════════════════════════════════════════════
 function renderRosa() {
   const roster = G.rosters[G.myId];
+  const tlSet  = new Set((G.transferList || []).map(e => e.rosterIdx));
   let h = `<div class="card">
     <div style="font-weight:700;color:var(--blue);margin-bottom:10px">${G.myTeam.name} — Rosa (${roster.length})</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Clicca su un giocatore per il dettaglio · Pulsante <strong>Vendi</strong> nel modale per metterlo sul mercato</div>
     <table><thead><tr>
       <th>Giocatore</th><th>Ruolo</th><th>Mano</th><th>Naz</th>
-      <th>Età</th><th>OVR</th><th>Forma</th><th>G</th><th>A</th><th>Valore</th>
+      <th>Età</th><th>OVR</th><th>Morale</th><th>Forma</th><th>G</th><th>A</th><th>Valore</th>
     </tr></thead><tbody>`;
 
   roster.forEach((p, i) => {
-    const c = p.overall >= 80 ? 'var(--blue)' : p.overall >= 65 ? 'var(--green)' : 'var(--gold)';
-    h += `<tr class="trhov" onclick="showPlayerModal(${i})">
-      <td style="font-weight:600">${p.name}</td>
-      <td><span class="badge ${p.role === 'POR' ? 'S' : p.role === 'CB' ? 'B' : p.role === 'DIF' ? 'A' : 'C'}">${p.role}</span></td>
-      <td><span class="badge ${p.hand === 'L' ? 'L' : 'R'}" title="${p.hand === 'L' ? 'Mancino' : 'Destro'}">${p.hand}</span></td>
+    const c   = p.overall >= 80 ? 'var(--blue)' : p.overall >= 65 ? 'var(--green)' : 'var(--gold)';
+    const mc  = p.morale > 70 ? 'var(--green)' : p.morale > 40 ? 'var(--gold)' : 'var(--red)';
+    const onMarket = tlSet.has(i);
+    h += `<tr class="trhov" onclick="showPlayerModal(${i})" style="${onMarket ? 'background:rgba(240,192,64,.08)' : ''}">
+      <td style="font-weight:600">${p.name}${onMarket ? ' <span style="font-size:10px;color:var(--gold);font-weight:600">VENDITA</span>' : ''}</td>
+      <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span></td>
+      <td><span class="badge ${p.hand==='L'?'L':'R'}" title="${p.hand==='L'?'Mancino':'Destro'}">${p.hand}</span></td>
       <td style="color:var(--muted);font-size:12px">${p.nat}</td>
       <td>${p.age}</td>
       <td style="font-weight:700;color:${c}">${p.overall}</td>
-      <td><div class="prog-w" style="width:50px">
-        <div class="prog-f" style="width:${p.fitness}%;background:${p.fitness > 70 ? 'var(--green)' : 'var(--gold)'}"></div>
-      </div></td>
+      <td><span style="font-size:12px;font-weight:600;color:${mc}">${p.morale}%</span></td>
+      <td><div class="prog-w" style="width:44px"><div class="prog-f" style="width:${p.fitness}%;background:${p.fitness>70?'var(--green)':'var(--gold)'}"></div></div></td>
       <td>${p.goals}</td><td>${p.assists}</td>
       <td style="font-size:12px;color:var(--muted)">${formatMoney(p.value)}</td>
     </tr>`;
@@ -134,9 +137,58 @@ function showPlayerModal(i) {
             <div style="font-size:12px;width:24px;font-weight:600">${p.stats[a]}</div>
           </div>`).join('')}
       </div>
+      <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px" id="modal-sell-section-${i}">
+        ${_buildSellSection(i)}
+      </div>
     </div>`;
   ov.onclick = e => { if (e.target === ov) ov.remove(); };
   document.body.appendChild(ov);
+}
+
+function _buildSellSection(i) {
+  const p      = G.rosters[G.myId][i];
+  if (!p) return '';
+  const entry  = (G.transferList || []).find(e => e.rosterIdx === i);
+  const offers = entry && entry.offers && entry.offers.length ? entry.offers : [];
+
+  if (entry) {
+    // Già in vendita
+    let html = `<div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:8px">In vendita — prezzo richiesto: ${formatMoney(entry.askingPrice)}</div>`;
+    if (offers.length) {
+      html += `<div class="slbl" style="margin-top:0;margin-bottom:6px">Offerte ricevute</div>`;
+      offers.forEach((o, oi) => {
+        const accepted = o.amount >= entry.askingPrice;
+        html += `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)">
+          <div style="flex:1;font-size:12px"><strong>${o.teamName}</strong>: ${formatMoney(o.amount)}
+            <span style="color:${accepted?'var(--green)':'var(--red)'}"> (${Math.round(o.amount/entry.askingPrice*100)}%)</span>
+          </div>
+          <button class="btn sm success" onclick="acceptOffer(${i},${oi});this.closest('[style*=fixed]').remove();renderRosa();">Accetta</button>
+          <button class="btn sm" onclick="rejectOffer(${i},${oi});document.getElementById('modal-sell-section-${i}').innerHTML=_buildSellSection(${i})">Rifiuta</button>
+        </div>`;
+      });
+    } else {
+      html += `<div style="font-size:12px;color:var(--muted)">Nessuna offerta ricevuta. Le offerte arrivano a fine giornata.</div>`;
+    }
+    html += `<button class="btn danger sm" style="margin-top:10px" onclick="removeFromMarket(${i});this.closest('[style*=fixed]').remove();renderRosa()">Ritira dal mercato</button>`;
+    return html;
+  } else {
+    // Non in vendita: mostra form per mettere in vendita
+    return `<div style="font-size:13px;font-weight:600;margin-bottom:8px">Metti in vendita</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="font-size:12px;color:var(--muted)">Prezzo richiesto:</span>
+        <input type="number" id="sell-price-${i}" value="${p.value}" min="${Math.round(p.value*0.3)}" step="10000"
+          style="width:110px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--panel2);color:var(--text);font-size:13px;text-align:right;padding:0 6px">
+        <span style="font-size:11px;color:var(--muted)">min ${formatMoney(Math.round(p.value*0.3))}</span>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px">Il giocatore perderà morale. Le offerte arriveranno nelle prossime giornate.</div>
+      <button class="btn warn" onclick="
+        const pr=parseInt(document.getElementById('sell-price-${i}').value,10);
+        if(!pr||pr<${Math.round(p.value*0.3)}){alert('Prezzo troppo basso');return;}
+        putPlayerOnMarket(${i},pr);
+        this.closest('[style*=fixed]').remove();
+        renderRosa();
+      ">💰 Metti in vendita</button>`;
+  }
 }
 
 // ════════════════════════════════════════════
@@ -444,6 +496,7 @@ function renderPlayoff() {
 // MERCATO
 // ════════════════════════════════════════════
 function renderMarket() {
+  // ── Giocatori IN ENTRATA (da altre squadre) ──
   const avail = [];
   G.teams.forEach(t => {
     if (t.id === G.myId) return;
@@ -455,25 +508,73 @@ function renderMarket() {
   const list = avail.slice(0, 14);
   G._mercList = list;
 
-  let h = `<div class="card">
-    <div style="display:flex;justify-content:space-between;margin-bottom:10px">
-      <div style="font-weight:700;color:var(--blue)">Mercato Trasferimenti</div>
-      <div style="font-size:12px;color:var(--muted)">Budget: ${formatMoney(G.budget)}</div>
-    </div>
+  // ── Giocatori IN USCITA (nostra rosa sul mercato) ──
+  const selling = (G.transferList || []).map(entry => ({
+    entry,
+    p: G.rosters[G.myId][entry.rosterIdx],
+    rosterIdx: entry.rosterIdx,
+  })).filter(x => x.p);
+
+  let h = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <div style="font-weight:700;color:var(--blue);font-size:15px">Mercato Trasferimenti</div>
+    <div style="font-size:12px;color:var(--muted)">Budget: <strong style="color:var(--blue)">${formatMoney(G.budget)}</strong></div>
+  </div>`;
+
+  // Sezione USCITE
+  h += `<div class="card" style="margin-bottom:12px">
+    <div style="font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px">
+      <span style="color:var(--gold)">💰 Giocatori in uscita</span>
+      <span style="font-size:11px;color:var(--muted)">(${selling.length} sul mercato — vai su <strong>Rosa</strong> per aggiungerne)</span>
+    </div>`;
+
+  if (!selling.length) {
+    h += `<div style="color:var(--muted);font-size:13px;padding:8px 0">Nessun giocatore in lista di trasferimento. Clicca su un giocatore nella scheda Rosa per metterlo in vendita.</div>`;
+  } else {
+    h += `<table><thead><tr>
+      <th>Giocatore</th><th>Ruolo</th><th>OVR</th><th>Prezzo richiesto</th><th>Offerte</th><th></th>
+    </tr></thead><tbody>`;
+    selling.forEach(({ entry, p, rosterIdx }) => {
+      const offerCount  = entry.offers ? entry.offers.length : 0;
+      const bestOffer   = entry.offers && entry.offers.length
+        ? Math.max(...entry.offers.map(o => o.amount)) : 0;
+      const hasGoodOffer = bestOffer >= entry.askingPrice;
+      h += `<tr>
+        <td style="font-weight:600">${p.name} <span style="font-size:10px;color:var(--muted)">(${p.age}a)</span></td>
+        <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span></td>
+        <td style="font-weight:700">${p.overall}</td>
+        <td style="font-size:12px">${formatMoney(entry.askingPrice)}</td>
+        <td><span style="font-size:12px;color:${hasGoodOffer?'var(--green)':offerCount>0?'var(--gold)':'var(--muted)'}">
+          ${offerCount > 0 ? offerCount + ' offerta/e' + (hasGoodOffer ? ' ✓' : '') : '—'}
+        </span></td>
+        <td style="display:flex;gap:4px">
+          <button class="btn sm primary" onclick="showPlayerModal(${rosterIdx})">Dettagli</button>
+          <button class="btn sm" onclick="removeFromMarket(${rosterIdx});renderMarket()">✕</button>
+        </td>
+      </tr>`;
+    });
+    h += `</tbody></table>`;
+  }
+  h += `</div>`;
+
+  // Sezione ACQUISTI
+  h += `<div class="card">
+    <div style="font-weight:600;margin-bottom:8px;color:var(--blue)">🔍 Giocatori disponibili sul mercato</div>
     <table><thead><tr>
-      <th>Giocatore</th><th>Mano</th><th>Da</th><th>Ruolo</th><th>OVR</th><th>Valore</th><th></th>
+      <th>Giocatore</th><th>Mano</th><th>Da</th><th>Ruolo</th><th>OVR</th><th>Morale</th><th>Valore</th><th></th>
     </tr></thead><tbody>`;
 
   list.forEach((p, i) => {
     const ok = G.budget >= p.value;
+    const mc = p.morale > 70 ? 'var(--green)' : p.morale > 40 ? 'var(--gold)' : 'var(--red)';
     h += `<tr>
-      <td style="font-weight:600">${p.name} (${p.age})</td>
-      <td><span class="badge ${p.hand === 'L' ? 'L' : 'R'}">${p.hand}</span></td>
+      <td style="font-weight:600">${p.name} <span style="font-size:11px;color:var(--muted)">(${p.age}a)</span></td>
+      <td><span class="badge ${p.hand==='L'?'L':'R'}">${p.hand}</span></td>
       <td style="font-size:12px;color:var(--muted)">${p._tname}</td>
-      <td><span class="badge ${p.role === 'POR' ? 'S' : p.role === 'CB' ? 'B' : p.role === 'DIF' ? 'A' : 'C'}">${p.role}</span></td>
+      <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span></td>
       <td style="font-weight:700">${p.overall}</td>
+      <td style="font-size:12px;color:${mc}">${p.morale}%</td>
       <td style="font-size:12px">${formatMoney(p.value)}</td>
-      <td><button class="btn sm ${ok ? 'primary' : ''}" onclick="buyPlayer(${i})" ${ok ? '' : 'disabled'}>Acquista</button></td>
+      <td><button class="btn sm ${ok?'primary':''}" onclick="buyPlayer(${i})" ${ok?'':'disabled'}>Acquista</button></td>
     </tr>`;
   });
   h += `</tbody></table></div>`;
@@ -485,8 +586,10 @@ function buyPlayer(i) {
   if (!p || G.budget < p.value) return;
   G.budget -= p.value;
   const np = { ...p }; delete np._tid; delete np._tname;
+  // Bonus morale all'acquisto: nuovo giocatore entusiasta
+  np.morale = Math.min(100, np.morale + rnd(8, 15));
   G.rosters[G.myId].push(np);
   G.rosters[p._tid] = G.rosters[p._tid].filter(pl => pl.name !== p.name);
-  G.msgs.push('Acquistato ' + p.name + ' da ' + p._tname + ' per ' + formatMoney(p.value));
+  G.msgs.push('✅ Acquistato ' + p.name + ' da ' + p._tname + ' per ' + formatMoney(p.value) + '. Morale alto!');
   updateHeader(); autoSave(); renderMarket();
 }

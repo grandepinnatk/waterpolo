@@ -6,6 +6,32 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.1.9-beta] — 2026-03-29
+
+### Aggiunto
+
+#### Mercato in uscita
+- Dal modale di dettaglio giocatore (tab **Rosa**) è ora presente la sezione **Metti in vendita**: si imposta il prezzo richiesto (default = valore del giocatore, minimo 30%) e si conferma
+- Il giocatore appare nella **lista in uscita** del tab Mercato con il prezzo richiesto e le offerte ricevute; un badge **VENDITA** compare anche nella lista della Rosa
+- A ogni giornata simulata o giocata viene eseguita `generateTransferOffers()`: ogni giocatore in lista ha ~40% di probabilità di ricevere un'offerta da una squadra casuale
+- L'importo dell'offerta (60%–110% del valore reale) è pesato dall'appetibilità del giocatore: overall, morale, fitness e presenze
+- Dal modale è possibile **Accettare** (incasso immediato, trasferimento) o **Rifiutare** ogni offerta
+- Il bottone ✕ nel mercato ritira il giocatore dalla lista senza effetti
+
+#### Sistema morale dinamico
+- Un giocatore messo in vendita perde 8–15 punti di morale (sa di non essere nel progetto)
+- Un giocatore acquistato guadagna 8–15 punti di morale (entusiasmo per il nuovo club)
+- Al termine di ogni partita giocata: +3–7 morale in caso di vittoria, +0–2 pareggio, −2–5 sconfitta; +2–4 bonus aggiuntivo per chi era in campo; +2–4 ulteriore bonus per chi ha segnato almeno un gol stagionale
+
+### Modificato
+- `ui/tabs_renderers.js` — `renderRosa` mostra colonna morale e badge VENDITA; `showPlayerModal` aggiunge sezione vendita con `_buildSellSection()`; `renderMarket` ora ha due sezioni (uscite / acquisti); `buyPlayer` applica bonus morale all'acquisto
+- `ui/match.js` — `endMatch` chiama `updateMoraleAfterMatch()` e `generateTransferOffers()` dopo ogni partita regular season
+- `main.js` — aggiunte `putPlayerOnMarket()`, `removeFromMarket()`, `_playerAttractiveness()`, `generateTransferOffers()`, `acceptOffer()`, `rejectOffer()`, `updateMoraleAfterMatch()`; `simNextRound` ora chiama `generateTransferOffers()` dopo la simulazione
+- `engine/save.js` — aggiunto `transferList` al payload e ad `applyLoadedSave`
+- `ui/welcome.js` — aggiunto `transferList: []` allo stato iniziale
+
+---
+
 ## [0.1.8-beta] — 2026-03-29
 
 ### Aggiunto

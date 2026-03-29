@@ -412,6 +412,8 @@ function endMatch() {
     G.msgs.push('G' + ms.match.round + ': ' + G.myTeam.name + ' ' +
                 (mw ? 'VINCE' : md ? 'pareggia' : 'perde') + ' vs ' + ms.oppTeam.name +
                 ' (' + ms.myScore + '-' + ms.oppScore + ')' + (earned ? ' +' + formatMoney(earned) : ''));
+    updateMoraleAfterMatch(ms);
+    generateTransferOffers();
     simulateRound(G.schedule, G.stand, G.teams, ms.match.round, G.myId);
     G.ms = null;
     showScreen('sc-game'); updateHeader(); showTab('dash');

@@ -215,6 +215,7 @@ function _doStartNewGame(slotIndex) {
     _selTrain:     null,
     _mercList:     [],
     savedLineup:   null,
+    transferList:  [],   // [{ rosterIdx, askingPrice }]
     _currentSlot:  slotIndex,
     lineup:        { formation: {}, convocati: [] },
     objectives:    [],

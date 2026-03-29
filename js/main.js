@@ -218,3 +218,160 @@ function openSaveMenu() {
   ov.onclick = e => { if (e.target === ov) ov.remove(); };
   document.body.appendChild(ov);
 }
+
+// ══════════════════════════════════════════════
+// MERCATO IN USCITA — logica offerte e morale
+// ══════════════════════════════════════════════
+
+// ── Metti un giocatore sul mercato ────────────
+function putPlayerOnMarket(rosterIdx, askingPrice) {
+  if (!G.transferList) G.transferList = [];
+  // Rimuovi se già presente
+  G.transferList = G.transferList.filter(e => e.rosterIdx !== rosterIdx);
+  G.transferList.push({ rosterIdx, askingPrice });
+  // Calo morale: il giocatore sa di essere sul mercato
+  const p = G.rosters[G.myId][rosterIdx];
+  if (p) {
+    p.morale = Math.max(0, p.morale - rnd(8, 15));
+    G.msgs.push(p.name + ' messo sul mercato. Morale calato.');
+  }
+  autoSave();
+}
+
+// ── Rimuovi dal mercato ───────────────────────
+function removeFromMarket(rosterIdx) {
+  if (!G.transferList) return;
+  const p = G.rosters[G.myId][rosterIdx];
+  G.transferList = G.transferList.filter(e => e.rosterIdx !== rosterIdx);
+  if (p) G.msgs.push(p.name + ' ritirato dal mercato.');
+  autoSave();
+}
+
+// ── Calcola appetibilità di un giocatore ──────
+// Restituisce un fattore 0-1 che le squadre usano per offrire
+function _playerAttractiveness(p, matchesPlayed) {
+  let score = p.overall / 100;               // base: overall
+  score *= 0.5 + (p.morale / 200);           // morale: penalizza fino a -50%
+  score *= 0.7 + (p.fitness / 333);          // fitness: penalizza fino a -30%
+  const presencePenalty = matchesPlayed > 0 && (p.goals + p.assists + p.saves) === 0
+    ? 0.80 : 1.0;                            // zero contributo: penalizza 20%
+  score *= presencePenalty;
+  return Math.min(1, Math.max(0.1, score));
+}
+
+// ── Genera offerte a fine giornata ───────────
+// Chiamata da simNextRound() e da endMatch() dopo ogni gara giocata
+function generateTransferOffers() {
+  if (!G.transferList || !G.transferList.length) return;
+
+  const matchesPlayed = G.schedule.filter(m =>
+    (m.home === G.myId || m.away === G.myId) && m.played
+  ).length;
+
+  G.transferList.forEach(entry => {
+    const p = G.rosters[G.myId][entry.rosterIdx];
+    if (!p) return;
+
+    // Ogni giornata c'è ~40% di probabilità che arrivi un'offerta
+    if (Math.random() > 0.40) return;
+
+    const attract  = _playerAttractiveness(p, matchesPlayed);
+    // Offerta: tra il 60% e il 110% del valore reale, scalata per appetibilità
+    const baseOffer = p.value * attract;
+    const offerMin  = baseOffer * 0.60;
+    const offerMax  = baseOffer * 1.10;
+    const offer     = Math.round((offerMin + Math.random() * (offerMax - offerMin)) / 1000) * 1000;
+
+    // Scegli squadra offerente casuale (non la nostra)
+    const buyers = G.teams.filter(t => t.id !== G.myId);
+    const buyer  = pick(buyers);
+
+    // Salva l'offerta nell'entry
+    if (!entry.offers) entry.offers = [];
+    entry.offers.push({ teamId: buyer.id, teamName: buyer.name, amount: offer, round: currentRound() });
+
+    const pct = Math.round((offer / entry.askingPrice) * 100);
+    const vs  = offer >= entry.askingPrice
+      ? `(${pct}% del prezzo richiesto ✓)`
+      : `(${pct}% del prezzo richiesto)`;
+    G.msgs.push(`💼 ${buyer.name} offre ${formatMoney(offer)} per ${p.name} ${vs}`);
+  });
+}
+
+// ── Accetta un'offerta ────────────────────────
+function acceptOffer(rosterIdx, offerIdx) {
+  if (!G.transferList) return;
+  const entry = G.transferList.find(e => e.rosterIdx === rosterIdx);
+  if (!entry || !entry.offers || !entry.offers[offerIdx]) return;
+
+  const offer = entry.offers[offerIdx];
+  const p     = G.rosters[G.myId][rosterIdx];
+  if (!p) return;
+
+  // Incassa l'importo
+  G.budget += offer.amount;
+
+  // Trasferisce il giocatore alla squadra acquirente
+  const buyerRoster = G.rosters[offer.teamId];
+  if (buyerRoster) {
+    const sold = { ...p };
+    delete sold._inTransfer;
+    buyerRoster.push(sold);
+  }
+
+  // Rimuovi dalla rosa
+  G.rosters[G.myId] = G.rosters[G.myId].filter((_, i) => i !== rosterIdx);
+
+  // Rimuovi dalla lista trasferimenti
+  G.transferList = G.transferList.filter(e => e.rosterIdx !== rosterIdx);
+
+  // Aggiusta gli indici nella transferList se necessario
+  G.transferList.forEach(e => { if (e.rosterIdx > rosterIdx) e.rosterIdx--; });
+
+  G.msgs.push(`✅ ${p.name} ceduto a ${offer.teamName} per ${formatMoney(offer.amount)}!`);
+  updateHeader(); autoSave();
+}
+
+// ── Rifiuta un'offerta ────────────────────────
+function rejectOffer(rosterIdx, offerIdx) {
+  const entry = G.transferList && G.transferList.find(e => e.rosterIdx === rosterIdx);
+  if (!entry || !entry.offers) return;
+  const p     = G.rosters[G.myId][rosterIdx];
+  const offer = entry.offers[offerIdx];
+  if (offer) G.msgs.push(`❌ Offerta di ${offer.teamName} per ${p ? p.name : '—'} rifiutata.`);
+  entry.offers.splice(offerIdx, 1);
+  autoSave();
+}
+
+// ── Morale: aggiornamenti post-partita ────────
+// Chiamata da endMatch() dopo ogni gara
+function updateMoraleAfterMatch(ms) {
+  const won  = ms.myScore > ms.oppScore;
+  const drew = ms.myScore === ms.oppScore;
+  const roster = G.rosters[G.myId];
+
+  roster.forEach((p, i) => {
+    let delta = 0;
+    if (won)       delta += rnd(3, 7);
+    else if (drew) delta += rnd(0, 2);
+    else           delta -= rnd(2, 5);
+
+    // Gol segnati in questa partita: bonus morale al marcatore
+    if (p.goals > 0) delta += rnd(2, 4); // accumulati stagione, ma diamo comunque bonus
+
+    // Minimo garantito per chi è in campo
+    const wasOnField = ms.onField && Object.values(ms.onField).includes(i);
+    if (wasOnField) delta += 1;
+
+    p.morale = Math.min(100, Math.max(0, p.morale + delta));
+  });
+}
+
+// ── Hook: genera offerte dopo ogni giornata ───
+// Sovrascriviamo simNextRound e il hook di endMatch
+const _origSimNextRound = simNextRound;
+simNextRound = function() {
+  _origSimNextRound();
+  generateTransferOffers();
+  if (G.transferList && G.transferList.length) renderDash();
+};

@@ -70,6 +70,7 @@ function _buildPayload(G) {
     plBracket:     G.plBracket     || null,
     playoffResult: G.playoffResult || null,
     savedLineup:   G.savedLineup   || null,
+    transferList:  G.transferList  || [],
   };
 }
 
@@ -161,6 +162,7 @@ function applyLoadedSave(payload) {
     _selTrain:     null,
     _mercList:     [],
     savedLineup:   payload.savedLineup || null,
+    transferList:  payload.transferList  || [],
     _currentSlot:  null,
     tactic:        'balanced',
   };
