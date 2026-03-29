@@ -6,6 +6,34 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.1.8-beta] — 2026-03-29
+
+### Aggiunto
+
+#### Convocazioni — numeri maglia manuali
+- Ogni convocato ha ora un campo numerico editabile (1–13) direttamente nella lista giocatori
+- I numeri sono univoci: se assegni un numero già usato da un altro giocatore, quello viene automaticamente rimosso dal precedente
+- Il bottone "Auto-Formazione" assegna i numeri automaticamente (titolari 1–7, riserve 8–13)
+- Il pulsante "Inizia Partita" rimane disabilitato finché tutti i convocati non hanno un numero assegnato e non ci sono duplicati
+
+#### Formazione ricordata
+- La formazione, i convocati e i numeri di maglia vengono salvati in `G.savedLineup` al momento della conferma
+- Alla partita successiva la schermata convocazioni si apre già con la formazione precedente caricata, pronta per le eventuali modifiche
+- `savedLineup` è incluso nel payload di salvataggio su slot localStorage e viene ripristinato al caricamento
+
+#### Drag-and-drop
+- I giocatori convocati possono essere trascinati (drag) dalla lista direttamente sulle posizioni in campo
+- Durante il drag le posizioni mostrano un bordo dorato come feedback visivo del drop target
+- Rimane disponibile anche il metodo click-to-place (click su giocatore → click su posizione)
+- Doppio click su un giocatore nella lista per rimuoverlo dai convocati
+
+### Modificato
+- `ui/lineup.js` — riscritto completamente; rimossa la patch IIFE su `confirmLineup`; `confirmLineup` ora salva in `G.savedLineup`
+- `engine/save.js` — aggiunto `savedLineup` al payload `_buildPayload` e ad `applyLoadedSave`
+- `ui/welcome.js` — aggiunto `savedLineup: null` allo stato iniziale di gioco
+
+---
+
 ## [0.1.7-beta] — 2026-03-29
 
 ### Aggiunto

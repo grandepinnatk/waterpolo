@@ -214,6 +214,7 @@ function _doStartNewGame(slotIndex) {
     trainHistory:  [],
     _selTrain:     null,
     _mercList:     [],
+    savedLineup:   null,
     _currentSlot:  slotIndex,
     lineup:        { formation: {}, convocati: [] },
     objectives:    [],
