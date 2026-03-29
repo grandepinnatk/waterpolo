@@ -1,16 +1,15 @@
 // ─────────────────────────────────────────────
-// ui/match.js
-// Schermata partita live: rendering, controlli,
-// pannello cambi. Usa il motore in engine/match.js
-// e il renderer in canvas/pool.js.
+// ui/match.js — Schermata partita live
 // ─────────────────────────────────────────────
 
-let _animReqId = null;
+let _animReqId  = null;
 let _lastFrameT = null;
 
-// ── Avvia una partita live ────────────────────
+// ── Avvia partita live ────────────────────────
 function startLiveMatch(match, isHome, opp, poType = null, poMatch = null) {
-  // Crea lo stato partita tramite il motore
+  // Assegna numeri di maglia dalla convocazione
+  const shirtNumbers = G.lineup.shirtNumbers || {};
+
   G.ms = createMatchState({
     match, isHome,
     myTeam:   G.myTeam,
@@ -18,14 +17,14 @@ function startLiveMatch(match, isHome, opp, poType = null, poMatch = null) {
     myRoster:  G.rosters[G.myId],
     oppRoster: G.rosters[opp.id],
     formation: G.lineup.formation,
+    shirtNumbers,
   });
   G.ms.poType  = poType;
   G.ms.poMatch = poMatch;
+  G.ms.speed   = 1;
 
-  // Inizializza token canvas
   poolInitTokens(G.ms);
 
-  // Header partita
   const homeTeam = isHome ? G.myTeam : opp;
   const awayTeam = isHome ? opp : G.myTeam;
   document.getElementById('m-lbl').textContent   = poType === 'final' ? 'Finale Scudetto'
@@ -39,8 +38,8 @@ function startLiveMatch(match, isHome, opp, poType = null, poMatch = null) {
   document.getElementById('btn-play').textContent    = '▶ Avvia';
   document.getElementById('sub-panel').style.display = 'none';
   document.getElementById('action-log').innerHTML    = '';
+  _setSpeedUI(1);
 
-  // Avvia loop
   if (_animReqId) cancelAnimationFrame(_animReqId);
   _lastFrameT = null;
   _animReqId  = requestAnimationFrame(_animLoop);
@@ -49,25 +48,24 @@ function startLiveMatch(match, isHome, opp, poType = null, poMatch = null) {
   renderFieldLists();
 }
 
-// ── Loop di animazione (requestAnimationFrame) ─
+// ── Loop animazione ───────────────────────────
 function _animLoop(timestamp) {
   _animReqId = requestAnimationFrame(_animLoop);
-  const dt = _lastFrameT ? Math.min((timestamp - _lastFrameT) / 1000, 0.1) : 0;
+  const rawDt = _lastFrameT ? Math.min((timestamp - _lastFrameT) / 1000, 0.1) : 0;
   _lastFrameT = timestamp;
 
   if (G.ms && G.ms.running && !G.ms.finished) {
-    // Avanza tempo nel motore
+    const dt = rawDt; // speed è dentro advanceTime
+
     const { periodEnded, matchEnded } = advanceTime(G.ms, dt);
-    if (periodEnded && !matchEnded) {
-      _appendLog('⏱ Fine ' + G.ms.period + '° periodo', '');
-    }
+    if (periodEnded && !matchEnded) _appendLog('⏱ Fine ' + G.ms.period + '° periodo', '');
     if (matchEnded) {
       document.getElementById('btn-end').style.display  = '';
       document.getElementById('btn-play').style.display = 'none';
     }
 
-    // Evento di gioco
-    G.ms.lastActionTime += dt;
+    // Frequenza eventi: dipende da speed (più veloce = eventi più frequenti in tempo reale)
+    G.ms.lastActionTime += dt * G.ms.speed;
     if (G.ms.lastActionTime >= G.ms.nextActionIn) {
       G.ms.lastActionTime = 0;
       G.ms.nextActionIn   = rnd(4, 11);
@@ -75,54 +73,76 @@ function _animLoop(timestamp) {
       if (event) {
         _appendLog(event.txt, event.cls);
         if (event.ballTarget) poolMoveBall(event.ballTarget.x, event.ballTarget.y);
-        if (event.moverKey)   {
-          poolMoveToken(event.moverKey, event.moverTarget.x, event.moverTarget.y);
+        if (event.moverKey) {
+          poolMoveToken(event.moverKey, event.moverTarget?.x || 0.5, event.moverTarget?.y || 0.5);
           poolResetToken(event.moverKey);
         }
+        // Gestione espulsione definitiva
+        if (event.expelled !== undefined) {
+          _handleExpulsion(event.expelled, event.moverKey);
+        }
+        poolSyncTokens(G.ms);
+        renderFieldLists();
       }
     }
 
-    // Anima token canvas
     poolAnimStep(dt);
     refreshMatchUI();
   } else {
-    // Anche da fermi aggiorno il canvas (animazioni in corso)
-    poolAnimStep(dt);
+    poolAnimStep(rawDt);
   }
 
-  // Ridisegna vasca
   const canvas = document.getElementById('pool-canvas');
   drawPool(canvas, G.myTeam.abbr, G.ms ? G.ms.oppTeam.abbr : '');
 }
 
-// ── Aggiorna i dati testuali della schermata ──
+// ── Gestisce espulsione definitiva ────────────
+function _handleExpulsion(expelledPi, tokenKey) {
+  const result = forceSubstitutionExpelled(G.ms, expelledPi);
+  if (!result) return;
+  if (result.inPlayer) {
+    _appendLog('↔ Auto-cambio: entra ' + result.inPlayer.name +
+               ' (#' + (G.ms.shirtNumbers[G.ms.onField[result.posKey]] || '?') + ') al posto dell\'espulso', 'sub');
+  } else {
+    _appendLog('⚠ Nessun sostituto disponibile per posizione ' + result.posKey, 'fl');
+  }
+  // Nasconde il token del giocatore espulso
+  if (tokenKey && _tokens) {
+    const tok = _tokens[tokenKey];
+    if (tok) { tok.expelled = true; tok.tx = -0.2; tok.ty = -0.2; }
+  }
+  // Aggiorna token con il nuovo giocatore
+  if (result.inPlayer && tokenKey) {
+    poolUpdateToken(tokenKey, G.ms);
+  }
+}
+
+// ── Aggiorna UI testuale ──────────────────────
 function refreshMatchUI() {
   const ms = G.ms; if (!ms) return;
   const hS = ms.isHome ? ms.myScore : ms.oppScore;
   const aS = ms.isHome ? ms.oppScore : ms.myScore;
-  document.getElementById('m-score').textContent  = hS + ' - ' + aS;
-  document.getElementById('m-period').textContent = ms.period + '° Periodo';
-  document.getElementById('m-clock').textContent  = formatMatchTime(ms.totalSeconds);
+  document.getElementById('m-score').textContent   = hS + ' - ' + aS;
+  document.getElementById('m-period').textContent  = ms.period + '° Periodo';
+  document.getElementById('m-clock').textContent   = formatMatchTime(ms.totalSeconds);
   document.getElementById('sub-count').textContent = ms.subs;
 
-  // Stats
   document.getElementById('m-stats').innerHTML = `
     <div class="irow"><span class="ilbl">Tiri miei</span>      <span>${ms.myShots}</span></div>
     <div class="irow"><span class="ilbl">Tiri avversario</span><span>${ms.oppShots}</span></div>
     <div class="irow"><span class="ilbl">Parate</span>         <span>${ms.mySaves}</span></div>
-    <div class="irow"><span class="ilbl">Falli commessi</span> <span>${ms.myFouls}</span></div>`;
+    <div class="irow"><span class="ilbl">Falli/Esp.</span>     <span>${ms.myFouls}</span></div>`;
 
-  // Marcatori
-  const scorers = ms.myRoster
-    .filter(p => p.goals > 0)
-    .sort((a, b) => b.goals - a.goals)
-    .slice(0, 4);
+  const scorers = ms.myRoster.filter(p => p.goals > 0).sort((a, b) => b.goals - a.goals).slice(0, 4);
   document.getElementById('m-scorers').innerHTML = scorers.length
-    ? scorers.map(p => `<div class="irow"><span>${p.name}</span><span style="color:var(--blue)">⚽${p.goals}</span></div>`).join('')
+    ? scorers.map(p => {
+        const shirt = Object.entries(ms.shirtNumbers).find(([pi]) => ms.myRoster[+pi] === p)?.[1] || '?';
+        return `<div class="irow"><span>#${shirt} ${p.name}</span><span style="color:var(--blue)">⚽${p.goals}</span></div>`;
+      }).join('')
     : '<div style="color:var(--muted);font-size:12px">Nessun marcatore</div>';
 }
 
-// ── Aggiunge una riga al log ──────────────────
+// ── Aggiunge riga al log ──────────────────────
 function _appendLog(txt, cls) {
   const ms = G.ms; if (!ms) return;
   ms.actions.push({ t: formatMatchTime(ms.totalSeconds), txt, cls });
@@ -131,32 +151,74 @@ function _appendLog(txt, cls) {
   el.className   = 'ae ' + (cls || '');
   el.textContent = '[' + formatMatchTime(ms.totalSeconds) + '] ' + txt;
   log.insertBefore(el, log.firstChild);
-  while (log.children.length > 30) log.removeChild(log.lastChild);
+  while (log.children.length > 40) log.removeChild(log.lastChild);
 }
 
-// ── Liste giocatori in campo / panchina ───────
+// ── Liste in campo / panchina ─────────────────
 function renderFieldLists() {
   const ms = G.ms; if (!ms) return;
+
+  // IN CAMPO
   let fieldHtml = '';
   Object.entries(ms.onField).forEach(([pk, pi]) => {
-    const p   = ms.myRoster[pi]; if (!p) return;
-    const pos = POSITIONS[pk];
-    fieldHtml += `<div class="irow">
-      <span><strong>${p.name}</strong> <span style="font-size:11px;color:var(--muted)">(${p.hand})</span></span>
-      <span style="color:var(--blue);font-size:11px">${pos ? pos.label : pk}</span>
-    </div>`;
+    const p      = ms.myRoster[pi]; if (!p) return;
+    const pos    = POSITIONS[pk];
+    const shirt  = ms.shirtNumbers[pi] || '—';
+    const yellows = ms.tempExp[pi] || 0;
+    const isExp  = ms.expelled.has(pi);
+    const yellowDots = yellows > 0
+      ? Array.from({ length: yellows }).map(() =>
+          `<span style="display:inline-block;width:8px;height:10px;background:${yellows>=3?'var(--red)':'var(--gold)'};border-radius:1px;margin-left:2px"></span>`
+        ).join('')
+      : '';
+    fieldHtml += `
+      <div class="irow" style="${isExp ? 'opacity:.4' : ''}">
+        <span>
+          <span style="display:inline-block;min-width:22px;font-weight:700;color:var(--blue);font-size:12px">#${shirt}</span>
+          <strong>${p.name}</strong>
+          <span style="font-size:11px;color:var(--muted);margin-left:4px">(${p.hand})</span>
+          ${yellowDots}
+          ${isExp ? '<span style="font-size:10px;color:var(--red);margin-left:4px">ESPULSO</span>' : ''}
+        </span>
+        <span style="color:var(--blue);font-size:11px">${pos ? pos.label : pk}</span>
+      </div>`;
   });
   document.getElementById('field-players').innerHTML = fieldHtml || '<div style="color:var(--muted)">—</div>';
 
+  // PANCHINA
   let benchHtml = '';
   ms.bench.forEach(pi => {
-    const p = ms.myRoster[pi]; if (!p) return;
-    benchHtml += `<div class="irow">
-      <span>${p.name} <span style="font-size:11px;color:var(--muted)">${p.role}·${p.hand}</span></span>
-      <span style="color:var(--muted);font-size:11px">OVR ${p.overall}</span>
-    </div>`;
+    const p     = ms.myRoster[pi]; if (!p) return;
+    const shirt = ms.shirtNumbers[pi] || '—';
+    const isExp = ms.expelled.has(pi);
+    benchHtml += `
+      <div class="irow" style="${isExp ? 'opacity:.4;text-decoration:line-through' : ''}">
+        <span>
+          <span style="display:inline-block;min-width:22px;font-weight:700;color:var(--muted);font-size:12px">#${shirt}</span>
+          ${p.name}
+          <span style="font-size:11px;color:var(--muted)"> ${p.role}·${p.hand}</span>
+          ${isExp ? '<span style="font-size:10px;color:var(--red)"> ESP.</span>' : ''}
+        </span>
+        <span style="color:var(--muted);font-size:11px">OVR ${p.overall}</span>
+      </div>`;
   });
   document.getElementById('bench-players').innerHTML = benchHtml || '<div style="color:var(--muted)">Panchina vuota</div>';
+}
+
+// ── Velocità ──────────────────────────────────
+function setSpeed(v) {
+  if (!G.ms) return;
+  G.ms.speed = v;
+  _setSpeedUI(v);
+}
+function _setSpeedUI(v) {
+  document.querySelectorAll('.btn-speed').forEach(b => {
+    const bv = parseInt(b.dataset.speed, 10);
+    b.style.background    = bv === v ? 'var(--blue)' : '';
+    b.style.color         = bv === v ? '#001220'     : '';
+    b.style.borderColor   = bv === v ? 'var(--blue)' : '';
+    b.style.fontWeight    = bv === v ? '700'          : '';
+  });
 }
 
 // ── Controlli partita ─────────────────────────
@@ -171,18 +233,23 @@ function skipPeriod() {
   const ms = G.ms; if (!ms || ms.finished) return;
   ms.running = false;
   document.getElementById('btn-play').textContent = '▶ Avvia';
-  const periodSecs = PERIOD_SECONDS;
-  ms.totalSeconds  = ms.period * periodSecs - 3;
-  if (ms.totalSeconds > TOTAL_PERIODS * periodSecs) {
-    ms.totalSeconds = TOTAL_PERIODS * periodSecs;
+  ms.totalSeconds = ms.period * PERIOD_SECONDS - 3;
+  if (ms.totalSeconds > TOTAL_PERIODS * PERIOD_SECONDS) {
+    ms.totalSeconds = TOTAL_PERIODS * PERIOD_SECONDS;
     ms.finished = true;
   }
   refreshMatchUI();
 }
 
 // ── Pannello cambi ────────────────────────────
+// Apre il pannello e mette in pausa la partita
 function openSub() {
-  const ms = G.ms; if (!ms) return;
+  const ms = G.ms; if (!ms || ms.finished) return;
+  // Metti in pausa
+  if (ms.running) {
+    ms.running = false;
+    document.getElementById('btn-play').textContent = '▶ Avvia';
+  }
   ms.subOut = null; ms.subIn = null;
   document.getElementById('sub-panel').style.display = 'block';
   document.getElementById('btn-confirm-sub').disabled = true;
@@ -190,41 +257,72 @@ function openSub() {
 }
 function closeSub() {
   document.getElementById('sub-panel').style.display = 'none';
+  if (G.ms) { G.ms.subOut = null; G.ms.subIn = null; }
 }
 
 function _renderSubLists() {
   const ms = G.ms; if (!ms) return;
-  let outHtml = '';
+
+  // ESCE DAL CAMPO
+  let outHtml = '<div style="font-size:11px;color:var(--muted);margin-bottom:8px">Seleziona il giocatore che deve uscire:</div>';
   Object.entries(ms.onField).forEach(([pk, pi]) => {
-    const p   = ms.myRoster[pi]; if (!p) return;
-    const sel = ms.subOut === pk;
-    outHtml += `<div class="player-card${sel ? ' selected' : ''}" onclick="selSubOut('${pk}')" style="margin-bottom:4px">
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:600">${p.name}</div>
-        <div style="font-size:11px;color:var(--muted)">${POSITIONS[pk] ? POSITIONS[pk].label : pk} · OVR ${p.overall} · ${p.hand}</div>
-      </div>
-    </div>`;
+    const p     = ms.myRoster[pi]; if (!p) return;
+    const shirt = ms.shirtNumbers[pi] || '—';
+    const isExp = ms.expelled.has(pi);
+    const sel   = ms.subOut === pk;
+    const yellows = ms.tempExp[pi] || 0;
+    const yDots = Array.from({ length: yellows }).map(() =>
+      `<span style="display:inline-block;width:7px;height:9px;background:${yellows>=3?'var(--red)':'var(--gold)'};border-radius:1px;margin-left:2px"></span>`
+    ).join('');
+    outHtml += `
+      <div class="player-card${sel ? ' selected' : ''}" onclick="${isExp ? '' : "selSubOut('" + pk + "')"}"
+           style="margin-bottom:6px;${isExp ? 'opacity:.35;cursor:not-allowed' : ''}">
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:600">
+            <span style="color:var(--blue);margin-right:6px">#${shirt}</span>${p.name} ${yDots}
+            ${isExp ? '<span style="color:var(--red);font-size:10px"> ESPULSO</span>' : ''}
+          </div>
+          <div style="font-size:11px;color:var(--muted)">${POSITIONS[pk] ? POSITIONS[pk].label : pk} · ${p.role} · ${p.hand}</div>
+        </div>
+        ${sel ? '<span style="color:var(--blue);font-size:18px">✓</span>' : ''}
+      </div>`;
   });
   document.getElementById('sub-out-list').innerHTML = outHtml;
 
-  let inHtml = '';
+  // ENTRA IN CAMPO
+  let inHtml = '<div style="font-size:11px;color:var(--muted);margin-bottom:8px">Seleziona il giocatore che deve entrare:</div>';
   ms.bench.forEach(pi => {
-    const p   = ms.myRoster[pi]; if (!p) return;
-    const sel = ms.subIn === pi;
-    inHtml += `<div class="player-card${sel ? ' selected' : ''}" onclick="selSubIn(${pi})" style="margin-bottom:4px">
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:600">${p.name}</div>
-        <div style="font-size:11px;color:var(--muted)">${p.role} · OVR ${p.overall} · ${p.hand}</div>
-      </div>
-    </div>`;
+    const p     = ms.myRoster[pi]; if (!p) return;
+    const shirt = ms.shirtNumbers[pi] || '—';
+    const isExp = ms.expelled.has(pi);
+    const sel   = ms.subIn === pi;
+    inHtml += `
+      <div class="player-card${sel ? ' selected' : ''}" onclick="${isExp ? '' : 'selSubIn(' + pi + ')'}"
+           style="margin-bottom:6px;${isExp ? 'opacity:.35;cursor:not-allowed' : ''}">
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:600">
+            <span style="color:var(--muted);margin-right:6px">#${shirt}</span>${p.name}
+            ${isExp ? '<span style="color:var(--red);font-size:10px"> ESPULSO</span>' : ''}
+          </div>
+          <div style="font-size:11px;color:var(--muted)">${p.role} · OVR ${p.overall} · ${p.hand}</div>
+        </div>
+        ${sel ? '<span style="color:var(--blue);font-size:18px">✓</span>' : ''}
+      </div>`;
   });
   document.getElementById('sub-in-list').innerHTML = inHtml;
 }
 
-function selSubOut(pk) { G.ms.subOut = pk; _checkSubReady(); _renderSubLists(); }
-function selSubIn(pi)  { G.ms.subIn  = pi; _checkSubReady(); _renderSubLists(); }
+function selSubOut(pk) {
+  if (!G.ms || G.ms.expelled.has(G.ms.onField[pk])) return;
+  G.ms.subOut = pk; _checkSubReady(); _renderSubLists();
+}
+function selSubIn(pi) {
+  if (!G.ms || G.ms.expelled.has(pi)) return;
+  G.ms.subIn = pi; _checkSubReady(); _renderSubLists();
+}
 function _checkSubReady() {
-  document.getElementById('btn-confirm-sub').disabled = !(G.ms.subOut !== null && G.ms.subIn !== null);
+  const ready = G.ms && G.ms.subOut !== null && G.ms.subIn !== null;
+  document.getElementById('btn-confirm-sub').disabled = !ready;
 }
 
 function confirmSub() {
@@ -232,12 +330,14 @@ function confirmSub() {
   if (!ms || ms.subOut === null || ms.subIn === null) return;
   const result = performSubstitution(ms, ms.subOut, ms.subIn);
   if (!result) return;
-  // Aggiorna etichetta token canvas
-  poolUpdateToken('my_' + result.posKey, result.posKey === 'GK' ? 'P' : result.posKey);
-  _appendLog('↔ Esce ' + result.outPlayer.name + ' — entra ' + result.inPlayer.name + ' (' + POSITIONS[result.posKey].label + ')', 'sub');
-  ms.subOut = null; ms.subIn = null;
-  renderFieldLists();
+  poolUpdateToken('my_' + result.posKey, ms);
+  const shirtOut = ms.shirtNumbers[result.outRosterIdx] || '?';
+  const shirtIn  = ms.shirtNumbers[result.inRosterIdx]  || '?';
+  _appendLog('↔ Esce #' + shirtOut + ' ' + result.outPlayer.name +
+             ' — Entra #' + shirtIn + ' ' + result.inPlayer.name +
+             ' (' + POSITIONS[result.posKey].label + ')', 'sub');
   closeSub();
+  renderFieldLists();
   refreshMatchUI();
   autoSave();
 }
@@ -247,11 +347,9 @@ function endMatch() {
   if (_animReqId) { cancelAnimationFrame(_animReqId); _animReqId = null; }
   _lastFrameT = null;
   const ms = G.ms; if (!ms) return;
-
   const score = getFinalScore(ms);
 
   if (ms.poMatch) {
-    // ── Partita playoff/playout ────────────
     ms.poMatch.scores.push(score);
     const totHome = ms.poMatch.scores.reduce((s, x) => s + x.home, 0);
     const totAway = ms.poMatch.scores.reduce((s, x) => s + x.away, 0);
@@ -265,12 +363,9 @@ function endMatch() {
     G.msgs.push(G.myTeam.name + (winner === G.myId ? ' avanza' : ' eliminato') +
                 ' (' + ms.myScore + '-' + ms.oppScore + ') +' + formatMoney(earned));
     G.ms = null;
-    showScreen('sc-game');
-    updateHeader(); showTab('playoff');
+    showScreen('sc-game'); updateHeader(); showTab('playoff');
   } else {
-    // ── Partita regular season ─────────────
-    ms.match.score   = score;
-    ms.match.played  = true;
+    ms.match.score  = score; ms.match.played = true;
     updateStandings(G.stand, ms.match.home, ms.match.away, score);
     const mw = (ms.isHome && ms.myScore > ms.oppScore) || (!ms.isHome && ms.myScore > ms.oppScore);
     const md = ms.myScore === ms.oppScore;
@@ -281,33 +376,25 @@ function endMatch() {
                 ' (' + ms.myScore + '-' + ms.oppScore + ')' + (earned ? ' +' + formatMoney(earned) : ''));
     simulateRound(G.schedule, G.stand, G.teams, ms.match.round, G.myId);
     G.ms = null;
-    showScreen('sc-game');
-    updateHeader(); showTab('dash');
+    showScreen('sc-game'); updateHeader(); showTab('dash');
   }
   autoSave();
 }
 
-// ── Risolve avanzamento playoff/playout ───────
 function _resolvePlayoffMatch(poType, poMatch, winner) {
-  const pb  = G.poBracket;
-  const plb = G.plBracket;
+  const pb = G.poBracket, plb = G.plBracket;
   if (poType === 'sf') {
-    if (pb.sf.every(s => s.winner)) {
-      pb.final.home = pb.sf[0].winner;
-      pb.final.away = pb.sf[1].winner;
-    }
+    if (pb.sf.every(s => s.winner)) { pb.final.home = pb.sf[0].winner; pb.final.away = pb.sf[1].winner; }
   } else if (poType === 'final') {
     pb.done = true;
     if (winner === G.myId) { G.playoffResult = 'champion'; G.msgs.push('HAI VINTO LO SCUDETTO! 🏆'); }
-    else G.msgs.push('Campione d\'Italia: ' + G.teams.find(t => t.id === winner)?.name);
+    else G.msgs.push("Campione d'Italia: " + G.teams.find(t => t.id === winner)?.name);
   } else if (poType === 'pl') {
     const loser = winner === poMatch.home ? poMatch.away : poMatch.home;
     if (poMatch === plb.m2) {
       plb.relegated = loser; plb.done = true;
       if (loser === G.myId) { G.playoffResult = 'relegated'; G.msgs.push('Sei retrocesso in Serie A2!'); }
       else G.msgs.push(G.teams.find(t => t.id === loser)?.name + ' retrocede in A2.');
-    } else {
-      plb.m2.home = winner;
-    }
+    } else { plb.m2.home = winner; }
   }
 }

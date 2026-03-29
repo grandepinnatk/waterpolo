@@ -241,3 +241,29 @@ function confirmLineup() {
   showScreen('sc-match');
   startLiveMatch(luState.match, luState.isHome, luState.opp, luState.poType, luState.poMatch);
 }
+
+// ── PATCH: sovrascrive confirmLineup con versione che assegna numeri maglia ──
+(function() {
+  const _orig = confirmLineup;
+  // eslint-disable-next-line no-global-assign
+  confirmLineup = function() {
+    // Assegna numeri di maglia: titolari 1-7, riserve 8+
+    const shirtNumbers = {};
+    let n = 1;
+    POS_KEYS.forEach(pk => {
+      const pi = luState.formation[pk];
+      if (pi !== undefined) shirtNumbers[pi] = n++;
+    });
+    [...luState.convocati]
+      .filter(pi => !Object.values(luState.formation).includes(pi))
+      .forEach(pi => { shirtNumbers[pi] = n++; });
+
+    G.lineup = {
+      formation:    { ...luState.formation },
+      convocati:    [...luState.convocati],
+      shirtNumbers,
+    };
+    showScreen('sc-match');
+    startLiveMatch(luState.match, luState.isHome, luState.opp, luState.poType, luState.poMatch);
+  };
+})();

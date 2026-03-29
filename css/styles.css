@@ -372,3 +372,23 @@ tr:last-child td { border-bottom: none; }
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ════════════════════════════════════════════
+   PARTITA — espulsioni e velocità
+   ════════════════════════════════════════════ */
+.ae.exp  { color: #e74c3c; font-weight: 700; }
+
+/* Bottoni velocità: quello attivo viene colorato via JS */
+.btn-speed { min-width: 34px; text-align: center; }
+
+/* Cartellini gialli nella lista in campo */
+.yellow-card {
+  display:       inline-block;
+  width:         8px;
+  height:        11px;
+  background:    var(--gold);
+  border-radius: 1px;
+  margin-left:   3px;
+  vertical-align: middle;
+}
+.yellow-card.red { background: var(--red); }

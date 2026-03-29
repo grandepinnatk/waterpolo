@@ -2,7 +2,49 @@
 
 Tutte le modifiche rilevanti al progetto sono documentate in questo file.  
 Formato basato su [Keep a Changelog](https://keepachangelog.com/it/1.0.0/).  
-Versioning: `MAJOR.MINOR patch` — in beta il MAJOR è fisso a 0.
+Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
+
+---
+
+## [0.1.1-beta] — 2026-03-29
+
+### Aggiunto
+
+#### Vasca animata — nomi e numeri
+- Nome del giocatore (cognome) visualizzato affianco al pallino durante la partita, su sfondo semitrasparente per la leggibilità
+- Numero di maglia visibile dentro il token (in alto) e nella tabella in campo / panchina
+- Numeri maglia assegnati automaticamente in fase di conferma convocazioni: titolari 1–7 (seguendo l'ordine delle posizioni GK→5→6→1→4→2→3), riserve dall'8 in poi
+
+#### Espulsioni temporanee
+- Ogni fallo genera un'espulsione temporanea (`🟡`) con contatore visibile nel log (es. "1/3", "2/3")
+- Alla terza espulsione temporanea il giocatore riceve la `🔴` espulsione definitiva ed è rimosso dal campo
+- Cambio forzato automatico: il motore cerca il primo sostituto disponibile in panchina per la posizione lasciata libera
+- Il token del giocatore espulso sparisce dalla vasca
+- Nella lista in campo i giocatori espulsi appaiono con dicitura **ESPULSO** in rosso
+- Cartellini gialli visibili come rettangoli colorati affianco al nome sia in vasca che nella tabella laterale (diventano rossi al raggiungimento del limite)
+- I giocatori espulsi sono disabilitati e non selezionabili nel pannello cambi
+
+#### Velocità di simulazione
+- Cinque livelli di velocità selezionabili durante la partita: **1x · 2x · 10x · 15x · 20x**
+- Il bottone attivo viene evidenziato in blu
+- La velocità agisce sia sul timer che sulla frequenza degli eventi di gioco
+
+### Corretto
+
+#### Pannello cambi
+- Premendo "↔ Cambio" la partita viene messa automaticamente in pausa
+- Due liste separate e scrollabili: giocatori in campo (esce) e giocatori in panchina (entra)
+- Selezione visiva con spunta ✓ sul giocatore scelto
+- Numero di maglia, ruolo e mano dominante visibili in entrambe le liste
+- Il bottone "Conferma Cambio" si attiva solo dopo aver selezionato entrambi i giocatori
+- Il log registra il cambio con i numeri di maglia di entrambi i giocatori
+- I giocatori espulsi sono marcati e non selezionabili
+
+### Modificato
+- `engine/match.js` — aggiunta costante `MAX_TEMP_EXP`, tracciamento `tempExp` e `expelled` nello stato partita, nuova funzione `forceSubstitutionExpelled()`, velocità `ms.speed` applicata in `advanceTime()`
+- `canvas/pool.js` — token ridisegnati con nome, numero maglia e indicatori cartellino; nuove funzioni `poolSyncTokens()` e `poolUpdateToken()` aggiornate per riflettere espulsioni
+- `ui/match.js` — riscritto `openSub()` con pausa automatica, `_renderSubLists()` con liste dettagliate, `setSpeed()` e `_setSpeedUI()`, gestione evento espulsione `_handleExpulsion()`
+- `ui/lineup.js` — aggiunta assegnazione `shirtNumbers` in `confirmLineup()`, salvata in `G.lineup`
 
 ---
 
@@ -51,60 +93,44 @@ Prima release pubblica. Gioco funzionante end-to-end: dalla selezione della squa
 - Timer continuo: 4 periodi da 8 minuti ciascuno (32 minuti totali)
 - Modalità play/pausa con bottone avanza-periodo
 - 5 tattiche selezionabili in tempo reale: Bilanciata, Attacco, Difesa, Contropiede, Pressione Alta
-- Cambi illimitati (regola ufficiale pallanuoto): pannello con selezione chi esce / chi entra
-- Log azioni a scorrimento con colori per tipo evento (gol nostro, gol subito, parata, fallo, cambio)
+- Cambi illimitati (regola ufficiale pallanuoto)
+- Log azioni a scorrimento con colori per tipo evento
 - Pannello statistiche partita e marcatori in tempo reale
-- Liste in campo / panchina con mano dominante visibile
 
 #### Allenamento
 - 6 tipologie di sessione: Preparazione Atletica, Allenamento Attacco, Allenamento Difesa, Sessione Tattica, Allenamento Portieri, Riposo e Recupero
-- Effetti differenziati su fitness, morale, attributi tecnici (ATT/DEF/SPE/STR)
-- Sessione portieri: bonus overall diretto per i POR
+- Effetti differenziati su fitness, morale, attributi tecnici
 - Probabilità 12% per ogni giocatore di guadagnare +1 overall a ogni sessione
-- Effetto fatica negativa sulla fitness dopo sessioni intense
-- Storico sessioni completate con dettaglio effetti e costo
+- Storico sessioni completate
 
 #### Obiettivi stagionali
-- 3 obiettivi per stagione, calibrati sul tier della squadra scelta
-  - Tier S: Scudetto, top 2 regular season, 40+ gol
-  - Tier A: Qualificazione playoff, top 6, salvezza
-  - Tier B: Top 8, salvezza, 10+ vittorie
-  - Tier C: Salvezza, non ultimo, 5+ vittorie
-- Premi in denaro al raggiungimento (50.000€ – 500.000€)
-- Punteggi obiettivo (100–1000 pt) per riepilogo stagionale
-- Barre di avanzamento percentuale per obiettivi misurabili
-- Schermata riepilogo a stagione conclusa con totale punti e premi incassati
+- 3 obiettivi per stagione calibrati sul tier della squadra
+- Premi in denaro al raggiungimento
+- Barre di avanzamento percentuale in tempo reale
+- Riepilogo finale a stagione conclusa
 
 #### Mercato
-- Lista dinamica di giocatori disponibili (generata da rose avversarie)
+- Lista dinamica di giocatori disponibili da acquistare
 - Acquisto diretto con scalamento budget
-- Trasferimento immediato della rosa (giocatore entra nella rosa del giocatore, esce da quella cedente)
 
 #### Salvataggio
-- Sistema a 3 slot indipendenti su `localStorage`
-- Metadati per slot (team, fase, giornata, posizione, punti, vittorie, budget, data) letti separatamente senza deserializzare l'intero payload
-- Auto-save automatico dopo ogni azione rilevante: fine partita, acquisto mercato, sessione allenamento, risultato playoff
-- `G._currentSlot` traccia lo slot corrente per evitare prompt ripetuti
-- Menu salvataggio in-game (icona 💾 nell'header) con scelta slot
-- Bottone ⌂ per tornare alla welcome con auto-save preventivo
-- Sovrascrittura slot con `confirm()` nativo del browser
-- Eliminazione slot con conferma
-- Modal chooser quando tutti e 3 gli slot sono occupati e si avvia una nuova carriera
-- Toast di feedback per operazioni di salvataggio/eliminazione (auto-dismiss 3 s)
+- Sistema a 3 slot indipendenti su localStorage
+- Anteprima slot con metadati (team, fase, giornata, posizione, budget, data)
+- Auto-save dopo ogni azione rilevante
+- Menu salvataggio in-game (icona 💾 nell'header)
+- Sovrascrittura con conferma, eliminazione slot
 
 #### Struttura progetto
 - Separazione in 17 file distinti (1 HTML, 1 CSS, 15 JS)
-- Layer `data/`: dati statici puri senza logica (teams, positions, training, objectives)
+- Layer `data/`: dati statici puri (teams, positions, training, objectives)
 - Layer `engine/`: motore di gioco senza dipendenze DOM (generator, standings, match, save)
 - Layer `canvas/`: rendering vasca con stato animazione separato da `G.ms`
-- Layer `ui/`: componenti interfaccia che leggono da G e scrivono nel DOM
+- Layer `ui/`: componenti interfaccia
 - `main.js`: stato globale G, utility condivise, logica playoff, auto-save, init
 
 ---
 
 ## [Non rilasciato]
-
-Funzionalità pianificate per le prossime versioni:
 
 ### v0.2 (in pianificazione)
 - Storico stagioni con archivio campioni e statistiche pluriennali
@@ -115,20 +141,18 @@ Funzionalità pianificate per le prossime versioni:
 ### v0.3 (in pianificazione)
 - Mercato con trattative: offerte, controfferte, rifiuti
 - Giocatori parametro zero e prestiti
-- Scout system: scoperta di giocatori giovani nel vivaio
+- Scout system: scoperta di talenti nel vivaio
 
 ### v0.4 (in pianificazione)
 - Competizioni europee: LEN Champions League, Euro Cup, Conference Cup
-- Qualificazione europea basata su posizione finale
 - Gestione doppio impegno campionato/coppe
 
 ### v0.5 (in pianificazione)
-- Simulazione intra-stagionale più profonda con infortuni e squalifiche
+- Infortuni e squalifiche
 - Finestre di mercato (gennaio + estate)
-- Interfaccia dedicata tablet con touch ottimizzato
+- Interfaccia touch ottimizzata per tablet
 
 ### v1.0 (obiettivo stabile)
 - Tutorial integrato per nuovi giocatori
 - Modalità carriera pluriennale con promozioni/retrocessioni
-- Esportazione statistiche stagione
 - Salvataggio su file (download/upload JSON) come alternativa a localStorage
