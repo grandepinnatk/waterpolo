@@ -9,7 +9,7 @@
 
 const SAVE_VERSION = 2;
 const TOTAL_SLOTS  = 3;
-const SLOT_PREFIX  = 'pam_slot_';
+const SLOT_PREFIX  = 'wp_slot_';
 
 // ── Chiave localStorage per slot N ───────────
 function _slotKey(i) { return SLOT_PREFIX + i; }
