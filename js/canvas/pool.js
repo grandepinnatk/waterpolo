@@ -181,9 +181,7 @@ function drawPool(canvas, myTeamAbbr, oppTeamAbbr) {
       // Sfondo semitrasparente per leggibilità
       const nameW = ctx.measureText(tok.shortName).width + 6;
       ctx.fillStyle = 'rgba(0,0,30,.55)';
-      ctx.beginPath();
-      ctx.roundRect(px + radius + 3, py - 8, nameW, 16, 3);
-      ctx.fill();
+      ctx.fillRect(px + radius + 3, py - 8, nameW, 16);
       ctx.fillStyle = '#fff';
       ctx.fillText(tok.shortName, px + radius + 6, py);
 
@@ -193,9 +191,7 @@ function drawPool(canvas, myTeamAbbr, oppTeamAbbr) {
         const yx = px + radius + 3 + nameW + 3;
         for (let i = 0; i < tok.yellows; i++) {
           ctx.fillStyle = tok.yellows >= MAX_TEMP_EXP ? '#e74c3c' : '#f0c040';
-          ctx.beginPath();
-          ctx.roundRect(yx + i * 10, py - 6, 8, 12, 1);
-          ctx.fill();
+          ctx.fillRect(yx + i * 10, py - 6, 8, 12);
         }
       }
     } else {

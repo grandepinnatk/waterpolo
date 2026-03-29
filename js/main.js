@@ -134,6 +134,21 @@ function closeSeason() {
 }
 
 // ── Init ──────────────────────────────────────
+// ── Velocità simulazione (globale, sempre disponibile) ──
+function setSpeed(v) {
+  if (G.ms) G.ms.speed = v;
+  _setSpeedUI(v);
+}
+function _setSpeedUI(v) {
+  document.querySelectorAll('.btn-speed').forEach(b => {
+    const bv = parseInt(b.dataset.speed, 10);
+    b.style.background  = bv === v ? 'var(--blue)' : '';
+    b.style.color       = bv === v ? '#001220'     : '';
+    b.style.borderColor = bv === v ? 'var(--blue)' : '';
+    b.style.fontWeight  = bv === v ? '700'         : '';
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   buildWelcomeScreen();
 });

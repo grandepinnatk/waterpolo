@@ -1,6 +1,6 @@
 # Waterpolo
 
-**Versione:** 0.1.1 beta  
+**Versione:** 0.1.4 beta  
 **Campionato:** Serie A1 Maschile — Stagione 2025/26  
 **Piattaforma:** Browser (HTML5 + CSS3 + JavaScript vanilla)  
 **Dipendenze:** nessuna — zero librerie esterne, zero build step
@@ -140,9 +140,10 @@ data/* → engine/* → canvas/* → ui/* → main.js
 - Token con **cognome**, **numero di maglia** e **indicatori cartellini** visibili in campo
 - Pallone animato con interpolazione fluida
 - Timer: 4 periodi × 8 minuti
-- **5 velocità**: 1x · 2x · 10x · 15x · 20x
+- **5 velocità**: 1x · 2x · 10x · 15x · 20x (funzionanti su tutti i browser moderni)
 - 5 tattiche selezionabili in tempo reale
 - Cambi illimitati con pannello dedicato (pausa automatica all'apertura)
+- Pallini espulsioni temporanee (🟡🟡🔴) affianco al nome in campo, panchina e pannello cambi
 
 ### Espulsioni temporanee
 - Ogni fallo = espulsione temporanea 🟡 con counter visibile (1/3, 2/3)

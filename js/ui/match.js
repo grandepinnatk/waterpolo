@@ -55,38 +55,40 @@ function _animLoop(timestamp) {
   _lastFrameT = timestamp;
 
   if (G.ms && G.ms.running && !G.ms.finished) {
-    const dt = rawDt; // speed è dentro advanceTime
+    const speed = G.ms.speed || 1;
+    // dt scalato: tutto il motore lavora in "tempo di gioco"
+    const dt = rawDt * speed;
 
-    const { periodEnded, matchEnded } = advanceTime(G.ms, dt);
+    const { periodEnded, matchEnded } = advanceTime(G.ms, rawDt); // advanceTime già moltiplica per speed
     if (periodEnded && !matchEnded) _appendLog('⏱ Fine ' + G.ms.period + '° periodo', '');
     if (matchEnded) {
       document.getElementById('btn-end').style.display  = '';
       document.getElementById('btn-play').style.display = 'none';
     }
 
-    // Frequenza eventi: dipende da speed (più veloce = eventi più frequenti in tempo reale)
-    G.ms.lastActionTime += dt * G.ms.speed;
+    // Accumula tempo di gioco verso il prossimo evento
+    G.ms.lastActionTime += dt;
     if (G.ms.lastActionTime >= G.ms.nextActionIn) {
-      G.ms.lastActionTime = 0;
-      G.ms.nextActionIn   = rnd(4, 11);
-      const event = generateMatchEvent(G.ms);
-      if (event) {
-        _appendLog(event.txt, event.cls);
-        if (event.ballTarget) poolMoveBall(event.ballTarget.x, event.ballTarget.y);
-        if (event.moverKey) {
-          poolMoveToken(event.moverKey, event.moverTarget?.x || 0.5, event.moverTarget?.y || 0.5);
-          poolResetToken(event.moverKey);
+      // A velocità alta possono scattare più eventi per frame
+      while (G.ms.lastActionTime >= G.ms.nextActionIn && !G.ms.finished) {
+        G.ms.lastActionTime -= G.ms.nextActionIn;
+        G.ms.nextActionIn    = rnd(4, 11);
+        const event = generateMatchEvent(G.ms);
+        if (event) {
+          _appendLog(event.txt, event.cls);
+          if (event.ballTarget) poolMoveBall(event.ballTarget.x, event.ballTarget.y);
+          if (event.moverKey) {
+            poolMoveToken(event.moverKey, event.moverTarget?.x || 0.5, event.moverTarget?.y || 0.5);
+            poolResetToken(event.moverKey);
+          }
+          if (event.expelled !== undefined) _handleExpulsion(event.expelled, event.moverKey);
+          poolSyncTokens(G.ms);
         }
-        // Gestione espulsione definitiva
-        if (event.expelled !== undefined) {
-          _handleExpulsion(event.expelled, event.moverKey);
-        }
-        poolSyncTokens(G.ms);
-        renderFieldLists();
       }
+      renderFieldLists();
     }
 
-    poolAnimStep(dt);
+    poolAnimStep(rawDt); // l'animazione visiva resta fluida indipendentemente da speed
     refreshMatchUI();
   } else {
     poolAnimStep(rawDt);
@@ -158,29 +160,34 @@ function _appendLog(txt, cls) {
 function renderFieldLists() {
   const ms = G.ms; if (!ms) return;
 
+  // Genera pallini espulsioni temporanee: gialli fino a 2, rosso al 3°
+  function expDots(pi) {
+    const count  = ms.tempExp[pi] || 0;
+    const isLast = count >= MAX_TEMP_EXP;
+    if (count === 0) return '';
+    return Array.from({ length: count }).map((_, i) => {
+      const color = (isLast || i === MAX_TEMP_EXP - 1) ? '#e74c3c' : '#f0c040';
+      return `<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${color};margin-left:3px;vertical-align:middle;border:1px solid rgba(0,0,0,.25)"></span>`;
+    }).join('');
+  }
+
   // IN CAMPO
   let fieldHtml = '';
   Object.entries(ms.onField).forEach(([pk, pi]) => {
-    const p      = ms.myRoster[pi]; if (!p) return;
-    const pos    = POSITIONS[pk];
-    const shirt  = ms.shirtNumbers[pi] || '—';
-    const yellows = ms.tempExp[pi] || 0;
-    const isExp  = ms.expelled.has(pi);
-    const yellowDots = yellows > 0
-      ? Array.from({ length: yellows }).map(() =>
-          `<span style="display:inline-block;width:8px;height:10px;background:${yellows>=3?'var(--red)':'var(--gold)'};border-radius:1px;margin-left:2px"></span>`
-        ).join('')
-      : '';
+    const p     = ms.myRoster[pi]; if (!p) return;
+    const pos   = POSITIONS[pk];
+    const shirt = ms.shirtNumbers[pi] || '—';
+    const isExp = ms.expelled.has(pi);
     fieldHtml += `
       <div class="irow" style="${isExp ? 'opacity:.4' : ''}">
-        <span>
-          <span style="display:inline-block;min-width:22px;font-weight:700;color:var(--blue);font-size:12px">#${shirt}</span>
+        <span style="display:flex;align-items:center;gap:0;flex-wrap:nowrap">
+          <span style="min-width:24px;font-weight:700;color:var(--blue);font-size:12px">#${shirt}</span>
           <strong>${p.name}</strong>
           <span style="font-size:11px;color:var(--muted);margin-left:4px">(${p.hand})</span>
-          ${yellowDots}
-          ${isExp ? '<span style="font-size:10px;color:var(--red);margin-left:4px">ESPULSO</span>' : ''}
+          ${expDots(pi)}
+          ${isExp ? '<span style="font-size:10px;color:var(--red);margin-left:5px;font-weight:600">ESPULSO</span>' : ''}
         </span>
-        <span style="color:var(--blue);font-size:11px">${pos ? pos.label : pk}</span>
+        <span style="color:var(--blue);font-size:11px;flex-shrink:0">${pos ? pos.label : pk}</span>
       </div>`;
   });
   document.getElementById('field-players').innerHTML = fieldHtml || '<div style="color:var(--muted)">—</div>';
@@ -193,32 +200,17 @@ function renderFieldLists() {
     const isExp = ms.expelled.has(pi);
     benchHtml += `
       <div class="irow" style="${isExp ? 'opacity:.4;text-decoration:line-through' : ''}">
-        <span>
-          <span style="display:inline-block;min-width:22px;font-weight:700;color:var(--muted);font-size:12px">#${shirt}</span>
+        <span style="display:flex;align-items:center;gap:0;flex-wrap:nowrap">
+          <span style="min-width:24px;font-weight:700;color:var(--muted);font-size:12px">#${shirt}</span>
           ${p.name}
-          <span style="font-size:11px;color:var(--muted)"> ${p.role}·${p.hand}</span>
-          ${isExp ? '<span style="font-size:10px;color:var(--red)"> ESP.</span>' : ''}
+          <span style="font-size:11px;color:var(--muted);margin-left:3px">${p.role}·${p.hand}</span>
+          ${expDots(pi)}
+          ${isExp ? '<span style="font-size:10px;color:var(--red);margin-left:5px;font-weight:600">ESP.</span>' : ''}
         </span>
-        <span style="color:var(--muted);font-size:11px">OVR ${p.overall}</span>
+        <span style="color:var(--muted);font-size:11px;flex-shrink:0">OVR ${p.overall}</span>
       </div>`;
   });
   document.getElementById('bench-players').innerHTML = benchHtml || '<div style="color:var(--muted)">Panchina vuota</div>';
-}
-
-// ── Velocità ──────────────────────────────────
-function setSpeed(v) {
-  if (!G.ms) return;
-  G.ms.speed = v;
-  _setSpeedUI(v);
-}
-function _setSpeedUI(v) {
-  document.querySelectorAll('.btn-speed').forEach(b => {
-    const bv = parseInt(b.dataset.speed, 10);
-    b.style.background    = bv === v ? 'var(--blue)' : '';
-    b.style.color         = bv === v ? '#001220'     : '';
-    b.style.borderColor   = bv === v ? 'var(--blue)' : '';
-    b.style.fontWeight    = bv === v ? '700'          : '';
-  });
 }
 
 // ── Controlli partita ─────────────────────────
@@ -263,6 +255,17 @@ function closeSub() {
 function _renderSubLists() {
   const ms = G.ms; if (!ms) return;
 
+  // Riusa la stessa funzione pallini di renderFieldLists
+  function expDots(pi) {
+    const count  = ms.tempExp[pi] || 0;
+    const isLast = count >= MAX_TEMP_EXP;
+    if (count === 0) return '';
+    return Array.from({ length: count }).map((_, i) => {
+      const color = (isLast || i === MAX_TEMP_EXP - 1) ? '#e74c3c' : '#f0c040';
+      return `<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${color};margin-left:3px;vertical-align:middle;border:1px solid rgba(0,0,0,.25)"></span>`;
+    }).join('');
+  }
+
   // ESCE DAL CAMPO
   let outHtml = '<div style="font-size:11px;color:var(--muted);margin-bottom:8px">Seleziona il giocatore che deve uscire:</div>';
   Object.entries(ms.onField).forEach(([pk, pi]) => {
@@ -270,17 +273,15 @@ function _renderSubLists() {
     const shirt = ms.shirtNumbers[pi] || '—';
     const isExp = ms.expelled.has(pi);
     const sel   = ms.subOut === pk;
-    const yellows = ms.tempExp[pi] || 0;
-    const yDots = Array.from({ length: yellows }).map(() =>
-      `<span style="display:inline-block;width:7px;height:9px;background:${yellows>=3?'var(--red)':'var(--gold)'};border-radius:1px;margin-left:2px"></span>`
-    ).join('');
     outHtml += `
       <div class="player-card${sel ? ' selected' : ''}" onclick="${isExp ? '' : "selSubOut('" + pk + "')"}"
            style="margin-bottom:6px;${isExp ? 'opacity:.35;cursor:not-allowed' : ''}">
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:600">
-            <span style="color:var(--blue);margin-right:6px">#${shirt}</span>${p.name} ${yDots}
-            ${isExp ? '<span style="color:var(--red);font-size:10px"> ESPULSO</span>' : ''}
+          <div style="font-size:13px;font-weight:600;display:flex;align-items:center;flex-wrap:wrap;gap:2px">
+            <span style="color:var(--blue);margin-right:4px">#${shirt}</span>
+            ${p.name}
+            ${expDots(pi)}
+            ${isExp ? '<span style="color:var(--red);font-size:10px;margin-left:4px">ESPULSO</span>' : ''}
           </div>
           <div style="font-size:11px;color:var(--muted)">${POSITIONS[pk] ? POSITIONS[pk].label : pk} · ${p.role} · ${p.hand}</div>
         </div>
@@ -300,9 +301,11 @@ function _renderSubLists() {
       <div class="player-card${sel ? ' selected' : ''}" onclick="${isExp ? '' : 'selSubIn(' + pi + ')'}"
            style="margin-bottom:6px;${isExp ? 'opacity:.35;cursor:not-allowed' : ''}">
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:600">
-            <span style="color:var(--muted);margin-right:6px">#${shirt}</span>${p.name}
-            ${isExp ? '<span style="color:var(--red);font-size:10px"> ESPULSO</span>' : ''}
+          <div style="font-size:13px;font-weight:600;display:flex;align-items:center;flex-wrap:wrap;gap:2px">
+            <span style="color:var(--muted);margin-right:4px">#${shirt}</span>
+            ${p.name}
+            ${expDots(pi)}
+            ${isExp ? '<span style="color:var(--red);font-size:10px;margin-left:4px">ESPULSO</span>' : ''}
           </div>
           <div style="font-size:11px;color:var(--muted)">${p.role} · OVR ${p.overall} · ${p.hand}</div>
         </div>

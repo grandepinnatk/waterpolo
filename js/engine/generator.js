@@ -49,7 +49,7 @@ function generatePlayer(teamStrength, role) {
 }
 
 // ── Generazione rosa (15 giocatori) ──────────
-// 2 POR · 3 DIF · 3 CEN · 4 ATT · 2 CAP · 1 DIF extra
+// 2 POR · 3 DIF · 3 CEN · 4 ATT · 2 CB · 1 DIF extra
 function generateRoster(team) {
   const roster = [];
   roster.push(generatePlayer(team.str, 'POR'));
@@ -57,7 +57,7 @@ function generateRoster(team) {
   for (let i = 0; i < 3; i++) roster.push(generatePlayer(team.str, 'DIF'));
   for (let i = 0; i < 3; i++) roster.push(generatePlayer(team.str, 'CEN'));
   for (let i = 0; i < 4; i++) roster.push(generatePlayer(team.str, 'ATT'));
-  for (let i = 0; i < 2; i++) roster.push(generatePlayer(team.str, 'CAP'));
+  for (let i = 0; i < 2; i++) roster.push(generatePlayer(team.str, 'CB'));
   roster.push(generatePlayer(team.str, 'DIF'));
   return roster;
 }

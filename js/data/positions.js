@@ -17,7 +17,7 @@ const POSITIONS = {
   4:  { label:'4·DL',  desc:'Difensore sinistro', role:'DIF', x:0.22, y:0.52 },
   2:  { label:'2·DR',  desc:'Difensore destro',   role:'DIF', x:0.78, y:0.52 },
   5:  { label:'5·LW',  desc:'Ala sinistra',       role:'ATT', x:0.12, y:0.28 },
-  6:  { label:'6·CB',  desc:'Centroboa',          role:'CAP', x:0.50, y:0.18 },
+  6:  { label:'6·CB',  desc:'Centroboa',          role:'CB', x:0.50, y:0.18 },
   1:  { label:'1·RW',  desc:'Ala destra',         role:'ATT', x:0.88, y:0.28 },
 };
 
@@ -49,7 +49,7 @@ const MY_POS_MAP = {
 // Affinità ruolo → posizione (per auto-formazione)
 const POS_ROLE_AFFINITY = {
   5: 'ATT',
-  6: 'CAP',
+  6: 'CB',
   1: 'ATT',
   4: 'DIF',
   2: 'DIF',

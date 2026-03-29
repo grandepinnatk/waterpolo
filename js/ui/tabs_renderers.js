@@ -82,7 +82,7 @@ function renderRosa() {
     const c = p.overall >= 80 ? 'var(--blue)' : p.overall >= 65 ? 'var(--green)' : 'var(--gold)';
     h += `<tr class="trhov" onclick="showPlayerModal(${i})">
       <td style="font-weight:600">${p.name}</td>
-      <td><span class="badge ${p.role === 'POR' ? 'S' : p.role === 'CAP' ? 'B' : p.role === 'DIF' ? 'A' : 'C'}">${p.role}</span></td>
+      <td><span class="badge ${p.role === 'POR' ? 'S' : p.role === 'CB' ? 'B' : p.role === 'DIF' ? 'A' : 'C'}">${p.role}</span></td>
       <td><span class="badge ${p.hand === 'L' ? 'L' : 'R'}" title="${p.hand === 'L' ? 'Mancino' : 'Destro'}">${p.hand}</span></td>
       <td style="color:var(--muted);font-size:12px">${p.nat}</td>
       <td>${p.age}</td>
@@ -101,7 +101,7 @@ function renderRosa() {
 
 function showPlayerModal(i) {
   const p  = G.rosters[G.myId][i];
-  const rl = { POR:'Portiere', DIF:'Difensore', CEN:'Centromediano', ATT:'Attaccante', CAP:'Centroboa' };
+  const rl = { POR:'Portiere', DIF:'Difensore', CEN:'Centromediano', ATT:'Attaccante', CB:'Centroboa' };
   const ov = document.createElement('div');
   ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(4px)';
   ov.innerHTML = `
@@ -470,7 +470,7 @@ function renderMarket() {
       <td style="font-weight:600">${p.name} (${p.age})</td>
       <td><span class="badge ${p.hand === 'L' ? 'L' : 'R'}">${p.hand}</span></td>
       <td style="font-size:12px;color:var(--muted)">${p._tname}</td>
-      <td><span class="badge ${p.role === 'POR' ? 'S' : p.role === 'CAP' ? 'B' : p.role === 'DIF' ? 'A' : 'C'}">${p.role}</span></td>
+      <td><span class="badge ${p.role === 'POR' ? 'S' : p.role === 'CB' ? 'B' : p.role === 'DIF' ? 'A' : 'C'}">${p.role}</span></td>
       <td style="font-weight:700">${p.overall}</td>
       <td style="font-size:12px">${formatMoney(p.value)}</td>
       <td><button class="btn sm ${ok ? 'primary' : ''}" onclick="buyPlayer(${i})" ${ok ? '' : 'disabled'}>Acquista</button></td>
