@@ -6,6 +6,56 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.1.7-beta] — 2026-03-29
+
+### Aggiunto
+- I giocatori in panchina recuperano gradualmente la stamina durante la partita (tasso: `STAMINA_BENCH_RECOVERY = 0.0012/s`, circa 1/3 del calo base in campo)
+- Il recupero è visibile in tempo reale nella barra stamina della lista panchina e nel pannello cambi
+- I giocatori espulsi recuperano anch'essi (sono fermi, non giocano)
+
+---
+
+## [0.1.6-beta] — 2026-03-29
+
+### Aggiunto
+
+#### Stamina giocatori
+- Ogni giocatore in campo ha una barra stamina visibile (verde >65%, gialla 35-65%, rossa <35%) aggiornata in tempo reale
+- La stamina parte dal valore di fitness del giocatore e cala durante la partita
+- Il calo dipende da due fattori:
+  - **Tattica**: Difesa −30% calo, Bilanciata base, Contropiede +10%, Attacco +30%, Pressing Alto +60%
+  - **Forma fisica**: giocatori con fitness bassa si stancano più velocemente
+- La stamina è visibile anche nel pannello cambi (badge ⚡%) per aiutare le scelte del coach
+
+#### Efficacia fuori ruolo
+- Ogni posizione ha un ruolo nativo (GK→POR, 1→ATT, 2→DIF, 4→DIF, 3→CEN, 5→ATT, 6→CB)
+- Se un giocatore copre una posizione fuori dal suo ruolo, la sua efficacia nel motore viene ridotta (fattore 0.35–1.0 da matrice `ROLE_ADJACENCY`)
+- Nel pannello cambi appare un avviso ⚠ o ⚠⚠ quando il giocatore entrante è fuori ruolo rispetto alla posizione da coprire
+
+### Corretto
+
+#### Espulsioni temporanee — ribilanciamento
+- Nuova architettura: probabilità di fallo = `BASE_FOUL_PROB × TACTIC_FOUL_MULT[tactic]`
+- `BASE_FOUL_PROB = 0.050`, moltiplicatori: Difesa×0.40, Bilanciata×0.75, Contropiede×0.90, Attacco×1.00, Pressing×1.10
+- Selezione del giocatore che commette fallo pesata: chi ha già 1 giallo pesa 0.35, chi ne ha 2 pesa 0.08 (i giocatori ammoniti giocano più cauti)
+- Hard cap a 3 espulsioni definitive per partita: mai scende sotto 4 giocatori in campo
+- Calibrato su 200.000 simulazioni Monte Carlo — distribuzione attesa per tattica bilanciata: 72% nessuna esp., 20% una, 8% due o più
+
+### Modificato
+- `engine/match.js` — aggiunte costanti `BASE_FOUL_PROB`, `TACTIC_FOUL_MULT`, `YELLOW_WEIGHTS`, `MAX_EXPELLED`, `POS_NATIVE_ROLE`, `ROLE_ADJACENCY`, `STAMINA_BASE_DRAIN`, `TACTIC_STAMINA_MULT`; nuove funzioni `_drainStamina()`, `_roleEffectiveness()`, `_weightedPick()`; `createMatchState` include `stamina`; `advanceTime` chiama `_drainStamina`; `generateMatchEvent` usa efficacia pesata e foul pesati
+- `ui/match.js` — `renderFieldLists` mostra barra stamina per i giocatori in campo; `_renderSubLists` mostra badge ⚡stamina e avviso fuori-ruolo per i giocatori in panchina
+
+---
+
+## [0.1.5-beta] — 2026-03-29
+
+### Corretto
+- Ribilanciata la probabilità di espulsione temporanea: da 0.28 a **0.03** per evento neutro
+- Risultato: ~5 falli per partita (era ~21), espulsione definitiva in media 1 ogni 4 partite (era 7 per partita), situazione con meno di 5 giocatori in campo quasi improbabile (0.24% dei casi, era 100%)
+- La soglia è stata calcolata con simulazione Monte Carlo su 50.000 partite per garantire che la perdita a tavolino per inferiorità numerica rimanga un evento eccezionale
+
+---
+
 ## [0.1.4-beta] — 2026-03-29
 
 ### Modificato

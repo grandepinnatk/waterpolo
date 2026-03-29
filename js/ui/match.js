@@ -160,7 +160,7 @@ function _appendLog(txt, cls) {
 function renderFieldLists() {
   const ms = G.ms; if (!ms) return;
 
-  // Genera pallini espulsioni temporanee: gialli fino a 2, rosso al 3°
+  // Pallini espulsioni temporanee
   function expDots(pi) {
     const count  = ms.tempExp[pi] || 0;
     const isLast = count >= MAX_TEMP_EXP;
@@ -169,6 +169,18 @@ function renderFieldLists() {
       const color = (isLast || i === MAX_TEMP_EXP - 1) ? '#e74c3c' : '#f0c040';
       return `<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${color};margin-left:3px;vertical-align:middle;border:1px solid rgba(0,0,0,.25)"></span>`;
     }).join('');
+  }
+
+  // Barra stamina colorata
+  function staminaBar(pi) {
+    const st  = Math.round(ms.stamina[pi] ?? 100);
+    const col = st > 65 ? '#2ecc71' : st > 35 ? '#f0c040' : '#e74c3c';
+    return `<div style="display:flex;align-items:center;gap:4px;margin-left:6px">
+      <div style="width:36px;height:5px;background:rgba(255,255,255,.15);border-radius:3px;overflow:hidden;flex-shrink:0">
+        <div style="width:${st}%;height:100%;background:${col};border-radius:3px;transition:width .5s"></div>
+      </div>
+      <span style="font-size:10px;color:${col};font-weight:600;min-width:22px">${st}%</span>
+    </div>`;
   }
 
   // IN CAMPO
@@ -180,14 +192,14 @@ function renderFieldLists() {
     const isExp = ms.expelled.has(pi);
     fieldHtml += `
       <div class="irow" style="${isExp ? 'opacity:.4' : ''}">
-        <span style="display:flex;align-items:center;gap:0;flex-wrap:nowrap">
+        <span style="display:flex;align-items:center;flex-wrap:nowrap;min-width:0">
           <span style="min-width:24px;font-weight:700;color:var(--blue);font-size:12px">#${shirt}</span>
-          <strong>${p.name}</strong>
-          <span style="font-size:11px;color:var(--muted);margin-left:4px">(${p.hand})</span>
+          <strong style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:90px">${p.name}</strong>
           ${expDots(pi)}
-          ${isExp ? '<span style="font-size:10px;color:var(--red);margin-left:5px;font-weight:600">ESPULSO</span>' : ''}
+          ${isExp ? '<span style="font-size:10px;color:var(--red);margin-left:5px;font-weight:600">ESP</span>' : ''}
+          ${!isExp ? staminaBar(pi) : ''}
         </span>
-        <span style="color:var(--blue);font-size:11px;flex-shrink:0">${pos ? pos.label : pk}</span>
+        <span style="color:var(--blue);font-size:11px;flex-shrink:0;margin-left:4px">${pos ? pos.label : pk}</span>
       </div>`;
   });
   document.getElementById('field-players').innerHTML = fieldHtml || '<div style="color:var(--muted)">—</div>';
@@ -200,12 +212,12 @@ function renderFieldLists() {
     const isExp = ms.expelled.has(pi);
     benchHtml += `
       <div class="irow" style="${isExp ? 'opacity:.4;text-decoration:line-through' : ''}">
-        <span style="display:flex;align-items:center;gap:0;flex-wrap:nowrap">
+        <span style="display:flex;align-items:center;flex-wrap:nowrap;min-width:0">
           <span style="min-width:24px;font-weight:700;color:var(--muted);font-size:12px">#${shirt}</span>
-          ${p.name}
-          <span style="font-size:11px;color:var(--muted);margin-left:3px">${p.role}·${p.hand}</span>
+          <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:85px">${p.name}</span>
+          <span style="font-size:11px;color:var(--muted);margin-left:3px;flex-shrink:0">${p.role}</span>
           ${expDots(pi)}
-          ${isExp ? '<span style="font-size:10px;color:var(--red);margin-left:5px;font-weight:600">ESP.</span>' : ''}
+          ${isExp ? '<span style="font-size:10px;color:var(--red);margin-left:5px;font-weight:600">ESP</span>' : ''}
         </span>
         <span style="color:var(--muted);font-size:11px;flex-shrink:0">OVR ${p.overall}</span>
       </div>`;
@@ -255,7 +267,6 @@ function closeSub() {
 function _renderSubLists() {
   const ms = G.ms; if (!ms) return;
 
-  // Riusa la stessa funzione pallini di renderFieldLists
   function expDots(pi) {
     const count  = ms.tempExp[pi] || 0;
     const isLast = count >= MAX_TEMP_EXP;
@@ -264,6 +275,26 @@ function _renderSubLists() {
       const color = (isLast || i === MAX_TEMP_EXP - 1) ? '#e74c3c' : '#f0c040';
       return `<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${color};margin-left:3px;vertical-align:middle;border:1px solid rgba(0,0,0,.25)"></span>`;
     }).join('');
+  }
+
+  function staminaBadge(pi) {
+    const st  = Math.round(ms.stamina[pi] ?? 100);
+    const col = st > 65 ? '#2ecc71' : st > 35 ? '#f0c040' : '#e74c3c';
+    return `<span style="font-size:11px;font-weight:600;color:${col};margin-left:6px">⚡${st}%</span>`;
+  }
+
+  // Mostra avviso se il giocatore entrante è fuori ruolo per quella posizione
+  function roleBadge(pi, pk) {
+    if (!pk) return '';
+    const p = ms.myRoster[pi]; if (!p) return '';
+    const nativeRole = POS_NATIVE_ROLE[pk];
+    if (!nativeRole) return '';
+    const adj = ROLE_ADJACENCY[p.role];
+    const eff = adj ? (adj[nativeRole] || 0.6) : 1.0;
+    if (eff >= 0.85) return '';
+    const label = eff >= 0.70 ? '⚠ fuori ruolo' : '⚠⚠ molto fuori ruolo';
+    const col   = eff >= 0.70 ? '#f0c040' : '#e74c3c';
+    return `<span style="font-size:10px;color:${col};margin-left:5px">${label}</span>`;
   }
 
   // ESCE DAL CAMPO
@@ -281,6 +312,7 @@ function _renderSubLists() {
             <span style="color:var(--blue);margin-right:4px">#${shirt}</span>
             ${p.name}
             ${expDots(pi)}
+            ${staminaBadge(pi)}
             ${isExp ? '<span style="color:var(--red);font-size:10px;margin-left:4px">ESPULSO</span>' : ''}
           </div>
           <div style="font-size:11px;color:var(--muted)">${POSITIONS[pk] ? POSITIONS[pk].label : pk} · ${p.role} · ${p.hand}</div>
@@ -290,7 +322,8 @@ function _renderSubLists() {
   });
   document.getElementById('sub-out-list').innerHTML = outHtml;
 
-  // ENTRA IN CAMPO
+  // ENTRA IN CAMPO — mostra stamina e avviso fuori-ruolo rispetto alla posizione che andrà a coprire
+  const targetPk = ms.subOut; // posizione che verrà occupata dall'entrante
   let inHtml = '<div style="font-size:11px;color:var(--muted);margin-bottom:8px">Seleziona il giocatore che deve entrare:</div>';
   ms.bench.forEach(pi => {
     const p     = ms.myRoster[pi]; if (!p) return;
@@ -305,6 +338,8 @@ function _renderSubLists() {
             <span style="color:var(--muted);margin-right:4px">#${shirt}</span>
             ${p.name}
             ${expDots(pi)}
+            ${staminaBadge(pi)}
+            ${targetPk ? roleBadge(pi, targetPk) : ''}
             ${isExp ? '<span style="color:var(--red);font-size:10px;margin-left:4px">ESPULSO</span>' : ''}
           </div>
           <div style="font-size:11px;color:var(--muted)">${p.role} · OVR ${p.overall} · ${p.hand}</div>
