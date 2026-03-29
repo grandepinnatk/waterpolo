@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polo Acqua Manager</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     SCHERMATA WELCOME
+     ══════════════════════════════════════════ -->
+<div id="sc-welcome">
+  <div style="width:100%;max-width:860px">
+
+    <!-- Titolo -->
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="font-size:44px;margin-bottom:8px">🏊</div>
+      <div style="font-size:26px;font-weight:700;color:var(--blue)">Polo Acqua Manager</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px">Serie A1 Maschile · Stagione 2025/26</div>
+    </div>
+
+    <div class="welcome-layout">
+
+      <!-- COLONNA SINISTRA: scelta squadra -->
+      <div class="welcome-col">
+        <div class="welcome-section-title">Scegli la tua squadra</div>
+        <div id="team-list" class="team-list-box"></div>
+        <button class="btn primary" onclick="startNewGame()" style="width:100%;padding:11px;font-size:14px;margin-top:10px">
+          Nuova Carriera →
+        </button>
+      </div>
+
+      <!-- COLONNA DESTRA: slot di salvataggio -->
+      <div class="welcome-col">
+        <div class="welcome-section-title">Partite salvate</div>
+        <div id="slots-panel"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     GIOCO PRINCIPALE
+     ══════════════════════════════════════════ -->
+<div id="sc-game" style="display:none">
+  <div class="hdr">
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="font-size:18px">🏊</span>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--blue)" id="hdr-team">—</div>
+        <div style="font-size:11px;color:var(--muted)" id="hdr-info">—</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="nb active" onclick="showTab('dash')">Dashboard</button>
+      <button class="nb" onclick="showTab('rosa')">Rosa</button>
+      <button class="nb" onclick="showTab('train')">Allenamento</button>
+      <button class="nb" onclick="showTab('goals')">Obiettivi</button>
+      <button class="nb" onclick="showTab('stand')">Classifica</button>
+      <button class="nb" onclick="showTab('cal')">Calendario</button>
+      <button class="nb" onclick="showTab('playoff')">Playoff</button>
+      <button class="nb" onclick="showTab('market')">Mercato</button>
+    </nav>
+    <div style="display:flex;gap:6px;align-items:center">
+      <button class="btn sm" onclick="openSaveMenu()" title="Salva partita">💾</button>
+      <button class="btn sm" onclick="goToWelcome()" title="Menu principale">⌂</button>
+    </div>
+  </div>
+  <div class="content">
+    <div id="tab-dash"></div>
+    <div id="tab-rosa"    style="display:none"></div>
+    <div id="tab-train"   style="display:none"></div>
+    <div id="tab-goals"   style="display:none"></div>
+    <div id="tab-stand"   style="display:none"></div>
+    <div id="tab-cal"     style="display:none"></div>
+    <div id="tab-playoff" style="display:none"></div>
+    <div id="tab-market"  style="display:none"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CONVOCAZIONI
+     ══════════════════════════════════════════ -->
+<div id="sc-lineup" style="display:none;padding:14px;max-width:900px;margin:0 auto">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+    <div>
+      <div style="font-size:11px;color:var(--muted)" id="lu-lbl">—</div>
+      <div style="font-size:18px;font-weight:700;color:var(--blue)" id="lu-title">Convocazioni</div>
+    </div>
+    <button class="btn" onclick="cancelLineup()">← Indietro</button>
+  </div>
+  <div class="g2" style="gap:16px">
+    <div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px">
+        Formazione — clicca posizione poi giocatore (o viceversa)
+      </div>
+      <div id="lineup-pool" style="position:relative;background:#00a0c0;border-radius:10px;overflow:hidden;aspect-ratio:1.6"></div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn primary" onclick="confirmLineup()" id="btn-confirm-lu" disabled>Inizia Partita →</button>
+        <button class="btn warn" onclick="autoFillLineup()">Auto-Formazione</button>
+        <button class="btn" onclick="clearLineup()">Reset</button>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px">
+        Rosa disponibile
+      </div>
+      <div id="player-sel-list" style="max-height:420px;overflow-y:auto"></div>
+    </div>
+  </div>
+  <div id="lu-status" class="alert info" style="margin-top:10px"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PARTITA LIVE
+     ══════════════════════════════════════════ -->
+<div id="sc-match" style="display:none;padding:10px;max-width:900px;margin:0 auto">
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <div>
+      <div style="font-size:11px;color:var(--muted)" id="m-lbl">—</div>
+      <div style="font-size:16px;font-weight:700" id="m-title">—</div>
+    </div>
+    <div style="text-align:center">
+      <div style="font-size:28px;font-weight:700;color:var(--blue)" id="m-score">0 - 0</div>
+      <div style="font-size:11px;color:var(--muted)">
+        <span id="m-period">1° T</span> · <span id="m-clock">00:00</span>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:11px;color:var(--muted)">Tattica</div>
+      <select id="tactic-sel" onchange="if(G.ms) G.ms.tactic=this.value"
+              style="background:var(--panel2);border:1px solid var(--border);border-radius:7px;padding:4px 8px;font-size:12px;color:var(--text)">
+        <option value="balanced">Bilanciata</option>
+        <option value="attack">Attacco</option>
+        <option value="defense">Difesa</option>
+        <option value="counter">Contropiede</option>
+        <option value="press">Pressione Alta</option>
+      </select>
+    </div>
+  </div>
+
+  <div style="width:100%;max-width:760px;margin:0 auto 10px">
+    <canvas id="pool-canvas" width="760" height="430"></canvas>
+  </div>
+
+  <div class="g2" style="gap:8px;margin-bottom:8px">
+    <div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Azioni di Gioco</div>
+      <div class="action-log" id="action-log"></div>
+    </div>
+    <div class="card" style="padding:10px">
+      <div class="slbl" style="margin-top:0">Stats Partita</div>
+      <div id="m-stats" style="font-size:12px"></div>
+      <div class="slbl">Marcatori</div>
+      <div id="m-scorers" style="font-size:12px"></div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+    <button class="btn primary" id="btn-play" onclick="togglePlay()">▶ Avvia</button>
+    <button class="btn" onclick="skipPeriod()">⏭ Fine Periodo</button>
+    <button class="btn warn" onclick="openSub()">↔ Cambio</button>
+    <button class="btn danger" id="btn-end" onclick="endMatch()" style="display:none">Fine Partita</button>
+    <div style="font-size:12px;color:var(--muted);margin-left:8px">
+      Cambi: <span id="sub-count">0</span>
+    </div>
+  </div>
+
+  <div class="g2" style="gap:8px">
+    <div class="card" style="padding:10px">
+      <div class="slbl" style="margin-top:0;color:var(--blue)">In campo — <span id="my-team-lbl">—</span></div>
+      <div id="field-players" style="font-size:12px"></div>
+    </div>
+    <div class="card" style="padding:10px">
+      <div class="slbl" style="margin-top:0">Panchina</div>
+      <div id="bench-players" style="font-size:12px"></div>
+    </div>
+  </div>
+
+  <div id="sub-panel" style="display:none">
+    <div style="font-weight:600;margin-bottom:8px;color:var(--gold)">Effettua Cambio</div>
+    <div class="g2" style="gap:10px">
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Esce dal campo</div>
+        <div id="sub-out-list"></div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Entra in campo</div>
+        <div id="sub-in-list"></div>
+      </div>
+    </div>
+    <div style="margin-top:10px;display:flex;gap:8px">
+      <button class="btn success" onclick="confirmSub()" id="btn-confirm-sub" disabled>Conferma Cambio</button>
+      <button class="btn" onclick="closeSub()">Annulla</button>
+    </div>
+  </div>
+
+</div><!-- /sc-match -->
+
+<!-- ══════════════════════════════════════════
+     SCRIPT — ordine obbligatorio
+     ══════════════════════════════════════════ -->
+
+<!-- 1. Dati statici -->
+<script src="js/data/teams.js"></script>
+<script src="js/data/positions.js"></script>
+<script src="js/data/training.js"></script>
+<script src="js/data/objectives.js"></script>
+
+<!-- 2. Motore di gioco (priorità massima) -->
+<script src="js/engine/generator.js"></script>
+<script src="js/engine/standings.js"></script>
+<script src="js/engine/match.js"></script>
+<script src="js/engine/save.js"></script>
+
+<!-- 3. Rendering canvas -->
+<script src="js/canvas/pool.js"></script>
+
+<!-- 4. Componenti UI -->
+<script src="js/ui/tabs.js"></script>
+<script src="js/ui/welcome.js"></script>
+<script src="js/ui/lineup.js"></script>
+<script src="js/ui/match.js"></script>
+<script src="js/ui/tabs_renderers.js"></script>
+
+<!-- 5. Entry point -->
+<script src="js/main.js"></script>
+
+</body>
+</html>

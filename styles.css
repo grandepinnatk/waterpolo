@@ -1,0 +1,374 @@
+/* ─────────────────────────────────────────────
+   css/styles.css  —  Polo Acqua Manager
+   ───────────────────────────────────────────── */
+
+/* ── Reset & variabili ─────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue:      #00c2ff;
+  --green:     #2ecc71;
+  --red:       #e74c3c;
+  --gold:      #f0c040;
+  --panel:     #12243a;
+  --panel2:    #1a2f4a;
+  --border:    #1e3a5c;
+  --text:      #e8edf5;
+  --muted:     #7a9bb5;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background:  #0a1628;
+  color:       var(--text);
+  font-size:   14px;
+  min-height:  100vh;
+}
+
+/* ── Bottoni ───────────────────────────────── */
+.btn {
+  background:    var(--panel2);
+  border:        1px solid var(--border);
+  border-radius: 8px;
+  padding:       7px 14px;
+  font-size:     13px;
+  color:         var(--text);
+  cursor:        pointer;
+  transition:    background 0.15s, border-color 0.15s;
+}
+.btn:hover        { background: #1e3a5c; border-color: var(--blue); }
+.btn.primary      { background: var(--blue);  color: #001220; border-color: var(--blue); font-weight: 600; }
+.btn.primary:hover{ background: #00a8dc; }
+.btn.success      { background: #1d6b3a; color: #a8f0c0; border-color: var(--green); }
+.btn.danger       { background: #6b1d1d; color: #f0a8a8; border-color: var(--red);   }
+.btn.warn         { background: #6b4a00; color: #f0d080; border-color: var(--gold);  }
+.btn.sm           { padding: 4px 9px; font-size: 12px; }
+.btn:disabled     { opacity: 0.35; cursor: not-allowed; }
+
+/* ── Card ──────────────────────────────────── */
+.card {
+  background:    var(--panel);
+  border:        1px solid var(--border);
+  border-radius: 12px;
+  padding:       14px 16px;
+  margin-bottom: 12px;
+}
+
+/* ── Badges ────────────────────────────────── */
+.badge {
+  display:       inline-block;
+  font-size:     10px;
+  padding:       2px 6px;
+  border-radius: 5px;
+  font-weight:   600;
+}
+.badge.S { background: #0c3260; color: #60aaff; }
+.badge.A { background: #0c3820; color: #60d090; }
+.badge.B { background: #3a2800; color: #d0a030; }
+.badge.C { background: #3a0c0c; color: #d06060; }
+.badge.R { background: #3a0c0c; color: #ff8080; } /* Mancino */
+.badge.L { background: #0a2a3a; color: #80c0ff; } /* Destro  */
+
+/* ── Header navigazione ────────────────────── */
+.hdr {
+  background:      rgba(10, 22, 40, 0.97);
+  border-bottom:   1px solid var(--border);
+  padding:         10px 14px;
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  position:        sticky;
+  top:             0;
+  z-index:         20;
+  backdrop-filter: blur(8px);
+}
+.nav      { display: flex; gap: 2px; flex-wrap: wrap; }
+.nb {
+  padding:       5px 11px;
+  font-size:     12px;
+  border-radius: 7px;
+  border:        none;
+  background:    transparent;
+  color:         var(--muted);
+  cursor:        pointer;
+  transition:    all .15s;
+}
+.nb:hover  { color: var(--text); background: var(--panel2); }
+.nb.active { background: var(--panel2); color: var(--blue); font-weight: 600; border: 1px solid var(--border); }
+
+/* ── Layout ────────────────────────────────── */
+.content { padding: 14px; max-width: 920px; margin: 0 auto; }
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+
+/* ── Stat cards ────────────────────────────── */
+.sc   { background: var(--panel2); border-radius: 8px; padding: 10px; text-align: center; }
+.sc-n { font-size: 20px; font-weight: 600; margin-top: 2px; color: var(--blue); }
+.sc-l { font-size: 11px; color: var(--muted); }
+
+/* ── Tabella ───────────────────────────────── */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  text-align:     left;
+  padding:        7px 5px;
+  font-weight:    600;
+  font-size:      11px;
+  color:          var(--muted);
+  border-bottom:  1px solid var(--border);
+  text-transform: uppercase;
+  letter-spacing: .3px;
+}
+td { padding: 6px 5px; border-bottom: 1px solid rgba(30, 58, 92, .4); }
+tr:last-child td { border-bottom: none; }
+.trhov:hover { background: rgba(0, 194, 255, .06); cursor: pointer; }
+
+/* ── Info rows ─────────────────────────────── */
+.slbl {
+  font-size:      11px;
+  font-weight:    600;
+  color:          var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin:         14px 0 7px;
+}
+.irow { display: flex; justify-content: space-between; padding: 5px 0; font-size: 13px; border-bottom: 1px solid rgba(30, 58, 92, .4); }
+.irow:last-child { border-bottom: none; }
+.ilbl { color: var(--muted); }
+
+/* ── Alert ─────────────────────────────────── */
+.alert { padding: 9px 13px; border-radius: 8px; font-size: 13px; margin-bottom: 10px; }
+.alert.info    { background: #0c2640; color: #60b0ff; }
+.alert.success { background: #0c2a18; color: #60d090; }
+.alert.warn    { background: #2a1c00; color: #d0a030; }
+.alert.danger  { background: #2a0c0c; color: #ff8080; }
+
+/* ── Progress bar ──────────────────────────── */
+.prog-w { background: rgba(255, 255, 255, .1); border-radius: 3px; height: 4px; overflow: hidden; }
+.prog-f { height: 100%; border-radius: 3px; }
+
+/* ── Action log (partita) ──────────────────── */
+.action-log {
+  background:    rgba(10, 22, 40, .8);
+  border:        1px solid var(--border);
+  border-radius: 8px;
+  padding:       8px;
+  max-height:    140px;
+  overflow-y:    auto;
+  font-size:     12px;
+  font-family:   monospace;
+}
+.ae       { padding: 2px 0; border-bottom: 1px solid rgba(30, 58, 92, .3); color: var(--muted); }
+.ae.myg   { color: #00c2ff; font-weight: 600; }
+.ae.og    { color: #e74c3c; font-weight: 600; }
+.ae.sv    { color: #2ecc71; }
+.ae.fl    { color: #f0c040; }
+.ae.sub   { color: #a855f7; font-style: italic; }
+
+/* ── Player cards (convocazioni / cambi) ───── */
+.player-card {
+  background:    var(--panel2);
+  border:        1.5px solid var(--border);
+  border-radius: 10px;
+  padding:       10px;
+  cursor:        pointer;
+  transition:    all .15s;
+  display:       flex;
+  align-items:   center;
+  gap:           10px;
+}
+.player-card:hover    { border-color: var(--blue); background: #1a3050; }
+.player-card.selected { border-color: var(--blue); background: #0c2240; }
+.player-card.starter  { border-color: var(--gold); background: #1a1400; }
+
+/* ── Canvas vasca ──────────────────────────── */
+#pool-canvas { display: block; border-radius: 12px; border: 2px solid var(--border); width: 100%; }
+
+/* ── Pannello cambi ────────────────────────── */
+#sub-panel {
+  background:    var(--panel);
+  border:        1px solid var(--gold);
+  border-radius: 12px;
+  padding:       14px;
+  margin-top:    12px;
+}
+
+/* ── Schermata welcome ─────────────────────── */
+#sc-welcome {
+  min-height:      100vh;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  padding:         24px;
+}
+
+/* ════════════════════════════════════════════
+   WELCOME — layout a due colonne
+   ════════════════════════════════════════════ */
+#sc-welcome {
+  min-height:      100vh;
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: center;
+  padding:         32px 16px;
+}
+
+.welcome-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .welcome-layout { grid-template-columns: 1fr; }
+}
+
+.welcome-col { display: flex; flex-direction: column; }
+
+.welcome-section-title {
+  font-size:      11px;
+  font-weight:    700;
+  color:          var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  margin-bottom:  10px;
+}
+
+.team-list-box {
+  flex:          1;
+  max-height:    360px;
+  overflow-y:    auto;
+  border:        1px solid var(--border);
+  border-radius: 12px;
+  padding:       8px;
+  background:    var(--panel);
+}
+
+/* ════════════════════════════════════════════
+   SLOT CARDS
+   ════════════════════════════════════════════ */
+.slot-card {
+  background:    var(--panel);
+  border:        1px solid var(--border);
+  border-radius: 12px;
+  padding:       14px;
+  margin-bottom: 10px;
+  transition:    border-color .15s;
+}
+.slot-card:hover { border-color: var(--blue); }
+
+/* Header dello slot (dot + nome + badge) */
+.slot-header {
+  display:     flex;
+  align-items: center;
+  gap:         10px;
+  margin-bottom: 10px;
+}
+.slot-team-dot {
+  width:         36px;
+  height:        36px;
+  border-radius: 50%;
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  color:         #fff;
+  font-size:     10px;
+  font-weight:   700;
+  flex-shrink:   0;
+}
+.slot-team-info { flex: 1; min-width: 0; }
+.slot-team-name {
+  font-size:   13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow:    hidden;
+  text-overflow: ellipsis;
+}
+.slot-meta { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+/* Statistiche mini */
+.slot-stats {
+  display:       grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:           6px;
+  margin-bottom: 10px;
+  padding:       8px;
+  background:    var(--panel2);
+  border-radius: 8px;
+}
+.slot-stat       { text-align: center; }
+.slot-stat-val   { display: block; font-size: 14px; font-weight: 700; color: var(--blue); }
+.slot-stat-lbl   { display: block; font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+/* Azioni slot */
+.slot-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* Slot vuoto */
+.slot-empty {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  padding:         20px 0;
+  margin-bottom:   10px;
+}
+.slot-empty-icon  { font-size: 28px; color: var(--border); margin-bottom: 6px; }
+.slot-empty-label { font-size: 13px; color: var(--muted); }
+
+/* ════════════════════════════════════════════
+   SAVE MENU MODAL (in-game)
+   ════════════════════════════════════════════ */
+.save-menu-overlay {
+  position:        fixed;
+  inset:           0;
+  background:      rgba(0,0,0,.6);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  z-index:         300;
+  backdrop-filter: blur(6px);
+}
+.save-menu-box {
+  background:    var(--panel);
+  border:        1px solid var(--border);
+  border-radius: 14px;
+  padding:       22px;
+  max-width:     440px;
+  width:         90%;
+}
+.save-menu-title {
+  font-size:     15px;
+  font-weight:   700;
+  color:         var(--blue);
+  margin-bottom: 14px;
+}
+.save-slot-row {
+  display:       flex;
+  align-items:   center;
+  gap:           10px;
+  padding:       10px;
+  border-radius: 8px;
+  background:    var(--panel2);
+  margin-bottom: 8px;
+}
+.save-slot-info { flex: 1; font-size: 12px; }
+.save-slot-name { font-weight: 600; font-size: 13px; }
+.save-slot-sub  { color: var(--muted); font-size: 11px; margin-top: 1px; }
+
+/* ════════════════════════════════════════════
+   TOAST NOTIFICATION
+   ════════════════════════════════════════════ */
+#slot-toast {
+  position:   fixed;
+  bottom:     24px;
+  right:      24px;
+  z-index:    400;
+  max-width:  320px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.4);
+  animation:  fadeInUp .2s ease;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
