@@ -6,6 +6,15 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.3.5-beta] — 2026-03-31
+
+### Aggiunto
+- Mercato acquisti: ogni riga è ora cliccabile e apre la **scheda completa del giocatore** con tutti gli attributi (ATT, DIF, VEL, FOR, TEC), fitness, morale, valore, stipendio e squadra di provenienza
+- Il pulsante Acquista è presente anche nel modale, con indicazione del budget mancante se insufficiente
+- Il pulsante Acquista nella riga della tabella non apre più il modale (click bloccato per evitare doppia apertura)
+
+---
+
 ## [0.3.4-beta] — 2026-03-31
 
 ### Aggiunto
@@ -53,6 +62,15 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - Tabelle **In campo** e **Panchina**: mostrano solo il cognome (es. "Rossi") per massima leggibilità nelle colonne strette
 - **Vasca** (canvas) e log azioni: mostrano il formato completo "Cognome I."
 - Modale Rosa e altre schermate: formato completo "Cognome I."
+
+---
+
+## [0.3.5-beta] — 2026-03-31
+
+### Aggiunto
+- Mercato acquisti: ogni riga è ora cliccabile e apre la **scheda completa del giocatore** con tutti gli attributi (ATT, DIF, VEL, FOR, TEC), fitness, morale, valore, stipendio e squadra di provenienza
+- Il pulsante Acquista è presente anche nel modale, con indicazione del budget mancante se insufficiente
+- Il pulsante Acquista nella riga della tabella non apre più il modale (click bloccato per evitare doppia apertura)
 
 ---
 

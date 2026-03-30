@@ -151,6 +151,62 @@ function showPlayerModal(i) {
   document.body.appendChild(ov);
 }
 
+// ── Modale giocatore sul mercato (acquisti) ──
+function showMarketPlayerModal(i) {
+  const p  = G._mercList[i];
+  if (!p) return;
+  const rl   = { POR:'Portiere', DIF:'Difensore', CEN:'Centromediano', ATT:'Attaccante', CB:'Centroboa' };
+  const hand = p.hand === 'AMB' ? 'Ambidestro' : p.hand === 'L' ? 'Mancino' : 'Destro';
+  const mc   = p.morale > 70 ? 'var(--green)' : p.morale > 40 ? 'var(--gold)' : 'var(--red)';
+  const ok   = G.budget >= p.value;
+
+  const ov = document.createElement('div');
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(4px)';
+  ov.innerHTML = `
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px;max-width:360px;width:90%;max-height:85vh;overflow-y:auto">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div>
+          <div style="font-weight:700;font-size:15px;color:var(--blue)">${p.name}</div>
+          <div style="font-size:12px;color:var(--muted)">${rl[p.role] || p.role} · ${p.nat} · ${p.age} anni · <strong>${hand}</strong></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px">📍 ${p._tname}</div>
+        </div>
+        <button onclick="this.closest('[style*=fixed]').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
+      </div>
+      <div class="irow"><span class="ilbl">Overall</span>    <span style="font-size:18px;font-weight:700;color:var(--blue)">${p.overall}</span></div>
+      <div class="irow"><span class="ilbl">Potenziale</span> <span>${p.potential}</span></div>
+      <div class="irow"><span class="ilbl">Valore</span>     <span>${formatMoney(p.value)}</span></div>
+      <div class="irow"><span class="ilbl">Stipendio</span>  <span>${formatMoney(p.salary)}/anno</span></div>
+      <div class="irow"><span class="ilbl">Fitness</span>    <span style="color:${p.fitness > 70 ? 'var(--green)' : 'var(--gold)'}">${p.fitness}%</span></div>
+      <div class="irow"><span class="ilbl">Morale</span>     <span style="color:${mc}">${p.morale}%</span></div>
+      <div class="irow"><span class="ilbl">Gol / Assist</span><span>${p.goals} / ${p.assists}</span></div>
+      ${p.role === 'POR' ? `<div class="irow"><span class="ilbl">Parate</span><span>${p.saves}</span></div>` : ''}
+      <div style="margin-top:10px">
+        <div class="slbl" style="margin-top:0">Attributi</div>
+        ${[['att','ATT'],['def','DIF'],['spe','VEL'],['str','FOR'],['tec','TEC']].map(([a,lbl]) => `
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <div style="font-size:12px;color:var(--muted);width:28px">${lbl}</div>
+            <div style="flex:1;height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden">
+              <div style="width:${(p.stats&&p.stats[a])||0}%;height:100%;background:var(--blue);border-radius:3px"></div>
+            </div>
+            <div style="font-size:12px;width:24px;font-weight:600">${(p.stats&&p.stats[a])||'—'}</div>
+          </div>`).join('')}
+      </div>
+      <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px">
+        ${ok
+          ? `<button class="btn primary" style="width:100%;padding:10px"
+               onclick="buyPlayer(${i});this.closest('[style*=fixed]').remove()">
+               💰 Acquista per ${formatMoney(p.value)}
+             </button>`
+          : `<div style="color:var(--red);font-size:13px;text-align:center;padding:8px">
+               Budget insufficiente (mancano ${formatMoney(p.value - G.budget)})
+             </div>`
+        }
+      </div>
+    </div>`;
+  ov.onclick = e => { if (e.target === ov) ov.remove(); };
+  document.body.appendChild(ov);
+}
+
 function _buildSellSection(i) {
   const p      = G.rosters[G.myId][i];
   if (!p) return '';
@@ -647,15 +703,15 @@ function renderMarket() {
   list.forEach((p, i) => {
     const ok = G.budget >= p.value;
     const mc = p.morale > 70 ? 'var(--green)' : p.morale > 40 ? 'var(--gold)' : 'var(--red)';
-    h += `<tr>
-      <td style="font-weight:600">${p.name} <span style="font-size:11px;color:var(--muted)">(${p.age}a)</span></td>
-      <td><span class="badge ${p.hand==='L'?'L':'R'}">${p.hand}</span></td>
+    h += `<tr class="trhov" onclick="showMarketPlayerModal(${i})">
+      <td style="font-weight:600;cursor:pointer">${p.name} <span style="font-size:11px;color:var(--muted)">(${p.age}a)</span></td>
+      <td><span class="badge ${p.hand==='AMB'?'C':p.hand==='L'?'L':'R'}">${p.hand}</span></td>
       <td style="font-size:12px;color:var(--muted)">${p._tname}</td>
       <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span></td>
       <td style="font-weight:700">${p.overall}</td>
       <td style="font-size:12px;color:${mc}">${p.morale}%</td>
       <td style="font-size:12px">${formatMoney(p.value)}</td>
-      <td><button class="btn sm ${ok?'primary':''}" onclick="buyPlayer(${i})" ${ok?'':'disabled'}>Acquista</button></td>
+      <td onclick="event.stopPropagation()"><button class="btn sm ${ok?'primary':''}" onclick="buyPlayer(${i})" ${ok?'':'disabled'}>Acquista</button></td>
     </tr>`;
   });
   h += `</tbody></table></div>`;
