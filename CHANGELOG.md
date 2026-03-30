@@ -6,6 +6,26 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.2.5-beta] — 2026-03-30
+
+### Aggiunto
+- Login con **Google** disponibile sia nel form di accesso che in quello di registrazione
+- In caso di popup bloccato dal browser (es. Safari mobile), viene usato automaticamente il flusso redirect
+- `js/firebase/auth.js` — aggiunta funzione `wpLoginGoogle()` con `GoogleAuthProvider`, `signInWithPopup` e fallback `signInWithRedirect`; aggiunta gestione `getRedirectResult` per il ritorno dopo redirect
+
+### Note
+- Richiede che **Google Sign-In sia abilitato** in Firebase Console → Authentication → Sign-in method
+- Richiede che `grandepinnatk.github.io` sia nei **domini autorizzati** in Firebase Console → Authentication → Settings
+
+---
+
+## [0.2.4-beta] — 2026-03-30
+
+### Corretto
+- `lineup.js` — rimossa costante `CAP_TEAM_COL` dichiarata a livello di modulo che leggeva `G.myTeam.col` prima che `G` fosse inizializzato → errore "G is not defined" alla riga 355. Il colore viene ora letto direttamente dentro `_capSVG()` al momento della chiamata.
+
+---
+
 ## [0.2.3-beta] — 2026-03-30
 
 ### Sicurezza

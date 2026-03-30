@@ -1,6 +1,6 @@
 # Waterpolo
 
-**Versione:** 0.2.3 beta  
+**Versione:** 0.2.5 beta  
 **Campionato:** Serie A1 Maschile — Stagione 2025/26  
 **Piattaforma:** Browser (HTML5 + CSS3 + JavaScript vanilla)  
 **Dipendenze:** nessuna — zero librerie esterne, zero build step
