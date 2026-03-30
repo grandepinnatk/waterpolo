@@ -6,6 +6,27 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.2.8-beta] — 2026-03-30
+
+### Aggiunto / Modificato
+
+#### Schermata partita — nuovo layout
+- Vasca (sinistra) + colonna destra con Stats, Marcatori, Log azioni — come da mockup
+- Stats partita con **barre % attacco e difesa** di entrambe le squadre (aggiornate in tempo reale)
+- Marcatori mostrano solo i gol della partita in corso (con numero maglia); lo storico stagionale è nella scheda Rosa
+- Pannello cambi spostato in fondo alla pagina, con bordo dorato e titolo "⏸ Partita in pausa"
+- Barra controlli (play/pausa/velocità) su sfondo distinto per leggibilità
+
+#### Timer countdown
+- Il cronometro mostra ora i **minuti rimanenti nel periodo** (da 08:00 a 00:00) invece del tempo totale trascorso
+- Il display usa font monospace e dimensione maggiore per leggibilità
+
+#### Pausa automatica a fine periodo
+- Al termine di ogni tempo la partita si mette automaticamente in pausa con messaggio nel log
+- L'allenatore può effettuare sostituzioni prima di riprendere premendo ▶
+
+---
+
 ## [0.2.7-beta] — 2026-03-30
 
 ### Corretto

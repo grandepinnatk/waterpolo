@@ -38,6 +38,7 @@ function startLiveMatch(match, isHome, opp, poType = null, poMatch = null) {
   document.getElementById('btn-play').textContent    = '▶ Avvia';
   document.getElementById('sub-panel').style.display = 'none';
   document.getElementById('action-log').innerHTML    = '';
+  document.getElementById('m-clock').textContent     = '08:00';
   _setSpeedUI(1);
 
   if (_animReqId) cancelAnimationFrame(_animReqId);
@@ -60,7 +61,13 @@ function _animLoop(timestamp) {
     const dt = rawDt * speed;
 
     const { periodEnded, matchEnded } = advanceTime(G.ms, rawDt); // advanceTime già moltiplica per speed
-    if (periodEnded && !matchEnded) _appendLog('⏱ Fine ' + G.ms.period + '° periodo', '');
+    if (periodEnded && !matchEnded) {
+      // Pausa automatica a fine periodo per consentire sostituzioni
+      G.ms.running = false;
+      document.getElementById('btn-play').textContent = '▶ Avvia';
+      _lastFrameT = null;
+      _appendLog('⏸ Fine ' + (G.ms.period - 1) + '° Tempo — Partita in pausa. Puoi effettuare sostituzioni.', 'sv');
+    }
     if (matchEnded) {
       document.getElementById('btn-end').style.display  = '';
       document.getElementById('btn-play').style.display = 'none';
@@ -125,23 +132,69 @@ function refreshMatchUI() {
   const hS = ms.isHome ? ms.myScore : ms.oppScore;
   const aS = ms.isHome ? ms.oppScore : ms.myScore;
   document.getElementById('m-score').textContent   = hS + ' - ' + aS;
-  document.getElementById('m-period').textContent  = ms.period + '° Periodo';
-  document.getElementById('m-clock').textContent   = formatMatchTime(ms.totalSeconds);
+  document.getElementById('m-period').textContent  = ms.period + '° Tempo';
   document.getElementById('sub-count').textContent = ms.subs;
 
+  // ── Timer countdown: mostra secondi rimanenti nel periodo corrente ──
+  const elapsed  = ms.totalSeconds - (ms.period - 1) * PERIOD_SECONDS;
+  const remaining = Math.max(0, PERIOD_SECONDS - elapsed);
+  const mm = Math.floor(remaining / 60);
+  const ss = Math.floor(remaining % 60);
+  document.getElementById('m-clock').textContent =
+    String(mm).padStart(2, '0') + ':' + String(ss).padStart(2, '0');
+
+  // ── Barre % attacco e difesa ──
+  const totShots = ms.myShots + ms.oppShots || 1;
+  const myAttPct  = Math.round((ms.myShots  / totShots) * 100);
+  const oppAttPct = 100 - myAttPct;
+  // Difesa: % parate sul totale tiri avversari
+  const myDefPct  = ms.oppShots > 0 ? Math.round((ms.mySaves / ms.oppShots) * 100) : 100;
+  const oppDefPct = ms.myShots  > 0 ? Math.round(((ms.myShots - ms.myScore) / ms.myShots) * 100) : 100;
+  // Normalizza difesa a 100
+  const defTot    = myDefPct + oppDefPct || 1;
+  const myDefBar  = Math.round(myDefPct  / defTot * 100);
+  const oppDefBar = 100 - myDefBar;
+
+  const homeLabel = ms.isHome ? ms.myTeam.abbr : ms.oppTeam.abbr;
+  const awayLabel = ms.isHome ? ms.oppTeam.abbr : ms.myTeam.abbr;
+  const myIsHome  = ms.isHome;
+
+  // Attacco
+  const hAttPct = myIsHome ? myAttPct : oppAttPct;
+  const aAttPct = myIsHome ? oppAttPct : myAttPct;
+  const hAttBar = myIsHome ? myAttPct : oppAttPct;
+  _setBar('m-att-home-pct', 'm-att-away-pct', 'm-att-bar-home', 'm-att-bar-away',
+          hAttPct + '%', aAttPct + '%', hAttBar);
+
+  // Difesa
+  const hDefPct = myIsHome ? myDefPct : oppDefPct;
+  const aDefPct = myIsHome ? oppDefPct : myDefPct;
+  const hDefBar = myIsHome ? myDefBar : oppDefBar;
+  _setBar('m-def-home-pct', 'm-def-away-pct', 'm-def-bar-home', 'm-def-bar-away',
+          hDefPct + '%', aDefPct + '%', hDefBar);
+
+  // ── Stats numeriche ──
   document.getElementById('m-stats').innerHTML = `
     <div class="irow"><span class="ilbl">Tiri miei</span>      <span>${ms.myShots}</span></div>
     <div class="irow"><span class="ilbl">Tiri avversario</span><span>${ms.oppShots}</span></div>
     <div class="irow"><span class="ilbl">Parate</span>         <span>${ms.mySaves}</span></div>
     <div class="irow"><span class="ilbl">Falli/Esp.</span>     <span>${ms.myFouls}</span></div>`;
 
-  const scorers = ms.myRoster.filter(p => p.goals > 0).sort((a, b) => b.goals - a.goals).slice(0, 4);
+  // ── Marcatori partita in corso ──
+  const scorers = ms.myRoster.filter(p => p.goals > 0).sort((a, b) => b.goals - a.goals).slice(0, 6);
   document.getElementById('m-scorers').innerHTML = scorers.length
     ? scorers.map(p => {
         const shirt = Object.entries(ms.shirtNumbers).find(([pi]) => ms.myRoster[+pi] === p)?.[1] || '?';
-        return `<div class="irow"><span>#${shirt} ${p.name}</span><span style="color:var(--blue)">⚽${p.goals}</span></div>`;
+        return `<div class="irow"><span>#${shirt} ${p.name}</span><span style="color:var(--blue);font-weight:700">⚽ ${p.goals}</span></div>`;
       }).join('')
-    : '<div style="color:var(--muted);font-size:12px">Nessun marcatore</div>';
+    : '<div style="color:var(--muted);font-size:12px;padding:4px 0">Nessun gol ancora</div>';
+}
+
+function _setBar(idHPct, idAPct, idHBar, idABar, hLabel, aLabel, hPct) {
+  const hEl = document.getElementById(idHPct); if (hEl) hEl.textContent = hLabel;
+  const aEl = document.getElementById(idAPct); if (aEl) aEl.textContent = aLabel;
+  const hB  = document.getElementById(idHBar);  if (hB)  hB.style.width = hPct + '%';
+  const aB  = document.getElementById(idABar);  if (aB)  aB.style.width = (100 - hPct) + '%';
 }
 
 // ── Aggiunge riga al log ──────────────────────

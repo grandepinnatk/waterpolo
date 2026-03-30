@@ -249,23 +249,28 @@
 <!-- ══════════════════════════════════════════
      PARTITA LIVE
      ══════════════════════════════════════════ -->
-<div id="sc-match" style="display:none;padding:10px;max-width:900px;margin:0 auto">
+<div id="sc-match" style="display:none;padding:10px;max-width:1100px;margin:0 auto">
 
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+  <!-- ── RIGA 1: header partita ── -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
     <div>
       <div style="font-size:11px;color:var(--muted)" id="m-lbl">—</div>
-      <div style="font-size:16px;font-weight:700" id="m-title">—</div>
+      <div style="font-size:15px;font-weight:700" id="m-title">—</div>
     </div>
+    <!-- TABELLONE centrale -->
     <div style="text-align:center">
-      <div style="font-size:28px;font-weight:700;color:var(--blue)" id="m-score">0 - 0</div>
-      <div style="font-size:11px;color:var(--muted)">
-        <span id="m-period">1° T</span> · <span id="m-clock">00:00</span>
+      <div style="font-size:32px;font-weight:700;color:var(--blue);letter-spacing:4px" id="m-score">0 - 0</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:2px">
+        <span id="m-period">1° Tempo</span>
+        <span style="margin:0 6px">·</span>
+        <span id="m-clock" style="font-family:monospace;font-size:16px;font-weight:700;color:var(--text)">08:00</span>
       </div>
     </div>
+    <!-- Tattica -->
     <div style="text-align:right">
-      <div style="font-size:11px;color:var(--muted)">Tattica</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:3px">Tattica</div>
       <select id="tactic-sel" onchange="if(G.ms) G.ms.tactic=this.value"
-              style="background:var(--panel2);border:1px solid var(--border);border-radius:7px;padding:4px 8px;font-size:12px;color:var(--text)">
+              style="background:var(--panel2);border:1px solid var(--border);border-radius:7px;padding:4px 10px;font-size:12px;color:var(--text)">
         <option value="balanced">Bilanciata</option>
         <option value="attack">Attacco</option>
         <option value="defense">Difesa</option>
@@ -275,42 +280,88 @@
     </div>
   </div>
 
-  <div style="width:100%;max-width:760px;margin:0 auto 10px">
-    <canvas id="pool-canvas" width="760" height="430"></canvas>
+  <!-- ── RIGA 2: vasca + colonna destra stats ── -->
+  <div style="display:flex;gap:10px;margin-bottom:8px">
+
+    <!-- Vasca (sinistra) -->
+    <div style="flex:1;min-width:0">
+      <div style="position:relative;width:100%">
+        <canvas id="pool-canvas" width="760" height="430" style="width:100%;height:auto;display:block;border-radius:10px"></canvas>
+      </div>
+    </div>
+
+    <!-- Colonna destra: stats + log -->
+    <div style="width:280px;flex-shrink:0;display:flex;flex-direction:column;gap:8px">
+
+      <!-- Stats partita -->
+      <div class="card" style="padding:10px">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Stats Partita</div>
+
+        <!-- Percentuale attacco -->
+        <div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:3px">
+            <span id="m-att-home-pct">0%</span>
+            <span style="font-weight:600">Attacco</span>
+            <span id="m-att-away-pct">0%</span>
+          </div>
+          <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:rgba(255,255,255,.08)">
+            <div id="m-att-bar-home" style="height:100%;background:var(--blue);border-radius:3px;transition:width .5s;width:50%"></div>
+            <div id="m-att-bar-away" style="height:100%;background:#e74c3c;border-radius:3px;transition:width .5s;width:50%"></div>
+          </div>
+        </div>
+
+        <!-- Percentuale difesa -->
+        <div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:3px">
+            <span id="m-def-home-pct">0%</span>
+            <span style="font-weight:600">Difesa</span>
+            <span id="m-def-away-pct">0%</span>
+          </div>
+          <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:rgba(255,255,255,.08)">
+            <div id="m-def-bar-home" style="height:100%;background:var(--blue);border-radius:3px;transition:width .5s;width:50%"></div>
+            <div id="m-def-bar-away" style="height:100%;background:#e74c3c;border-radius:3px;transition:width .5s;width:50%"></div>
+          </div>
+        </div>
+
+        <div id="m-stats" style="font-size:12px"></div>
+      </div>
+
+      <!-- Marcatori partita in corso -->
+      <div class="card" style="padding:10px">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Marcatori</div>
+        <div id="m-scorers" style="font-size:12px"></div>
+      </div>
+
+      <!-- Log azioni -->
+      <div style="flex:1">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Azioni di Gioco</div>
+        <div class="action-log" id="action-log" style="height:180px"></div>
+      </div>
+
+    </div>
   </div>
 
-  <div class="g2" style="gap:8px;margin-bottom:8px">
-    <div>
-      <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Azioni di Gioco</div>
-      <div class="action-log" id="action-log"></div>
-    </div>
-    <div class="card" style="padding:10px">
-      <div class="slbl" style="margin-top:0">Stats Partita</div>
-      <div id="m-stats" style="font-size:12px"></div>
-      <div class="slbl">Marcatori</div>
-      <div id="m-scorers" style="font-size:12px"></div>
-    </div>
-  </div>
-
-  <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+  <!-- ── RIGA 3: controlli partita ── -->
+  <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:8px;padding:8px;background:var(--panel2);border-radius:10px;border:1px solid var(--border)">
     <button class="btn primary" id="btn-play" onclick="togglePlay()">▶ Avvia</button>
     <button class="btn" onclick="skipPeriod()">⏭ Fine Periodo</button>
     <button class="btn warn" onclick="openSub()">↔ Cambio</button>
     <button class="btn danger" id="btn-end" onclick="endMatch()" style="display:none">Fine Partita</button>
     <div style="display:flex;gap:4px;align-items:center;margin-left:8px">
-      <span style="font-size:11px;color:var(--muted);margin-right:2px">Velocità:</span>
+      <span style="font-size:11px;color:var(--muted)">Velocità:</span>
       <button class="btn sm btn-speed" data-speed="1"  onclick="setSpeed(1)">1x</button>
       <button class="btn sm btn-speed" data-speed="2"  onclick="setSpeed(2)">2x</button>
       <button class="btn sm btn-speed" data-speed="10" onclick="setSpeed(10)">10x</button>
       <button class="btn sm btn-speed" data-speed="15" onclick="setSpeed(15)">15x</button>
       <button class="btn sm btn-speed" data-speed="20" onclick="setSpeed(20)">20x</button>
     </div>
-    <div style="font-size:12px;color:var(--muted);margin-left:8px">
+    <div style="font-size:12px;color:var(--muted);margin-left:auto">
       Cambi: <span id="sub-count">0</span>
     </div>
   </div>
 
-  <div class="g2" style="gap:8px">
+  <!-- ── RIGA 4: in campo + panchina ── -->
+  <div class="g2" style="gap:8px;margin-bottom:8px">
     <div class="card" style="padding:10px">
       <div class="slbl" style="margin-top:0;color:var(--blue)">In campo — <span id="my-team-lbl">—</span></div>
       <div id="field-players" style="font-size:12px"></div>
@@ -321,20 +372,24 @@
     </div>
   </div>
 
-  <div id="sub-panel" style="display:none">
-    <div style="font-weight:600;margin-bottom:8px;color:var(--gold)">Effettua Cambio</div>
+  <!-- ── RIGA 5: pannello cambi (fondo pagina, visibile solo quando aperto) ── -->
+  <div id="sub-panel" style="display:none;border:1px solid var(--gold);border-radius:12px;padding:14px;background:rgba(240,192,64,.06);margin-top:4px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-weight:700;color:var(--gold);font-size:14px">⏸ Partita in pausa — Effettua Cambio</div>
+      <button class="btn sm" onclick="closeSub()">✕ Chiudi</button>
+    </div>
     <div class="g2" style="gap:10px">
       <div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Esce dal campo</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600">Esce dal campo</div>
         <div id="sub-out-list"></div>
       </div>
       <div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Entra in campo</div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600">Entra in campo</div>
         <div id="sub-in-list"></div>
       </div>
     </div>
-    <div style="margin-top:10px;display:flex;gap:8px">
-      <button class="btn success" onclick="confirmSub()" id="btn-confirm-sub" disabled>Conferma Cambio</button>
+    <div style="margin-top:12px;display:flex;gap:8px">
+      <button class="btn success" onclick="confirmSub()" id="btn-confirm-sub" disabled>✓ Conferma Cambio</button>
       <button class="btn" onclick="closeSub()">Annulla</button>
     </div>
   </div>
