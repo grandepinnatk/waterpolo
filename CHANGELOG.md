@@ -6,6 +6,29 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.2.7-beta] — 2026-03-30
+
+### Corretto
+
+#### Login
+- Sessione Firebase isolata da altri progetti (es. scacchideipinci): l'istanza Firebase è ora nominata `'waterpolo-app'` — questo impedisce la condivisione di token di autenticazione tra app diverse sullo stesso browser
+- Aggiunta `setPersistence(browserLocalPersistence)` esplicita per garantire comportamento consistente
+
+#### Convocazioni — bottone "Inizia partita"
+- Corretto bug che impediva di abilitare il bottone con assegnazione manuale dei numeri: la validazione ora controlla correttamente solo i numeri assegnati ai convocati (non all'intera rosa)
+- Il bottone si abilita non appena tutti i convocati hanno un numero, la formazione è completa e non ci sono duplicati
+
+#### Convocazioni — numero minimo giocatori
+- Ridotto il minimo da 7 a **5 convocati** per avviare la partita (MIN_CONVOCATI = 5)
+- Il popup calottine si apre per ogni nuovo convocato senza numero, senza aspettare di raggiungere 13
+
+#### Calottine — colori corretti
+- Calottina **#1 sempre rossa** (portiere, regola ufficiale)
+- In **casa**: calottine bianche con numero blu scuro
+- In **trasferta**: calottine blu con numero bianco
+
+---
+
 ## [0.2.6-beta] — 2026-03-30
 
 ### Corretto

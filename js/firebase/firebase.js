@@ -3,9 +3,10 @@
 // Inizializzazione Firebase SDK (Realtime Database + Auth)
 // ─────────────────────────────────────────────
 
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getAuth }       from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import { getDatabase }   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+import { initializeApp }          from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, setPersistence,
+         browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getDatabase }             from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 
 const firebaseConfig = {
   apiKey:            "AIzaSyBnP30hw8Qgt265L6Zvb7GQDtv-U2twYxQ",
@@ -17,6 +18,12 @@ const firebaseConfig = {
   appId:             "1:315764607553:web:f5f98e3c77955fde3154c0"
 };
 
-export const app  = initializeApp(firebaseConfig);
+// Nome app univoco per separare la sessione da altri progetti Firebase (es. scacchideipinci)
+export const app  = initializeApp(firebaseConfig, 'waterpolo-app');
 export const auth = getAuth(app);
 export const db   = getDatabase(app);
+
+// Persistenza locale esplicita (sessione separata per ogni app Firebase)
+setPersistence(auth, browserLocalPersistence).catch(e =>
+  console.warn('[Firebase] setPersistence error:', e)
+);

@@ -14,6 +14,7 @@ let luState = {
 };
 
 const MAX_CONVOCATI = 13;
+const MIN_CONVOCATI = 5;
 
 // ── Apre la schermata ─────────────────────────
 function openLineup(match, isHome, opp, poType = null, poMatch = null) {
@@ -318,20 +319,28 @@ function updateLuStatus() {
   const filled    = Object.keys(luState.formation).length;
   const hasGK     = luState.formation['GK'] !== undefined;
   const convCount = luState.convocati.size;
-  const withShirt = [...luState.convocati].filter(pi => luState.shirtNumbers[pi] !== undefined).length;
-  const shirtsOk  = withShirt === convCount && convCount > 0;
-  const vals      = Object.values(luState.shirtNumbers);
-  const unique    = new Set(vals).size === vals.length;
+
+  // Numeri assegnati: conta solo i convocati (non tutti i giocatori della rosa)
+  const convArr    = [...luState.convocati];
+  const withShirt  = convArr.filter(pi => luState.shirtNumbers[pi] !== undefined).length;
+  const allHaveNum = withShirt === convCount && convCount > 0;
+
+  // Verifica duplicati solo tra i convocati
+  const convNums = convArr.map(pi => luState.shirtNumbers[pi]).filter(v => v !== undefined);
+  const unique   = new Set(convNums).size === convNums.length;
 
   let msg = `Formazione: <strong>${filled}/${POS_KEYS.length}</strong> · Convocati: <strong>${convCount}/${MAX_CONVOCATI}</strong>`;
   if (!hasGK && filled > 0) msg += ' · <span style="color:var(--red)">⚠ Portiere mancante</span>';
-  if (convCount > 0 && !shirtsOk) msg += ' · <span style="color:var(--gold)">Assegna un # a tutti i convocati</span>';
-  if (!unique) msg += ' · <span style="color:var(--red)">⚠ Numeri duplicati</span>';
+  if (convCount >= MIN_CONVOCATI && !allHaveNum) msg += ' · <span style="color:var(--gold)">Assegna un # a tutti i convocati</span>';
+  if (!unique && convNums.length > 0) msg += ' · <span style="color:var(--red)">⚠ Numeri duplicati</span>';
   if (luState.selectedPlayer !== null) msg += ' · <span style="color:var(--gold)">Ora clicca una posizione</span>';
   if (luState.selectedPos !== null && luState.selectedPlayer === null) msg += ' · <span style="color:var(--gold)">Ora clicca un giocatore</span>';
 
   document.getElementById('lu-status').innerHTML = msg;
-  document.getElementById('btn-confirm-lu').disabled = !(filled === POS_KEYS.length && hasGK && convCount >= 7 && shirtsOk && unique);
+
+  // Può avviare: formazione completa + portiere + almeno MIN_CONVOCATI con numero + no duplicati
+  const canGo = filled === POS_KEYS.length && hasGK && convCount >= MIN_CONVOCATI && allHaveNum && unique;
+  document.getElementById('btn-confirm-lu').disabled = !canGo;
 }
 
 // ── Conferma ──────────────────────────────────
@@ -355,32 +364,44 @@ const CAP_RED_COL  = '#C0392B';   // calottina n.1 sempre rossa
 const CAP_TEXT_COL = '#ffffff';
 
 // Genera SVG di una calottina da nuoto con numero
-// Il colore squadra viene letto da G.myTeam al momento della chiamata (non al caricamento)
-function _capSVG(num, isRed, size = 64) {
-  const teamCol = (typeof G !== 'undefined' && G.myTeam && G.myTeam.col) ? G.myTeam.col : '#185FA5';
-  const fill    = isRed ? CAP_RED_COL : teamCol;
-  const stripe  = isRed ? '#8B0000'   : _darken(fill);
-  const txt     = String(num);
-  const fs      = num >= 10 ? 18 : 22;
+// isGK=true → sempre rossa; altrimenti usa il colore passato (bianco in casa, blu in trasferta)
+function _capSVG(num, isGK, size = 64, overrideColor) {
+  const CAP_HOME_COL = '#FFFFFF';   // bianca in casa
+  const CAP_AWAY_COL = '#1a4fa0';   // blu in trasferta
+  const isHome = luState.isHome;
+  let fill, stroke;
+  if (isGK) {
+    fill   = CAP_RED_COL;           // portiere sempre rosso
+    stroke = '#8B0000';
+  } else if (overrideColor) {
+    fill   = overrideColor;
+    stroke = _darken(overrideColor);
+  } else {
+    fill   = isHome ? CAP_HOME_COL : CAP_AWAY_COL;
+    stroke = isHome ? '#cccccc'     : _darken(CAP_AWAY_COL);
+  }
+  const textColor = (fill === '#FFFFFF') ? '#003060' : '#ffffff'; // testo scuro su bianco
+  const txt = String(num);
+  const fs  = num >= 10 ? 18 : 22;
 
   // Forma calottina: ellisse superiore + fascia laterale
   return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
     <!-- Calottina base -->
     <ellipse cx="32" cy="28" rx="26" ry="22" fill="${fill}"/>
     <!-- Fascia laterale sinistra -->
-    <path d="M6 28 Q6 50 32 52 Q32 52 32 52" fill="${stripe}" opacity=".35"/>
+    <path d="M6 28 Q6 50 32 52 Q32 52 32 52" fill="${stroke}" opacity=".35"/>
     <!-- Fascia laterale destra -->
-    <path d="M58 28 Q58 50 32 52 Q32 52 32 52" fill="${stripe}" opacity=".35"/>
+    <path d="M58 28 Q58 50 32 52 Q32 52 32 52" fill="${stroke}" opacity=".35"/>
     <!-- Bordo -->
     <ellipse cx="32" cy="28" rx="26" ry="22" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1.5"/>
     <!-- Strap sinistro -->
-    <path d="M9 34 Q8 42 14 46" stroke="${stripe}" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
+    <path d="M9 34 Q8 42 14 46" stroke="${stroke}" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
     <!-- Strap destro -->
-    <path d="M55 34 Q56 42 50 46" stroke="${stripe}" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
+    <path d="M55 34 Q56 42 50 46" stroke="${stroke}" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
     <!-- Numero -->
     <text x="32" y="33" text-anchor="middle" dominant-baseline="middle"
           font-family="Arial Black, sans-serif" font-weight="900" font-size="${fs}"
-          fill="${CAP_TEXT_COL}" letter-spacing="0">${txt}</text>
+          fill="${textColor}" letter-spacing="0">${txt}</text>
   </svg>`;
 }
 
@@ -502,7 +523,7 @@ function assignCapNumber(playerRosterIdx, num) {
 // Trigger automatico: appena i convocati raggiungono MAX_CONVOCATI
 // e c'è almeno un non-numerato, apri il popup sequenziale
 function _maybeOpenCapPopup() {
-  if (luState.convocati.size < MAX_CONVOCATI) return;
+  // Apre il popup per ogni convocato senza numero, indipendentemente dal totale
   const unnumbered = [...luState.convocati].filter(pi => !luState.shirtNumbers[pi]);
   if (unnumbered.length > 0) {
     setTimeout(() => openCapAssignment(unnumbered[0]), 200);
