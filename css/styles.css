@@ -392,3 +392,12 @@ tr:last-child td { border-bottom: none; }
   vertical-align: middle;
 }
 .yellow-card.red { background: var(--red); }
+
+/* ════════════════════════════════════════════
+   POPUP CALOTTINE
+   ════════════════════════════════════════════ */
+#cap-popup .cap-item:hover {
+  background: rgba(255,255,255,.08) !important;
+  transform: scale(1.08);
+  transition: transform .12s;
+}
