@@ -48,12 +48,25 @@ const POS_NATIVE_ROLE = {
 
 // Fattore di efficacia quando il giocatore è fuori ruolo
 // 'native' = ruolo corretto, 'adjacent' = ruolo simile, 'alien' = ruolo distante
+// Fattore efficacia per ruolo giocatore → ruolo nativo della posizione
+// ATT in pos 3 (native CEN): penalizzato perché pos 3 richiede visione di gioco, non finalizzazione
 const ROLE_ADJACENCY = {
   POR: { POR: 1.0, DIF: 0.55, CEN: 0.40, ATT: 0.35, CB: 0.35 },
-  DIF: { POR: 0.40, DIF: 1.0, CEN: 0.80, ATT: 0.65, CB: 0.60 },
+  DIF: { POR: 0.40, DIF: 1.0, CEN: 0.75, ATT: 0.60, CB: 0.55 },
   CEN: { POR: 0.40, DIF: 0.80, CEN: 1.0, ATT: 0.85, CB: 0.75 },
-  ATT: { POR: 0.35, DIF: 0.65, CEN: 0.85, ATT: 1.0, CB: 0.80 },
+  ATT: { POR: 0.35, DIF: 0.60, CEN: 0.70, ATT: 1.0,  CB: 0.80 },
   CB:  { POR: 0.35, DIF: 0.60, CEN: 0.75, ATT: 0.80, CB: 1.0 },
+};
+
+// Penalità mano/posizione: fattore moltiplicativo applicato all'efficacia
+// Mancini (L) in pos 4 e 5: penalizzati (braccio dominante a sfavore)
+// Destri (R) in pos 1 e 2: penalizzati
+// Pos 3 e 6: indifferente (gioco frontale/centrale)
+// AMB: nessuna penalità ovunque
+const HAND_POS_PENALTY = {
+  L: { GK: 1.0, 1: 1.0, 2: 1.0, 3: 1.0, 4: 0.82, 5: 0.82, 6: 1.0 },
+  R: { GK: 1.0, 1: 0.82, 2: 0.82, 3: 1.0, 4: 1.0, 5: 1.0, 6: 1.0 },
+  AMB: { GK: 1.0, 1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0, 5: 1.0, 6: 1.0 },
 };
 
 // ── Costanti stamina ──────────────────────────
@@ -194,15 +207,29 @@ function _drainStamina(ms, dtGame) {
 }
 
 // ── Efficacia giocatore in posizione ─────────
-// Restituisce un fattore 0.35-1.0 basato su ruolo vs posizione nativa
+// Combina: malus fuori-ruolo × penalità mano/posizione
+// Considera anche il secondo ruolo (bi-ruolo): usa il migliore tra i due
 function _roleEffectiveness(player, posKey) {
   if (!player) return 0.5;
   const nativeRole = POS_NATIVE_ROLE[posKey];
-  const playerRole = player.role;
-  if (!nativeRole || !playerRole) return 1.0;
-  const adj = ROLE_ADJACENCY[playerRole];
-  if (!adj) return 1.0;
-  return adj[nativeRole] || 0.60;
+  if (!nativeRole) return 1.0;
+
+  // Calcola efficacia ruolo (considera anche secondRole se presente)
+  function _roleAdj(role) {
+    const adj = ROLE_ADJACENCY[role];
+    return adj ? (adj[nativeRole] || 0.60) : 0.60;
+  }
+  let roleFactor = _roleAdj(player.role);
+  if (player.secondRole) {
+    roleFactor = Math.max(roleFactor, _roleAdj(player.secondRole));
+  }
+
+  // Penalità mano/posizione (AMB non ha penalità)
+  const hand = player.hand || 'R';
+  const handPenaltyMap = HAND_POS_PENALTY[hand] || HAND_POS_PENALTY['R'];
+  const handFactor = handPenaltyMap[posKey] !== undefined ? handPenaltyMap[posKey] : 1.0;
+
+  return roleFactor * handFactor;
 }
 
 // ── Genera evento di gioco ────────────────────

@@ -1,3 +1,12 @@
+// helper nome breve
+function _shortPlayerName(p) {
+  if (!p) return "—";
+  if (p.name && /^[A-Z]\. /.test(p.name)) return p.name;
+  const parts = p.name.split(" ");
+  if (parts.length >= 2) return parts[0][0] + ". " + parts[parts.length - 1];
+  return p.name;
+}
+
 // ─────────────────────────────────────────────
 // ui/dashboard.js  · ui/roster.js · ui/training.js
 // ui/objectives.js · ui/standings.js · ui/calendar.js

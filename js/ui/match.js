@@ -210,6 +210,14 @@ function _appendLog(txt, cls) {
 }
 
 // ── Liste in campo / panchina ─────────────────
+function _shortPlayerName(p) {
+  if (!p) return '—';
+  if (p.name && /^[A-Z]\.\s/.test(p.name)) return p.name;
+  const parts = p.name.split(' ');
+  if (parts.length >= 2) return parts[0][0] + '. ' + parts[parts.length - 1];
+  return p.name;
+}
+
 function renderFieldLists() {
   const ms = G.ms; if (!ms) return;
 

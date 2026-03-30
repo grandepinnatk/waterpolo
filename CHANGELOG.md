@@ -6,6 +6,38 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.2.9-beta] — 2026-03-31
+
+### Aggiunto
+
+#### Nomi giocatori
+- Lista nomi maschili italiani (149 nomi) e cognomi italiani (188 cognomi) inclusi come file dati `js/data/names.js`
+- Fonti: pdesterlich/cognomi.txt (gist GitHub), Max1234-Ita/nomi_italiani_m.txt
+- I giocatori vengono ora generati con il formato **I. Cognome** (es. "M. Rossi")
+- Lo stesso formato appare in vasca, tabelle In campo/Panchina, pannello cambi e modale Rosa
+
+#### Mano dominante — giocatori ambidestri
+- Aggiunta categoria **AMB** (ambidestro): 5% dei giocatori generati
+- Distribuzione: 70% Destri (R), 25% Mancini (L), 5% Ambidestri (AMB)
+- I giocatori AMB non subiscono nessuna penalità legata alla posizione in campo
+
+#### Penalità mano/posizione nel motore
+- **Mancini (L)** in posizione 4 (DL) e 5 (LW): efficacia ×0.82 (braccio dominante a sfavore)
+- **Destri (R)** in posizione 1 (RW) e 2 (DR): efficacia ×0.82
+- Posizioni 3 (ATT centro) e 6 (CB): indifferente — nessuna penalità per nessuna mano
+- Portiere (GK): nessuna penalità
+
+#### Bi-ruolo giocatori
+- Il 10% dei giocatori generati ha un ruolo secondario (`secondRole`)
+- Mappatura: DIF→CEN, CEN→DIF/ATT, ATT→CEN/CB, CB→ATT
+- Nel calcolo efficacia viene usato il migliore tra ruolo primario e secondario
+- Il ruolo secondario è visibile nella scheda giocatore (in sviluppo)
+
+### Corretto
+- **ATT in posizione 3**: penalizzato (efficacia 0.70 invece di 0.85) — posizione 3 richiede CEN, non un finalizzatore
+
+---
+
 ## [0.2.8-beta] — 2026-03-30
 
 ### Aggiunto / Modificato
