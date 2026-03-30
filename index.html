@@ -1,226 +1,344 @@
-// ─────────────────────────────────────────────
-// js/firebase/auth.js
-// Autenticazione Firebase per Waterpolo
-// Adattato dal pattern di Scacchi dei Pinci
-//
-// Gestisce:
-//  - Login / registrazione email+password
-//  - onAuthStateChanged → sync cloud → avvio gioco
-//  - UI schermata login integrata nel welcome
-//  - Logout con pulizia stato
-// ─────────────────────────────────────────────
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waterpolo</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
 
-import { auth } from './firebase.js';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  updateProfile,
-  sendPasswordResetEmail,
-} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import { syncOnLogin } from './cloud-save.js';
+<!-- ══════════════════════════════════════════
+     PANNELLO LOGIN FIREBASE
+     ══════════════════════════════════════════ -->
+<div id="wp-auth-panel" style="
+  position:fixed;inset:0;background:rgba(0,10,20,.88);
+  display:flex;align-items:center;justify-content:center;
+  z-index:1000;backdrop-filter:blur(8px)">
+  <div style="
+    background:var(--panel);border:1px solid var(--border);border-radius:16px;
+    padding:28px 24px;width:100%;max-width:360px;box-shadow:0 8px 40px rgba(0,0,0,.6)">
 
-// ── Stato corrente ────────────────────────────
-let _currentUser = null;
-export function getCurrentUser() { return _currentUser; }
+    <!-- Logo + titolo -->
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:36px;margin-bottom:6px">🏊</div>
+      <div style="font-size:20px;font-weight:700;color:var(--blue)">Waterpolo</div>
+      <div id="wp-auth-title" style="font-size:13px;color:var(--muted);margin-top:4px">Accedi</div>
+    </div>
 
-// ── Messaggi di errore leggibili ─────────────
-function _errMsg(code) {
-  const map = {
-    'auth/email-already-in-use':  'Email già registrata',
-    'auth/invalid-email':          'Email non valida',
-    'auth/weak-password':          'Password troppo corta (minimo 6 caratteri)',
-    'auth/wrong-password':         'Password errata',
-    'auth/user-not-found':         'Nessun account con questa email',
-    'auth/invalid-credential':     'Email o password errati',
-    'auth/too-many-requests':      'Troppi tentativi. Riprova tra qualche minuto',
-    'auth/network-request-failed': 'Errore di rete. Controlla la connessione',
-  };
-  return map[code] || 'Errore: ' + code;
-}
+    <!-- Spinner sync -->
+    <div id="wp-sync-indicator" style="display:none;text-align:center;padding:16px;color:var(--muted);font-size:13px">
+      ☁️ Sincronizzazione salvataggi in corso…
+    </div>
 
-function _setErr(msg) {
-  const el = document.getElementById('wp-auth-err');
-  if (el) { el.textContent = msg; el.style.display = msg ? '' : 'none'; }
-}
+    <!-- Form LOGIN -->
+    <div id="wp-auth-login-form">
+      <input id="wp-email" type="email" placeholder="Email"
+        style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);
+               background:var(--panel2);color:var(--text);font-size:14px;margin-bottom:10px;box-sizing:border-box">
+      <input id="wp-password" type="password" placeholder="Password"
+        style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);
+               background:var(--panel2);color:var(--text);font-size:14px;margin-bottom:14px;box-sizing:border-box">
+      <button id="wp-btn-login" class="btn primary" onclick="wpLogin()"
+        style="width:100%;padding:11px;font-size:14px">Accedi</button>
+      <div style="display:flex;justify-content:space-between;margin-top:12px;font-size:12px">
+        <span style="color:var(--muted);cursor:pointer;text-decoration:underline"
+              onclick="wpSwitchToRegister()">Crea account</span>
+        <span style="color:var(--muted);cursor:pointer;text-decoration:underline"
+              onclick="wpSwitchToReset()">Password dimenticata?</span>
+      </div>
+    </div>
 
-function _setLoading(loading) {
-  ['wp-btn-login', 'wp-btn-register', 'wp-btn-reset'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.disabled = loading;
-  });
-  const spinner = document.getElementById('wp-auth-spinner');
-  if (spinner) spinner.style.display = loading ? '' : 'none';
-}
+    <!-- Form REGISTRAZIONE -->
+    <div id="wp-auth-reg-form" style="display:none">
+      <input id="wp-reg-name" type="text" placeholder="Nome allenatore"
+        style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);
+               background:var(--panel2);color:var(--text);font-size:14px;margin-bottom:10px;box-sizing:border-box">
+      <input id="wp-reg-email" type="email" placeholder="Email"
+        style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);
+               background:var(--panel2);color:var(--text);font-size:14px;margin-bottom:10px;box-sizing:border-box">
+      <input id="wp-reg-password" type="password" placeholder="Password (min. 6 caratteri)"
+        style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);
+               background:var(--panel2);color:var(--text);font-size:14px;margin-bottom:10px;box-sizing:border-box">
+      <input id="wp-reg-password2" type="password" placeholder="Ripeti password"
+        style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);
+               background:var(--panel2);color:var(--text);font-size:14px;margin-bottom:14px;box-sizing:border-box">
+      <button id="wp-btn-register" class="btn primary" onclick="wpRegister()"
+        style="width:100%;padding:11px;font-size:14px">Crea account</button>
+      <div style="text-align:center;margin-top:12px;font-size:12px">
+        <span style="color:var(--muted);cursor:pointer;text-decoration:underline"
+              onclick="wpSwitchToLogin()">← Torna al login</span>
+      </div>
+    </div>
 
-// ── Funzioni esposte all'HTML ─────────────────
-export function wpSwitchToLogin() {
-  document.getElementById('wp-auth-login-form').style.display  = '';
-  document.getElementById('wp-auth-reg-form').style.display    = 'none';
-  document.getElementById('wp-auth-reset-form').style.display  = 'none';
-  document.getElementById('wp-auth-title').textContent = 'Accedi';
-  _setErr('');
-}
+    <!-- Form RESET PASSWORD -->
+    <div id="wp-auth-reset-form" style="display:none">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px">
+        Inserisci la tua email e ti invieremo un link per reimpostare la password.
+      </p>
+      <input id="wp-reset-email" type="email" placeholder="Email"
+        style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);
+               background:var(--panel2);color:var(--text);font-size:14px;margin-bottom:14px;box-sizing:border-box">
+      <button id="wp-btn-reset" class="btn primary" onclick="wpResetPassword()"
+        style="width:100%;padding:11px;font-size:14px">Invia link reset</button>
+      <div id="wp-reset-ok" style="display:none;text-align:center;color:var(--green);font-size:13px;margin-top:10px">
+        ✓ Email inviata! Controlla la casella di posta.
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:12px">
+        <span style="color:var(--muted);cursor:pointer;text-decoration:underline"
+              onclick="wpSwitchToLogin()">← Torna al login</span>
+      </div>
+    </div>
 
-export function wpSwitchToRegister() {
-  document.getElementById('wp-auth-login-form').style.display  = 'none';
-  document.getElementById('wp-auth-reg-form').style.display    = '';
-  document.getElementById('wp-auth-reset-form').style.display  = 'none';
-  document.getElementById('wp-auth-title').textContent = 'Crea account';
-  _setErr('');
-}
+    <!-- Errore -->
+    <div id="wp-auth-err" style="
+      display:none;margin-top:12px;padding:8px 12px;border-radius:8px;
+      background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);
+      color:var(--red);font-size:13px;text-align:center"></div>
 
-export function wpSwitchToReset() {
-  document.getElementById('wp-auth-login-form').style.display  = 'none';
-  document.getElementById('wp-auth-reg-form').style.display    = 'none';
-  document.getElementById('wp-auth-reset-form').style.display  = '';
-  document.getElementById('wp-auth-title').textContent = 'Recupera password';
-  _setErr('');
-}
+    <!-- Spinner bottoni -->
+    <div id="wp-auth-spinner" style="display:none;text-align:center;margin-top:10px;color:var(--muted);font-size:12px">
+      ⏳ Attendere…
+    </div>
+  </div>
+</div>
 
-export async function wpLogin() {
-  const email = document.getElementById('wp-email').value.trim();
-  const pw    = document.getElementById('wp-password').value;
-  if (!email || !pw) { _setErr('Compila email e password'); return; }
-  _setLoading(true); _setErr('');
-  try {
-    await signInWithEmailAndPassword(auth, email, pw);
-    // onAuthStateChanged gestisce il resto
-  } catch (e) {
-    _setErr(_errMsg(e.code));
-    _setLoading(false);
-  }
-}
+<!-- ══════════════════════════════════════════
+     SCHERMATA WELCOME
+     ══════════════════════════════════════════ -->
+<div id="sc-welcome">
+  <div style="width:100%;max-width:860px">
 
-export async function wpRegister() {
-  const name  = document.getElementById('wp-reg-name').value.trim();
-  const email = document.getElementById('wp-reg-email').value.trim();
-  const pw    = document.getElementById('wp-reg-password').value;
-  const pw2   = document.getElementById('wp-reg-password2').value;
-  if (!name || !email || !pw) { _setErr('Compila tutti i campi'); return; }
-  if (name.length < 2)         { _setErr('Nome troppo corto'); return; }
-  if (pw !== pw2)              { _setErr('Le password non coincidono'); return; }
-  _setLoading(true); _setErr('');
-  try {
-    const cred = await createUserWithEmailAndPassword(auth, email, pw);
-    await updateProfile(cred.user, { displayName: name });
-    // onAuthStateChanged gestisce il resto
-  } catch (e) {
-    _setErr(_errMsg(e.code));
-    _setLoading(false);
-  }
-}
+    <!-- Titolo -->
+    <div style="text-align:center;margin-bottom:28px">
+      <div style="font-size:44px;margin-bottom:8px">🏊</div>
+      <div style="font-size:26px;font-weight:700;color:var(--blue)">Waterpolo</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px">Serie A1 Maschile · Stagione 2025/26</div>
+    </div>
 
-export async function wpResetPassword() {
-  const email = document.getElementById('wp-reset-email').value.trim();
-  if (!email) { _setErr('Inserisci la tua email'); return; }
-  _setLoading(true); _setErr('');
-  try {
-    await sendPasswordResetEmail(auth, email);
-    _setErr('');
-    const el = document.getElementById('wp-reset-ok');
-    if (el) el.style.display = '';
-    setTimeout(() => wpSwitchToLogin(), 3000);
-  } catch (e) {
-    _setErr(_errMsg(e.code));
-  } finally {
-    _setLoading(false);
-  }
-}
+    <div class="welcome-layout">
 
-export async function wpLogout() {
-  try {
-    await signOut(auth);
-  } catch (e) {
-    console.warn('[Auth] Logout error:', e);
-  }
-}
+      <!-- COLONNA SINISTRA: scelta squadra -->
+      <div class="welcome-col">
+        <div class="welcome-section-title">Scegli la tua squadra</div>
+        <div id="team-list" class="team-list-box"></div>
+        <button class="btn primary" onclick="startNewGame()" style="width:100%;padding:11px;font-size:14px;margin-top:10px">
+          Nuova Carriera →
+        </button>
+      </div>
 
-// ── Aggiorna la UI dell'header con le info utente ──
-function _updateAuthHeader(user) {
-  const loggedEl   = document.getElementById('wp-user-info');
-  const logoutBtn  = document.getElementById('wp-btn-logout');
-  const cloudIcon  = document.getElementById('wp-cloud-icon');
+      <!-- COLONNA DESTRA: slot di salvataggio -->
+      <div class="welcome-col">
+        <div class="welcome-section-title">Partite salvate</div>
+        <div id="slots-panel"></div>
+      </div>
 
-  if (!loggedEl) return;
+    </div>
+  </div>
+</div>
 
-  if (user) {
-    const name = user.displayName || user.email.split('@')[0];
-    loggedEl.textContent  = '👤 ' + name;
-    loggedEl.style.display = '';
-    if (logoutBtn)  logoutBtn.style.display  = '';
-    if (cloudIcon)  cloudIcon.style.display  = '';
-    cloudIcon.title = 'Salvataggi sincronizzati con il cloud ☁️';
-  } else {
-    loggedEl.style.display  = 'none';
-    if (logoutBtn)  logoutBtn.style.display  = 'none';
-    if (cloudIcon)  cloudIcon.style.display  = 'none';
-  }
-}
+<!-- ══════════════════════════════════════════
+     GIOCO PRINCIPALE
+     ══════════════════════════════════════════ -->
+<div id="sc-game" style="display:none">
+  <div class="hdr">
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="font-size:18px">🏊</span>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--blue)" id="hdr-team">—</div>
+        <div style="font-size:11px;color:var(--muted)" id="hdr-info">—</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="nb active" onclick="showTab('dash')">Dashboard</button>
+      <button class="nb" onclick="showTab('rosa')">Rosa</button>
+      <button class="nb" onclick="showTab('train')">Allenamento</button>
+      <button class="nb" onclick="showTab('goals')">Obiettivi</button>
+      <button class="nb" onclick="showTab('stand')">Classifica</button>
+      <button class="nb" onclick="showTab('cal')">Calendario</button>
+      <button class="nb" onclick="showTab('playoff')">Playoff</button>
+      <button class="nb" onclick="showTab('market')">Mercato</button>
+    </nav>
+    <div style="display:flex;gap:6px;align-items:center">
+      <span id="wp-user-info" style="display:none;font-size:11px;color:var(--muted);margin-right:4px"></span>
+      <span id="wp-cloud-icon" style="display:none;font-size:14px" title="Cloud sync attivo">☁️</span>
+      <button class="btn sm" onclick="openSaveMenu()" title="Salva partita">💾</button>
+      <button id="wp-btn-logout" class="btn sm" onclick="wpLogout()" style="display:none" title="Logout">⎋</button>
+      <button class="btn sm" onclick="goToWelcome()" title="Menu principale">⌂</button>
+    </div>
+  </div>
+  <div class="content">
+    <div id="tab-dash"></div>
+    <div id="tab-rosa"    style="display:none"></div>
+    <div id="tab-train"   style="display:none"></div>
+    <div id="tab-goals"   style="display:none"></div>
+    <div id="tab-stand"   style="display:none"></div>
+    <div id="tab-cal"     style="display:none"></div>
+    <div id="tab-playoff" style="display:none"></div>
+    <div id="tab-market"  style="display:none"></div>
+  </div>
+</div>
 
-// ── Auth state observer ───────────────────────
-onAuthStateChanged(auth, async (user) => {
-  _currentUser = user;
-  _setLoading(false);
+<!-- ══════════════════════════════════════════
+     CONVOCAZIONI
+     ══════════════════════════════════════════ -->
+<div id="sc-lineup" style="display:none;padding:14px;max-width:900px;margin:0 auto">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+    <div>
+      <div style="font-size:11px;color:var(--muted)" id="lu-lbl">—</div>
+      <div style="font-size:18px;font-weight:700;color:var(--blue)" id="lu-title">Convocazioni</div>
+    </div>
+    <button class="btn" onclick="cancelLineup()">← Indietro</button>
+  </div>
+  <div class="g2" style="gap:16px">
+    <div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px">
+        Formazione — clicca posizione poi giocatore (o viceversa)
+      </div>
+      <div id="lineup-pool" style="position:relative;background:#00a0c0;border-radius:10px;overflow:hidden;aspect-ratio:1.6"></div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn primary" onclick="confirmLineup()" id="btn-confirm-lu" disabled>Inizia Partita →</button>
+        <button class="btn warn" onclick="autoFillLineup()">Auto-Formazione</button>
+        <button class="btn" onclick="clearLineup()">Reset</button>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px">
+        Rosa disponibile
+      </div>
+      <div id="player-sel-list" style="max-height:420px;overflow-y:auto"></div>
+    </div>
+  </div>
+  <div id="lu-status" class="alert info" style="margin-top:10px"></div>
+</div>
 
-  if (user) {
-    // Utente loggato: sync cloud → localStorage, poi mostra il gioco
-    _setErr('');
-    _updateAuthHeader(user);
+<!-- ══════════════════════════════════════════
+     PARTITA LIVE
+     ══════════════════════════════════════════ -->
+<div id="sc-match" style="display:none;padding:10px;max-width:900px;margin:0 auto">
 
-    // Nascondi il pannello auth e mostra il welcome
-    const authPanel = document.getElementById('wp-auth-panel');
-    if (authPanel) authPanel.style.display = 'none';
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <div>
+      <div style="font-size:11px;color:var(--muted)" id="m-lbl">—</div>
+      <div style="font-size:16px;font-weight:700" id="m-title">—</div>
+    </div>
+    <div style="text-align:center">
+      <div style="font-size:28px;font-weight:700;color:var(--blue)" id="m-score">0 - 0</div>
+      <div style="font-size:11px;color:var(--muted)">
+        <span id="m-period">1° T</span> · <span id="m-clock">00:00</span>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:11px;color:var(--muted)">Tattica</div>
+      <select id="tactic-sel" onchange="if(G.ms) G.ms.tactic=this.value"
+              style="background:var(--panel2);border:1px solid var(--border);border-radius:7px;padding:4px 8px;font-size:12px;color:var(--text)">
+        <option value="balanced">Bilanciata</option>
+        <option value="attack">Attacco</option>
+        <option value="defense">Difesa</option>
+        <option value="counter">Contropiede</option>
+        <option value="press">Pressione Alta</option>
+      </select>
+    </div>
+  </div>
 
-    // Mostra indicatore di sync
-    _showSyncIndicator(true);
-    try {
-      await syncOnLogin();
-    } catch (e) {
-      console.warn('[Auth] Sync error:', e);
-    }
-    _showSyncIndicator(false);
+  <div style="width:100%;max-width:760px;margin:0 auto 10px">
+    <canvas id="pool-canvas" width="760" height="430"></canvas>
+  </div>
 
-    // Aggiorna la UI degli slot (ora può avere dati dal cloud)
-    if (typeof renderSlots === 'function') renderSlots();
-    if (typeof renderTeamList === 'function') renderTeamList();
+  <div class="g2" style="gap:8px;margin-bottom:8px">
+    <div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Azioni di Gioco</div>
+      <div class="action-log" id="action-log"></div>
+    </div>
+    <div class="card" style="padding:10px">
+      <div class="slbl" style="margin-top:0">Stats Partita</div>
+      <div id="m-stats" style="font-size:12px"></div>
+      <div class="slbl">Marcatori</div>
+      <div id="m-scorers" style="font-size:12px"></div>
+    </div>
+  </div>
 
-  } else {
-    // Utente non loggato: mostra pannello auth sopra al welcome
-    _updateAuthHeader(null);
-    const authPanel = document.getElementById('wp-auth-panel');
-    if (authPanel) authPanel.style.display = '';
-    wpSwitchToLogin();
-  }
-});
+  <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+    <button class="btn primary" id="btn-play" onclick="togglePlay()">▶ Avvia</button>
+    <button class="btn" onclick="skipPeriod()">⏭ Fine Periodo</button>
+    <button class="btn warn" onclick="openSub()">↔ Cambio</button>
+    <button class="btn danger" id="btn-end" onclick="endMatch()" style="display:none">Fine Partita</button>
+    <div style="display:flex;gap:4px;align-items:center;margin-left:8px">
+      <span style="font-size:11px;color:var(--muted);margin-right:2px">Velocità:</span>
+      <button class="btn sm btn-speed" data-speed="1"  onclick="setSpeed(1)">1x</button>
+      <button class="btn sm btn-speed" data-speed="2"  onclick="setSpeed(2)">2x</button>
+      <button class="btn sm btn-speed" data-speed="10" onclick="setSpeed(10)">10x</button>
+      <button class="btn sm btn-speed" data-speed="15" onclick="setSpeed(15)">15x</button>
+      <button class="btn sm btn-speed" data-speed="20" onclick="setSpeed(20)">20x</button>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-left:8px">
+      Cambi: <span id="sub-count">0</span>
+    </div>
+  </div>
 
-function _showSyncIndicator(show) {
-  const el = document.getElementById('wp-sync-indicator');
-  if (el) el.style.display = show ? '' : 'none';
-}
+  <div class="g2" style="gap:8px">
+    <div class="card" style="padding:10px">
+      <div class="slbl" style="margin-top:0;color:var(--blue)">In campo — <span id="my-team-lbl">—</span></div>
+      <div id="field-players" style="font-size:12px"></div>
+    </div>
+    <div class="card" style="padding:10px">
+      <div class="slbl" style="margin-top:0;color:var(--muted)">Panchina</div>
+      <div id="bench-players" style="font-size:12px"></div>
+    </div>
+  </div>
 
-// ── Esponi tutto su window per compatibilità ──
-window.wpLogin          = wpLogin;
-window.wpRegister       = wpRegister;
-window.wpLogout         = wpLogout;
-window.wpResetPassword  = wpResetPassword;
-window.wpSwitchToLogin    = wpSwitchToLogin;
-window.wpSwitchToRegister = wpSwitchToRegister;
-window.wpSwitchToReset    = wpSwitchToReset;
-window.wpGetCurrentUser   = getCurrentUser;
+  <div id="sub-panel" style="display:none">
+    <div style="font-weight:600;margin-bottom:8px;color:var(--gold)">Effettua Cambio</div>
+    <div class="g2" style="gap:10px">
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Esce dal campo</div>
+        <div id="sub-out-list"></div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Entra in campo</div>
+        <div id="sub-in-list"></div>
+      </div>
+    </div>
+    <div style="margin-top:10px;display:flex;gap:8px">
+      <button class="btn success" onclick="confirmSub()" id="btn-confirm-sub" disabled>Conferma Cambio</button>
+      <button class="btn" onclick="closeSub()">Annulla</button>
+    </div>
+  </div>
 
-// Enter su password → login
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('wp-password')?.addEventListener('keydown', e => {
-    if (e.key === 'Enter') wpLogin();
-  });
-  document.getElementById('wp-reg-password2')?.addEventListener('keydown', e => {
-    if (e.key === 'Enter') wpRegister();
-  });
-  document.getElementById('wp-reset-email')?.addEventListener('keydown', e => {
-    if (e.key === 'Enter') wpResetPassword();
-  });
-});
+</div><!-- /sc-match -->
 
-console.log('[Auth] Modulo caricato');
+<!-- ══════════════════════════════════════════
+     SCRIPT — ordine obbligatorio
+     ══════════════════════════════════════════ -->
+
+<!-- 1. Dati statici -->
+<script src="js/data/teams.js"></script>
+<script src="js/data/positions.js"></script>
+<script src="js/data/training.js"></script>
+<script src="js/data/objectives.js"></script>
+
+<!-- 2. Motore di gioco (priorità massima) -->
+<script src="js/engine/generator.js"></script>
+<script src="js/engine/standings.js"></script>
+<script src="js/engine/match.js"></script>
+<script src="js/engine/save.js"></script>
+
+<!-- 3. Rendering canvas -->
+<script src="js/canvas/pool.js"></script>
+
+<!-- 4. Componenti UI -->
+<script src="js/ui/tabs.js"></script>
+<script src="js/ui/welcome.js"></script>
+<script src="js/ui/lineup.js"></script>
+<script src="js/ui/match.js"></script>
+<script src="js/ui/tabs_renderers.js"></script>
+
+<!-- 5. Entry point -->
+<script src="js/main.js"></script>
+
+  <!-- Firebase modules (type="module") — caricati dopo tutti gli script vanilla -->
+  <script type="module" src="js/firebase/firebase.js"></script>
+  <script type="module" src="js/firebase/cloud-save.js"></script>
+  <script type="module" src="js/firebase/auth.js"></script>
+</body>
+</html>
