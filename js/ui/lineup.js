@@ -351,17 +351,17 @@ function confirmLineup() {
 // POPUP ASSEGNAZIONE CALOTTINE
 // ══════════════════════════════════════════════
 
-// Colore squadra per le calottine (tutte tranne la 1 che è rossa)
-const CAP_TEAM_COL  = G && G.myTeam ? G.myTeam.col : '#185FA5';
-const CAP_RED_COL   = '#C0392B';   // calottina n.1 sempre rossa
-const CAP_TEXT_COL  = '#ffffff';
+const CAP_RED_COL  = '#C0392B';   // calottina n.1 sempre rossa
+const CAP_TEXT_COL = '#ffffff';
 
 // Genera SVG di una calottina da nuoto con numero
+// Il colore squadra viene letto da G.myTeam al momento della chiamata (non al caricamento)
 function _capSVG(num, isRed, size = 64) {
-  const fill   = isRed ? CAP_RED_COL : (G && G.myTeam ? G.myTeam.col : '#185FA5');
-  const stripe = isRed ? '#8B0000'   : _darken(fill);
-  const txt    = String(num);
-  const fs     = num >= 10 ? 18 : 22;
+  const teamCol = (typeof G !== 'undefined' && G.myTeam && G.myTeam.col) ? G.myTeam.col : '#185FA5';
+  const fill    = isRed ? CAP_RED_COL : teamCol;
+  const stripe  = isRed ? '#8B0000'   : _darken(fill);
+  const txt     = String(num);
+  const fs      = num >= 10 ? 18 : 22;
 
   // Forma calottina: ellisse superiore + fascia laterale
   return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">

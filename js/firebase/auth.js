@@ -14,6 +14,10 @@ import { auth } from './firebase.js';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signOut,
   updateProfile,
@@ -137,6 +141,25 @@ export async function wpLogout() {
   }
 }
 
+export async function wpLoginGoogle() {
+  const provider = new GoogleAuthProvider();
+  _setLoading(true); _setErr('');
+  try {
+    await signInWithPopup(auth, provider);
+    // onAuthStateChanged gestisce il resto
+  } catch (e) {
+    if (e.code === 'auth/popup-blocked' || e.code === 'auth/popup-closed-by-user') {
+      // Fallback redirect se popup bloccato
+      await signInWithRedirect(auth, provider);
+    } else if (e.code !== 'auth/cancelled-popup-request') {
+      _setErr(_errMsg(e.code));
+      _setLoading(false);
+    } else {
+      _setLoading(false);
+    }
+  }
+}
+
 // ── Aggiorna la UI dell'header con le info utente ──
 function _updateAuthHeader(user) {
   const loggedEl   = document.getElementById('wp-user-info');
@@ -158,6 +181,11 @@ function _updateAuthHeader(user) {
     if (cloudIcon)  cloudIcon.style.display  = 'none';
   }
 }
+
+// ── Gestione redirect OAuth (es. Google su mobile) ──
+getRedirectResult(auth).catch(e => {
+  if (e.code && e.code !== 'auth/no-current-user') _setErr(_errMsg(e.code));
+});
 
 // ── Auth state observer ───────────────────────
 onAuthStateChanged(auth, async (user) => {
@@ -209,6 +237,7 @@ window.wpSwitchToLogin    = wpSwitchToLogin;
 window.wpSwitchToRegister = wpSwitchToRegister;
 window.wpSwitchToReset    = wpSwitchToReset;
 window.wpGetCurrentUser   = getCurrentUser;
+window.wpLoginGoogle      = wpLoginGoogle;
 
 // Enter su password → login
 document.addEventListener('DOMContentLoaded', () => {
