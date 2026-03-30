@@ -76,11 +76,19 @@ function _buildPayload(G) {
 
 // ── Salva in uno slot specifico ───────────────
 // Ritorna { ok: bool, error: string|null }
+// Se CloudSave è disponibile (utente loggato), salva anche su cloud (fire-and-forget)
 function saveToSlot(G, slotIndex) {
   if (slotIndex < 0 || slotIndex >= TOTAL_SLOTS)
     return { ok: false, error: 'Indice slot non valido' };
   try {
-    localStorage.setItem(_slotKey(slotIndex), JSON.stringify(_buildPayload(G)));
+    const jsonStr = JSON.stringify(_buildPayload(G));
+    localStorage.setItem(_slotKey(slotIndex), jsonStr);
+    // Sync cloud in background (non blocca il gioco)
+    if (window.CloudSave && window.CloudSave.isLoggedIn()) {
+      window.CloudSave.saveSlot(slotIndex, jsonStr).catch(e =>
+        console.warn('[save] cloud sync error:', e)
+      );
+    }
     return { ok: true, error: null };
   } catch (e) {
     console.warn('[save] slot ' + slotIndex, e);
@@ -128,6 +136,12 @@ function loadFromSlot(slotIndex) {
 // ── Elimina uno slot ──────────────────────────
 function deleteSlot(slotIndex) {
   localStorage.removeItem(_slotKey(slotIndex));
+  // Elimina anche dal cloud se loggato
+  if (window.CloudSave && window.CloudSave.isLoggedIn()) {
+    window.CloudSave.deleteSlot(slotIndex).catch(e =>
+      console.warn('[save] cloud delete error:', e)
+    );
+  }
 }
 
 // ── Verifica se almeno uno slot è occupato ────
