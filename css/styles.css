@@ -401,3 +401,20 @@ tr:last-child td { border-bottom: none; }
   transform: scale(1.08);
   transition: transform .12s;
 }
+
+/* ════════════════════════════════════════════
+   AUTH FIREBASE — pannello login
+   ════════════════════════════════════════════ */
+#wp-auth-panel input:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 2px rgba(0,194,255,.2);
+}
+#wp-auth-panel .btn.primary {
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+#wp-auth-panel input::placeholder {
+  color: var(--muted);
+  opacity: .7;
+}
