@@ -6,6 +6,51 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.2.1-beta] — 2026-03-29
+
+### Aggiunto
+
+#### Popup calottine nell'assegnazione numeri
+- Quando i 13 convocati sono stati selezionati, si apre automaticamente un popup che mostra le calottine da pallavolo numerate da 1 a 13
+- Ogni calottina è disegnata in SVG con il colore della squadra; la **#1 è sempre rossa** (regola ufficiale: il marcatore del centroboa porta la calottina rossa)
+- Il popup si apre in sequenza: assegnata una calottina al primo giocatore non numerato, si apre subito per il successivo fino al completamento
+- Le calottine già assegnate ad altri giocatori appaiono in trasparenza e non sono cliccabili; viene mostrato il cognome del giocatore che la indossa
+- Nella lista convocati, il campo numerico è stato sostituito da una miniatura della calottina SVG: cliccandola si riapre il popup per cambiare il numero
+
+#### Filtro convocati in partita
+- In partita (campo + panchina) vengono portati **esclusivamente i giocatori con numero assegnato**
+- I giocatori convocati ma senza calottina non vengono inclusi nella panchina disponibile per i cambi
+
+### Modificato
+- `ui/lineup.js` — aggiunto `_capSVG()`, `_darken()`, `openCapAssignment()`, `assignCapNumber()`, `_maybeOpenCapPopup()`; `_assignToPos()` e `selectPlayerLu()` chiamano `_maybeOpenCapPopup()` dopo ogni aggiunta; input numerico sostituito con miniatura SVG cliccabile
+- `engine/match.js` — `createMatchState` filtra la panchina includendo solo i giocatori presenti in `shirtNumbers`
+- `css/styles.css` — stile hover per le calottine nel popup
+
+---
+
+## [0.2.0-beta] — 2026-03-29
+
+### Aggiunto / Modificato
+
+#### Tabelle In campo e Panchina — layout a colonne
+- Entrambe le tabelle mostrano ora le informazioni su **colonne distinte** con intestazione: `# | Nome | Ruolo | Stamina | Esp. | OVR`
+- Layout CSS Grid (`28px 1fr 38px 72px 52px 36px`) per allineamento preciso su tutte le righe
+- La colonna Stamina è presente **anche in panchina** con la barra colorata che mostra il recupero in tempo reale
+- Le righe sono ordinate per numero di maglia (portiere sempre primo nell'elenco in campo)
+- I giocatori espulsi appaiono barrati e semi-trasparenti in panchina
+
+#### Consumo stamina — fattori aggiuntivi
+- **Età**: ogni anno oltre i 30 aumenta il drain del 12% (es. giocatore di 34 anni: +48%)
+- **Attributo SPE**: velocità alta riduce l'inefficienza atletica (fino a −10% drain)
+- **Posizione in contropiede**: posizioni offensive 1 (RW), 3 (ATT), 5 (LW) consumano il 25–35% in più di stamina rispetto alle posizioni difensive; GK consuma il 20% in meno
+- Riepilogo moltiplicatori per posizione in modalità Contropiede: GK×0.80, 2×1.00, 4×1.00, 6×1.10, 3×1.25, 1×1.35, 5×1.35
+
+### Modificato
+- `engine/match.js` — aggiunto `COUNTER_POS_MULT`; `_drainStamina` ora calcola `posMult`, `ageFactor`, `fitnessFactor`, `speFactor` per ogni giocatore individualmente
+- `ui/match.js` — `renderFieldLists` riscritto con CSS Grid, intestazioni colonna, stamina in panchina, ordinamento per numero maglia
+
+---
+
 ## [0.1.9-beta] — 2026-03-29
 
 ### Aggiunto
