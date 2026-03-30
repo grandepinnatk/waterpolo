@@ -39,13 +39,9 @@ function poolInitTokens(ms) {
 }
 
 function _shortName(p) {
-  if (!p) return '';
-  // Se il nome è già nel formato "I. Cognome" (generato dal nuovo generator) restituiscilo diretto
-  if (p.name && /^[A-Z]\.\s/.test(p.name)) return p.name;
-  // Altrimenti: prima lettera del primo token + cognome
-  const parts = p.name.split(' ');
-  if (parts.length >= 2) return parts[0][0] + '. ' + parts[parts.length - 1];
-  return parts[0];
+  if (!p || !p.name) return '';
+  // Formato "Cognome I." — restituisce il nome completo per la vasca
+  return p.name;
 }
 
 // ── Sincronizza dati token da ms ──────────────

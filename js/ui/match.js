@@ -180,12 +180,18 @@ function refreshMatchUI() {
     <div class="irow"><span class="ilbl">Parate</span>         <span>${ms.mySaves}</span></div>
     <div class="irow"><span class="ilbl">Falli/Esp.</span>     <span>${ms.myFouls}</span></div>`;
 
-  // ── Marcatori partita in corso ──
-  const scorers = ms.myRoster.filter(p => p.goals > 0).sort((a, b) => b.goals - a.goals).slice(0, 6);
-  document.getElementById('m-scorers').innerHTML = scorers.length
-    ? scorers.map(p => {
-        const shirt = Object.entries(ms.shirtNumbers).find(([pi]) => ms.myRoster[+pi] === p)?.[1] || '?';
-        return `<div class="irow"><span>#${shirt} ${p.name}</span><span style="color:var(--blue);font-weight:700">⚽ ${p.goals}</span></div>`;
+  // ── Marcatori SOLO di questa partita (ms.matchGoals) ──
+  const matchScorersList = Object.entries(ms.matchGoals || {})
+    .filter(([, g]) => g > 0)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 8);
+  document.getElementById('m-scorers').innerHTML = matchScorersList.length
+    ? matchScorersList.map(([piStr, goals]) => {
+        const pi    = parseInt(piStr, 10);
+        const p     = ms.myRoster[pi];
+        const shirt = ms.shirtNumbers[pi] || '?';
+        const name  = p ? _shortPlayerName(p) : '#' + shirt;
+        return `<div class="irow"><span style="font-weight:600">#${shirt} ${name}</span><span style="color:var(--blue);font-weight:700">⚽ ${goals}</span></div>`;
       }).join('')
     : '<div style="color:var(--muted);font-size:12px;padding:4px 0">Nessun gol ancora</div>';
 }
@@ -210,11 +216,15 @@ function _appendLog(txt, cls) {
 }
 
 // ── Liste in campo / panchina ─────────────────
+// Restituisce solo il cognome per le tabelle (es. "Rossi")
 function _shortPlayerName(p) {
-  if (!p) return '—';
-  if (p.name && /^[A-Z]\.\s/.test(p.name)) return p.name;
-  const parts = p.name.split(' ');
-  if (parts.length >= 2) return parts[0][0] + '. ' + parts[parts.length - 1];
+  if (!p || !p.name) return '—';
+  // Formato atteso: "Cognome I." — prende la prima parola (cognome)
+  return p.name.split(' ')[0];
+}
+// Restituisce "Cognome I." completo (usato in vasca e log)
+function _fullShortName(p) {
+  if (!p || !p.name) return '—';
   return p.name;
 }
 

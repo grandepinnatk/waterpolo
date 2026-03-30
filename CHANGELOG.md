@@ -6,6 +6,118 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.3.4-beta] — 2026-03-31
+
+### Aggiunto
+
+#### Allenamento Tecnica
+- Nuovo tipo di allenamento: **🤽 Allenamento Tecnico** (costo €14.000, fatica 5)
+- Migliora l'attributo TEC di tutta la rosa fino a +4 punti a sessione (casuale)
+- Ogni giocatore ha un **massimo di Tecnica raggiungibile** (`maxTec`) generato alla creazione della rosa — attributo nascosto, non visibile al giocatore
+  - Range: da overall−5 a overall+15, con un bonus extra per i giovani (età < 24: +0/+8)
+  - Una volta raggiunto il proprio tetto, ulteriori sessioni tecniche non producono miglioramenti
+- I giocatori già a `maxTec` non guadagnano punti dall'allenamento tecnico
+
+---
+
+## [0.3.3-beta] — 2026-03-31
+
+### Aggiunto
+
+#### Attributo Tecnica (TEC)
+- Ogni giocatore generato ha ora l'attributo `tec` (0-100) visibile nella scheda giocatore come **TEC**
+- **Finalizzazione**: la Tecnica aggiunge un bonus/malus alla probabilità di segnare (±4% rispetto alla media, centrato su tec=50)
+- **Assist**: i giocatori con tecnica più alta hanno maggiore probabilità di servire il passaggio decisivo (selezione pesata per tec)
+- **Errori di passaggio**: probabilità di perdita palla in costruzione inversamente proporzionale alla tecnica — da ~15% (tec=0) a ~2% (tec=100); l'errore genera l'evento "❌ Palla persa — X sbaglia il passaggio"
+
+---
+
+## [0.3.2-beta] — 2026-03-31
+
+### Modificato
+- Scheda giocatore: attributi rinominati — `DEF` → **DIF**, `SPE` → **VEL**, `STR` → **FOR** (ATT rimane invariato)
+
+---
+
+## [0.3.1-beta] — 2026-03-31
+
+### Modificato
+- Tabella Rosa: colonne `G` e `A` rinominate in `GOL` e `ASS`
+
+---
+
+## [0.3.0-beta] — 2026-03-31
+
+### Modificato
+- Formato nomi giocatori cambiato da "I. Cognome" a **"Cognome I."** (es. "Rossi M.") in tutta la codebase
+- Tabelle **In campo** e **Panchina**: mostrano solo il cognome (es. "Rossi") per massima leggibilità nelle colonne strette
+- **Vasca** (canvas) e log azioni: mostrano il formato completo "Cognome I."
+- Modale Rosa e altre schermate: formato completo "Cognome I."
+
+---
+
+## [0.3.4-beta] — 2026-03-31
+
+### Aggiunto
+
+#### Allenamento Tecnica
+- Nuovo tipo di allenamento: **🤽 Allenamento Tecnico** (costo €14.000, fatica 5)
+- Migliora l'attributo TEC di tutta la rosa fino a +4 punti a sessione (casuale)
+- Ogni giocatore ha un **massimo di Tecnica raggiungibile** (`maxTec`) generato alla creazione della rosa — attributo nascosto, non visibile al giocatore
+  - Range: da overall−5 a overall+15, con un bonus extra per i giovani (età < 24: +0/+8)
+  - Una volta raggiunto il proprio tetto, ulteriori sessioni tecniche non producono miglioramenti
+- I giocatori già a `maxTec` non guadagnano punti dall'allenamento tecnico
+
+---
+
+## [0.3.3-beta] — 2026-03-31
+
+### Aggiunto
+
+#### Attributo Tecnica (TEC)
+- Ogni giocatore generato ha ora l'attributo `tec` (0-100) visibile nella scheda giocatore come **TEC**
+- **Finalizzazione**: la Tecnica aggiunge un bonus/malus alla probabilità di segnare (±4% rispetto alla media, centrato su tec=50)
+- **Assist**: i giocatori con tecnica più alta hanno maggiore probabilità di servire il passaggio decisivo (selezione pesata per tec)
+- **Errori di passaggio**: probabilità di perdita palla in costruzione inversamente proporzionale alla tecnica — da ~15% (tec=0) a ~2% (tec=100); l'errore genera l'evento "❌ Palla persa — X sbaglia il passaggio"
+
+---
+
+## [0.3.2-beta] — 2026-03-31
+
+### Modificato
+- Scheda giocatore: attributi rinominati — `DEF` → **DIF**, `SPE` → **VEL**, `STR` → **FOR** (ATT rimane invariato)
+
+---
+
+## [0.3.1-beta] — 2026-03-31
+
+### Modificato
+- Tabella Rosa: colonne `G` e `A` rinominate in `GOL` e `ASS`
+
+---
+
+## [0.3.0-beta] — 2026-03-31
+
+### Aggiunto
+
+#### Marcatori partita in corso
+- La lista marcatori nella schermata partita mostra ora **solo i gol segnati nella partita in corso**, non il totale stagionale
+- Implementato tracciamento `ms.matchGoals` e `ms.matchAssists` nello stato partita: incrementati ad ogni gol nel motore
+- La lista si azzera ad ogni nuova partita
+
+#### Tab Marcatori nella sezione Classifica
+- Nuova navigazione a due tab nella sezione Classifica: **🏆 Classifica** e **⚽ Marcatori**
+- Il tab Marcatori mostra tutti i giocatori della lega con almeno un gol stagionale, ordinati per gol (a parità: assist)
+- Colonne: posizione (con medaglie 🥇🥈🥉 per i primi tre), nome giocatore, squadra, ruolo, gol, assist
+- I giocatori della propria squadra sono evidenziati e marcati con ★
+
+### Modificato
+- `engine/match.js` — `createMatchState` aggiunge `matchGoals` e `matchAssists`; `generateMatchEvent` incrementa entrambi ad ogni gol
+- `ui/match.js` — `refreshMatchUI` usa `ms.matchGoals` per i marcatori invece di `p.goals` stagionale
+- `ui/tabs_renderers.js` — `renderStand` divisa in `_buildStandContent(tab)` e `_showStandTab(tab)` con navigazione tab
+
+---
+
 ## [0.2.9-beta] — 2026-03-31
 
 ### Aggiunto

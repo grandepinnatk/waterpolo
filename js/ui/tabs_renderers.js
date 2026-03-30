@@ -1,9 +1,6 @@
-// helper nome breve
+// Restituisce il nome completo nel formato "Cognome I."
 function _shortPlayerName(p) {
-  if (!p) return "—";
-  if (p.name && /^[A-Z]\. /.test(p.name)) return p.name;
-  const parts = p.name.split(" ");
-  if (parts.length >= 2) return parts[0][0] + ". " + parts[parts.length - 1];
+  if (!p || !p.name) return "—";
   return p.name;
 }
 
@@ -86,7 +83,7 @@ function renderRosa() {
     <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Clicca su un giocatore per il dettaglio · Pulsante <strong>Vendi</strong> nel modale per metterlo sul mercato</div>
     <table><thead><tr>
       <th>Giocatore</th><th>Ruolo</th><th>Mano</th><th>Naz</th>
-      <th>Età</th><th>OVR</th><th>Morale</th><th>Forma</th><th>G</th><th>A</th><th>Valore</th>
+      <th>Età</th><th>OVR</th><th>Morale</th><th>Forma</th><th>GOL</th><th>ASS</th><th>Valore</th>
     </tr></thead><tbody>`;
 
   roster.forEach((p, i) => {
@@ -137,9 +134,9 @@ function showPlayerModal(i) {
       ${p.role === 'POR' ? `<div class="irow"><span class="ilbl">Parate</span><span>${p.saves}</span></div>` : ''}
       <div style="margin-top:10px">
         <div class="slbl" style="margin-top:0">Attributi</div>
-        ${['att','def','spe','str'].map(a => `
+        ${[['att','ATT'],['def','DIF'],['spe','VEL'],['str','FOR'],['tec','TEC']].map(([a,lbl]) => `
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-            <div style="font-size:12px;color:var(--muted);width:28px">${a.toUpperCase()}</div>
+            <div style="font-size:12px;color:var(--muted);width:28px">${lbl}</div>
             <div style="flex:1;height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden">
               <div style="width:${p.stats[a]}%;height:100%;background:var(--blue);border-radius:3px"></div>
             </div>
@@ -274,6 +271,12 @@ function doTrain(i) {
     if (tr.eff.def)     p.stats.def = cap(p.stats.def + rnd(0, tr.eff.def));
     if (tr.eff.spe)     p.stats.spe = cap(p.stats.spe + rnd(0, tr.eff.spe));
     if (tr.eff.str)     p.stats.str = cap(p.stats.str + rnd(0, tr.eff.str));
+    if (tr.eff.tec) {
+      // La Tecnica non può superare il massimo nascosto (maxTec) del giocatore
+      const ceiling = p.maxTec !== undefined ? p.maxTec : 99;
+      const gain    = rnd(0, tr.eff.tec);
+      p.stats.tec   = Math.min(ceiling, cap(p.stats.tec + gain));
+    }
     if (tr.eff.gk && p.role === 'POR') p.overall = Math.min(99, p.overall + 2);
     p.fitness = cap(p.fitness - (tr.fatigue || 0) + rnd(-2, 2));
     if (rnd(1, 100) <= 12) { p.overall = Math.min(99, p.overall + 1); improved++; }
@@ -344,37 +347,106 @@ function renderGoals() {
 // CLASSIFICA
 // ════════════════════════════════════════════
 function renderStand() {
-  const s = getSortedStandings(G.stand);
-  let h = `<div class="card">
-    <div style="font-weight:700;color:var(--blue);margin-bottom:10px">Classifica Serie A1 — 2025/26</div>
-    <table><thead><tr>
-      <th>#</th><th>Squadra</th><th>G</th><th>V</th><th>P</th><th>S</th>
-      <th>GF</th><th>GS</th><th>DR</th><th>Pts</th>
-    </tr></thead><tbody>`;
+  document.getElementById('tab-stand').innerHTML = _buildStandContent('classifica');
+}
 
-  s.forEach((t, i) => {
-    const isme = t.id === G.myId;
-    const pos  = i + 1;
-    const pbg  = pos === 1 ? '#f0c040' : pos === 2 ? '#888' : pos === 3 ? '#cd7f32' : 'transparent';
-    const zone = pos <= 4 ? 'rgba(0,194,255,.08)' : pos >= 11 && pos <= 13 ? 'rgba(240,192,64,.08)' : pos === 14 ? 'rgba(231,76,60,.08)' : '';
-    h += `<tr style="background:${isme ? 'rgba(0,194,255,.12)' : zone}">
-      <td><div style="width:20px;height:20px;border-radius:50%;background:${pbg};display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:${pos <= 3 ? '#001' : 'var(--muted)'}">${pos}</div></td>
-      <td style="font-weight:${isme ? 700 : 400}">${t.name}${isme ? ' ★' : ''}</td>
-      <td>${t.g}</td><td>${t.w}</td><td>${t.d}</td><td>${t.l}</td>
-      <td>${t.gf}</td><td>${t.ga}</td>
-      <td style="color:${t.gf - t.ga >= 0 ? 'var(--green)' : 'var(--red)'}">${t.gf - t.ga > 0 ? '+' : ''}${t.gf - t.ga}</td>
-      <td style="font-weight:700;color:var(--blue)">${t.pts}</td>
-    </tr>`;
-  });
+function _showStandTab(tab) {
+  document.getElementById('tab-stand').innerHTML = _buildStandContent(tab);
+}
 
-  h += `</tbody></table>
-    <div style="margin-top:10px;font-size:11px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap">
-      <span><span style="display:inline-block;width:10px;height:10px;background:rgba(0,194,255,.2);border-radius:2px;margin-right:4px"></span>Playoff (1-4)</span>
-      <span><span style="display:inline-block;width:10px;height:10px;background:rgba(240,192,64,.2);border-radius:2px;margin-right:4px"></span>Play-out (11-13)</span>
-      <span><span style="display:inline-block;width:10px;height:10px;background:rgba(231,76,60,.2);border-radius:2px;margin-right:4px"></span>Retrocessa (14)</span>
-    </div>
+function _buildStandContent(activeTab) {
+  // ── Tab nav ──
+  let h = `<div style="display:flex;gap:6px;margin-bottom:12px">
+    <button class="btn${activeTab === 'classifica' ? ' primary' : ' sm'}" onclick="_showStandTab('classifica')" style="font-size:13px">🏆 Classifica</button>
+    <button class="btn${activeTab === 'marcatori'  ? ' primary' : ' sm'}" onclick="_showStandTab('marcatori')"  style="font-size:13px">⚽ Marcatori</button>
   </div>`;
-  document.getElementById('tab-stand').innerHTML = h;
+
+  if (activeTab === 'classifica') {
+    // ── Classifica ──
+    const s = getSortedStandings(G.stand);
+    h += `<div class="card">
+      <div style="font-weight:700;color:var(--blue);margin-bottom:10px">Classifica Serie A1 — 2025/26</div>
+      <table><thead><tr>
+        <th>#</th><th>Squadra</th><th>G</th><th>V</th><th>P</th><th>S</th>
+        <th>GF</th><th>GS</th><th>DR</th><th>Pts</th>
+      </tr></thead><tbody>`;
+
+    s.forEach((t, i) => {
+      const isme = t.id === G.myId;
+      const pos  = i + 1;
+      const pbg  = pos === 1 ? '#f0c040' : pos === 2 ? '#888' : pos === 3 ? '#cd7f32' : 'transparent';
+      const zone = pos <= 4 ? 'rgba(0,194,255,.08)' : pos >= 11 && pos <= 13 ? 'rgba(240,192,64,.08)' : pos === 14 ? 'rgba(231,76,60,.08)' : '';
+      h += `<tr style="background:${isme ? 'rgba(0,194,255,.12)' : zone}">
+        <td><div style="width:20px;height:20px;border-radius:50%;background:${pbg};display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:${pos <= 3 ? '#001220' : 'var(--muted)'}">${pos}</div></td>
+        <td style="font-weight:${isme ? 700 : 400}">${t.name}${isme ? ' ★' : ''}</td>
+        <td>${t.g}</td><td>${t.w}</td><td>${t.d}</td><td>${t.l}</td>
+        <td>${t.gf}</td><td>${t.ga}</td>
+        <td style="color:${t.gf - t.ga >= 0 ? 'var(--green)' : 'var(--red)'}">${t.gf - t.ga > 0 ? '+' : ''}${t.gf - t.ga}</td>
+        <td style="font-weight:700;color:var(--blue)">${t.pts}</td>
+      </tr>`;
+    });
+
+    h += `</tbody></table>
+      <div style="margin-top:10px;font-size:11px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap">
+        <span><span style="display:inline-block;width:10px;height:10px;background:rgba(0,194,255,.2);border-radius:2px;margin-right:4px"></span>Playoff (1-4)</span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:rgba(240,192,64,.2);border-radius:2px;margin-right:4px"></span>Play-out (11-13)</span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:rgba(231,76,60,.2);border-radius:2px;margin-right:4px"></span>Retrocessa (14)</span>
+      </div>
+    </div>`;
+
+  } else {
+    // ── Marcatori lega ──
+    // Raccoglie tutti i giocatori di tutte le squadre con almeno 1 gol
+    const allScorers = [];
+    G.teams.forEach(t => {
+      const roster = G.rosters[t.id] || [];
+      roster.forEach(p => {
+        if (p.goals > 0) {
+          allScorers.push({
+            name:   _shortPlayerName ? _shortPlayerName(p) : p.name,
+            team:   t.name,
+            teamAbbr: t.abbr,
+            role:   p.role,
+            goals:  p.goals,
+            assists: p.assists || 0,
+            isMe:   t.id === G.myId,
+          });
+        }
+      });
+    });
+    allScorers.sort((a, b) => b.goals !== a.goals ? b.goals - a.goals : b.assists - a.assists);
+
+    h += `<div class="card">
+      <div style="font-weight:700;color:var(--blue);margin-bottom:10px">Marcatori Serie A1 — 2025/26</div>`;
+
+    if (!allScorers.length) {
+      h += `<div style="color:var(--muted);padding:16px;text-align:center;font-size:13px">
+        Nessun gol segnato ancora in questa stagione
+      </div>`;
+    } else {
+      h += `<table><thead><tr>
+        <th>#</th><th>Giocatore</th><th>Squadra</th><th>Ruolo</th><th style="text-align:center">⚽</th><th style="text-align:center">Ass.</th>
+      </tr></thead><tbody>`;
+
+      allScorers.forEach((p, i) => {
+        const pos = i + 1;
+        const medal = pos === 1 ? '🥇' : pos === 2 ? '🥈' : pos === 3 ? '🥉' : pos;
+        h += `<tr style="background:${p.isMe ? 'rgba(0,194,255,.10)' : ''}">
+          <td style="font-weight:700;color:var(--muted);font-size:12px">${medal}</td>
+          <td style="font-weight:${p.isMe ? 700 : 400}">${p.name}${p.isMe ? ' ★' : ''}</td>
+          <td style="font-size:12px;color:var(--muted)">${p.teamAbbr}</td>
+          <td><span class="badge ${p.role === 'POR' ? 'S' : p.role === 'CB' ? 'B' : p.role === 'DIF' ? 'A' : 'C'}">${p.role}</span></td>
+          <td style="text-align:center;font-weight:700;color:var(--blue)">${p.goals}</td>
+          <td style="text-align:center;color:var(--muted)">${p.assists}</td>
+        </tr>`;
+      });
+
+      h += `</tbody></table>`;
+    }
+    h += `</div>`;
+  }
+
+  return h;
 }
 
 // ════════════════════════════════════════════

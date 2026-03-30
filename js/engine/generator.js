@@ -39,10 +39,10 @@ function generatePlayer(teamStrength, role) {
   // Bi-ruolo: ~10% dei giocatori
   const secondRole = _pickSecondaryRole(role);
 
-  // Nome: Iniziale nome + Cognome (es. "M. Rossi")
+  // Nome: Cognome + Iniziale nome (es. "Rossi M.")
   const firstName = pick(ITALIAN_FIRST_NAMES);
   const lastName  = pick(ITALIAN_LAST_NAMES);
-  const name = firstName[0] + '. ' + lastName;
+  const name = lastName + ' ' + firstName[0] + '.';
 
   return {
     name,
@@ -67,7 +67,11 @@ function generatePlayer(teamStrength, role) {
       def: cap(base + rnd(-8, 8)),
       spe: cap(base + rnd(-8, 8)),
       str: cap(base + rnd(-8, 8)),
+      tec: cap(base + rnd(-8, 8)),  // Tecnica: finalizzazione, assist, precisione passaggi
     },
+    // Massimo di Tecnica raggiungibile con l'allenamento (attributo nascosto)
+    // Range: overall - 5 ... min(99, overall + 15 + bonus giovani)
+    maxTec: Math.min(99, cap(base + rnd(-5, 15) + (age < 24 ? rnd(0, 8) : 0))),
   };
 }
 

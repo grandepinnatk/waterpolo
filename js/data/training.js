@@ -48,6 +48,15 @@ const TRAINING_TYPES = [
     fatigue: 4,
   },
   {
+    id:      'technique',
+    name:    'Allenamento Tecnico',
+    desc:    'Sessione di perfezionamento tecnico: migliora la precisione nei passaggi e la finalizzazione',
+    icon:    '🤽',
+    cost:    14000,
+    eff:     { tec: 4 },
+    fatigue: 5,
+  },
+  {
     id:      'rest',
     name:    'Riposo e Recupero',
     desc:    'Recupero fisico e mentale — migliora fitness e morale',

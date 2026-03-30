@@ -131,6 +131,9 @@ function createMatchState({ match, isHome, myTeam, oppTeam, myRoster, oppRoster,
     expelled: new Set(),
     stamina,
     speed: 1,
+    // Gol segnati IN QUESTA PARTITA: { rosterIdx → count }
+    matchGoals:   {},
+    matchAssists: {},
   };
 }
 
@@ -262,14 +265,38 @@ function generateMatchEvent(ms) {
 
     // Probabilità di scelta proporzionale all'efficacia
     const attacker = _weightedPick(activePlayers, x => x.eff);
-    const goalProb = 0.38 + ((myEffective - oppStr) / 250);
+    const tec      = attacker.p.stats?.tec ?? 50; // Tecnica attaccante (0-100)
+
+    // ── Passaggio sbagliato: tecnica bassa → più errori in costruzione ──
+    // Prob errore passaggio: da ~15% (tec=0) a ~2% (tec=100)
+    const passErrProb = 0.15 - (tec / 100) * 0.13;
+    if (Math.random() < passErrProb) {
+      return {
+        txt: '❌ Palla persa — ' + attacker.p.name + ' sbaglia il passaggio',
+        cls: 'fl',
+        ballTarget: { x: rnd(3, 7) / 10, y: rnd(3, 7) / 10 },
+      };
+    }
+
+    // ── Finalizzazione: tecnica influenza la prob gol ──
+    // Bonus tecnica: da -0.04 (tec=0) a +0.04 (tec=100), centrato su tec=50
+    const tecBonus  = (tec - 50) / 100 * 0.08;
+    const goalProb  = 0.38 + ((myEffective - oppStr) / 250) + tecBonus;
 
     if (Math.random() < goalProb) {
       ms.myScore++;
       attacker.p.goals++;
+      ms.matchGoals[attacker.pi] = (ms.matchGoals[attacker.pi] || 0) + 1;
       const others = activePlayers.filter(x => x.pk !== attacker.pk);
-      const ast    = others.length ? pick(others) : null;
-      if (ast) ast.p.assists++;
+
+      // ── Assist: giocatore con tecnica più alta ha più probabilità di servire ──
+      const ast = others.length
+        ? _weightedPick(others, x => 0.5 + (x.p.stats?.tec ?? 50) / 200)
+        : null;
+      if (ast) {
+        ast.p.assists++;
+        ms.matchAssists[ast.pi] = (ms.matchAssists[ast.pi] || 0) + 1;
+      }
       return {
         txt: '⚽ GOL! ' + attacker.p.name + ' (#' + (ms.shirtNumbers[attacker.pi] || '?') + ') segna!' +
              (ast ? ' Assist: ' + ast.p.name : ''),
