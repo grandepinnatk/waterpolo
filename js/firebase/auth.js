@@ -145,18 +145,12 @@ export async function wpLoginGoogle() {
   const provider = new GoogleAuthProvider();
   _setLoading(true); _setErr('');
   try {
-    await signInWithPopup(auth, provider);
-    // onAuthStateChanged gestisce il resto
+    // Usa redirect come metodo principale (più compatibile con GitHub Pages)
+    await signInWithRedirect(auth, provider);
+    // La pagina si ricaricherà — onAuthStateChanged gestisce il ritorno
   } catch (e) {
-    if (e.code === 'auth/popup-blocked' || e.code === 'auth/popup-closed-by-user') {
-      // Fallback redirect se popup bloccato
-      await signInWithRedirect(auth, provider);
-    } else if (e.code !== 'auth/cancelled-popup-request') {
-      _setErr(_errMsg(e.code));
-      _setLoading(false);
-    } else {
-      _setLoading(false);
-    }
+    _setErr(_errMsg(e.code));
+    _setLoading(false);
   }
 }
 

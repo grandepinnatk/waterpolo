@@ -6,6 +6,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.2.6-beta] — 2026-03-30
+
+### Corretto
+- Login Google: sostituito il flusso **popup** con **redirect** come metodo principale — più compatibile con GitHub Pages e con browser che bloccano i popup. L'utente viene reindirizzato a Google e poi riportato al gioco automaticamente.
+
+---
+
 ## [0.2.5-beta] — 2026-03-30
 
 ### Aggiunto
