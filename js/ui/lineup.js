@@ -150,29 +150,17 @@ function renderPlayerSelList() {
     const shirtCell = document.createElement('div');
     shirtCell.style.cssText = 'display:flex;align-items:center;justify-content:center';
     if (isConv) {
-      const inp = document.createElement('input');
-      inp.type = 'number'; inp.min = '1'; inp.max = '13';
-      inp.value = shirt;
-      inp.placeholder = '—';
-      inp.title = 'Numero maglia (1-13)';
-      inp.style.cssText = 'width:30px;height:26px;border-radius:5px;border:1px solid var(--border);background:var(--panel2);color:var(--blue);font-weight:700;font-size:12px;text-align:center;padding:0;cursor:text';
-      inp.onclick  = e => e.stopPropagation();
-      inp.ondblclick = e => e.stopPropagation();
-      inp.onchange = () => {
-        const v = parseInt(inp.value, 10);
-        if (!isNaN(v) && v >= 1 && v <= 13) {
-          // Rimuovi lo stesso numero da altri giocatori
-          Object.keys(luState.shirtNumbers).forEach(k => {
-            if (luState.shirtNumbers[k] === v && parseInt(k, 10) !== i) delete luState.shirtNumbers[k];
-          });
-          luState.shirtNumbers[i] = v;
-        } else {
-          delete luState.shirtNumbers[i];
-          inp.value = '';
-        }
-        renderLineupPool(); renderPlayerSelList(); updateLuStatus();
-      };
-      shirtCell.appendChild(inp);
+      // Mostra calottina SVG cliccabile (o placeholder se non numerato)
+      const capDiv = document.createElement('div');
+      capDiv.style.cssText = 'display:flex;align-items:center;justify-content:center;cursor:pointer';
+      capDiv.title = shirt ? 'Calottina #' + shirt + ' — clicca per cambiare' : 'Clicca per assegnare il numero';
+      capDiv.onclick = e => { e.stopPropagation(); openCapAssignment(i); };
+      if (shirt) {
+        capDiv.innerHTML = _capSVG(shirt, shirt === 1, 34);
+      } else {
+        capDiv.innerHTML = `<div style="width:34px;height:34px;border-radius:50%;border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--muted)" title="Assegna numero">+</div>`;
+      }
+      shirtCell.appendChild(capDiv);
     } else {
       shirtCell.innerHTML = `<span style="font-size:11px;color:var(--muted)">—</span>`;
     }
@@ -240,6 +228,7 @@ function _assignToPos(pk, pi) {
   luState.selectedPlayer = null;
   luState.selectedPos    = null;
   renderLineupPool(); renderPlayerSelList(); updateLuStatus();
+  _maybeOpenCapPopup();
 }
 
 function selectPos(pk) {
@@ -258,6 +247,7 @@ function selectPlayerLu(i) {
     luState.selectedPlayer = i;
     if (!luState.convocati.has(i) && luState.convocati.size < MAX_CONVOCATI) {
       luState.convocati.add(i);
+      _maybeOpenCapPopup();
     }
   }
   if (luState.selectedPos !== null && luState.selectedPlayer !== null) {
@@ -355,4 +345,166 @@ function confirmLineup() {
   G.lineup      = { ...data };
   showScreen('sc-match');
   startLiveMatch(luState.match, luState.isHome, luState.opp, luState.poType, luState.poMatch);
+}
+
+// ══════════════════════════════════════════════
+// POPUP ASSEGNAZIONE CALOTTINE
+// ══════════════════════════════════════════════
+
+// Colore squadra per le calottine (tutte tranne la 1 che è rossa)
+const CAP_TEAM_COL  = G && G.myTeam ? G.myTeam.col : '#185FA5';
+const CAP_RED_COL   = '#C0392B';   // calottina n.1 sempre rossa
+const CAP_TEXT_COL  = '#ffffff';
+
+// Genera SVG di una calottina da nuoto con numero
+function _capSVG(num, isRed, size = 64) {
+  const fill   = isRed ? CAP_RED_COL : (G && G.myTeam ? G.myTeam.col : '#185FA5');
+  const stripe = isRed ? '#8B0000'   : _darken(fill);
+  const txt    = String(num);
+  const fs     = num >= 10 ? 18 : 22;
+
+  // Forma calottina: ellisse superiore + fascia laterale
+  return `<svg width="${size}" height="${size}" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <!-- Calottina base -->
+    <ellipse cx="32" cy="28" rx="26" ry="22" fill="${fill}"/>
+    <!-- Fascia laterale sinistra -->
+    <path d="M6 28 Q6 50 32 52 Q32 52 32 52" fill="${stripe}" opacity=".35"/>
+    <!-- Fascia laterale destra -->
+    <path d="M58 28 Q58 50 32 52 Q32 52 32 52" fill="${stripe}" opacity=".35"/>
+    <!-- Bordo -->
+    <ellipse cx="32" cy="28" rx="26" ry="22" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1.5"/>
+    <!-- Strap sinistro -->
+    <path d="M9 34 Q8 42 14 46" stroke="${stripe}" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
+    <!-- Strap destro -->
+    <path d="M55 34 Q56 42 50 46" stroke="${stripe}" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
+    <!-- Numero -->
+    <text x="32" y="33" text-anchor="middle" dominant-baseline="middle"
+          font-family="Arial Black, sans-serif" font-weight="900" font-size="${fs}"
+          fill="${CAP_TEXT_COL}" letter-spacing="0">${txt}</text>
+  </svg>`;
+}
+
+function _darken(hex) {
+  try {
+    const n = parseInt(hex.replace('#',''), 16);
+    const r = Math.max(0, (n >> 16) - 40);
+    const g = Math.max(0, ((n >> 8) & 0xff) - 40);
+    const b = Math.max(0, (n & 0xff) - 40);
+    return '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('');
+  } catch { return '#003060'; }
+}
+
+// Apre il popup calottine per il giocatore indicato
+// Se playerRosterIdx è null mostra le calottine libere per tutti i non-numerati
+function openCapAssignment(playerRosterIdx) {
+  const existing = document.getElementById('cap-popup');
+  if (existing) existing.remove();
+
+  const p = playerRosterIdx !== null ? G.rosters[G.myId][playerRosterIdx] : null;
+  const usedNums = new Set(Object.values(luState.shirtNumbers));
+
+  const overlay = document.createElement('div');
+  overlay.id = 'cap-popup';
+  overlay.style.cssText = [
+    'position:fixed', 'inset:0', 'background:rgba(0,0,0,.72)',
+    'display:flex', 'align-items:center', 'justify-content:center',
+    'z-index:500', 'backdrop-filter:blur(6px)',
+  ].join(';');
+
+  const playerName = p ? p.name : 'Tutti i convocati';
+  const subtitle   = p ? 'Scegli la calottina da assegnare a <strong>' + playerName + '</strong>'
+                       : 'Seleziona un giocatore e poi clicca la calottina da assegnargli';
+
+  let capsHtml = '';
+  for (let n = 1; n <= 13; n++) {
+    const taken    = usedNums.has(n);
+    // Chi ce l'ha già?
+    const ownerIdx = taken ? parseInt(Object.entries(luState.shirtNumbers).find(([,v]) => v === n)?.[0], 10) : -1;
+    const owner    = ownerIdx >= 0 ? G.rosters[G.myId][ownerIdx] : null;
+    const isAssignedToThis = playerRosterIdx !== null && luState.shirtNumbers[playerRosterIdx] === n;
+
+    capsHtml += `
+      <div onclick="assignCapNumber(${playerRosterIdx}, ${n})"
+           title="${taken && !isAssignedToThis ? 'Assegnata a ' + (owner ? owner.name.split(' ').pop() : '?') : 'Assegna #' + n}"
+           style="
+             display:flex; flex-direction:column; align-items:center; gap:4px;
+             cursor:${taken && !isAssignedToThis ? 'not-allowed' : 'pointer'};
+             opacity:${taken && !isAssignedToThis ? '.35' : '1'};
+             border:3px solid ${isAssignedToThis ? 'var(--gold)' : 'transparent'};
+             border-radius:12px; padding:6px;
+             background:${isAssignedToThis ? 'rgba(240,192,64,.15)' : 'transparent'};
+             transition:all .12s;
+           "
+           onmouseover="if(!${taken && !isAssignedToThis}) this.style.background='rgba(255,255,255,.08)'"
+           onmouseout="this.style.background='${isAssignedToThis ? 'rgba(240,192,64,.15)' : 'transparent'}'">
+        ${_capSVG(n, n === 1, 56)}
+        ${taken && !isAssignedToThis
+          ? `<span style="font-size:9px;color:var(--muted)">${owner ? owner.name.split(' ').pop() : '?'}</span>`
+          : `<span style="font-size:9px;color:var(--muted)">#${n}</span>`
+        }
+      </div>`;
+  }
+
+  overlay.innerHTML = `
+    <div style="
+      background:var(--panel); border:1px solid var(--border); border-radius:16px;
+      padding:22px; max-width:560px; width:95%; max-height:90vh; overflow-y:auto;
+    ">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+        <div>
+          <div style="font-size:15px;font-weight:700;color:var(--blue);margin-bottom:4px">
+            Assegna Calottina
+          </div>
+          <div style="font-size:13px;color:var(--muted)">${subtitle}</div>
+        </div>
+        <button onclick="document.getElementById('cap-popup').remove()"
+                style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);line-height:1">✕</button>
+      </div>
+      <div style="
+        display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-bottom:16px;
+      ">${capsHtml}</div>
+      <div style="font-size:11px;color:var(--muted);text-align:center">
+        La calottina <span style="color:${CAP_RED_COL};font-weight:700">#1</span> è riservata al marcatore del centroboa (rossa per regolamento)
+      </div>
+    </div>`;
+
+  overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+  document.body.appendChild(overlay);
+}
+
+// Assegna il numero scelto nel popup al giocatore
+function assignCapNumber(playerRosterIdx, num) {
+  if (playerRosterIdx === null) return; // non dovrebbe accadere
+
+  const usedNums = new Set(Object.values(luState.shirtNumbers));
+  // Se il numero è già preso da un altro, non fare niente
+  const currentOwnerKey = Object.entries(luState.shirtNumbers)
+    .find(([k, v]) => v === num && parseInt(k, 10) !== playerRosterIdx)?.[0];
+  if (currentOwnerKey !== undefined) return; // già assegnata ad altro
+
+  // Assegna
+  luState.shirtNumbers[playerRosterIdx] = num;
+
+  // Chiudi popup e aggiorna
+  document.getElementById('cap-popup')?.remove();
+  renderLineupPool();
+  renderPlayerSelList();
+  updateLuStatus();
+
+  // Se ci sono ancora convocati senza numero, riapri subito per il prossimo
+  const unnumbered = [...luState.convocati].filter(pi => !luState.shirtNumbers[pi]);
+  if (unnumbered.length > 0) {
+    // Piccolo delay per dare il tempo al DOM di aggiornarsi
+    setTimeout(() => openCapAssignment(unnumbered[0]), 120);
+  }
+}
+
+// Trigger automatico: appena i convocati raggiungono MAX_CONVOCATI
+// e c'è almeno un non-numerato, apri il popup sequenziale
+function _maybeOpenCapPopup() {
+  if (luState.convocati.size < MAX_CONVOCATI) return;
+  const unnumbered = [...luState.convocati].filter(pi => !luState.shirtNumbers[pi]);
+  if (unnumbered.length > 0) {
+    setTimeout(() => openCapAssignment(unnumbered[0]), 200);
+  }
 }

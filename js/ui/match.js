@@ -160,71 +160,96 @@ function _appendLog(txt, cls) {
 function renderFieldLists() {
   const ms = G.ms; if (!ms) return;
 
-  // Pallini espulsioni temporanee
+  // Costruisce pallini espulsioni temporanee
   function expDots(pi) {
-    const count  = ms.tempExp[pi] || 0;
-    const isLast = count >= MAX_TEMP_EXP;
-    if (count === 0) return '';
+    const count = ms.tempExp[pi] || 0;
+    if (count === 0) return '<span style="color:var(--muted);font-size:11px">—</span>';
     return Array.from({ length: count }).map((_, i) => {
-      const color = (isLast || i === MAX_TEMP_EXP - 1) ? '#e74c3c' : '#f0c040';
-      return `<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${color};margin-left:3px;vertical-align:middle;border:1px solid rgba(0,0,0,.25)"></span>`;
+      const color = (count >= MAX_TEMP_EXP || i === MAX_TEMP_EXP - 1) ? '#e74c3c' : '#f0c040';
+      return `<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${color};margin-right:2px;border:1px solid rgba(0,0,0,.3)"></span>`;
     }).join('');
   }
 
-  // Barra stamina colorata
-  function staminaBar(pi) {
+  // Barra + percentuale stamina
+  function staminaCell(pi) {
     const st  = Math.round(ms.stamina[pi] ?? 100);
     const col = st > 65 ? '#2ecc71' : st > 35 ? '#f0c040' : '#e74c3c';
-    return `<div style="display:flex;align-items:center;gap:4px;margin-left:6px">
-      <div style="width:36px;height:5px;background:rgba(255,255,255,.15);border-radius:3px;overflow:hidden;flex-shrink:0">
-        <div style="width:${st}%;height:100%;background:${col};border-radius:3px;transition:width .5s"></div>
+    return `<div style="display:flex;align-items:center;gap:3px">
+      <div style="width:32px;height:5px;background:rgba(255,255,255,.15);border-radius:3px;overflow:hidden;flex-shrink:0">
+        <div style="width:${st}%;height:100%;background:${col};border-radius:3px;transition:width .4s"></div>
       </div>
-      <span style="font-size:10px;color:${col};font-weight:600;min-width:22px">${st}%</span>
+      <span style="font-size:10px;color:${col};font-weight:700;min-width:26px">${st}%</span>
     </div>`;
   }
 
-  // IN CAMPO
-  let fieldHtml = '';
-  Object.entries(ms.onField).forEach(([pk, pi]) => {
+  // Intestazione colonne comune
+  const tableHeader = `
+    <div style="display:grid;grid-template-columns:28px 1fr 38px 72px 52px 36px;
+                gap:4px;padding:3px 4px 5px;border-bottom:1px solid var(--border);
+                font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px">
+      <div>#</div><div>Nome</div><div>Ruolo</div><div>Stamina</div><div>Esp.</div><div>OVR</div>
+    </div>`;
+
+  // ── IN CAMPO ──────────────────────────────
+  let fieldHtml = tableHeader;
+  // Ordina: GK per primo, poi per numero maglia
+  const onFieldEntries = Object.entries(ms.onField).sort(([pkA, piA], [pkB, piB]) => {
+    if (pkA === 'GK') return -1;
+    if (pkB === 'GK') return  1;
+    return (ms.shirtNumbers[piA] || 99) - (ms.shirtNumbers[piB] || 99);
+  });
+
+  onFieldEntries.forEach(([pk, pi]) => {
     const p     = ms.myRoster[pi]; if (!p) return;
     const pos   = POSITIONS[pk];
     const shirt = ms.shirtNumbers[pi] || '—';
     const isExp = ms.expelled.has(pi);
     fieldHtml += `
-      <div class="irow" style="${isExp ? 'opacity:.4' : ''}">
-        <span style="display:flex;align-items:center;flex-wrap:nowrap;min-width:0">
-          <span style="min-width:24px;font-weight:700;color:var(--blue);font-size:12px">#${shirt}</span>
-          <strong style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:90px">${p.name}</strong>
-          ${expDots(pi)}
-          ${isExp ? '<span style="font-size:10px;color:var(--red);margin-left:5px;font-weight:600">ESP</span>' : ''}
-          ${!isExp ? staminaBar(pi) : ''}
-        </span>
-        <span style="color:var(--blue);font-size:11px;flex-shrink:0;margin-left:4px">${pos ? pos.label : pk}</span>
+      <div style="display:grid;grid-template-columns:28px 1fr 38px 72px 52px 36px;
+                  gap:4px;align-items:center;padding:5px 4px;
+                  border-bottom:1px solid rgba(30,58,92,.35);
+                  opacity:${isExp ? '.4' : '1'}">
+        <div style="font-weight:700;color:var(--blue);font-size:12px">#${shirt}</div>
+        <div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+          ${p.name.split(' ').pop()}
+          ${isExp ? '<span style="font-size:9px;color:var(--red);display:block">ESPULSO</span>' : ''}
+        </div>
+        <div><span style="font-size:10px;font-weight:600;color:var(--blue)">${pos ? pos.label : pk}</span></div>
+        <div>${isExp ? '<span style="color:var(--muted);font-size:11px">—</span>' : staminaCell(pi)}</div>
+        <div>${expDots(pi)}</div>
+        <div style="font-size:11px;font-weight:600;color:var(--muted)">${p.overall}</div>
       </div>`;
   });
-  document.getElementById('field-players').innerHTML = fieldHtml || '<div style="color:var(--muted)">—</div>';
+  document.getElementById('field-players').innerHTML = fieldHtml;
 
-  // PANCHINA
-  let benchHtml = '';
-  ms.bench.forEach(pi => {
+  // ── PANCHINA ──────────────────────────────
+  let benchHtml = tableHeader;
+  const benchSorted = [...ms.bench].sort((a, b) =>
+    (ms.shirtNumbers[a] || 99) - (ms.shirtNumbers[b] || 99)
+  );
+
+  benchSorted.forEach(pi => {
     const p     = ms.myRoster[pi]; if (!p) return;
     const shirt = ms.shirtNumbers[pi] || '—';
     const isExp = ms.expelled.has(pi);
     benchHtml += `
-      <div class="irow" style="${isExp ? 'opacity:.4;text-decoration:line-through' : ''}">
-        <span style="display:flex;align-items:center;flex-wrap:nowrap;min-width:0">
-          <span style="min-width:24px;font-weight:700;color:var(--muted);font-size:12px">#${shirt}</span>
-          <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:85px">${p.name}</span>
-          <span style="font-size:11px;color:var(--muted);margin-left:3px;flex-shrink:0">${p.role}</span>
-          ${expDots(pi)}
-          ${isExp ? '<span style="font-size:10px;color:var(--red);margin-left:5px;font-weight:600">ESP</span>' : ''}
-        </span>
-        <span style="color:var(--muted);font-size:11px;flex-shrink:0">OVR ${p.overall}</span>
+      <div style="display:grid;grid-template-columns:28px 1fr 38px 72px 52px 36px;
+                  gap:4px;align-items:center;padding:5px 4px;
+                  border-bottom:1px solid rgba(30,58,92,.35);
+                  opacity:${isExp ? '.35' : '1'};
+                  ${isExp ? 'text-decoration:line-through' : ''}">
+        <div style="font-weight:700;color:var(--muted);font-size:12px">#${shirt}</div>
+        <div style="font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+          ${p.name.split(' ').pop()}
+        </div>
+        <div><span style="font-size:10px;font-weight:600;color:var(--muted)">${p.role}</span></div>
+        <div>${staminaCell(pi)}</div>
+        <div>${expDots(pi)}</div>
+        <div style="font-size:11px;font-weight:600;color:var(--muted)">${p.overall}</div>
       </div>`;
   });
-  document.getElementById('bench-players').innerHTML = benchHtml || '<div style="color:var(--muted)">Panchina vuota</div>';
+  document.getElementById('bench-players').innerHTML = benchHtml || '<div style="color:var(--muted);font-size:12px;padding:8px">Panchina vuota</div>';
 }
-
 // ── Controlli partita ─────────────────────────
 function togglePlay() {
   const ms = G.ms; if (!ms || ms.finished) return;

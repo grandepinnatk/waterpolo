@@ -56,15 +56,24 @@ const ROLE_ADJACENCY = {
   CB:  { POR: 0.35, DIF: 0.60, CEN: 0.75, ATT: 0.80, CB: 1.0 },
 };
 
-// Tasso di calo stamina per secondo di gioco (base)
-// Dipende da tattica e da forma del giocatore
-const STAMINA_BASE_DRAIN = 0.004;  // ~23% per periodo a forma 100
+// ── Costanti stamina ──────────────────────────
+const STAMINA_BASE_DRAIN     = 0.004;   // drain/s base (forma 100, età 25, balanced)
+const STAMINA_BENCH_RECOVERY = 0.0012;  // recupero/s in panchina
+
+// Moltiplicatori tattici globali (applicati a tutti i giocatori in campo)
 const TACTIC_STAMINA_MULT = {
-  defense:  0.7,
-  balanced: 1.0,
-  counter:  1.1,
-  attack:   1.3,
-  press:    1.6,
+  defense:  0.70,
+  balanced: 1.00,
+  counter:  1.10,
+  attack:   1.30,
+  press:    1.60,  // massimo consumo
+};
+
+// In contropiede le posizioni offensive corrono molto di più
+const COUNTER_POS_MULT = {
+  GK: 0.80, 2: 1.00, 4: 1.00,  // difensivi: normale o meno
+  1: 1.35, 3: 1.25, 5: 1.35,   // attaccanti: molto più fatica
+  6: 1.10,                       // centroboa: leggermente più fatica
 };
 
 const NEUTRAL_EVENTS = [
@@ -76,7 +85,12 @@ const NEUTRAL_EVENTS = [
 // ── Crea lo stato iniziale ────────────────────
 function createMatchState({ match, isHome, myTeam, oppTeam, myRoster, oppRoster, formation, shirtNumbers }) {
   const onFieldIdxs = new Set(Object.values(formation));
-  const bench = myRoster.map((_, i) => i).filter(i => !onFieldIdxs.has(i));
+  // In panchina vanno SOLO i giocatori convocati con numero assegnato
+  // (i giocatori senza numero non sono stati convocati per questa gara)
+  const numberedIdxs = new Set(Object.keys(shirtNumbers || {}).map(Number));
+  const bench = myRoster
+    .map((_, i) => i)
+    .filter(i => !onFieldIdxs.has(i) && numberedIdxs.has(i));
 
   const tempExp = {};
   myRoster.forEach((_, i) => { tempExp[i] = 0; });
@@ -128,23 +142,52 @@ function advanceTime(ms, dt) {
 }
 
 // ── Calo stamina in campo + recupero in panchina ──
-// In campo:   calo  ~0.004/s × moltiplicatore tattico / fattore forma
-// In panchina: recupero ~0.0012/s (circa 1/3 del calo base) — sempre positivo
-const STAMINA_BENCH_RECOVERY = 0.0012;
-
+//
+// Drain per giocatore = BASE × tacticMult × posMult × ageFactor / fitnessFactor / statFactor
+//
+//   tacticMult  : globale per tutti (press=1.60, balanced=1.00, defense=0.70)
+//   posMult     : in contropiede, posizioni 1/3/5 corrono di più (fino a ×1.35)
+//   ageFactor   : giocatori >30 anni si stancano +15% per anno oltre i 30
+//   fitnessFactor: forma alta = si stanca meno (0.55–1.0)
+//   statFactor  : alto SPE (velocità) = drain leggermente minore (atleta più efficiente)
+//
 function _drainStamina(ms, dtGame) {
-  const tacticMult   = TACTIC_STAMINA_MULT[ms.tactic] || 1.0;
-  const onFieldSet   = new Set(Object.values(ms.onField));
+  const tactic     = ms.tactic || 'balanced';
+  const tacticMult = TACTIC_STAMINA_MULT[tactic] || 1.0;
+
+  // Mappa posKey → rosterIdx (solo chi è in campo e non espulso)
+  const fieldMap = {};
+  Object.entries(ms.onField).forEach(([pk, pi]) => {
+    if (!ms.expelled.has(pi)) fieldMap[pi] = pk;
+  });
+  const onFieldSet = new Set(Object.keys(fieldMap).map(Number));
 
   ms.myRoster.forEach((p, pi) => {
     if (!p) return;
-    if (onFieldSet.has(pi) && !ms.expelled.has(pi)) {
-      // IN CAMPO: calo dipendente da tattica e forma
-      const fitnessFactor = 0.5 + (p.fitness / 200); // range 0.5–1.0
-      const drain = STAMINA_BASE_DRAIN * tacticMult / fitnessFactor * dtGame;
+
+    if (onFieldSet.has(pi)) {
+      // ── IN CAMPO ──────────────────────────
+      const pk = fieldMap[pi];
+
+      // Moltiplicatore posizione (rilevante in contropiede)
+      const posMult = (tactic === 'counter')
+        ? (COUNTER_POS_MULT[pk] || 1.0)
+        : 1.0;
+
+      // Età: ogni anno oltre i 30 aumenta il drain del 12%
+      const ageFactor = p.age > 30 ? 1 + (p.age - 30) * 0.12 : 1.0;
+
+      // Forma fisica: giocatori in forma si stancano meno (range 0.55–1.0)
+      const fitnessFactor = 0.55 + (p.fitness / 222);
+
+      // Statistiche: SPE alto = atleta più efficiente (−10% al massimo)
+      const speFactor = p.stats && p.stats.spe ? 1 - (p.stats.spe / 1000) : 1.0;
+
+      const drain = STAMINA_BASE_DRAIN * tacticMult * posMult * ageFactor / fitnessFactor * speFactor * dtGame;
       ms.stamina[pi] = Math.max(0, ms.stamina[pi] - drain);
+
     } else {
-      // IN PANCHINA (o espulso): leggero recupero, cap a 100
+      // ── IN PANCHINA o espulso: recupero graduale ──
       ms.stamina[pi] = Math.min(100, ms.stamina[pi] + STAMINA_BENCH_RECOVERY * dtGame);
     }
   });
