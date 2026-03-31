@@ -19,7 +19,8 @@ function _shortPlayerName(p) {
 function renderDash() {
   const ms      = G.stand[G.myId];
   const pos     = getTeamPosition(G.stand, G.myId);
-  const nm      = G.schedule.find(m => (m.home === G.myId || m.away === G.myId) && !m.played);
+  // Usa nextMyMatch() per trovare la partita con il round minore non giocato
+  const nm      = (typeof nextMyMatch === 'function') ? nextMyMatch() : G.schedule.filter(m => (m.home === G.myId || m.away === G.myId) && !m.played).sort((a,b) => a.round - b.round)[0] || null;
   const nextOpp = nm ? G.teams.find(t => t.id === (nm.home === G.myId ? nm.away : nm.home)) : null;
 
   let h = `<div class="g4" style="margin-bottom:12px">
@@ -48,8 +49,7 @@ function renderDash() {
           <button class="btn primary" onclick="openLineup(G.schedule.find(m=>(m.home===G.myId||m.away===G.myId)&&!m.played), G.schedule.find(m=>(m.home===G.myId||m.away===G.myId)&&!m.played)?.home===G.myId, G.teams.find(t=>t.id===(G.schedule.find(m=>(m.home===G.myId||m.away===G.myId)&&!m.played)?.home===G.myId?G.schedule.find(m=>(m.home===G.myId||m.away===G.myId)&&!m.played)?.away:G.schedule.find(m=>(m.home===G.myId||m.away===G.myId)&&!m.played)?.home)))">
             📋 Convocazioni
           </button>
-          <button class="btn" onclick="simNextRound()">⏩ Simula Giornata</button>
-          <button class="btn warn" onclick="simEntireSeason()">⏩⏩ Simula Campionato</button>
+          <button class="btn" onclick="confirmSimNextRound()">⏩ Simula Giornata</button>
         </div>
       </div>`;
     } else {

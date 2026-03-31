@@ -820,6 +820,7 @@ function _doEndMatch() {
                 ' (' + ms.myScore + '-' + ms.oppScore + ')' + (earned ? ' +' + formatMoney(earned) : ''));
     updateMoraleAfterMatch(ms);
     generateTransferOffers();
+    if (typeof refreshMarketPool === 'function') refreshMarketPool();
     simulateRound(G.schedule, G.stand, G.teams, ms.match.round, G.myId);
     G.ms = null;
     showScreen('sc-game'); updateHeader(); showTab('dash');

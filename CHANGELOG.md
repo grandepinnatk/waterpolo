@@ -6,6 +6,41 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.5-beta] — 2026-03-31
+
+### Modificato
+- Rimosso il pulsante **"Simula Campionato"** dalla dashboard
+- **"Simula Giornata"** apre ora un popup di conferma con il messaggio "Hai selezionato di simulare la giornata senza giocare la partita. Confermi la selezione?" — **Sì** procede con la simulazione, **No** torna alla dashboard
+
+---
+
+## [0.5.4-beta] — 2026-03-31
+
+### Corretto
+- **"Simula Giornata"**: ora simula correttamente **tutte** le partite della giornata, inclusa quella della propria squadra — prima la partita del giocatore veniva saltata e il calendario non avanzava mai
+- Il risultato della propria partita simulata appare nelle notizie (es. "G3: Pro Recco VINCE vs AN Brescia (7-4) +75.000€")
+- L'eventuale premio vittoria viene accreditato al budget anche in modalità simulazione
+
+---
+
+## [0.5.3-beta] — 2026-03-31
+
+### Corretto
+
+#### Calendario — giornate ripetute (G1 su più partite)
+- `_repairScheduleRounds()` in `save.js`: i salvataggi v2 con round corrotti (tutti = 1) vengono riparati automaticamente al caricamento, riassegnando i numeri di giornata in modo sequenziale (7 partite per giornata con 14 squadre)
+- Il generatore Berger è corretto — il problema era nei vecchi save
+
+#### Dashboard — "Prossima Partita Giornata X" errata
+- `nextMyRound()` riscritta per restituire il **round minimo** tra le partite non giocate della propria squadra (prima usava `find()` che prendeva il primo nell'array, non il più vicino)
+- Aggiunta `nextMyMatch()` che restituisce l'oggetto match corrispondente
+- `renderDash()` aggiornato per usare `nextMyMatch()`
+
+#### Mercato — offerte bloccate in attesa
+- `_processMarketOfferResponses()`: `entry.pendingOffer` ora viene sempre azzerato dopo la risposta (accettata o rifiutata) — prima veniva azzerato solo in caso di rifiuto, causando la re-elaborazione infinita delle offerte accettate
+
+---
+
 ## [0.5.2-beta] — 2026-03-31
 
 ### Corretto
@@ -95,6 +130,41 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Statistiche**: tiri, parate, falli/espulsioni
   - **Marcatori & Assist**: chi ha segnato (con assist dello stesso giocatore se presenti) e chi ha solo assist
 - Il pulsante "Chiudi e torna al menu" esegue il salvataggio e torna alla dashboard
+
+---
+
+## [0.5.5-beta] — 2026-03-31
+
+### Modificato
+- Rimosso il pulsante **"Simula Campionato"** dalla dashboard
+- **"Simula Giornata"** apre ora un popup di conferma con il messaggio "Hai selezionato di simulare la giornata senza giocare la partita. Confermi la selezione?" — **Sì** procede con la simulazione, **No** torna alla dashboard
+
+---
+
+## [0.5.4-beta] — 2026-03-31
+
+### Corretto
+- **"Simula Giornata"**: ora simula correttamente **tutte** le partite della giornata, inclusa quella della propria squadra — prima la partita del giocatore veniva saltata e il calendario non avanzava mai
+- Il risultato della propria partita simulata appare nelle notizie (es. "G3: Pro Recco VINCE vs AN Brescia (7-4) +75.000€")
+- L'eventuale premio vittoria viene accreditato al budget anche in modalità simulazione
+
+---
+
+## [0.5.3-beta] — 2026-03-31
+
+### Corretto
+
+#### Calendario — giornate ripetute (G1 su più partite)
+- `_repairScheduleRounds()` in `save.js`: i salvataggi v2 con round corrotti (tutti = 1) vengono riparati automaticamente al caricamento, riassegnando i numeri di giornata in modo sequenziale (7 partite per giornata con 14 squadre)
+- Il generatore Berger è corretto — il problema era nei vecchi save
+
+#### Dashboard — "Prossima Partita Giornata X" errata
+- `nextMyRound()` riscritta per restituire il **round minimo** tra le partite non giocate della propria squadra (prima usava `find()` che prendeva il primo nell'array, non il più vicino)
+- Aggiunta `nextMyMatch()` che restituisce l'oggetto match corrispondente
+- `renderDash()` aggiornato per usare `nextMyMatch()`
+
+#### Mercato — offerte bloccate in attesa
+- `_processMarketOfferResponses()`: `entry.pendingOffer` ora viene sempre azzerato dopo la risposta (accettata o rifiutata) — prima veniva azzerato solo in caso di rifiuto, causando la re-elaborazione infinita delle offerte accettate
 
 ---
 
@@ -376,6 +446,41 @@ drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAg
 
 ---
 
+## [0.5.5-beta] — 2026-03-31
+
+### Modificato
+- Rimosso il pulsante **"Simula Campionato"** dalla dashboard
+- **"Simula Giornata"** apre ora un popup di conferma con il messaggio "Hai selezionato di simulare la giornata senza giocare la partita. Confermi la selezione?" — **Sì** procede con la simulazione, **No** torna alla dashboard
+
+---
+
+## [0.5.4-beta] — 2026-03-31
+
+### Corretto
+- **"Simula Giornata"**: ora simula correttamente **tutte** le partite della giornata, inclusa quella della propria squadra — prima la partita del giocatore veniva saltata e il calendario non avanzava mai
+- Il risultato della propria partita simulata appare nelle notizie (es. "G3: Pro Recco VINCE vs AN Brescia (7-4) +75.000€")
+- L'eventuale premio vittoria viene accreditato al budget anche in modalità simulazione
+
+---
+
+## [0.5.3-beta] — 2026-03-31
+
+### Corretto
+
+#### Calendario — giornate ripetute (G1 su più partite)
+- `_repairScheduleRounds()` in `save.js`: i salvataggi v2 con round corrotti (tutti = 1) vengono riparati automaticamente al caricamento, riassegnando i numeri di giornata in modo sequenziale (7 partite per giornata con 14 squadre)
+- Il generatore Berger è corretto — il problema era nei vecchi save
+
+#### Dashboard — "Prossima Partita Giornata X" errata
+- `nextMyRound()` riscritta per restituire il **round minimo** tra le partite non giocate della propria squadra (prima usava `find()` che prendeva il primo nell'array, non il più vicino)
+- Aggiunta `nextMyMatch()` che restituisce l'oggetto match corrispondente
+- `renderDash()` aggiornato per usare `nextMyMatch()`
+
+#### Mercato — offerte bloccate in attesa
+- `_processMarketOfferResponses()`: `entry.pendingOffer` ora viene sempre azzerato dopo la risposta (accettata o rifiutata) — prima veniva azzerato solo in caso di rifiuto, causando la re-elaborazione infinita delle offerte accettate
+
+---
+
 ## [0.5.2-beta] — 2026-03-31
 
 ### Corretto
@@ -465,6 +570,41 @@ drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAg
   - **Statistiche**: tiri, parate, falli/espulsioni
   - **Marcatori & Assist**: chi ha segnato (con assist dello stesso giocatore se presenti) e chi ha solo assist
 - Il pulsante "Chiudi e torna al menu" esegue il salvataggio e torna alla dashboard
+
+---
+
+## [0.5.5-beta] — 2026-03-31
+
+### Modificato
+- Rimosso il pulsante **"Simula Campionato"** dalla dashboard
+- **"Simula Giornata"** apre ora un popup di conferma con il messaggio "Hai selezionato di simulare la giornata senza giocare la partita. Confermi la selezione?" — **Sì** procede con la simulazione, **No** torna alla dashboard
+
+---
+
+## [0.5.4-beta] — 2026-03-31
+
+### Corretto
+- **"Simula Giornata"**: ora simula correttamente **tutte** le partite della giornata, inclusa quella della propria squadra — prima la partita del giocatore veniva saltata e il calendario non avanzava mai
+- Il risultato della propria partita simulata appare nelle notizie (es. "G3: Pro Recco VINCE vs AN Brescia (7-4) +75.000€")
+- L'eventuale premio vittoria viene accreditato al budget anche in modalità simulazione
+
+---
+
+## [0.5.3-beta] — 2026-03-31
+
+### Corretto
+
+#### Calendario — giornate ripetute (G1 su più partite)
+- `_repairScheduleRounds()` in `save.js`: i salvataggi v2 con round corrotti (tutti = 1) vengono riparati automaticamente al caricamento, riassegnando i numeri di giornata in modo sequenziale (7 partite per giornata con 14 squadre)
+- Il generatore Berger è corretto — il problema era nei vecchi save
+
+#### Dashboard — "Prossima Partita Giornata X" errata
+- `nextMyRound()` riscritta per restituire il **round minimo** tra le partite non giocate della propria squadra (prima usava `find()` che prendeva il primo nell'array, non il più vicino)
+- Aggiunta `nextMyMatch()` che restituisce l'oggetto match corrispondente
+- `renderDash()` aggiornato per usare `nextMyMatch()`
+
+#### Mercato — offerte bloccate in attesa
+- `_processMarketOfferResponses()`: `entry.pendingOffer` ora viene sempre azzerato dopo la risposta (accettata o rifiutata) — prima veniva azzerato solo in caso di rifiuto, causando la re-elaborazione infinita delle offerte accettate
 
 ---
 

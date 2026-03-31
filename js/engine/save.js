@@ -125,8 +125,30 @@ function _migratePayload(p) {
   if (!p.marketPool)  p.marketPool  = [];
   if (!p.savedAtMs)   p.savedAtMs   = p.meta?.savedAtMs || (p.savedAt ? new Date(p.savedAt).getTime() : 0);
   if (!p.meta?.savedAtMs && p.savedAtMs) p.meta = { ...p.meta, savedAtMs: p.savedAtMs };
+
+  // Ripara calendario con round corrotti (tutti round=1 o round non sequenziali)
+  if (p.schedule && p.schedule.length > 0) {
+    const rounds = p.schedule.map(m => m.round);
+    const uniqueRounds = new Set(rounds);
+    const maxRound = Math.max(...rounds);
+    // Se ci sono meno round unici del dovuto o il max è 1, ricalcola
+    if (uniqueRounds.size < 3 || maxRound <= 1) {
+      _repairScheduleRounds(p.schedule);
+    }
+  }
+
   p.version = SAVE_VERSION;
   return p;
+}
+
+// Ripara i round del calendario raggruppando le partite in giornate coerenti
+// Usa il fatto che ogni giornata ha N/2 partite (7 per 14 squadre)
+function _repairScheduleRounds(schedule) {
+  const MATCHES_PER_ROUND = 7; // 14 squadre / 2
+  // Mantieni l'ordine esistente e riassegna round sequenziali
+  schedule.forEach((m, i) => {
+    m.round = Math.floor(i / MATCHES_PER_ROUND) + 1;
+  });
 }
 
 // ── Carica payload completo di uno slot ───────

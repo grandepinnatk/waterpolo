@@ -90,18 +90,60 @@ function generateRoster(team) {
 }
 
 // ── Generazione calendario (andata + ritorno) ─
+// Algoritmo round-robin di Berger: garantisce che ogni squadra
+// giochi esattamente UNA partita per giornata.
+// Con N squadre (pari) → N-1 giornate di andata, N-1 di ritorno = 2(N-1) totale.
 function generateSchedule(teams) {
-  const ids = teams.map(t => t.id);
-  const matches = [];
-  for (let i = 0; i < ids.length; i++) {
-    for (let j = i + 1; j < ids.length; j++) {
-      matches.push({ home: ids[i], away: ids[j], played: false, score: null });
-      matches.push({ home: ids[j], away: ids[i], played: false, score: null });
+  const ids    = [...teams.map(t => t.id)];
+  const N      = ids.length; // deve essere pari (14 squadre)
+  const rounds = N - 1;      // 13 giornate di andata
+
+  // Algoritmo: fissa ids[0], ruota gli altri
+  const fixed   = ids[0];
+  const rotating = ids.slice(1);
+  const andataRounds = [];
+
+  for (let r = 0; r < rounds; r++) {
+    const round = [];
+    // Partita con il fisso
+    const opp = rotating[r % rotating.length];
+    if (r % 2 === 0) round.push({ home: fixed, away: opp });
+    else             round.push({ home: opp,   away: fixed });
+    // Altre N/2 - 1 partite
+    for (let k = 1; k < N / 2; k++) {
+      const a = rotating[(r + k) % rotating.length];
+      const b = rotating[(r + rotating.length - k) % rotating.length];
+      if (k % 2 === 0) round.push({ home: a, away: b });
+      else             round.push({ home: b, away: a });
     }
+    andataRounds.push(round);
   }
-  matches.sort(() => Math.random() - 0.5);
-  const perRound = ids.length / 2;
-  matches.forEach((m, i) => { m.round = Math.floor(i / perRound) + 1; });
+
+  // Ritorno: inverti casa/trasferta e aggiungi sfasamento casuale
+  const ritornoRounds = andataRounds.map(round =>
+    round.map(m => ({ home: m.away, away: m.home }))
+  );
+
+  // Mescola leggermente l'ordine delle giornate (non delle partite dentro la giornata)
+  const shuffleRounds = arr => {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+
+  const allRounds = [...shuffleRounds(andataRounds), ...shuffleRounds(ritornoRounds)];
+
+  // Appiattisci in lista match con numero giornata
+  const matches = [];
+  allRounds.forEach((round, ri) => {
+    round.forEach(m => {
+      matches.push({ home: m.home, away: m.away, played: false, score: null, round: ri + 1 });
+    });
+  });
+
   return matches;
 }
 

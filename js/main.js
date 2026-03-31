@@ -18,8 +18,32 @@ function cap(n)     { return Math.min(100, Math.max(0, Math.round(n))); }
 function formatMoney(n) { return Math.round(n).toLocaleString('it-IT') + '€'; }
 
 function currentRound() {
-  const played = G.schedule ? G.schedule.filter(m => m.played) : [];
-  return played.length ? Math.max(...played.map(m => m.round)) : 0;
+  if (!G.schedule) return 0;
+  // Giornata dell'ultima partita DELLA MIA SQUADRA giocata
+  const myPlayed = G.schedule.filter(m =>
+    m.played && (m.home === G.myId || m.away === G.myId)
+  );
+  return myPlayed.length ? Math.max(...myPlayed.map(m => m.round)) : 0;
+}
+
+// Giornata della prossima partita della mia squadra (round minimo non giocato)
+function nextMyRound() {
+  if (!G.schedule) return 1;
+  const notPlayed = G.schedule.filter(m =>
+    !m.played && (m.home === G.myId || m.away === G.myId)
+  );
+  if (!notPlayed.length) return null;
+  return Math.min(...notPlayed.map(m => m.round));
+}
+
+// Prossima partita della mia squadra (oggetto match)
+function nextMyMatch() {
+  if (!G.schedule) return null;
+  const r = nextMyRound();
+  if (!r) return null;
+  return G.schedule.find(m =>
+    !m.played && (m.home === G.myId || m.away === G.myId) && m.round === r
+  );
 }
 
 // ── Auto-save ─────────────────────────────────
@@ -28,10 +52,61 @@ function autoSave() {
 }
 
 // ── Simulazione rapida giornata ───────────────
+function confirmSimNextRound() {
+  const ov = document.createElement('div');
+  ov.id = 'sim-confirm-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;z-index:500;backdrop-filter:blur(6px)';
+  ov.innerHTML = `
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px;max-width:380px;width:90%;text-align:center">
+      <div style="font-size:22px;margin-bottom:12px">⏩</div>
+      <div style="font-weight:700;font-size:15px;margin-bottom:10px;color:var(--text)">Simula Giornata</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6">
+        Hai selezionato di simulare la giornata senza giocare la partita.<br>
+        <strong style="color:var(--text)">Confermi la selezione?</strong>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center">
+        <button class="btn primary" style="padding:10px 28px;font-size:14px"
+          onclick="document.getElementById('sim-confirm-popup').remove();simNextRound()">
+          Sì
+        </button>
+        <button class="btn" style="padding:10px 28px;font-size:14px"
+          onclick="document.getElementById('sim-confirm-popup').remove()">
+          No
+        </button>
+      </div>
+    </div>`;
+  document.body.appendChild(ov);
+}
+
 function simNextRound() {
-  const r = currentRound() + 1;
-  simulateRound(G.schedule, G.stand, G.teams, r, G.myId);
-  G.msgs.push('Giornata ' + r + ' simulata.');
+  const r = nextMyRound();
+  if (!r) { G.msgs.push('Nessuna giornata rimanente.'); renderDash(); return; }
+
+  // Simula TUTTE le partite della giornata, inclusa quella della mia squadra
+  const roundMatches = G.schedule.filter(m => m.round === r && !m.played);
+  roundMatches.forEach(m => {
+    const hT = G.teams.find(t => t.id === m.home);
+    const aT = G.teams.find(t => t.id === m.away);
+    m.score  = simulateResult(hT, aT);
+    m.played = true;
+    updateStandings(G.stand, m.home, m.away, m.score);
+
+    // Se è la partita della mia squadra, registra il risultato nei messaggi
+    if (m.home === G.myId || m.away === G.myId) {
+      const ih      = m.home === G.myId;
+      const opp     = G.teams.find(t => t.id === (ih ? m.away : m.home));
+      const myScore = ih ? m.score.home : m.score.away;
+      const opScore = ih ? m.score.away : m.score.home;
+      const res     = myScore > opScore ? 'VINCE' : myScore < opScore ? 'perde' : 'pareggia';
+      const reward  = myScore > opScore ? getMatchReward(myScore, opScore) : 0;
+      if (reward) G.budget += reward;
+      G.msgs.push(`G${r}: ${G.myTeam.name} ${res} vs ${opp.name} (${myScore}-${opScore})` +
+                  (reward ? ` +${formatMoney(reward)}` : ''));
+    }
+  });
+
+  refreshMarketPool();
+  generateTransferOffers();
   updateHeader(); autoSave(); renderDash();
 }
 
@@ -354,17 +429,16 @@ function _processMarketOfferResponses() {
     }
 
     const accepted = Math.random() < acceptProb;
-    entry.offerResult = accepted ? 'accepted' : 'rejected';
+    entry.offerResult       = accepted ? 'accepted' : 'rejected';
     entry.offerResultAmount = offer;
+    entry.pendingOffer      = null; // sempre azzerata dopo la risposta
 
     if (accepted) {
       G.msgs.push(`✅ Offerta accettata! ${p._tname} accetta ${formatMoney(offer)} per ${p.name}. Vai al Mercato per concludere l'acquisto.`);
     } else if (offer < minAcc) {
       G.msgs.push(`❌ Offerta rifiutata: ${p._tname} ha respinto ${formatMoney(offer)} per ${p.name} (troppo bassa).`);
-      entry.pendingOffer = null;
     } else {
       G.msgs.push(`❌ Offerta rifiutata: ${p._tname} ha risposto di no a ${formatMoney(offer)} per ${p.name}.`);
-      entry.pendingOffer = null;
     }
   });
 }
