@@ -40,6 +40,9 @@ function generatePlayer(teamStrength, role) {
   // Bi-ruolo: ~10% dei giocatori
   const secondRole = _pickSecondaryRole(role);
 
+  // Nazionalità: generata prima del nome per poter usare le liste corrette
+  const nat = pick(NATIONALITIES);
+
   // Nome: usa liste per nazionalità, formato "I. Cognome"
   const natData   = (typeof NAMES_BY_NAT !== 'undefined' && NAMES_BY_NAT[nat]) ? NAMES_BY_NAT[nat] : { first: ITALIAN_FIRST_NAMES, last: ITALIAN_LAST_NAMES };
   const firstName = pick(natData.first);
@@ -56,7 +59,7 @@ function generatePlayer(teamStrength, role) {
     hand,         // 'R', 'L', 'AMB'
     overall:   base,
     potential: Math.min(99, base + rnd(0, age < 23 ? 10 : 0)),
-    nat:       pick(NATIONALITIES),
+    nat,
     value:     Math.round(base * rnd(5000, 9000)),
     salary:    Math.round(base * rnd(250, 550)),
     morale:    rnd(65, 100),

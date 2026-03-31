@@ -26,6 +26,7 @@ function showTab(tab) {
     cal:     renderCal,
     playoff: renderPlayoff,
     market:  renderMarket,
+    credits: renderCredits,
   };
   if (renderers[tab]) renderers[tab]();
 }

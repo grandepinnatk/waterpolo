@@ -6,6 +6,34 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.9-beta] — 2026-03-31
+
+### Corretto
+- **Bug critico in `js/engine/generator.js`** (`ReferenceError: nat is not defined`): la variabile `nat` veniva letta prima della sua assegnazione nella funzione `generatePlayer`. La generazione della nazionalità è stata spostata sopra il blocco di selezione del nome, in modo che `NAMES_BY_NAT[nat]` possa essere valutato correttamente. Il bug impediva l'avvio di qualsiasi nuova carriera.
+
+---
+
+## [0.5.8-beta] — 2026-03-31
+
+### Aggiunto / Modificato
+- **Banner immagine** (`waterpolo-banner.jpg`) mostrato in cima alla schermata di Login e al Menu principale su **PC e tablet** (≥600px) — sostituisce l'icona emoji e i titoli testuali
+- Su **mobile** (<600px) continua a comparire l'icona 🏊 e il titolo testuale
+- **Centratura**: schermata Login e Menu principale allineati al centro sia orizzontalmente che verticalmente
+- La card del login si allarga fino a 720-760px per ospitare il banner nella sua larghezza naturale
+
+---
+
+## [0.5.7-beta] — 2026-03-31
+
+### Aggiunto
+- **Pulsante Logout** visibile nella schermata di selezione carriera (welcome screen), con nome utente affiancato
+- **Tab Credits** dopo Mercato: versione software, licenza MIT, sviluppatore (Davide Lanza — Grandepinna), stack tecnologico
+
+### Modificato
+- Pulsanti header gioco (**💾 Salva**, **⎋ Logout**, **⌂ Menu**) più grandi e con testo leggibile invece dei soli simboli
+
+---
+
 ## [0.5.6-beta] — 2026-03-31
 
 ### Aggiunto
@@ -145,6 +173,27 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Statistiche**: tiri, parate, falli/espulsioni
   - **Marcatori & Assist**: chi ha segnato (con assist dello stesso giocatore se presenti) e chi ha solo assist
 - Il pulsante "Chiudi e torna al menu" esegue il salvataggio e torna alla dashboard
+
+---
+
+## [0.5.8-beta] — 2026-03-31
+
+### Aggiunto / Modificato
+- **Banner immagine** (`waterpolo-banner.jpg`) mostrato in cima alla schermata di Login e al Menu principale su **PC e tablet** (≥600px) — sostituisce l'icona emoji e i titoli testuali
+- Su **mobile** (<600px) continua a comparire l'icona 🏊 e il titolo testuale
+- **Centratura**: schermata Login e Menu principale allineati al centro sia orizzontalmente che verticalmente
+- La card del login si allarga fino a 720-760px per ospitare il banner nella sua larghezza naturale
+
+---
+
+## [0.5.7-beta] — 2026-03-31
+
+### Aggiunto
+- **Pulsante Logout** visibile nella schermata di selezione carriera (welcome screen), con nome utente affiancato
+- **Tab Credits** dopo Mercato: versione software, licenza MIT, sviluppatore (Davide Lanza — Grandepinna), stack tecnologico
+
+### Modificato
+- Pulsanti header gioco (**💾 Salva**, **⎋ Logout**, **⌂ Menu**) più grandi e con testo leggibile invece dei soli simboli
 
 ---
 
@@ -476,6 +525,27 @@ drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAg
 
 ---
 
+## [0.5.8-beta] — 2026-03-31
+
+### Aggiunto / Modificato
+- **Banner immagine** (`waterpolo-banner.jpg`) mostrato in cima alla schermata di Login e al Menu principale su **PC e tablet** (≥600px) — sostituisce l'icona emoji e i titoli testuali
+- Su **mobile** (<600px) continua a comparire l'icona 🏊 e il titolo testuale
+- **Centratura**: schermata Login e Menu principale allineati al centro sia orizzontalmente che verticalmente
+- La card del login si allarga fino a 720-760px per ospitare il banner nella sua larghezza naturale
+
+---
+
+## [0.5.7-beta] — 2026-03-31
+
+### Aggiunto
+- **Pulsante Logout** visibile nella schermata di selezione carriera (welcome screen), con nome utente affiancato
+- **Tab Credits** dopo Mercato: versione software, licenza MIT, sviluppatore (Davide Lanza — Grandepinna), stack tecnologico
+
+### Modificato
+- Pulsanti header gioco (**💾 Salva**, **⎋ Logout**, **⌂ Menu**) più grandi e con testo leggibile invece dei soli simboli
+
+---
+
 ## [0.5.6-beta] — 2026-03-31
 
 ### Aggiunto
@@ -615,6 +685,27 @@ drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAg
   - **Statistiche**: tiri, parate, falli/espulsioni
   - **Marcatori & Assist**: chi ha segnato (con assist dello stesso giocatore se presenti) e chi ha solo assist
 - Il pulsante "Chiudi e torna al menu" esegue il salvataggio e torna alla dashboard
+
+---
+
+## [0.5.8-beta] — 2026-03-31
+
+### Aggiunto / Modificato
+- **Banner immagine** (`waterpolo-banner.jpg`) mostrato in cima alla schermata di Login e al Menu principale su **PC e tablet** (≥600px) — sostituisce l'icona emoji e i titoli testuali
+- Su **mobile** (<600px) continua a comparire l'icona 🏊 e il titolo testuale
+- **Centratura**: schermata Login e Menu principale allineati al centro sia orizzontalmente che verticalmente
+- La card del login si allarga fino a 720-760px per ospitare il banner nella sua larghezza naturale
+
+---
+
+## [0.5.7-beta] — 2026-03-31
+
+### Aggiunto
+- **Pulsante Logout** visibile nella schermata di selezione carriera (welcome screen), con nome utente affiancato
+- **Tab Credits** dopo Mercato: versione software, licenza MIT, sviluppatore (Davide Lanza — Grandepinna), stack tecnologico
+
+### Modificato
+- Pulsanti header gioco (**💾 Salva**, **⎋ Logout**, **⌂ Menu**) più grandi e con testo leggibile invece dei soli simboli
 
 ---
 

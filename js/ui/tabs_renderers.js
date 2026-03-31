@@ -884,3 +884,71 @@ function submitOffer(i) {
   document.getElementById('offer-popup')?.remove();
   autoSave(); renderMarket();
 }
+
+// ════════════════════════════════════════════
+// CREDITS
+// ════════════════════════════════════════════
+function renderCredits() {
+  const version = 'v0.5.7 beta';
+  const year    = new Date().getFullYear();
+
+  document.getElementById('tab-credits').innerHTML = `
+    <div style="max-width:600px;margin:0 auto">
+
+      <!-- Header -->
+      <div class="card" style="padding:28px;text-align:center;margin-bottom:16px">
+        <div style="font-size:48px;margin-bottom:12px">🏊</div>
+        <div style="font-size:28px;font-weight:700;color:var(--blue);margin-bottom:4px">Waterpolo Manager</div>
+        <div style="font-size:14px;color:var(--muted)">Serie A1 Maschile — Stagione 2025/26</div>
+        <div style="display:inline-block;margin-top:12px;padding:4px 14px;border-radius:20px;background:rgba(0,194,255,.12);border:1px solid rgba(0,194,255,.3);font-size:13px;color:var(--blue);font-weight:700">${version}</div>
+      </div>
+
+      <!-- Sviluppatore -->
+      <div class="card" style="padding:20px;margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px">Sviluppatore</div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#0a3a6a);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">🤽</div>
+          <div>
+            <div style="font-size:17px;font-weight:700;color:var(--text)">Davide Lanza</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:2px">Grandepinna</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Licenza -->
+      <div class="card" style="padding:20px;margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Licenza</div>
+        <div style="font-size:13px;color:var(--text);margin-bottom:6px;font-weight:600">MIT License</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6">
+          Copyright © ${year} Davide Lanza (Grandepinna).<br>
+          Il software è distribuito liberamente per uso personale e non commerciale.<br>
+          È consentita la modifica e la redistribuzione con attribuzione all'autore originale.
+        </div>
+      </div>
+
+      <!-- Tecnologie -->
+      <div class="card" style="padding:20px;margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Tecnologie</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
+          <div class="irow"><span class="ilbl">Frontend</span><span>HTML5 · CSS3 · JavaScript</span></div>
+          <div class="irow"><span class="ilbl">Autenticazione</span><span>Firebase Auth</span></div>
+          <div class="irow"><span class="ilbl">Database</span><span>Firebase Realtime DB</span></div>
+          <div class="irow"><span class="ilbl">Grafici</span><span>Canvas HTML5</span></div>
+          <div class="irow"><span class="ilbl">Hosting</span><span>GitHub Pages</span></div>
+          <div class="irow"><span class="ilbl">AI Development</span><span>Claude (Anthropic)</span></div>
+        </div>
+      </div>
+
+      <!-- Info versione -->
+      <div class="card" style="padding:16px;text-align:center">
+        <div style="font-size:11px;color:var(--muted)">
+          Waterpolo Manager ${version} · ${year}<br>
+          <span style="margin-top:4px;display:inline-block">
+            Sviluppato con ❤️ per gli appassionati di pallanuoto italiana
+          </span>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
