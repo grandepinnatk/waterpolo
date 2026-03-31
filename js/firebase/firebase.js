@@ -9,21 +9,21 @@ import { getAuth, setPersistence,
 import { getDatabase }             from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 
 const firebaseConfig = {
-  apiKey:            "AIzaSyBnP30hw8Qgt265L6Zvb7GQDtv-U2twYxQ",
-  authDomain:        "waterpolo-4da0a.firebaseapp.com",
-  databaseURL:       "https://waterpolo-4da0a-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId:         "waterpolo-4da0a",
-  storageBucket:     "waterpolo-4da0a.firebasestorage.app",
-  messagingSenderId: "315764607553",
-  appId:             "1:315764607553:web:f5f98e3c77955fde3154c0"
+  apiKey:            "AIzaSyB1n1NSMS7LMmghRCWko5qwosqWbIPebp8",
+  authDomain:        "waterpolo-manager-3a673.firebaseapp.com",
+  databaseURL:       "https://waterpolo-manager-3a673-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:         "waterpolo-manager-3a673",
+  storageBucket:     "waterpolo-manager-3a673.firebasestorage.app",
+  messagingSenderId: "1046960520210",
+  appId:             "1:1046960520210:web:38471ef4626ab32275eccb"
 };
 
-// Nome app univoco per separare la sessione da altri progetti Firebase (es. scacchideipinci)
+// Nome univoco per isolare la sessione da altri progetti Firebase sullo stesso browser
 export const app  = initializeApp(firebaseConfig, 'waterpolo-app');
 export const auth = getAuth(app);
 export const db   = getDatabase(app);
 
-// Persistenza locale esplicita (sessione separata per ogni app Firebase)
+// Persistenza locale esplicita
 setPersistence(auth, browserLocalPersistence).catch(e =>
   console.warn('[Firebase] setPersistence error:', e)
 );

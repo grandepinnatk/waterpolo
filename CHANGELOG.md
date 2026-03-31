@@ -6,6 +6,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.3.8-beta] — 2026-03-31
+
+### Modificato
+- Aggiornata configurazione Firebase con nuovo progetto `waterpolo-manager-3a673` (reset completo)
+- Nuova `apiKey`, nuovo `authDomain`, nuovo `databaseURL`
+
+---
+
 ## [0.3.7-beta] — 2026-03-31
 
 ### Corretto
@@ -77,6 +85,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - Tabelle **In campo** e **Panchina**: mostrano solo il cognome (es. "Rossi") per massima leggibilità nelle colonne strette
 - **Vasca** (canvas) e log azioni: mostrano il formato completo "Cognome I."
 - Modale Rosa e altre schermate: formato completo "Cognome I."
+
+---
+
+## [0.3.8-beta] — 2026-03-31
+
+### Modificato
+- Aggiornata configurazione Firebase con nuovo progetto `waterpolo-manager-3a673` (reset completo)
+- Nuova `apiKey`, nuovo `authDomain`, nuovo `databaseURL`
 
 ---
 
