@@ -310,6 +310,25 @@ function _checkExhaustedPlayers() {
   }
 }
 
+// Badge ruolo colorato (stessa classe CSS della tab Rosa)
+function _roleBadge(role) {
+  const cls = role==='POR'?'S': role==='DIF'?'A': role==='CB'?'B': 'C';
+  return `<span class="badge ${cls}">${role}</span>`;
+}
+
+// Badge mano colorato
+function _handBadge(hand) {
+  const cls = hand==='AMB'?'AMB': hand==='L'?'L': 'R';
+  return `<span class="badge ${cls}">${hand}</span>`;
+}
+
+// Etichetta posizione semplificata: GK→POR, altrimenti il numero
+function _simplePosLabel(pk) {
+  if (!pk) return '—';
+  if (pk === 'GK') return 'POR';
+  return String(pk);  // '1','2','3','4','5','6'
+}
+
 function renderFieldLists() {
   const ms = G.ms; if (!ms) return;
 
@@ -378,7 +397,7 @@ function renderFieldLists() {
     const mGoals   = ms.matchGoals   && ms.matchGoals[pi]   || 0;
     const mAssists = ms.matchAssists && ms.matchAssists[pi] || 0;
     // Posizione: POR / 1-6
-    const posLabel = pk === 'GK' ? 'POR' : pk;
+    const posLabel = _simplePosLabel(pk);
     // Colore mano
     const handColor = p.hand === 'L' ? '#80c0ff' : p.hand === 'AMB' ? 'var(--green)' : 'var(--muted)';
     fieldHtml += `
@@ -527,9 +546,14 @@ function _renderSubLists() {
             ${staminaBadge(pi)}
             ${isExp ? '<span style="color:var(--red);font-size:10px;margin-left:4px">ESPULSO</span>' : ''}
           </div>
-          <div style="font-size:11px;color:var(--muted)">${POSITIONS[pk] ? POSITIONS[pk].label : pk} · ${p.role} · ${p.hand}</div>
+          <div style="font-size:11px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">${_simplePosLabel(pk)} · ${_roleBadge(p.role)} ${_handBadge(p.hand)} <span style="color:var(--muted)">${p.age}a</span></div>
         </div>
-        ${sel ? '<span style="color:var(--blue);font-size:18px">✓</span>' : ''}
+        <div style="display:flex;align-items:center;gap:6px">
+          <span onclick="event.stopPropagation();showMatchPlayerInfo(${pi})"
+                title="Scheda giocatore"
+                style="width:18px;height:18px;border-radius:50%;border:1px solid var(--muted);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;color:var(--muted);font-style:italic;font-weight:700;flex-shrink:0">i</span>
+          ${sel ? '<span style="color:var(--blue);font-size:18px">✓</span>' : ''}
+        </div>
       </div>`;
   });
   document.getElementById('sub-out-list').innerHTML = outHtml;
@@ -554,12 +578,61 @@ function _renderSubLists() {
             ${targetPk ? roleBadge(pi, targetPk) : ''}
             ${isExp ? '<span style="color:var(--red);font-size:10px;margin-left:4px">ESPULSO</span>' : ''}
           </div>
-          <div style="font-size:11px;color:var(--muted)">${p.role} · OVR ${p.overall} · ${p.hand}</div>
+          <div style="font-size:11px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">${_roleBadge(p.role)} ${_handBadge(p.hand)} <span style="color:var(--muted)">${p.age}a · OVR ${p.overall}</span></div>
         </div>
-        ${sel ? '<span style="color:var(--blue);font-size:18px">✓</span>' : ''}
+        <div style="display:flex;align-items:center;gap:6px">
+          <span onclick="event.stopPropagation();showMatchPlayerInfo(${pi})"
+                title="Scheda giocatore"
+                style="width:18px;height:18px;border-radius:50%;border:1px solid var(--muted);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;color:var(--muted);font-style:italic;font-weight:700;flex-shrink:0">i</span>
+          ${sel ? '<span style="color:var(--blue);font-size:18px">✓</span>' : ''}
+        </div>
       </div>`;
   });
   document.getElementById('sub-in-list').innerHTML = inHtml;
+}
+
+// Apre la scheda del giocatore durante la partita (popup riutilizzando showPlayerModal se disponibile)
+function showMatchPlayerInfo(pi) {
+  const ms = G.ms; if (!ms) return;
+  const p  = ms.myRoster[pi]; if (!p) return;
+  const rl = { POR:'Portiere', DIF:'Difensore', CEN:'Centromediano', ATT:'Attaccante', CB:'Centroboa' };
+  const hand = p.hand === 'AMB' ? 'Ambidestro' : p.hand === 'L' ? 'Mancino' : 'Destro';
+  const mc = p.morale > 70 ? 'var(--green)' : p.morale > 40 ? 'var(--gold)' : 'var(--red)';
+  const shirt = ms.shirtNumbers[pi] || '—';
+  const stam  = Math.round(ms.stamina[pi] ?? p.fitness);
+  const mGoals   = ms.matchGoals?.[pi]   || 0;
+  const mAssists = ms.matchAssists?.[pi] || 0;
+
+  const ov = document.createElement('div');
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:400;backdrop-filter:blur(4px)';
+  ov.innerHTML = `
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;max-width:320px;width:90%;max-height:80vh;overflow-y:auto">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div>
+          <div style="font-weight:700;font-size:15px;color:var(--blue)">#${shirt} ${p.name}</div>
+          <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;flex-wrap:wrap">${rl[p.role]||p.role} · ${p.nat} · ${p.age}a · ${_handBadge(p.hand)}</div>
+        </div>
+        <button onclick="this.closest('[style*=fixed]').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
+      </div>
+      <div class="irow"><span class="ilbl">Overall</span>   <span style="font-size:16px;font-weight:700;color:var(--blue)">${p.overall}</span></div>
+      <div class="irow"><span class="ilbl">Stamina</span>   <span style="color:${stam>60?'var(--green)':stam>30?'var(--gold)':'var(--red)'};font-weight:700">${stam}%</span></div>
+      <div class="irow"><span class="ilbl">Morale</span>    <span style="color:${mc}">${p.morale}%</span></div>
+      <div class="irow"><span class="ilbl">Gol partita</span><span style="color:var(--blue);font-weight:700">${mGoals}</span></div>
+      <div class="irow"><span class="ilbl">Assist partita</span><span style="color:var(--green);font-weight:700">${mAssists}</span></div>
+      <div style="margin-top:10px">
+        <div class="slbl" style="margin-top:0">Attributi</div>
+        ${[['att','ATT'],['def','DIF'],['spe','VEL'],['str','FOR'],['tec','TEC']].map(([a,lbl]) => `
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+            <div style="font-size:11px;color:var(--muted);width:28px">${lbl}</div>
+            <div style="flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden">
+              <div style="width:${p.stats?.[a]||0}%;height:100%;background:var(--blue)"></div>
+            </div>
+            <div style="font-size:11px;width:24px;font-weight:600">${p.stats?.[a]||'—'}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  ov.onclick = e => { if (e.target === ov) ov.remove(); };
+  document.body.appendChild(ov);
 }
 
 function selSubOut(pk) {

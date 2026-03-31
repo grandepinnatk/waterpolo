@@ -6,6 +6,34 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.0-beta] — 2026-03-31
+
+### Corretto
+- Convocazioni — slot campo: le posizioni mostrano ora **1, 2, 3, 4, 5, 6, POR** invece di "1·RW", "2·DR", "6·CB" ecc. tramite la funzione `_simplePos(pk)`
+- Convocazioni — slot campo: nome nel formato **Cognome I.** (es. "De Luca A.") con max-width allargata a 52px per mostrare i cognomi compositi senza taglio eccessivo
+
+---
+
+## [0.4.9-beta] — 2026-03-31
+
+### Modificato
+- Pannello cambi: ruolo e mano mostrati come **badge colorati** (stessa grafica del tab Rosa)
+  - Ruolo: POR=blu, DIF=verde, ATT/CEN=rosso, CB=arancio
+  - Mano: R=rosso, L=blu, AMB=viola
+- Aggiunto badge CSS `.badge.AMB` per i giocatori ambidestri (mancava)
+- Lo stesso stile badge applicato anche nel popup scheda ⓘ durante la partita
+
+---
+
+## [0.4.8-beta] — 2026-03-31
+
+### Modificato — Pannello cambi
+- **Posizione**: mostrata in formato semplice (**1, 2, 3, 4, 5, 6, POR**) invece di "1-RW", "2-DR", ecc.
+- **Età**: aggiunta dopo la mano (es. "DIF · OVR 87 · R · 24a")
+- **Icona ⓘ**: aggiunta su ogni card giocatore (sia "Esce" che "Entra") — cliccando apre un popup con la scheda completa del giocatore: overall, stamina corrente, morale, gol/assist della partita e barre attributi ATT/DIF/VEL/FOR/TEC
+
+---
+
 ## [0.4.7-beta] — 2026-03-31
 
 ### Corretto — Sistema salvataggio cloud
@@ -51,6 +79,34 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Statistiche**: tiri, parate, falli/espulsioni
   - **Marcatori & Assist**: chi ha segnato (con assist dello stesso giocatore se presenti) e chi ha solo assist
 - Il pulsante "Chiudi e torna al menu" esegue il salvataggio e torna alla dashboard
+
+---
+
+## [0.5.0-beta] — 2026-03-31
+
+### Corretto
+- Convocazioni — slot campo: le posizioni mostrano ora **1, 2, 3, 4, 5, 6, POR** invece di "1·RW", "2·DR", "6·CB" ecc. tramite la funzione `_simplePos(pk)`
+- Convocazioni — slot campo: nome nel formato **Cognome I.** (es. "De Luca A.") con max-width allargata a 52px per mostrare i cognomi compositi senza taglio eccessivo
+
+---
+
+## [0.4.9-beta] — 2026-03-31
+
+### Modificato
+- Pannello cambi: ruolo e mano mostrati come **badge colorati** (stessa grafica del tab Rosa)
+  - Ruolo: POR=blu, DIF=verde, ATT/CEN=rosso, CB=arancio
+  - Mano: R=rosso, L=blu, AMB=viola
+- Aggiunto badge CSS `.badge.AMB` per i giocatori ambidestri (mancava)
+- Lo stesso stile badge applicato anche nel popup scheda ⓘ durante la partita
+
+---
+
+## [0.4.8-beta] — 2026-03-31
+
+### Modificato — Pannello cambi
+- **Posizione**: mostrata in formato semplice (**1, 2, 3, 4, 5, 6, POR**) invece di "1-RW", "2-DR", ecc.
+- **Età**: aggiunta dopo la mano (es. "DIF · OVR 87 · R · 24a")
+- **Icona ⓘ**: aggiunta su ogni card giocatore (sia "Esce" che "Entra") — cliccando apre un popup con la scheda completa del giocatore: overall, stamina corrente, morale, gol/assist della partita e barre attributi ATT/DIF/VEL/FOR/TEC
 
 ---
 
@@ -288,6 +344,34 @@ drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAg
 
 ---
 
+## [0.5.0-beta] — 2026-03-31
+
+### Corretto
+- Convocazioni — slot campo: le posizioni mostrano ora **1, 2, 3, 4, 5, 6, POR** invece di "1·RW", "2·DR", "6·CB" ecc. tramite la funzione `_simplePos(pk)`
+- Convocazioni — slot campo: nome nel formato **Cognome I.** (es. "De Luca A.") con max-width allargata a 52px per mostrare i cognomi compositi senza taglio eccessivo
+
+---
+
+## [0.4.9-beta] — 2026-03-31
+
+### Modificato
+- Pannello cambi: ruolo e mano mostrati come **badge colorati** (stessa grafica del tab Rosa)
+  - Ruolo: POR=blu, DIF=verde, ATT/CEN=rosso, CB=arancio
+  - Mano: R=rosso, L=blu, AMB=viola
+- Aggiunto badge CSS `.badge.AMB` per i giocatori ambidestri (mancava)
+- Lo stesso stile badge applicato anche nel popup scheda ⓘ durante la partita
+
+---
+
+## [0.4.8-beta] — 2026-03-31
+
+### Modificato — Pannello cambi
+- **Posizione**: mostrata in formato semplice (**1, 2, 3, 4, 5, 6, POR**) invece di "1-RW", "2-DR", ecc.
+- **Età**: aggiunta dopo la mano (es. "DIF · OVR 87 · R · 24a")
+- **Icona ⓘ**: aggiunta su ogni card giocatore (sia "Esce" che "Entra") — cliccando apre un popup con la scheda completa del giocatore: overall, stamina corrente, morale, gol/assist della partita e barre attributi ATT/DIF/VEL/FOR/TEC
+
+---
+
 ## [0.4.7-beta] — 2026-03-31
 
 ### Corretto — Sistema salvataggio cloud
@@ -333,6 +417,34 @@ drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAg
   - **Statistiche**: tiri, parate, falli/espulsioni
   - **Marcatori & Assist**: chi ha segnato (con assist dello stesso giocatore se presenti) e chi ha solo assist
 - Il pulsante "Chiudi e torna al menu" esegue il salvataggio e torna alla dashboard
+
+---
+
+## [0.5.0-beta] — 2026-03-31
+
+### Corretto
+- Convocazioni — slot campo: le posizioni mostrano ora **1, 2, 3, 4, 5, 6, POR** invece di "1·RW", "2·DR", "6·CB" ecc. tramite la funzione `_simplePos(pk)`
+- Convocazioni — slot campo: nome nel formato **Cognome I.** (es. "De Luca A.") con max-width allargata a 52px per mostrare i cognomi compositi senza taglio eccessivo
+
+---
+
+## [0.4.9-beta] — 2026-03-31
+
+### Modificato
+- Pannello cambi: ruolo e mano mostrati come **badge colorati** (stessa grafica del tab Rosa)
+  - Ruolo: POR=blu, DIF=verde, ATT/CEN=rosso, CB=arancio
+  - Mano: R=rosso, L=blu, AMB=viola
+- Aggiunto badge CSS `.badge.AMB` per i giocatori ambidestri (mancava)
+- Lo stesso stile badge applicato anche nel popup scheda ⓘ durante la partita
+
+---
+
+## [0.4.8-beta] — 2026-03-31
+
+### Modificato — Pannello cambi
+- **Posizione**: mostrata in formato semplice (**1, 2, 3, 4, 5, 6, POR**) invece di "1-RW", "2-DR", ecc.
+- **Età**: aggiunta dopo la mano (es. "DIF · OVR 87 · R · 24a")
+- **Icona ⓘ**: aggiunta su ogni card giocatore (sia "Esce" che "Entra") — cliccando apre un popup con la scheda completa del giocatore: overall, stamina corrente, morale, gol/assist della partita e barre attributi ATT/DIF/VEL/FOR/TEC
 
 ---
 

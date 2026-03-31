@@ -39,6 +39,12 @@ function openLineup(match, isHome, opp, poType = null, poMatch = null) {
 function cancelLineup() { showScreen('sc-game'); updateHeader(); showTab('dash'); }
 
 // ── Campo visuale con drag-and-drop ───────────
+// Posizione semplificata per lo slot campo: GK→POR, numeri senza etichetta
+function _simplePos(pk) {
+  if (!pk || pk === 'GK') return 'POR';
+  return String(pk); // '1','2','3','4','5','6'
+}
+
 // Formato nome per slot campo: "Cognome I." (es. "Rossi M.")
 function _slotName(p) {
   if (!p) return '—';
@@ -116,16 +122,16 @@ function renderLineupPool() {
       const sn = _slotName(p); // es. "Rossi M."
       slot.innerHTML = `<div style="font-weight:700;text-align:center;line-height:1.3">
         <div style="font-size:11px;color:#f0c040">${shirt}</div>
-        <div style="font-size:9px;white-space:nowrap;overflow:hidden;max-width:42px;text-overflow:ellipsis">${sn}</div>
-        <div style="font-size:7px;opacity:.7">${pos.label}</div>
+        <div style="font-size:9px;white-space:nowrap;overflow:hidden;max-width:52px;text-overflow:ellipsis">${sn}</div>
+        <div style="font-size:7px;opacity:.7">${_simplePos(pk)}</div>
       </div>`;
-      slot.title = `#${shirt} ${p.name} · ${pos.label}`;
+      slot.title = `#${shirt} ${p.name} · ${_simplePos(pk)}`;
     } else {
       slot.style.background = 'rgba(0,0,0,.3)';
       slot.style.border     = isSel ? '3px solid var(--gold)' : '2px dashed rgba(255,255,255,.4)';
       slot.style.boxShadow  = isSel ? '0 0 14px var(--gold)' : '';
       slot.style.color      = 'rgba(255,255,255,.6)';
-      slot.innerHTML        = `<div style="font-size:9px">${pos.label}</div>`;
+      slot.innerHTML        = `<div style="font-size:9px">${_simplePos(pk)}</div>`;
     }
 
     slot.onclick = () => selectPos(pk);

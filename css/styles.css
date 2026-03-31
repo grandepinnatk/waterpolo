@@ -67,7 +67,8 @@ body {
 .badge.B { background: #3a2800; color: #d0a030; }
 .badge.C { background: #3a0c0c; color: #d06060; }
 .badge.R { background: #3a0c0c; color: #ff8080; } /* Mancino */
-.badge.L { background: #0a2a3a; color: #80c0ff; } /* Destro  */
+.badge.L   { background: #0a2a3a; color: #80c0ff; } /* Mancino */
+.badge.AMB { background: #2a1a3a; color: #c080ff; } /* Ambidestro */
 
 /* ── Header navigazione ────────────────────── */
 .hdr {
