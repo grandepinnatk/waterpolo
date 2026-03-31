@@ -419,37 +419,3 @@ tr:last-child td { border-bottom: none; }
   color: var(--muted);
   opacity: .7;
 }
-
-/* ── Banner login / welcome — responsive ────── */
-/* Mobile: icona emoji, nessun banner */
-.wp-banner-login    { display: none !important; }
-.wp-banner-welcome  { display: none !important; }
-.wp-logo-fallback         { display: block; }
-.wp-logo-fallback-welcome { display: block; }
-
-/* Tablet e desktop (≥600px): banner visibile, icona nascosta */
-@media (min-width: 600px) {
-  .wp-banner-login   { display: block !important; }
-  .wp-banner-welcome { display: block !important; }
-  .wp-logo-fallback         { display: none !important; }
-  .wp-logo-fallback-welcome { display: none !important; }
-
-  /* Login card più larga per ospitare il banner */
-  .wp-auth-card {
-    max-width: 720px !important;
-  }
-}
-
-/* Desktop grande (≥900px): banner a piena larghezza della card */
-@media (min-width: 900px) {
-  .wp-auth-card {
-    max-width: 760px !important;
-  }
-}
-
-/* Centratura schermata welcome */
-#sc-welcome {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}

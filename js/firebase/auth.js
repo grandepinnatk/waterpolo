@@ -185,17 +185,10 @@ function _updateAuthHeader(user) {
     if (logoutBtn)  logoutBtn.style.display  = '';
     if (cloudIcon)  cloudIcon.style.display  = '';
     cloudIcon.title = 'Salvataggi sincronizzati con il cloud ☁️';
-    // Logout visibile anche nella welcome screen
-    const wlLogout = document.getElementById('wp-welcome-logout');
-    const wlUser   = document.getElementById('wp-welcome-user');
-    if (wlLogout) wlLogout.style.display = '';
-    if (wlUser)   wlUser.textContent = '👤 ' + name;
   } else {
     loggedEl.style.display  = 'none';
     if (logoutBtn)  logoutBtn.style.display  = 'none';
     if (cloudIcon)  cloudIcon.style.display  = 'none';
-    const wlLogout2 = document.getElementById('wp-welcome-logout');
-    if (wlLogout2) wlLogout2.style.display = 'none';
   }
 }
 
