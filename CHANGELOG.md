@@ -6,6 +6,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.4.3-beta] — 2026-03-31
+
+### Modificato
+- Colonna destra schermata partita: il componente **Marcatori** è stato rimpiazzato da **Parziali**
+- Tabella Parziali: 4 righe (una per tempo) con colonne **Tempo · Casa · Ospite**
+  - Il nome della propria squadra è evidenziato in blu
+  - Il tempo in corso ha sfondo turchese e indicatore ▶ in oro
+  - I tempi non ancora giocati mostrano —
+  - I tempi già giocati mostrano il risultato parziale in grigio
+- `engine/match.js` — aggiunto `periodScores` allo stato partita: array di 4 oggetti `{my, opp}` incrementati ad ogni gol nel periodo corretto
+
+---
+
+## [0.4.2-beta] — 2026-03-31
+
+### Corretto / Aggiunto
+- Tabelle In campo e Panchina: nome visualizzato nel formato corretto **Cognome I.** (es. "Rossi M.") invece della sola iniziale
+- Aggiunte due nuove colonne: **⚽ Gol** e **🤝 Assist** con i conteggi della partita in corso (valori in blu/verde quando > 0, trattino altrimenti)
+- La colonna OVR rimane l'ultima a destra
+
+---
+
+## [0.4.1-beta] — 2026-03-31
+
+### Modificato
+- Convocazioni: i nomi sui pallini del campo mostrano ora **Cognome + Iniziale** (es. "Rossi M.") con font leggermente più grande (9px) per migliore leggibilità
+
+---
+
 ## [0.4.0-beta] — 2026-03-31
 
 ### Corretto
@@ -106,6 +135,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - Tabelle **In campo** e **Panchina**: mostrano solo il cognome (es. "Rossi") per massima leggibilità nelle colonne strette
 - **Vasca** (canvas) e log azioni: mostrano il formato completo "Cognome I."
 - Modale Rosa e altre schermate: formato completo "Cognome I."
+
+---
+
+## [0.4.3-beta] — 2026-03-31
+
+### Modificato
+- Colonna destra schermata partita: il componente **Marcatori** è stato rimpiazzato da **Parziali**
+- Tabella Parziali: 4 righe (una per tempo) con colonne **Tempo · Casa · Ospite**
+  - Il nome della propria squadra è evidenziato in blu
+  - Il tempo in corso ha sfondo turchese e indicatore ▶ in oro
+  - I tempi non ancora giocati mostrano —
+  - I tempi già giocati mostrano il risultato parziale in grigio
+- `engine/match.js` — aggiunto `periodScores` allo stato partita: array di 4 oggetti `{my, opp}` incrementati ad ogni gol nel periodo corretto
+
+---
+
+## [0.4.2-beta] — 2026-03-31
+
+### Corretto / Aggiunto
+- Tabelle In campo e Panchina: nome visualizzato nel formato corretto **Cognome I.** (es. "Rossi M.") invece della sola iniziale
+- Aggiunte due nuove colonne: **⚽ Gol** e **🤝 Assist** con i conteggi della partita in corso (valori in blu/verde quando > 0, trattino altrimenti)
+- La colonna OVR rimane l'ultima a destra
+
+---
+
+## [0.4.1-beta] — 2026-03-31
+
+### Modificato
+- Convocazioni: i nomi sui pallini del campo mostrano ora **Cognome + Iniziale** (es. "Rossi M.") con font leggermente più grande (9px) per migliore leggibilità
 
 ---
 

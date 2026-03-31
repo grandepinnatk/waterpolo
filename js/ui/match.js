@@ -180,20 +180,57 @@ function refreshMatchUI() {
     <div class="irow"><span class="ilbl">Parate</span>         <span>${ms.mySaves}</span></div>
     <div class="irow"><span class="ilbl">Falli/Esp.</span>     <span>${ms.myFouls}</span></div>`;
 
-  // ── Marcatori SOLO di questa partita (ms.matchGoals) ──
-  const matchScorersList = Object.entries(ms.matchGoals || {})
-    .filter(([, g]) => g > 0)
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 8);
-  document.getElementById('m-scorers').innerHTML = matchScorersList.length
-    ? matchScorersList.map(([piStr, goals]) => {
-        const pi    = parseInt(piStr, 10);
-        const p     = ms.myRoster[pi];
-        const shirt = ms.shirtNumbers[pi] || '?';
-        const name  = p ? _shortPlayerName(p) : '#' + shirt;
-        return `<div class="irow"><span style="font-weight:600">#${shirt} ${name}</span><span style="color:var(--blue);font-weight:700">⚽ ${goals}</span></div>`;
-      }).join('')
-    : '<div style="color:var(--muted);font-size:12px;padding:4px 0">Nessun gol ancora</div>';
+  // ── Parziali per tempo ──
+  const partialsEl = document.getElementById('m-partials');
+  if (partialsEl) {
+    const homeTeam = ms.isHome ? ms.myTeam  : ms.oppTeam;
+    const awayTeam = ms.isHome ? ms.oppTeam : ms.myTeam;
+    const isMyHome = ms.isHome;
+    const ps       = ms.periodScores || [{my:0,opp:0},{my:0,opp:0},{my:0,opp:0},{my:0,opp:0}];
+
+    // Nomi corti per l'intestazione
+    const homeLbl = homeTeam.abbr || homeTeam.name;
+    const awayLbl = awayTeam.abbr || awayTeam.name;
+
+    let html = `
+      <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <thead>
+          <tr style="border-bottom:1px solid var(--border)">
+            <th style="text-align:left;padding:3px 4px;font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase">Tempo</th>
+            <th style="text-align:center;padding:3px 6px;font-size:10px;font-weight:700;color:${isMyHome ? 'var(--blue)' : 'var(--muted)'}">${homeLbl}</th>
+            <th style="text-align:center;padding:3px 6px;font-size:10px;font-weight:700;color:${!isMyHome ? 'var(--blue)' : 'var(--muted)'}">${awayLbl}</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+    for (let t = 0; t < 4; t++) {
+      const isCurrent = (t + 1) === ms.period && !ms.finished;
+      const isPast    = (t + 1) < ms.period || ms.finished;
+      const isFuture  = !isCurrent && !isPast;
+
+      const homeGoals = isMyHome ? ps[t].my  : ps[t].opp;
+      const awayGoals = isMyHome ? ps[t].opp : ps[t].my;
+
+      const rowBg = isCurrent ? 'background:rgba(0,194,255,.07)' : '';
+      const valStyle = isFuture
+        ? 'color:rgba(255,255,255,.2)'
+        : isCurrent
+          ? 'font-weight:700;color:var(--text)'
+          : 'color:var(--muted)';
+
+      html += `
+        <tr style="border-bottom:1px solid rgba(255,255,255,.05);${rowBg}">
+          <td style="padding:5px 4px;color:${isCurrent ? 'var(--gold)' : 'var(--muted)'};font-size:11px;font-weight:${isCurrent ? 700 : 400}">
+            ${isCurrent ? '▶ ' : ''}${t + 1}° T
+          </td>
+          <td style="text-align:center;padding:5px 6px;${valStyle}">${isFuture ? '—' : homeGoals}</td>
+          <td style="text-align:center;padding:5px 6px;${valStyle}">${isFuture ? '—' : awayGoals}</td>
+        </tr>`;
+    }
+
+    html += '</tbody></table>';
+    partialsEl.innerHTML = html;
+  }
 }
 
 function _setBar(idHPct, idAPct, idHBar, idABar, hLabel, aLabel, hPct) {
@@ -216,15 +253,19 @@ function _appendLog(txt, cls) {
 }
 
 // ── Liste in campo / panchina ─────────────────
-// Restituisce solo il cognome per le tabelle (es. "Rossi")
+// Restituisce "Cognome I." per le tabelle
 function _shortPlayerName(p) {
   if (!p || !p.name) return '—';
-  // Formato atteso: "Cognome I." — prende la prima parola (cognome)
-  return p.name.split(' ')[0];
-}
-// Restituisce "Cognome I." completo (usato in vasca e log)
-function _fullShortName(p) {
-  if (!p || !p.name) return '—';
+  // Formato "M. Rossi" → "Rossi M."
+  if (/^[A-Z]\. /.test(p.name)) {
+    const parts = p.name.split(' ');
+    const init  = parts[0];
+    const cogn  = parts.slice(1).join(' ');
+    return cogn + ' ' + init;
+  }
+  // Formato "Marco Rossi" → "Rossi M."
+  const parts = p.name.trim().split(' ');
+  if (parts.length >= 2) return parts[parts.length - 1] + ' ' + parts[0][0] + '.';
   return p.name;
 }
 
@@ -254,11 +295,15 @@ function renderFieldLists() {
   }
 
   // Intestazione colonne comune
+  const COL = '28px 1fr 38px 66px 40px 26px 26px 32px';
   const tableHeader = `
-    <div style="display:grid;grid-template-columns:28px 1fr 38px 72px 52px 36px;
+    <div style="display:grid;grid-template-columns:${COL};
                 gap:4px;padding:3px 4px 5px;border-bottom:1px solid var(--border);
                 font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px">
-      <div>#</div><div>Nome</div><div>Ruolo</div><div>Stamina</div><div>Esp.</div><div>OVR</div>
+      <div>#</div><div>Nome</div><div>Ruolo</div><div>Stamina</div><div>Esp.</div>
+      <div title="Gol in partita" style="text-align:center">&#x26BD;</div>
+      <div title="Assist in partita" style="text-align:center">&#x1F91D;</div>
+      <div>OVR</div>
     </div>`;
 
   // ── IN CAMPO ──────────────────────────────
@@ -275,19 +320,23 @@ function renderFieldLists() {
     const pos   = POSITIONS[pk];
     const shirt = ms.shirtNumbers[pi] || '—';
     const isExp = ms.expelled.has(pi);
+    const mGoals   = ms.matchGoals   && ms.matchGoals[pi]   || 0;
+    const mAssists = ms.matchAssists && ms.matchAssists[pi] || 0;
     fieldHtml += `
-      <div style="display:grid;grid-template-columns:28px 1fr 38px 72px 52px 36px;
+      <div style="display:grid;grid-template-columns:${COL};
                   gap:4px;align-items:center;padding:5px 4px;
                   border-bottom:1px solid rgba(30,58,92,.35);
                   opacity:${isExp ? '.4' : '1'}">
         <div style="font-weight:700;color:var(--blue);font-size:12px">#${shirt}</div>
         <div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
-          ${p.name.split(' ').pop()}
-          ${isExp ? '<span style="font-size:9px;color:var(--red);display:block">ESPULSO</span>' : ''}
+          ${_shortPlayerName(p)}
+          ${isExp ? '<span style="font-size:9px;color:var(--red);display:block">ESP</span>' : ''}
         </div>
         <div><span style="font-size:10px;font-weight:600;color:var(--blue)">${pos ? pos.label : pk}</span></div>
         <div>${isExp ? '<span style="color:var(--muted);font-size:11px">—</span>' : staminaCell(pi)}</div>
         <div>${expDots(pi)}</div>
+        <div style="font-size:11px;font-weight:700;color:${mGoals>0?'var(--blue)':'var(--muted)'};text-align:center">${mGoals > 0 ? mGoals : '—'}</div>
+        <div style="font-size:11px;font-weight:700;color:${mAssists>0?'var(--green)':'var(--muted)'};text-align:center">${mAssists > 0 ? mAssists : '—'}</div>
         <div style="font-size:11px;font-weight:600;color:var(--muted)">${p.overall}</div>
       </div>`;
   });
@@ -303,19 +352,23 @@ function renderFieldLists() {
     const p     = ms.myRoster[pi]; if (!p) return;
     const shirt = ms.shirtNumbers[pi] || '—';
     const isExp = ms.expelled.has(pi);
+    const bGoals   = ms.matchGoals   && ms.matchGoals[pi]   || 0;
+    const bAssists = ms.matchAssists && ms.matchAssists[pi] || 0;
     benchHtml += `
-      <div style="display:grid;grid-template-columns:28px 1fr 38px 72px 52px 36px;
+      <div style="display:grid;grid-template-columns:${COL};
                   gap:4px;align-items:center;padding:5px 4px;
                   border-bottom:1px solid rgba(30,58,92,.35);
                   opacity:${isExp ? '.35' : '1'};
                   ${isExp ? 'text-decoration:line-through' : ''}">
         <div style="font-weight:700;color:var(--muted);font-size:12px">#${shirt}</div>
         <div style="font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
-          ${p.name.split(' ').pop()}
+          ${_shortPlayerName(p)}
         </div>
         <div><span style="font-size:10px;font-weight:600;color:var(--muted)">${p.role}</span></div>
         <div>${staminaCell(pi)}</div>
         <div>${expDots(pi)}</div>
+        <div style="font-size:11px;font-weight:700;color:${bGoals>0?'var(--blue)':'var(--muted)'};text-align:center">${bGoals > 0 ? bGoals : '—'}</div>
+        <div style="font-size:11px;font-weight:700;color:${bAssists>0?'var(--green)':'var(--muted)'};text-align:center">${bAssists > 0 ? bAssists : '—'}</div>
         <div style="font-size:11px;font-weight:600;color:var(--muted)">${p.overall}</div>
       </div>`;
   });

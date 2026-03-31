@@ -112,9 +112,11 @@ function renderLineupPool() {
       slot.style.border     = isSel ? '3px solid var(--gold)' : '2px solid #00c2ff';
       slot.style.boxShadow  = isSel ? '0 0 14px var(--gold)' : '';
       slot.style.color      = '#fff';
-      slot.innerHTML = `<div style="font-size:8px;font-weight:700">
+      // Nome formato: "Cognome I." su riga dedicata
+      const sn = _slotName(p); // es. "Rossi M."
+      slot.innerHTML = `<div style="font-weight:700;text-align:center;line-height:1.3">
         <div style="font-size:11px;color:#f0c040">${shirt}</div>
-        <div style="font-size:8px">${_slotName(p)}</div>
+        <div style="font-size:9px;white-space:nowrap;overflow:hidden;max-width:42px;text-overflow:ellipsis">${sn}</div>
         <div style="font-size:7px;opacity:.7">${pos.label}</div>
       </div>`;
       slot.title = `#${shirt} ${p.name} · ${pos.label}`;

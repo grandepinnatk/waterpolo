@@ -134,6 +134,10 @@ function createMatchState({ match, isHome, myTeam, oppTeam, myRoster, oppRoster,
     // Gol segnati IN QUESTA PARTITA: { rosterIdx → count }
     matchGoals:   {},
     matchAssists: {},
+    // Parziali per periodo: array di { my, opp } per ciascuno dei 4 tempi
+    periodScores: [ {my:0,opp:0}, {my:0,opp:0}, {my:0,opp:0}, {my:0,opp:0} ],
+    // Punteggio al termine del periodo precedente (per calcolare il parziale corrente)
+    _prevScore: { my:0, opp:0 },
   };
 }
 
@@ -287,6 +291,10 @@ function generateMatchEvent(ms) {
       ms.myScore++;
       attacker.p.goals++;
       ms.matchGoals[attacker.pi] = (ms.matchGoals[attacker.pi] || 0) + 1;
+      // Aggiorna parziale del periodo corrente
+      if (ms.periodScores && ms.period >= 1 && ms.period <= 4) {
+        ms.periodScores[ms.period - 1].my++;
+      }
       const others = activePlayers.filter(x => x.pk !== attacker.pk);
 
       // ── Assist: giocatore con tecnica più alta ha più probabilità di servire ──
@@ -323,6 +331,10 @@ function generateMatchEvent(ms) {
     const goalProb = 0.38 + ((oppStr - myEffective) / 250);
     if (Math.random() < goalProb) {
       ms.oppScore++;
+      // Aggiorna parziale del periodo corrente
+      if (ms.periodScores && ms.period >= 1 && ms.period <= 4) {
+        ms.periodScores[ms.period - 1].opp++;
+      }
       return { txt: '⚽ ' + ms.oppTeam.name + ' segna! Gol subito.', cls: 'og', ballTarget: { x: 0.50, y: 0.95 } };
     } else {
       const myGk = ms.myRoster[ms.onField['GK']];
