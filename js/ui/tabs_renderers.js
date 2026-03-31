@@ -1,3 +1,101 @@
+// ════════════════════════════════════════════
+// POPUP ROSA SQUADRA — richiamabile da ovunque
+// showTeamRosterPopup(teamId) apre un modale con la rosa completa
+// ════════════════════════════════════════════
+function showTeamRosterPopup(teamId) {
+  const team   = G.teams.find(t => t.id === teamId);
+  if (!team) return;
+  const roster = G.rosters[teamId] || [];
+  const rl     = { POR:'Portiere', DIF:'Difensore', CEN:'Centromediano', ATT:'Attaccante', CB:'Centroboa' };
+  const isMe   = teamId === G.myId;
+
+  const existing = document.getElementById('team-roster-popup');
+  if (existing) existing.remove();
+
+  // Ordina: POR → DIF → CEN → ATT → CB
+  const roleOrder = { POR:0, DIF:1, CEN:2, ATT:3, CB:4 };
+  const sorted = [...roster].sort((a, b) =>
+    (roleOrder[a.role] ?? 5) - (roleOrder[b.role] ?? 5) ||
+    b.overall - a.overall
+  );
+
+  // Calcola OVR medio
+  const avgOvr = roster.length
+    ? Math.round(roster.reduce((s, p) => s + p.overall, 0) / roster.length)
+    : 0;
+
+  const rows = sorted.map(p => {
+    const rCls = p.role==='POR'?'S': p.role==='DIF'?'A': p.role==='CB'?'B':'C';
+    const hCls = p.hand==='AMB'?'AMB': p.hand==='L'?'L':'R';
+    return `<tr>
+      <td style="font-size:12px;font-weight:600">${p.name}</td>
+      <td><span class="badge ${rCls}">${p.role}</span></td>
+      <td><span class="badge ${hCls}">${p.hand}</span></td>
+      <td style="font-size:11px;color:var(--muted);text-align:center">${p.age}</td>
+      <td style="font-weight:700;color:var(--blue);text-align:center">${p.overall}</td>
+      <td style="font-size:11px;color:var(--muted);text-align:right">${p.nat}</td>
+    </tr>`;
+  }).join('');
+
+  const ov = document.createElement('div');
+  ov.id = 'team-roster-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;z-index:500;backdrop-filter:blur(6px);overflow-y:auto;padding:20px';
+  ov.innerHTML = `
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;
+                padding:20px;max-width:580px;width:95%;max-height:85vh;overflow-y:auto">
+      <!-- Header -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:36px;height:36px;border-radius:50%;background:${team.col || 'var(--blue)'};
+                      display:flex;align-items:center;justify-content:center;font-size:12px;
+                      font-weight:700;color:#fff;flex-shrink:0">${team.abbr}</div>
+          <div>
+            <div style="font-weight:700;font-size:16px;color:var(--blue)">${team.name}${isMe ? ' ★' : ''}</div>
+            <div style="font-size:11px;color:var(--muted)">${team.city || ''} · OVR medio: ${avgOvr} · ${roster.length} giocatori</div>
+          </div>
+        </div>
+        <button onclick="document.getElementById('team-roster-popup').remove()"
+                style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
+      </div>
+      <!-- Tabella rosa -->
+      <table style="width:100%;border-collapse:collapse">
+        <thead>
+          <tr style="border-bottom:1px solid var(--border);font-size:10px;color:var(--muted);text-transform:uppercase">
+            <th style="text-align:left;padding:4px 6px">Giocatore</th>
+            <th>Ruolo</th>
+            <th>Mano</th>
+            <th style="text-align:center">Età</th>
+            <th style="text-align:center">OVR</th>
+            <th style="text-align:right">Naz.</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+  ov.onclick = e => { if (e.target === ov) ov.remove(); };
+  document.body.appendChild(ov);
+}
+// Esponi globalmente
+window.showTeamRosterPopup = showTeamRosterPopup;
+
+// Sostituisce i nomi squadra in un testo con link cliccabili
+function _linkTeamNames(text) {
+  if (!G || !G.teams) return text;
+  let result = text;
+  G.teams.forEach(t => {
+    if (!t.name || t.name.length < 3) return;
+    // Escape caratteri speciali nel nome per regex
+    const escaped = t.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp('(' + escaped + ')', 'g');
+    result = result.replace(re,
+      `<span onclick="showTeamRosterPopup('${t.id}')" ` +
+      `style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;color:inherit" ` +
+      `title="Vedi rosa ${t.name}">$1</span>`
+    );
+  });
+  return result;
+}
+
 // Restituisce il nome completo nel formato "Cognome I."
 function _shortPlayerName(p) {
   if (!p || !p.name) return "—";
@@ -33,12 +131,19 @@ function renderDash() {
   if (G.phase === 'regular') {
     if (nm && nextOpp) {
       const ih = nm.home === G.myId;
+      // Casa sempre prima: se siamo in trasferta, l'avversario è la squadra di casa
+      const homeTeamName = ih ? G.myTeam.name : nextOpp.name;
+      const awayTeamName = ih ? nextOpp.name   : G.myTeam.name;
+      const homeTeamId   = ih ? G.myId         : nextOpp.id;
+      const awayTeamId   = ih ? nextOpp.id      : G.myId;
+      const homeIsMine   = ih;
       h += `<div class="card">
         <div class="slbl" style="margin-top:0">Prossima Partita — Giornata ${nm.round}</div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-          <div style="font-size:14px">${ih ? '<strong>' + G.myTeam.name + '</strong>' : G.myTeam.name}
+          <div style="font-size:14px">
+            <span onclick="showTeamRosterPopup('${homeTeamId}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;font-weight:${homeIsMine?700:400}">${homeTeamName}</span>
             <span style="color:var(--muted)"> vs </span>
-            ${ih ? nextOpp.name : '<strong>' + nextOpp.name + '</strong>'}
+            <span onclick="showTeamRosterPopup('${awayTeamId}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;font-weight:${homeIsMine?400:700}">${awayTeamName}</span>
           </div>
           <span style="font-size:12px;background:${ih ? 'rgba(0,194,255,.15)' : 'rgba(255,255,255,.1)'};
                  color:${ih ? 'var(--blue)' : 'var(--muted)'};padding:3px 10px;border-radius:6px">
@@ -66,7 +171,7 @@ function renderDash() {
 
   h += `<div class="card" style="margin-top:12px">
     <div class="slbl" style="margin-top:0">Ultime notizie</div>
-    ${G.msgs.slice(-6).reverse().map(m => `<div style="font-size:13px;padding:4px 0;border-bottom:1px solid rgba(30,58,92,.4)">${m}</div>`).join('')}
+    ${G.msgs.slice(-6).reverse().map(m => `<div style="font-size:13px;padding:4px 0;border-bottom:1px solid rgba(30,58,92,.4)">${_linkTeamNames(m)}</div>`).join('')}
   </div>`;
 
   document.getElementById('tab-dash').innerHTML = h;
@@ -435,7 +540,7 @@ function _buildStandContent(activeTab) {
       const zone = pos <= 4 ? 'rgba(0,194,255,.08)' : pos >= 11 && pos <= 13 ? 'rgba(240,192,64,.08)' : pos === 14 ? 'rgba(231,76,60,.08)' : '';
       h += `<tr style="background:${isme ? 'rgba(0,194,255,.12)' : zone}">
         <td><div style="width:20px;height:20px;border-radius:50%;background:${pbg};display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:${pos <= 3 ? '#001220' : 'var(--muted)'}">${pos}</div></td>
-        <td style="font-weight:${isme ? 700 : 400}">${t.name}${isme ? ' ★' : ''}</td>
+        <td style="font-weight:${isme ? 700 : 400}"><span onclick="showTeamRosterPopup('${t.id}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">${t.name}</span>${isme ? ' ★' : ''}</td>
         <td>${t.g}</td><td>${t.w}</td><td>${t.d}</td><td>${t.l}</td>
         <td>${t.gf}</td><td>${t.ga}</td>
         <td style="color:${t.gf - t.ga >= 0 ? 'var(--green)' : 'var(--red)'}">${t.gf - t.ga > 0 ? '+' : ''}${t.gf - t.ga}</td>
@@ -491,7 +596,7 @@ function _buildStandContent(activeTab) {
         h += `<tr style="background:${p.isMe ? 'rgba(0,194,255,.10)' : ''}">
           <td style="font-weight:700;color:var(--muted);font-size:12px">${medal}</td>
           <td style="font-weight:${p.isMe ? 700 : 400}">${p.name}${p.isMe ? ' ★' : ''}</td>
-          <td style="font-size:12px;color:var(--muted)">${p.teamAbbr}</td>
+          <td style="font-size:12px"><span onclick="showTeamRosterPopup(G.teams.find(t=>t.abbr==='${p.teamAbbr}')?.id)" style="cursor:pointer;color:var(--muted);text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">${p.teamAbbr}</span></td>
           <td><span class="badge ${p.role === 'POR' ? 'S' : p.role === 'CB' ? 'B' : p.role === 'DIF' ? 'A' : 'C'}">${p.role}</span></td>
           <td style="text-align:center;font-weight:700;color:var(--blue)">${p.goals}</td>
           <td style="text-align:center;color:var(--muted)">${p.assists}</td>
@@ -531,9 +636,9 @@ function renderCal() {
         ${m.played && res ? `<div style="font-size:13px;font-weight:700;color:${resc}">${res}</div>` : '<div style="color:var(--muted)">—</div>'}
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px">
-        <div style="font-size:13px;font-weight:${ih ? 700 : 400}">${ih ? G.myTeam.name : opp.name}</div>
+        <div style="font-size:13px;font-weight:${ih ? 700 : 400}"><span onclick="showTeamRosterPopup('${ih ? G.myId : opp.id}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">${ih ? G.myTeam.name : opp.name}</span></div>
         ${m.played && m.score ? `<div style="background:var(--panel2);border-radius:6px;padding:3px 14px;font-size:15px;font-weight:700">${m.score.home} - ${m.score.away}</div>` : '<div style="color:var(--muted)">vs</div>'}
-        <div style="font-size:13px;font-weight:${ih ? 400 : 700}">${ih ? opp.name : G.myTeam.name}</div>
+        <div style="font-size:13px;font-weight:${ih ? 400 : 700}"><span onclick="showTeamRosterPopup('${ih ? opp.id : G.myId}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">${ih ? opp.name : G.myTeam.name}</span></div>
       </div>
     </div>`;
   });
@@ -731,7 +836,7 @@ function renderMarket() {
         ${offerBadge ? '<br>' + offerBadge : ''}
       </td>
       <td><span class="badge ${p.hand==='AMB'?'C':p.hand==='L'?'L':'R'}">${p.hand}</span></td>
-      <td style="font-size:12px;color:var(--muted)">${p._tname}</td>
+      <td style="font-size:12px"><span onclick="showTeamRosterPopup('${p._tid}')" style="cursor:pointer;color:var(--muted);text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">${p._tname}</span></td>
       <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span></td>
       <td style="font-weight:700">${p.overall}</td>
       <td style="font-size:12px">${formatMoney(p.value)}</td>
@@ -900,82 +1005,121 @@ function renderFinance() {
 
   const totalIn  = ledger.filter(e => e.amount > 0).reduce((s,e) => s + e.amount, 0);
   const totalOut = ledger.filter(e => e.amount < 0).reduce((s,e) => s + e.amount, 0);
+  const saldo    = totalIn + totalOut;
 
-  // ── Monte ingaggi attuale ──
-  const wageBill    = calcWageBill();
+  // ── Monte ingaggi ──
   const wageBillAnn = roster.reduce((s,p) => s + (p.salary||0), 0);
+  const wageBillDay = (typeof calcWageBill === 'function') ? calcWageBill() : Math.round(wageBillAnn / (REGULAR_SEASON_ROUNDS || 26));
+  const inFinal     = G.phase !== 'regular';
 
-  // ── Helpers UI ──
-  const fmPos = v => `<span style="color:var(--green);font-weight:700">+${formatMoney(v)}</span>`;
-  const fmNeg = v => `<span style="color:var(--red);font-weight:700">${formatMoney(v)}</span>`;
+  // ── Introiti da vittorie/premi: vittorie + pareggi + playoff + obiettivi ──
+  const totalPrize = totals.vittoria + totals.pareggio + totals.playoff + totals.obiettivo;
+  // ── Acquisti/vendite ──
+  const totalBuy   = totals.acquisto;  // negativo
+  const totalSell  = totals.vendita;   // positivo
+  // ── Ingaggi versati ──
+  const totalWages = totals.ingaggi;   // negativo
+
+  // ── Helpers ──
+  const fmPos = v => `<span style="color:var(--green);font-weight:700">+${formatMoney(Math.abs(v))}</span>`;
+  const fmNeg = v => `<span style="color:var(--red);font-weight:700">−${formatMoney(Math.abs(v))}</span>`;
   const fmVal = v => v >= 0 ? fmPos(v) : fmNeg(v);
-  const rowCat = (label, val, icon) => val === 0 ? '' : `
-    <tr>
-      <td style="color:var(--muted);font-size:13px">${icon} ${label}</td>
-      <td style="text-align:right">${fmVal(val)}</td>
-    </tr>`;
+  const fmSaldo = v => v >= 0
+    ? `<span style="color:var(--green);font-weight:700">+${formatMoney(v)}</span>`
+    : `<span style="color:var(--red);font-weight:700">${formatMoney(v)}</span>`;
 
-  const recent = [...ledger].reverse().slice(0, 40);
   const typeIcon  = { vittoria:'🏆', pareggio:'🤝', ingaggi:'💸', acquisto:'🛒', vendita:'💰', allenamento:'🏋️', obiettivo:'🎯', playoff:'🥇' };
   const typeLabel = { vittoria:'Vittoria', pareggio:'Pareggio', ingaggi:'Ingaggi', acquisto:'Acquisto', vendita:'Vendita', allenamento:'Allenamento', obiettivo:'Obiettivo', playoff:'Playoff' };
+  const recent = [...ledger].reverse().slice(0, 40);
+
+  // Giornate di regular season giocate (per calcolare ingaggi versati vs attesi)
+  const roundsPlayed = G.schedule
+    ? G.schedule.filter(m => m.played && (m.home === G.myId || m.away === G.myId)).length
+    : 0;
 
   let h = `
-  <div class="g4" style="margin-bottom:12px">
-    <div class="sc"><div class="sc-l">Budget attuale</div><div class="sc-n" style="font-size:13px;color:var(--blue)">${formatMoney(G.budget)}</div></div>
-    <div class="sc"><div class="sc-l">Totale entrate</div><div class="sc-n" style="font-size:13px;color:var(--green)">${formatMoney(totalIn)}</div></div>
-    <div class="sc"><div class="sc-l">Totale uscite</div><div class="sc-n" style="font-size:13px;color:var(--red)">${formatMoney(Math.abs(totalOut))}</div></div>
-    <div class="sc"><div class="sc-l">Saldo netto</div><div class="sc-n" style="font-size:13px">${fmVal(totalIn + totalOut)}</div></div>
+  <!-- ── RIEPILOGO STATO ECONOMICO ── -->
+  <div class="card" style="margin-bottom:12px">
+    <div class="slbl" style="margin-top:0">💰 Stato Economico del Club</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;font-size:13px">
+
+      <!-- Budget attuale -->
+      <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(30,58,92,.3)">
+        <span style="color:var(--muted)">Budget attuale</span>
+        <span style="font-weight:700;color:var(--blue)">${formatMoney(G.budget)}</span>
+      </div>
+      <!-- Saldo netto -->
+      <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(30,58,92,.3)">
+        <span style="color:var(--muted)">Saldo netto stagione</span>
+        <span>${fmSaldo(saldo)}</span>
+      </div>
+
+      <!-- Introiti da vittorie e premi -->
+      <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(30,58,92,.3)">
+        <span style="color:var(--muted)">🏆 Introiti vittorie e premi</span>
+        <span style="color:var(--green);font-weight:700">+${formatMoney(totalPrize)}</span>
+      </div>
+      <!-- Vendita giocatori -->
+      <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(30,58,92,.3)">
+        <span style="color:var(--muted)">💰 Introiti vendita giocatori</span>
+        <span style="color:${totalSell > 0 ? 'var(--green)' : 'var(--muted)'};font-weight:700">${totalSell > 0 ? '+' + formatMoney(totalSell) : '—'}</span>
+      </div>
+
+      <!-- Acquisto giocatori -->
+      <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(30,58,92,.3)">
+        <span style="color:var(--muted)">🛒 Uscite acquisto giocatori</span>
+        <span style="color:${totalBuy < 0 ? 'var(--red)' : 'var(--muted)'};font-weight:700">${totalBuy < 0 ? '−' + formatMoney(Math.abs(totalBuy)) : '—'}</span>
+      </div>
+      <!-- Monte ingaggi versato -->
+      <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(30,58,92,.3)">
+        <span style="color:var(--muted)">💸 Monte ingaggi versato</span>
+        <span style="color:${totalWages < 0 ? 'var(--red)' : 'var(--muted)'};font-weight:700">${totalWages < 0 ? '−' + formatMoney(Math.abs(totalWages)) : '—'}</span>
+      </div>
+
+    </div>
   </div>
 
+  <!-- ── MONTE INGAGGI ── -->
   <div class="card" style="margin-bottom:12px">
     <div class="slbl" style="margin-top:0">💸 Monte Ingaggi</div>
-    <div style="display:flex;gap:24px;flex-wrap:wrap;font-size:13px;margin-bottom:10px">
-      <div><span style="color:var(--muted)">Annuale (totale rosa): </span><strong>${formatMoney(wageBillAnn)}</strong></div>
-      <div><span style="color:var(--muted)">Per giornata (÷${REGULAR_SEASON_ROUNDS}): </span><strong style="color:var(--red)">${formatMoney(wageBill)}</strong></div>
-      <div><span style="color:var(--muted)">Giocatori in rosa: </span><strong>${roster.length}</strong></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;text-align:center">
+      <div style="background:var(--panel2);border-radius:10px;padding:12px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Annuale (totale rosa)</div>
+        <div style="font-size:16px;font-weight:700;color:var(--text)">${formatMoney(wageBillAnn)}</div>
+      </div>
+      <div style="background:var(--panel2);border-radius:10px;padding:12px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Per giornata (÷${REGULAR_SEASON_ROUNDS || 26})</div>
+        <div style="font-size:16px;font-weight:700;color:var(--red)">−${formatMoney(wageBillDay)}</div>
+      </div>
+      <div style="background:var(--panel2);border-radius:10px;padding:12px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Giocatori in rosa</div>
+        <div style="font-size:16px;font-weight:700;color:var(--text)">${roster.length}</div>
+      </div>
     </div>
-    <div style="font-size:11px;color:var(--muted)">
-      ${G.phase !== 'regular'
-        ? '⚠️ Fase finale in corso: nessuna deduzione ingaggi attiva.'
-        : 'Il monte ingaggi viene dedotto automaticamente al termine di ogni giornata della regular season.'}
+
+    <div style="font-size:12px;padding:8px 12px;border-radius:8px;background:${inFinal ? 'rgba(240,192,64,.08)' : 'rgba(255,255,255,.04)'};border:1px solid ${inFinal ? 'rgba(240,192,64,.3)' : 'var(--border)'}">
+      ${inFinal
+        ? '⚠️ <strong>Fase finale in corso</strong>: il monte ingaggi non viene più dedotto nelle fasi playoff/playout.'
+        : `ℹ️ Il monte ingaggi viene dedotto <strong>automaticamente al termine di ogni giornata</strong> della regular season (${roundsPlayed}/${REGULAR_SEASON_ROUNDS || 26} giornate giocate). È variabile: aumenta con gli acquisti, diminuisce con le cessioni.`}
     </div>
   </div>
 
-  <div class="card" style="margin-bottom:12px">
-    <div class="slbl" style="margin-top:0">📊 Riepilogo per Categoria</div>
-    <table style="width:100%">
-      <thead><tr>
-        <th style="text-align:left;font-size:12px;color:var(--muted);font-weight:600;padding-bottom:6px">Categoria</th>
-        <th style="text-align:right;font-size:12px;color:var(--muted);font-weight:600;padding-bottom:6px">Totale</th>
-      </tr></thead>
-      <tbody>
-        ${rowCat('Vittorie campionato',   totals.vittoria,    '🏆')}
-        ${rowCat('Pareggi campionato',    totals.pareggio,    '🤝')}
-        ${rowCat('Introiti playoff',      totals.playoff,     '🥇')}
-        ${rowCat('Bonus obiettivi',       totals.obiettivo,   '🎯')}
-        ${rowCat('Vendita giocatori',     totals.vendita,     '💰')}
-        ${rowCat('Acquisto giocatori',    totals.acquisto,    '🛒')}
-        ${rowCat('Monte ingaggi versato', totals.ingaggi,     '💸')}
-        ${rowCat('Costi allenamento',     totals.allenamento, '🏋️')}
-      </tbody>
-    </table>
-    ${ledger.length === 0 ? '<div style="font-size:13px;color:var(--muted);margin-top:8px">Nessuna transazione ancora registrata.</div>' : ''}
-  </div>
-
+  <!-- ── STORICO TRANSAZIONI ── -->
   <div class="card">
-    <div class="slbl" style="margin-top:0">🧾 Ultime Transazioni</div>
+    <div class="slbl" style="margin-top:0">🧾 Storico Transazioni</div>
     ${recent.length === 0
-      ? '<div style="font-size:13px;color:var(--muted)">Nessuna transazione.</div>'
+      ? '<div style="font-size:13px;color:var(--muted);padding:8px 0">Nessuna transazione ancora registrata.</div>'
       : `<table style="width:100%;font-size:12px">
-          <thead><tr>
+          <thead><tr style="border-bottom:1px solid var(--border)">
             <th style="text-align:left;color:var(--muted);font-weight:600;padding-bottom:6px">Descrizione</th>
-            <th style="text-align:center;color:var(--muted);font-weight:600;padding-bottom:6px">G.</th>
-            <th style="text-align:right;color:var(--muted);font-weight:600;padding-bottom:6px">Importo</th>
+            <th style="text-align:center;color:var(--muted);font-weight:600;padding-bottom:6px;width:40px">G.</th>
+            <th style="text-align:right;color:var(--muted);font-weight:600;padding-bottom:6px;width:110px">Importo</th>
           </tr></thead>
           <tbody>
             ${recent.map(e => `
-              <tr style="border-bottom:1px solid rgba(30,58,92,.3)">
-                <td style="padding:5px 0;color:var(--text)">${typeIcon[e.type]||'•'} ${e.note || typeLabel[e.type] || e.type}</td>
+              <tr style="border-bottom:1px solid rgba(30,58,92,.25)">
+                <td style="padding:5px 0">${typeIcon[e.type]||'•'} ${e.note || typeLabel[e.type] || e.type}</td>
                 <td style="text-align:center;color:var(--muted)">${e.round || '—'}</td>
                 <td style="text-align:right;padding:5px 0">${fmVal(e.amount)}</td>
               </tr>`).join('')}

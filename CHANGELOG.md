@@ -6,6 +6,37 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.12-beta] — 2026-04-01
+
+### Corretto / Modificato
+
+#### Dashboard — Prossima Partita
+- In trasferta: il nome della **squadra di casa** (avversario) appare ora sempre a sinistra, il nostro nome a destra — come convenzionale nel calcio/sport
+
+#### Tab Finanza — Stato Economico del Club
+- Nuova sezione **💰 Stato Economico del Club** con griglia a 2 colonne:
+  - Budget attuale, Saldo netto stagione
+  - 🏆 Introiti vittorie e premi (vittorie + pareggi + playoff + bonus obiettivi)
+  - 💰 Introiti vendita giocatori
+  - 🛒 Uscite acquisto giocatori
+  - 💸 Monte ingaggi versato
+- **Monte Ingaggi** con 3 card: valore annuale, costo per giornata, numero giocatori in rosa
+  - Nota informativa: mostra giornate giocate su totale e avvisa che il monte varia con acquisti/cessioni
+  - In fase finale (playoff/playout): banner dorato che avvisa la sospensione delle deduzioni
+
+---
+
+## [0.5.11-beta] — 2026-04-01
+
+### Aggiunto
+- **Rosa squadre cliccabile** ovunque nell'app: cliccando il nome di qualsiasi squadra si apre un popup modale con la rosa completa (ordine ruolo → OVR), colonne Giocatore / Ruolo / Mano / Età / OVR / Naz.
+  - Il popup mostra il badge colorato del club, OVR medio e numero giocatori
+  - Funziona in: **Classifica**, **Calendario**, **Tab Marcatori**, **Mercato** (squadra di provenienza), **Dashboard** (prossima partita), **Ultime Notizie** (nomi squadra rilevati automaticamente nel testo)
+  - Nome della propria squadra marcato con ★
+  - Funzione globale `showTeamRosterPopup(teamId)` — si chiude cliccando ✕ o fuori dal popup
+
+---
+
 ## [0.5.10-beta] — 2026-03-31
 
 ### Aggiunto
