@@ -6,6 +6,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.3.7-beta] — 2026-03-31
+
+### Corretto
+- **Ambidestro**: la mano AMB ora appare correttamente come "Ambidestro" in tutti i punti dell'interfaccia (tabella Rosa, modale giocatore, lista convocazioni) invece di ricadere su "Destro"
+- **Nome nello slot campo** (schermata convocazioni): ora mostra **Cognome + Iniziale** (es. "Rossi M.") invece della sola iniziale — funziona sia con il nuovo formato "M. Rossi" che con eventuali giocatori nel vecchio formato "Marco Rossi"
+
+---
+
 ## [0.3.6-beta] — 2026-03-31
 
 ### Aggiunto
@@ -69,6 +77,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - Tabelle **In campo** e **Panchina**: mostrano solo il cognome (es. "Rossi") per massima leggibilità nelle colonne strette
 - **Vasca** (canvas) e log azioni: mostrano il formato completo "Cognome I."
 - Modale Rosa e altre schermate: formato completo "Cognome I."
+
+---
+
+## [0.3.7-beta] — 2026-03-31
+
+### Corretto
+- **Ambidestro**: la mano AMB ora appare correttamente come "Ambidestro" in tutti i punti dell'interfaccia (tabella Rosa, modale giocatore, lista convocazioni) invece di ricadere su "Destro"
+- **Nome nello slot campo** (schermata convocazioni): ora mostra **Cognome + Iniziale** (es. "Rossi M.") invece della sola iniziale — funziona sia con il nuovo formato "M. Rossi" che con eventuali giocatori nel vecchio formato "Marco Rossi"
 
 ---
 

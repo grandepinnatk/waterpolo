@@ -93,7 +93,7 @@ function renderRosa() {
     h += `<tr class="trhov" onclick="showPlayerModal(${i})" style="${onMarket ? 'background:rgba(240,192,64,.08)' : ''}">
       <td style="font-weight:600">${p.name}${onMarket ? ' <span style="font-size:10px;color:var(--gold);font-weight:600">VENDITA</span>' : ''}</td>
       <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span></td>
-      <td><span class="badge ${p.hand==='L'?'L':'R'}" title="${p.hand==='L'?'Mancino':'Destro'}">${p.hand}</span></td>
+      <td><span class="badge ${p.hand==='AMB'?'C':p.hand==='L'?'L':'R'}" title="${p.hand==='AMB'?'Ambidestro':p.hand==='L'?'Mancino':'Destro'}">${p.hand}</span></td>
       <td style="color:var(--muted);font-size:12px">${p.nat}</td>
       <td>${p.age}</td>
       <td style="font-weight:700;color:${c}">${p.overall}</td>
@@ -119,7 +119,7 @@ function showPlayerModal(i) {
         <div>
           <div style="font-weight:700;font-size:15px;color:var(--blue)">${p.name}</div>
           <div style="font-size:12px;color:var(--muted)">${rl[p.role] || p.role} · ${p.nat} · ${p.age} anni ·
-            <strong>${p.hand === 'L' ? 'Mancino' : 'Destro'}</strong>
+            <strong>${p.hand === 'AMB' ? 'Ambidestro' : p.hand === 'L' ? 'Mancino' : 'Destro'}</strong>
           </div>
         </div>
         <button onclick="this.closest('[style*=fixed]').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>

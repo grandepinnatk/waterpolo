@@ -39,6 +39,31 @@ function openLineup(match, isHome, opp, poType = null, poMatch = null) {
 function cancelLineup() { showScreen('sc-game'); updateHeader(); showTab('dash'); }
 
 // ── Campo visuale con drag-and-drop ───────────
+// Formato nome per slot campo: "Cognome I." (es. "Rossi M.")
+function _slotName(p) {
+  if (!p) return '—';
+  // Formato nuovo: "M. Rossi" → "Rossi M."
+  if (/^[A-Z]\.\s/.test(p.name)) {
+    const parts = p.name.split(' ');
+    const init  = parts[0];        // "M."
+    const cogn  = parts.slice(1).join(' '); // "Rossi"
+    return cogn + ' ' + init;
+  }
+  // Formato vecchio: "Marco Rossi" → "Rossi M."
+  const parts = p.name.trim().split(' ');
+  if (parts.length >= 2) {
+    return parts[parts.length - 1] + ' ' + parts[0][0] + '.';
+  }
+  return p.name;
+}
+
+// Etichetta mano: include Ambidestro
+function _handLabel(hand) {
+  if (hand === 'AMB') return 'Ambidestro';
+  if (hand === 'L')   return 'Mancino';
+  return 'Destro';
+}
+
 function renderLineupPool() {
   const container = document.getElementById('lineup-pool');
   container.innerHTML = '';
@@ -89,7 +114,7 @@ function renderLineupPool() {
       slot.style.color      = '#fff';
       slot.innerHTML = `<div style="font-size:8px;font-weight:700">
         <div style="font-size:11px;color:#f0c040">${shirt}</div>
-        <div style="font-size:8px">${p.name.split(' ').pop()}</div>
+        <div style="font-size:8px">${_slotName(p)}</div>
         <div style="font-size:7px;opacity:.7">${pos.label}</div>
       </div>`;
       slot.title = `#${shirt} ${p.name} · ${pos.label}`;
@@ -172,7 +197,7 @@ function renderPlayerSelList() {
     nameCell.style.cssText = 'min-width:0';
     nameCell.innerHTML = `
       <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.name}</div>
-      <div style="font-size:10px;color:var(--muted)">${p.role} · <span style="color:${p.hand==='L'?'#80c0ff':'var(--muted)'}">${p.hand==='L'?'Mancino':'Destro'}</span> · OVR ${p.overall}</div>`;
+      <div style="font-size:10px;color:var(--muted)">${p.role} · <span style="color:${p.hand==='L'?'#80c0ff':'var(--muted)'}">${_handLabel(p.hand)}</span> · OVR ${p.overall}</div>`;
     row.appendChild(nameCell);
 
     // Cella posizione
@@ -446,7 +471,7 @@ function openCapAssignment(playerRosterIdx) {
 
     capsHtml += `
       <div onclick="assignCapNumber(${playerRosterIdx}, ${n})"
-           title="${taken && !isAssignedToThis ? 'Assegnata a ' + (owner ? owner.name.split(' ').pop() : '?') : 'Assegna #' + n}"
+           title="${taken && !isAssignedToThis ? 'Assegnata a ' + (owner ? _slotName(owner) : '?') : 'Assegna #' + n}"
            style="
              display:flex; flex-direction:column; align-items:center; gap:4px;
              cursor:${taken && !isAssignedToThis ? 'not-allowed' : 'pointer'};
@@ -460,7 +485,7 @@ function openCapAssignment(playerRosterIdx) {
            onmouseout="this.style.background='${isAssignedToThis ? 'rgba(240,192,64,.15)' : 'transparent'}'">
         ${_capSVG(n, n === 1, 56)}
         ${taken && !isAssignedToThis
-          ? `<span style="font-size:9px;color:var(--muted)">${owner ? owner.name.split(' ').pop() : '?'}</span>`
+          ? `<span style="font-size:9px;color:var(--muted)">${owner ? _slotName(owner) : '?'}</span>`
           : `<span style="font-size:9px;color:var(--muted)">#${n}</span>`
         }
       </div>`;
