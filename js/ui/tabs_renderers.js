@@ -316,6 +316,7 @@ function doTrain(i) {
   const tr = TRAINING_TYPES[i];
   if (G.budget < tr.cost) return;
   G.budget -= tr.cost;
+  addLedger('allenamento', -tr.cost, `Sessione: ${tr.name}`, currentRound());
   G.trainWeeks++;
   const roster = G.rosters[G.myId];
   let improved = 0;
@@ -776,6 +777,7 @@ function buyPlayerFromPool(i) {
     renderMarket(); return;
   }
   G.budget -= price;
+  addLedger('acquisto', -price, `Acquistato ${p.name} da ${p._tname}`, currentRound());
   const np = { ...p }; delete np._tid; delete np._tname;
   np.morale = Math.min(100, np.morale + rnd(8, 15));
   G.rosters[G.myId].push(np);
@@ -883,6 +885,105 @@ function submitOffer(i) {
   G.msgs.push('📨 Offerta di ' + formatMoney(amount) + ' inviata per ' + p.name + ' (' + p._tname + '). Risposta alla prossima giornata.');
   document.getElementById('offer-popup')?.remove();
   autoSave(); renderMarket();
+}
+
+// ════════════════════════════════════════════
+// FINANZA
+// ════════════════════════════════════════════
+function renderFinance() {
+  const ledger  = G.ledger || [];
+  const roster  = G.rosters[G.myId] || [];
+
+  // ── Totali per categoria ──
+  const totals = { vittoria:0, pareggio:0, ingaggi:0, acquisto:0, vendita:0, allenamento:0, obiettivo:0, playoff:0 };
+  ledger.forEach(e => { if (totals[e.type] !== undefined) totals[e.type] += e.amount; });
+
+  const totalIn  = ledger.filter(e => e.amount > 0).reduce((s,e) => s + e.amount, 0);
+  const totalOut = ledger.filter(e => e.amount < 0).reduce((s,e) => s + e.amount, 0);
+
+  // ── Monte ingaggi attuale ──
+  const wageBill    = calcWageBill();
+  const wageBillAnn = roster.reduce((s,p) => s + (p.salary||0), 0);
+
+  // ── Helpers UI ──
+  const fmPos = v => `<span style="color:var(--green);font-weight:700">+${formatMoney(v)}</span>`;
+  const fmNeg = v => `<span style="color:var(--red);font-weight:700">${formatMoney(v)}</span>`;
+  const fmVal = v => v >= 0 ? fmPos(v) : fmNeg(v);
+  const rowCat = (label, val, icon) => val === 0 ? '' : `
+    <tr>
+      <td style="color:var(--muted);font-size:13px">${icon} ${label}</td>
+      <td style="text-align:right">${fmVal(val)}</td>
+    </tr>`;
+
+  const recent = [...ledger].reverse().slice(0, 40);
+  const typeIcon  = { vittoria:'🏆', pareggio:'🤝', ingaggi:'💸', acquisto:'🛒', vendita:'💰', allenamento:'🏋️', obiettivo:'🎯', playoff:'🥇' };
+  const typeLabel = { vittoria:'Vittoria', pareggio:'Pareggio', ingaggi:'Ingaggi', acquisto:'Acquisto', vendita:'Vendita', allenamento:'Allenamento', obiettivo:'Obiettivo', playoff:'Playoff' };
+
+  let h = `
+  <div class="g4" style="margin-bottom:12px">
+    <div class="sc"><div class="sc-l">Budget attuale</div><div class="sc-n" style="font-size:13px;color:var(--blue)">${formatMoney(G.budget)}</div></div>
+    <div class="sc"><div class="sc-l">Totale entrate</div><div class="sc-n" style="font-size:13px;color:var(--green)">${formatMoney(totalIn)}</div></div>
+    <div class="sc"><div class="sc-l">Totale uscite</div><div class="sc-n" style="font-size:13px;color:var(--red)">${formatMoney(Math.abs(totalOut))}</div></div>
+    <div class="sc"><div class="sc-l">Saldo netto</div><div class="sc-n" style="font-size:13px">${fmVal(totalIn + totalOut)}</div></div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <div class="slbl" style="margin-top:0">💸 Monte Ingaggi</div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;font-size:13px;margin-bottom:10px">
+      <div><span style="color:var(--muted)">Annuale (totale rosa): </span><strong>${formatMoney(wageBillAnn)}</strong></div>
+      <div><span style="color:var(--muted)">Per giornata (÷${REGULAR_SEASON_ROUNDS}): </span><strong style="color:var(--red)">${formatMoney(wageBill)}</strong></div>
+      <div><span style="color:var(--muted)">Giocatori in rosa: </span><strong>${roster.length}</strong></div>
+    </div>
+    <div style="font-size:11px;color:var(--muted)">
+      ${G.phase !== 'regular'
+        ? '⚠️ Fase finale in corso: nessuna deduzione ingaggi attiva.'
+        : 'Il monte ingaggi viene dedotto automaticamente al termine di ogni giornata della regular season.'}
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px">
+    <div class="slbl" style="margin-top:0">📊 Riepilogo per Categoria</div>
+    <table style="width:100%">
+      <thead><tr>
+        <th style="text-align:left;font-size:12px;color:var(--muted);font-weight:600;padding-bottom:6px">Categoria</th>
+        <th style="text-align:right;font-size:12px;color:var(--muted);font-weight:600;padding-bottom:6px">Totale</th>
+      </tr></thead>
+      <tbody>
+        ${rowCat('Vittorie campionato',   totals.vittoria,    '🏆')}
+        ${rowCat('Pareggi campionato',    totals.pareggio,    '🤝')}
+        ${rowCat('Introiti playoff',      totals.playoff,     '🥇')}
+        ${rowCat('Bonus obiettivi',       totals.obiettivo,   '🎯')}
+        ${rowCat('Vendita giocatori',     totals.vendita,     '💰')}
+        ${rowCat('Acquisto giocatori',    totals.acquisto,    '🛒')}
+        ${rowCat('Monte ingaggi versato', totals.ingaggi,     '💸')}
+        ${rowCat('Costi allenamento',     totals.allenamento, '🏋️')}
+      </tbody>
+    </table>
+    ${ledger.length === 0 ? '<div style="font-size:13px;color:var(--muted);margin-top:8px">Nessuna transazione ancora registrata.</div>' : ''}
+  </div>
+
+  <div class="card">
+    <div class="slbl" style="margin-top:0">🧾 Ultime Transazioni</div>
+    ${recent.length === 0
+      ? '<div style="font-size:13px;color:var(--muted)">Nessuna transazione.</div>'
+      : `<table style="width:100%;font-size:12px">
+          <thead><tr>
+            <th style="text-align:left;color:var(--muted);font-weight:600;padding-bottom:6px">Descrizione</th>
+            <th style="text-align:center;color:var(--muted);font-weight:600;padding-bottom:6px">G.</th>
+            <th style="text-align:right;color:var(--muted);font-weight:600;padding-bottom:6px">Importo</th>
+          </tr></thead>
+          <tbody>
+            ${recent.map(e => `
+              <tr style="border-bottom:1px solid rgba(30,58,92,.3)">
+                <td style="padding:5px 0;color:var(--text)">${typeIcon[e.type]||'•'} ${e.note || typeLabel[e.type] || e.type}</td>
+                <td style="text-align:center;color:var(--muted)">${e.round || '—'}</td>
+                <td style="text-align:right;padding:5px 0">${fmVal(e.amount)}</td>
+              </tr>`).join('')}
+          </tbody>
+        </table>`}
+  </div>`;
+
+  document.getElementById('tab-finance').innerHTML = h;
 }
 
 // ════════════════════════════════════════════

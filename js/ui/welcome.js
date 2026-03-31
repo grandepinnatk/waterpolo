@@ -219,6 +219,7 @@ function _doStartNewGame(slotIndex) {
     _currentSlot:  slotIndex,
     lineup:        { formation: {}, convocati: [] },
     objectives:    [],
+    ledger:        [],   // registro transazioni finanziarie
   };
 
   G.teams.forEach(t => { G.rosters[t.id] = generateRoster(t); });

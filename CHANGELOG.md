@@ -6,6 +6,19 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.10-beta] — 2026-03-31
+
+### Aggiunto
+- **Tab Finanza** (dopo Mercato): nuovo pannello con stato economico completo del club
+  - Riepilogo in 4 card: budget attuale, totale entrate, totale uscite, saldo netto
+  - Sezione **Monte Ingaggi**: valore annuale della rosa, quota per giornata (÷26 giornate regular season), numero giocatori. Monte ingaggi variabile in tempo reale in base ad acquisti e cessioni.
+  - Sezione **Riepilogo per Categoria**: vittorie, pareggi, playoff, obiettivi, vendite, acquisti, ingaggi versati, costi allenamento
+  - Sezione **Ultime Transazioni**: storico cronologico delle ultime 40 operazioni con icona, descrizione, giornata e importo
+- **Deduzione automatica monte ingaggi** al termine di ogni giornata della regular season (sia partita simulata che giocata). Nella fase finale (playoff/playout) nessuna deduzione viene applicata.
+- **Registro ledger (`G.ledger`)**: ogni variazione di budget (vittoria, pareggio, ingaggi, acquisto giocatore, vendita giocatore, costo allenamento, bonus obiettivo, incasso playoff) viene registrata con tipo, importo, nota e numero di giornata. Ledger persistito nel salvataggio.
+
+---
+
 ## [0.5.9-beta] — 2026-03-31
 
 ### Corretto

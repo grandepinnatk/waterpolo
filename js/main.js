@@ -17,6 +17,29 @@ function pick(arr)  { return arr[Math.floor(Math.random() * arr.length)]; }
 function cap(n)     { return Math.min(100, Math.max(0, Math.round(n))); }
 function formatMoney(n) { return Math.round(n).toLocaleString('it-IT') + '€'; }
 
+// ── Ledger finanziario ────────────────────────
+// Tipi: 'vittoria' | 'pareggio' | 'ingaggi' | 'acquisto' | 'vendita'
+//       'allenamento' | 'obiettivo' | 'playoff'
+function addLedger(type, amount, note, round) {
+  if (!G.ledger) G.ledger = [];
+  G.ledger.push({
+    type,
+    amount,          // positivo = entrata, negativo = uscita
+    note:   note || '',
+    round:  round != null ? round : (currentRound ? currentRound() : 0),
+    ts:     Date.now(),
+  });
+}
+
+// ── Monte ingaggi ─────────────────────────────
+// Somma annuale degli stipendi diviso le giornate di regular season (26).
+const REGULAR_SEASON_ROUNDS = 26;
+function calcWageBill() {
+  if (!G.rosters || !G.myId) return 0;
+  const total = (G.rosters[G.myId] || []).reduce((s, p) => s + (p.salary || 0), 0);
+  return Math.round(total / REGULAR_SEASON_ROUNDS);
+}
+
 function currentRound() {
   if (!G.schedule) return 0;
   // Giornata dell'ultima partita DELLA MIA SQUADRA giocata
@@ -99,11 +122,25 @@ function simNextRound() {
       const opScore = ih ? m.score.away : m.score.home;
       const res     = myScore > opScore ? 'VINCE' : myScore < opScore ? 'perde' : 'pareggia';
       const reward  = myScore > opScore ? getMatchReward(myScore, opScore) : 0;
-      if (reward) G.budget += reward;
+      if (reward) {
+        G.budget += reward;
+        const tipo = myScore > opScore ? 'vittoria' : 'pareggio';
+        addLedger(tipo, reward, `G${r}: ${G.myTeam.name} vs ${opp.name} (${myScore}-${opScore})`, r);
+      }
       G.msgs.push(`G${r}: ${G.myTeam.name} ${res} vs ${opp.name} (${myScore}-${opScore})` +
                   (reward ? ` +${formatMoney(reward)}` : ''));
     }
   });
+
+  // ── Deduzione monte ingaggi (solo regular season) ──
+  if (G.phase === 'regular') {
+    const wage = calcWageBill();
+    if (wage > 0) {
+      G.budget -= wage;
+      addLedger('ingaggi', -wage, `Monte ingaggi G${r}`, r);
+      G.msgs.push(`💸 Ingaggi G${r}: -${formatMoney(wage)}`);
+    }
+  }
 
   refreshMarketPool();
   generateTransferOffers();
@@ -204,6 +241,7 @@ function closeSeason() {
   G.phase = 'done';
   const reward = finalizeObjectives(G.objectives, G.stand, G.myId, G.playoffResult);
   G.budget += reward;
+  if (reward) addLedger('obiettivo', reward, 'Bonus obiettivi fine stagione', currentRound());
   G.msgs.push('Stagione conclusa! Budget finale: ' + formatMoney(G.budget));
   updateHeader(); autoSave(); showTab('goals');
 }
@@ -492,6 +530,7 @@ function acceptOffer(rosterIdx, offerIdx) {
 
   // Incassa l'importo
   G.budget += offer.amount;
+  addLedger('vendita', offer.amount, `Venduto ${p.name} a ${offer.teamName}`, currentRound());
 
   // Trasferisce il giocatore alla squadra acquirente
   const buyerRoster = G.rosters[offer.teamId];

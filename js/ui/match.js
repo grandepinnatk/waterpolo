@@ -804,6 +804,7 @@ function _doEndMatch() {
     _resolvePlayoffMatch(ms.poType, ms.poMatch, winner);
     const earned = winner === G.myId ? 120000 : 40000;
     G.budget += earned;
+    addLedger('playoff', earned, `Playoff: ${G.myTeam.name} vs ${ms.oppTeam.name} (${ms.myScore}-${ms.oppScore})`, currentRound());
     G.msgs.push(G.myTeam.name + (winner === G.myId ? ' avanza' : ' eliminato') +
                 ' (' + ms.myScore + '-' + ms.oppScore + ') +' + formatMoney(earned));
     G.ms = null;
@@ -815,6 +816,19 @@ function _doEndMatch() {
     const md = ms.myScore === ms.oppScore;
     const earned = getMatchReward(ms.myScore, ms.oppScore);
     G.budget += earned;
+    if (earned) {
+      const tipo = mw ? 'vittoria' : 'pareggio';
+      addLedger(tipo, earned, `G${ms.match.round}: ${G.myTeam.name} vs ${ms.oppTeam.name} (${ms.myScore}-${ms.oppScore})`, ms.match.round);
+    }
+    // Deduzione ingaggi (solo regular season)
+    if (G.phase === 'regular') {
+      const wage = calcWageBill();
+      if (wage > 0) {
+        G.budget -= wage;
+        addLedger('ingaggi', -wage, `Monte ingaggi G${ms.match.round}`, ms.match.round);
+        G.msgs.push(`💸 Ingaggi G${ms.match.round}: -${formatMoney(wage)}`);
+      }
+    }
     G.msgs.push('G' + ms.match.round + ': ' + G.myTeam.name + ' ' +
                 (mw ? 'VINCE' : md ? 'pareggia' : 'perde') + ' vs ' + ms.oppTeam.name +
                 ' (' + ms.myScore + '-' + ms.oppScore + ')' + (earned ? ' +' + formatMoney(earned) : ''));
