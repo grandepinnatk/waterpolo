@@ -58,57 +58,75 @@ async function cloudDelete(slotN) {
   }
 }
 
+// ── Estrae il timestamp ms da un payload JSON ──
+function _getTimestamp(json) {
+  if (!json) return 0;
+  try {
+    const p = JSON.parse(json);
+    // Prima prova savedAtMs (più affidabile), poi savedAt ISO
+    if (p.savedAtMs) return p.savedAtMs;
+    if (p.meta?.savedAtMs) return p.meta.savedAtMs;
+    if (p.savedAt) return new Date(p.savedAt).getTime();
+    if (p.meta?.savedAt) return new Date(p.meta.savedAt).getTime();
+    return 0;
+  } catch (_) { return 0; }
+}
+
 // ── Sync al login: scarica cloud → localStorage (cloud vince se più recente) ──
 export async function syncOnLogin() {
   if (!auth.currentUser) return;
-  let syncCount = 0;
+  let downloaded = 0, uploaded = 0;
+  const uid = auth.currentUser.uid;
 
   for (let i = 0; i < TOTAL_SLOTS; i++) {
-    const cloudJson = await cloudRead(i);
-    const localJson = localStorage.getItem(SLOT_PREFIX + i);
+    let cloudJson, localJson;
+    try {
+      cloudJson = await cloudRead(i);
+      localJson = localStorage.getItem(SLOT_PREFIX + i);
+    } catch (e) {
+      console.warn(`[CloudSave] Errore lettura slot ${i}:`, e);
+      continue;
+    }
 
-    if (!cloudJson && !localJson) continue;
+    if (!cloudJson && !localJson) {
+      console.log(`[CloudSave] Slot ${i}: vuoto su entrambi`);
+      continue;
+    }
 
     if (cloudJson && !localJson) {
-      // Cloud ha dati, locale no → scarica
+      console.log(`[CloudSave] Slot ${i}: cloud → locale (nuovo dispositivo)`);
       localStorage.setItem(SLOT_PREFIX + i, cloudJson);
-      syncCount++;
+      downloaded++;
       continue;
     }
 
     if (!cloudJson && localJson) {
-      // Locale ha dati, cloud no → carica
+      console.log(`[CloudSave] Slot ${i}: locale → cloud (primo upload)`);
       await cloudWrite(i, localJson);
-      syncCount++;
+      uploaded++;
       continue;
     }
 
-    // Entrambi hanno dati → confronta savedAt
-    try {
-      const cloudMeta = JSON.parse(cloudJson)?.meta;
-      const localMeta = JSON.parse(localJson)?.meta;
-      const cloudTs   = cloudMeta?.savedAt || cloudMeta?.savedAtMs || 0;
-      const localTs   = localMeta?.savedAt || localMeta?.savedAtMs || 0;
+    // Entrambi hanno dati → usa savedAtMs per confronto preciso
+    const cloudTime = _getTimestamp(cloudJson);
+    const localTime = _getTimestamp(localJson);
 
-      // Confronta come stringhe ISO oppure ms
-      const cloudTime = typeof cloudTs === 'number' ? cloudTs : new Date(cloudTs).getTime();
-      const localTime = typeof localTs === 'number' ? localTs : new Date(localTs).getTime();
+    console.log(`[CloudSave] Slot ${i}: cloud=${cloudTime} locale=${localTime}`);
 
-      if (cloudTime > localTime) {
-        localStorage.setItem(SLOT_PREFIX + i, cloudJson);
-      } else if (localTime > cloudTime) {
-        await cloudWrite(i, localJson);
-      }
-      syncCount++;
-    } catch (e) {
-      // In caso di errore di parsing, il cloud vince
+    if (cloudTime > localTime) {
+      console.log(`[CloudSave] Slot ${i}: cloud più recente → scarico`);
       localStorage.setItem(SLOT_PREFIX + i, cloudJson);
+      downloaded++;
+    } else if (localTime > cloudTime) {
+      console.log(`[CloudSave] Slot ${i}: locale più recente → carico`);
+      await cloudWrite(i, localJson);
+      uploaded++;
+    } else {
+      console.log(`[CloudSave] Slot ${i}: identici, nessuna azione`);
     }
   }
 
-  if (syncCount > 0) {
-    console.log(`[CloudSave] Sincronizzati ${syncCount} slot`);
-  }
+  console.log(`[CloudSave] Sync completato: ${downloaded} scaricati, ${uploaded} caricati`);
 }
 
 // ── Salva uno slot sia su localStorage che su cloud ──

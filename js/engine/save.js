@@ -7,7 +7,7 @@
 // contiene riferimenti canvas non serializzabili.
 // ─────────────────────────────────────────────
 
-const SAVE_VERSION = 2;
+const SAVE_VERSION = 3;
 const TOTAL_SLOTS  = 3;
 const SLOT_PREFIX  = 'wp_slot_';
 
@@ -36,18 +36,20 @@ function _buildPayload(G) {
   return {
     version: SAVE_VERSION,
     savedAt: new Date().toISOString(),
+    savedAtMs: Date.now(),
     // Metadati leggibili senza caricare tutto il gioco
     meta: {
-      teamName: G.myTeam.name,
-      teamAbbr: G.myTeam.abbr,
-      teamCol:  G.myTeam.col,
-      teamTier: G.myTeam.tier,
-      phase:    G.phase,
-      round:    _roundFromSchedule(G.schedule),
-      position: _posFromStand(G.stand, G.myId),
-      points:   G.stand[G.myId]?.pts ?? 0,
-      wins:     G.stand[G.myId]?.w   ?? 0,
-      budget:   G.budget,
+      teamName:  G.myTeam.name,
+      teamAbbr:  G.myTeam.abbr,
+      teamCol:   G.myTeam.col,
+      teamTier:  G.myTeam.tier,
+      phase:     G.phase,
+      round:     _roundFromSchedule(G.schedule),
+      position:  _posFromStand(G.stand, G.myId),
+      points:    G.stand[G.myId]?.pts ?? 0,
+      wins:      G.stand[G.myId]?.w   ?? 0,
+      budget:    G.budget,
+      savedAtMs: Date.now(),  // timestamp ms per confronto cloud affidabile
     },
     // Stato completo
     myId:          G.myId,
@@ -71,6 +73,7 @@ function _buildPayload(G) {
     playoffResult: G.playoffResult || null,
     savedLineup:   G.savedLineup   || null,
     transferList:  G.transferList  || [],
+    marketPool:    G.marketPool    || [],
   };
 }
 
@@ -104,7 +107,7 @@ function readSlotMeta(slotIndex) {
     const raw = localStorage.getItem(_slotKey(slotIndex));
     if (!raw) return null;
     const p = JSON.parse(raw);
-    if (!p || p.version !== SAVE_VERSION) return null;
+    if (!p || p.version < 2) return null; // accetta v2 e v3
     return { ...p.meta, savedAt: p.savedAt };
   } catch (_) { return null; }
 }
@@ -115,18 +118,32 @@ function readAllSlotsMeta() {
   return Array.from({ length: TOTAL_SLOTS }, (_, i) => readSlotMeta(i));
 }
 
+// ── Migra payload v2 → v3 ────────────────────
+function _migratePayload(p) {
+  if (!p) return null;
+  // v2 → v3: aggiungi marketPool e savedAtMs
+  if (!p.marketPool)  p.marketPool  = [];
+  if (!p.savedAtMs)   p.savedAtMs   = p.meta?.savedAtMs || (p.savedAt ? new Date(p.savedAt).getTime() : 0);
+  if (!p.meta?.savedAtMs && p.savedAtMs) p.meta = { ...p.meta, savedAtMs: p.savedAtMs };
+  p.version = SAVE_VERSION;
+  return p;
+}
+
 // ── Carica payload completo di uno slot ───────
-// Ritorna payload o null se vuoto/corrotto/versione errata
+// Accetta v2 (con migrazione automatica) e v3.
+// Ritorna payload o null se vuoto/corrotto.
 function loadFromSlot(slotIndex) {
   try {
     const raw = localStorage.getItem(_slotKey(slotIndex));
     if (!raw) return null;
     const p = JSON.parse(raw);
-    if (!p || p.version !== SAVE_VERSION) {
-      console.warn('[save] versione slot', slotIndex, 'incompatibile');
+    if (!p) return null;
+    // Accetta v2 e v3; versioni più vecchie incompatibili
+    if (p.version < 2) {
+      console.warn('[save] versione slot', slotIndex, 'troppo vecchia — scartato');
       return null;
     }
-    return p;
+    return _migratePayload(p);
   } catch (e) {
     console.warn('[save] caricamento slot', slotIndex, e);
     return null;
@@ -177,6 +194,7 @@ function applyLoadedSave(payload) {
     _mercList:     [],
     savedLineup:   payload.savedLineup || null,
     transferList:  payload.transferList  || [],
+    marketPool:    payload.marketPool    || [],
     _currentSlot:  null,
     tactic:        'balanced',
   };

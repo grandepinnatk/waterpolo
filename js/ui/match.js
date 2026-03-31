@@ -21,7 +21,7 @@ function startLiveMatch(match, isHome, opp, poType = null, poMatch = null) {
   });
   G.ms.poType  = poType;
   G.ms.poMatch = poMatch;
-  G.ms.speed   = 1;
+  G.ms.speed   = 10;
 
   poolInitTokens(G.ms);
 
@@ -39,7 +39,7 @@ function startLiveMatch(match, isHome, opp, poType = null, poMatch = null) {
   document.getElementById('sub-panel').style.display = 'none';
   document.getElementById('action-log').innerHTML    = '';
   document.getElementById('m-clock').textContent     = '08:00';
-  _setSpeedUI(1);
+  _setSpeedUI(10);
 
   if (_animReqId) cancelAnimationFrame(_animReqId);
   _lastFrameT = null;
@@ -96,6 +96,10 @@ function _animLoop(timestamp) {
     }
 
     poolAnimStep(rawDt); // l'animazione visiva resta fluida indipendentemente da speed
+
+    // ── Sostituzione obbligatoria: giocatori a stamina 0 ──
+    _checkExhaustedPlayers();
+
     refreshMatchUI();
   } else {
     poolAnimStep(rawDt);
@@ -173,12 +177,13 @@ function refreshMatchUI() {
   _setBar('m-def-home-pct', 'm-def-away-pct', 'm-def-bar-home', 'm-def-bar-away',
           hDefPct + '%', aDefPct + '%', hDefBar);
 
-  // ── Stats numeriche ──
+  // ── Stats numeriche — riga singola compatta ──
   document.getElementById('m-stats').innerHTML = `
-    <div class="irow"><span class="ilbl">Tiri miei</span>      <span>${ms.myShots}</span></div>
-    <div class="irow"><span class="ilbl">Tiri avversario</span><span>${ms.oppShots}</span></div>
-    <div class="irow"><span class="ilbl">Parate</span>         <span>${ms.mySaves}</span></div>
-    <div class="irow"><span class="ilbl">Falli/Esp.</span>     <span>${ms.myFouls}</span></div>`;
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:10px">
+      <span style="color:var(--muted)">Tiri</span>      <span style="font-weight:700">${ms.myShots} — ${ms.oppShots}</span>
+      <span style="color:var(--muted)">Parate</span>    <span style="font-weight:700">${ms.mySaves}</span>
+      <span style="color:var(--muted)">Falli/Esp.</span><span style="font-weight:700">${ms.myFouls}</span>
+    </div>`;
 
   // ── Parziali per tempo ──
   const partialsEl = document.getElementById('m-partials');
@@ -269,6 +274,42 @@ function _shortPlayerName(p) {
   return p.name;
 }
 
+// Controlla giocatori esauriti (stamina = 0) in campo e li segnala
+function _checkExhaustedPlayers() {
+  const ms = G.ms; if (!ms || ms.finished) return;
+  const exhausted = [];
+  Object.entries(ms.onField).forEach(([pk, pi]) => {
+    if (ms.expelled.has(pi)) return;
+    const stamina = ms.stamina[pi];
+    if (stamina !== undefined && stamina <= 0 && !ms._notifiedExhausted?.has(pi)) {
+      if (!ms._notifiedExhausted) ms._notifiedExhausted = new Set();
+      ms._notifiedExhausted.add(pi);
+      const p = ms.myRoster[pi];
+      const shirt = ms.shirtNumbers[pi] || '?';
+      exhausted.push({ pi, pk, p, shirt });
+    }
+  });
+  exhausted.forEach(({ pi, pk, p, shirt }) => {
+    const name = p ? _shortPlayerName(p) : '#' + shirt;
+    _appendLog(`⚠️ #${shirt} ${name} è esaurito — sostituzione necessaria!`, 'fl');
+  });
+  // Pausa automatica se ci sono esauriti — SOLO se ci sono abbastanza giocatori per sostituire
+  if (exhausted.length > 0 && ms.running) {
+    const activePlayers = Object.values(ms.onField).filter(pi => !ms.expelled.has(pi)).length;
+    const benchAvail    = ms.bench.filter(pi => !ms.expelled.has(pi)).length;
+    if (activePlayers > 5 && benchAvail > 0) {
+      // Può fare sostituzioni: forza pausa
+      ms.running = false;
+      document.getElementById('btn-play').textContent = '▶ Avvia';
+      _lastFrameT = null;
+      _appendLog('⏸ Pausa automatica — giocatori esauriti in campo. Effettua una sostituzione.', 'sv');
+    } else {
+      // Solo 5 in campo o panchina vuota: non si può sostituire, continua con penalità
+      _appendLog('⚠️ Giocatore esaurito ma nessuna sostituzione possibile — efficacia drasticamente ridotta.', 'fl');
+    }
+  }
+}
+
 function renderFieldLists() {
   const ms = G.ms; if (!ms) return;
 
@@ -294,20 +335,34 @@ function renderFieldLists() {
     </div>`;
   }
 
-  // Intestazione colonne comune
-  const COL = '28px 1fr 38px 66px 40px 26px 26px 32px';
-  const tableHeader = `
-    <div style="display:grid;grid-template-columns:${COL};
-                gap:4px;padding:3px 4px 5px;border-bottom:1px solid var(--border);
-                font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px">
-      <div>#</div><div>Nome</div><div>Ruolo</div><div>Stamina</div><div>Esp.</div>
-      <div title="Gol in partita" style="text-align:center">&#x26BD;</div>
-      <div title="Assist in partita" style="text-align:center">&#x1F91D;</div>
+  // Intestazione colonne — IN CAMPO e PANCHINA hanno griglie diverse
+  const COL_FIELD = '24px 1fr 28px 30px 28px 60px 36px 22px 22px 28px';
+  const COL_BENCH = '24px 1fr 30px 28px 60px 36px 22px 22px 28px';
+
+  const fieldTableHeader = `
+    <div style="display:grid;grid-template-columns:${COL_FIELD};
+                gap:3px;padding:3px 4px 5px;border-bottom:1px solid var(--border);
+                font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px">
+      <div>#</div><div>Nome</div><div>Pos.</div><div>Ruolo</div><div>Mano</div>
+      <div>Stamina</div><div>Esp.</div>
+      <div title="Gol" style="text-align:center">&#x26BD;</div>
+      <div title="Assist" style="text-align:center">&#x1F91D;</div>
+      <div>OVR</div>
+    </div>`;
+
+  const benchTableHeader = `
+    <div style="display:grid;grid-template-columns:${COL_BENCH};
+                gap:3px;padding:3px 4px 5px;border-bottom:1px solid var(--border);
+                font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px">
+      <div>#</div><div>Nome</div><div>Ruolo</div><div>Mano</div>
+      <div>Stamina</div><div>Esp.</div>
+      <div title="Gol" style="text-align:center">&#x26BD;</div>
+      <div title="Assist" style="text-align:center">&#x1F91D;</div>
       <div>OVR</div>
     </div>`;
 
   // ── IN CAMPO ──────────────────────────────
-  let fieldHtml = tableHeader;
+  let fieldHtml = fieldTableHeader;
   // Ordina: GK per primo, poi per numero maglia
   const onFieldEntries = Object.entries(ms.onField).sort(([pkA, piA], [pkB, piB]) => {
     if (pkA === 'GK') return -1;
@@ -322,17 +377,23 @@ function renderFieldLists() {
     const isExp = ms.expelled.has(pi);
     const mGoals   = ms.matchGoals   && ms.matchGoals[pi]   || 0;
     const mAssists = ms.matchAssists && ms.matchAssists[pi] || 0;
+    // Posizione: POR / 1-6
+    const posLabel = pk === 'GK' ? 'POR' : pk;
+    // Colore mano
+    const handColor = p.hand === 'L' ? '#80c0ff' : p.hand === 'AMB' ? 'var(--green)' : 'var(--muted)';
     fieldHtml += `
-      <div style="display:grid;grid-template-columns:${COL};
-                  gap:4px;align-items:center;padding:5px 4px;
+      <div style="display:grid;grid-template-columns:${COL_FIELD};
+                  gap:3px;align-items:center;padding:5px 4px;
                   border-bottom:1px solid rgba(30,58,92,.35);
                   opacity:${isExp ? '.4' : '1'}">
-        <div style="font-weight:700;color:var(--blue);font-size:12px">#${shirt}</div>
-        <div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+        <div style="font-weight:700;color:var(--blue);font-size:11px">#${shirt}</div>
+        <div style="font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
           ${_shortPlayerName(p)}
           ${isExp ? '<span style="font-size:9px;color:var(--red);display:block">ESP</span>' : ''}
         </div>
-        <div><span style="font-size:10px;font-weight:600;color:var(--blue)">${pos ? pos.label : pk}</span></div>
+        <div style="font-size:10px;font-weight:700;color:var(--blue);text-align:center">${posLabel}</div>
+        <div style="font-size:10px;font-weight:600;color:var(--muted);text-align:center">${p.role}</div>
+        <div style="font-size:10px;font-weight:600;color:${handColor};text-align:center">${p.hand}</div>
         <div>${isExp ? '<span style="color:var(--muted);font-size:11px">—</span>' : staminaCell(pi)}</div>
         <div>${expDots(pi)}</div>
         <div style="font-size:11px;font-weight:700;color:${mGoals>0?'var(--blue)':'var(--muted)'};text-align:center">${mGoals > 0 ? mGoals : '—'}</div>
@@ -343,7 +404,7 @@ function renderFieldLists() {
   document.getElementById('field-players').innerHTML = fieldHtml;
 
   // ── PANCHINA ──────────────────────────────
-  let benchHtml = tableHeader;
+  let benchHtml = benchTableHeader;
   const benchSorted = [...ms.bench].sort((a, b) =>
     (ms.shirtNumbers[a] || 99) - (ms.shirtNumbers[b] || 99)
   );
@@ -354,17 +415,19 @@ function renderFieldLists() {
     const isExp = ms.expelled.has(pi);
     const bGoals   = ms.matchGoals   && ms.matchGoals[pi]   || 0;
     const bAssists = ms.matchAssists && ms.matchAssists[pi] || 0;
+    const bHandCol = p.hand === 'L' ? '#80c0ff' : p.hand === 'AMB' ? 'var(--green)' : 'var(--muted)';
     benchHtml += `
-      <div style="display:grid;grid-template-columns:${COL};
-                  gap:4px;align-items:center;padding:5px 4px;
+      <div style="display:grid;grid-template-columns:${COL_BENCH};
+                  gap:3px;align-items:center;padding:5px 4px;
                   border-bottom:1px solid rgba(30,58,92,.35);
                   opacity:${isExp ? '.35' : '1'};
                   ${isExp ? 'text-decoration:line-through' : ''}">
-        <div style="font-weight:700;color:var(--muted);font-size:12px">#${shirt}</div>
-        <div style="font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+        <div style="font-weight:700;color:var(--muted);font-size:11px">#${shirt}</div>
+        <div style="font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
           ${_shortPlayerName(p)}
         </div>
-        <div><span style="font-size:10px;font-weight:600;color:var(--muted)">${p.role}</span></div>
+        <div style="font-size:10px;font-weight:600;color:var(--muted);text-align:center">${p.role}</div>
+        <div style="font-size:10px;font-weight:600;color:${bHandCol};text-align:center">${p.hand}</div>
         <div>${staminaCell(pi)}</div>
         <div>${expDots(pi)}</div>
         <div style="font-size:11px;font-weight:700;color:${bGoals>0?'var(--blue)':'var(--muted)'};text-align:center">${bGoals > 0 ? bGoals : '—'}</div>
@@ -530,9 +593,130 @@ function confirmSub() {
 }
 
 // ── Fine partita ──────────────────────────────
+function _showEndMatchPopup(ms) {
+  const hS    = ms.isHome ? ms.myScore : ms.oppScore;
+  const aS    = ms.isHome ? ms.oppScore : ms.myScore;
+  const homeN = ms.isHome ? ms.myTeam.name  : ms.oppTeam.name;
+  const awayN = ms.isHome ? ms.oppTeam.name : ms.myTeam.name;
+  const won   = ms.myScore > ms.oppScore;
+  const drew  = ms.myScore === ms.oppScore;
+  const resultLabel = won ? '🏆 VITTORIA' : drew ? '🤝 PAREGGIO' : '😞 SCONFITTA';
+  const resultColor = won ? 'var(--green)' : drew ? 'var(--gold)' : 'var(--red)';
+
+  // Parziali
+  const ps = ms.periodScores || [{my:0,opp:0},{my:0,opp:0},{my:0,opp:0},{my:0,opp:0}];
+  let partialsHtml = `<table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">
+    <thead><tr style="border-bottom:1px solid var(--border)">
+      <th style="text-align:left;padding:3px 6px;font-size:10px;color:var(--muted)">Tempo</th>
+      <th style="text-align:center;padding:3px 8px;font-size:10px;color:${ms.isHome?'var(--blue)':'var(--muted)'}">${ms.isHome?ms.myTeam.abbr:ms.oppTeam.abbr}</th>
+      <th style="text-align:center;padding:3px 8px;font-size:10px;color:${!ms.isHome?'var(--blue)':'var(--muted)'}">${ms.isHome?ms.oppTeam.abbr:ms.myTeam.abbr}</th>
+    </tr></thead><tbody>`;
+  ps.forEach((p, t) => {
+    const hG = ms.isHome ? p.my : p.opp;
+    const aG = ms.isHome ? p.opp : p.my;
+    partialsHtml += `<tr style="border-bottom:1px solid rgba(255,255,255,.05)">
+      <td style="padding:4px 6px;color:var(--muted)">${t+1}° T</td>
+      <td style="text-align:center;padding:4px 8px;font-weight:600">${hG}</td>
+      <td style="text-align:center;padding:4px 8px;font-weight:600">${aG}</td>
+    </tr>`;
+  });
+  partialsHtml += `</tbody></table>`;
+
+  // Marcatori
+  const scorers = Object.entries(ms.matchGoals || {})
+    .filter(([,g]) => g > 0).sort(([,a],[,b]) => b-a);
+  let scorersHtml = scorers.length
+    ? scorers.map(([piStr, goals]) => {
+        const pi = parseInt(piStr);
+        const p  = ms.myRoster[pi];
+        const shirt = ms.shirtNumbers[pi] || '?';
+        const name  = p ? _shortPlayerName(p) : '#'+shirt;
+        const ast   = ms.matchAssists?.[pi] || 0;
+        return `<div style="display:flex;justify-content:space-between;padding:3px 0;font-size:12px">
+          <span>#${shirt} ${name}</span>
+          <span>
+            <span style="color:var(--blue);font-weight:700">⚽ ${goals}</span>
+            ${ast ? `<span style="color:var(--green);margin-left:8px">🤝 ${ast}</span>` : ''}
+          </span>
+        </div>`;
+      }).join('')
+    : '<div style="color:var(--muted);font-size:12px">Nessun marcatore</div>';
+
+  // Assist (chi ha assist ma non gol)
+  const pureAst = Object.entries(ms.matchAssists || {})
+    .filter(([piStr, ast]) => ast > 0 && !(ms.matchGoals?.[piStr] > 0));
+  if (pureAst.length) {
+    scorersHtml += pureAst.map(([piStr, ast]) => {
+      const pi = parseInt(piStr);
+      const p  = ms.myRoster[pi];
+      const shirt = ms.shirtNumbers[pi] || '?';
+      const name  = p ? _shortPlayerName(p) : '#'+shirt;
+      return `<div style="display:flex;justify-content:space-between;padding:3px 0;font-size:12px">
+        <span style="color:var(--muted)">#${shirt} ${name}</span>
+        <span style="color:var(--green);font-weight:700">🤝 ${ast}</span>
+      </div>`;
+    }).join('');
+  }
+
+  // Stats
+  const statsHtml = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;margin-bottom:12px">
+      <div class="irow"><span class="ilbl">Tiri miei</span><span>${ms.myShots}</span></div>
+      <div class="irow"><span class="ilbl">Tiri avv.</span><span>${ms.oppShots}</span></div>
+      <div class="irow"><span class="ilbl">Parate</span><span>${ms.mySaves}</span></div>
+      <div class="irow"><span class="ilbl">Falli/Esp.</span><span>${ms.myFouls}</span></div>
+    </div>`;
+
+  const ov = document.createElement('div');
+  ov.id = 'end-match-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.80);display:flex;align-items:center;justify-content:center;z-index:400;backdrop-filter:blur(6px)';
+  ov.innerHTML = `
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:16px;
+                padding:24px;max-width:420px;width:92%;max-height:88vh;overflow-y:auto">
+
+      <div style="text-align:center;margin-bottom:16px">
+        <div style="font-size:28px;font-weight:800;color:${resultColor};letter-spacing:2px">${resultLabel}</div>
+        <div style="font-size:13px;color:var(--muted);margin-top:4px">${homeN} vs ${awayN}</div>
+        <div style="font-size:42px;font-weight:800;color:var(--blue);letter-spacing:6px;margin:8px 0">${hS} – ${aS}</div>
+      </div>
+
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Parziali</div>
+      ${partialsHtml}
+
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Statistiche</div>
+      ${statsHtml}
+
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Marcatori & Assist</div>
+      <div style="margin-bottom:16px">${scorersHtml}</div>
+
+      <button class="btn primary" style="width:100%;padding:12px;font-size:14px;font-weight:700"
+        onclick="document.getElementById('end-match-popup').remove();endMatchConfirm()">
+        Chiudi e torna al menu →
+      </button>
+    </div>`;
+
+  document.body.appendChild(ov);
+}
+
+// Eseguito dopo che l'utente chiude il popup fine partita
+function endMatchConfirm() {
+  _doEndMatch();
+}
+
 function endMatch() {
   if (_animReqId) { cancelAnimationFrame(_animReqId); _animReqId = null; }
   _lastFrameT = null;
+  const ms = G.ms; if (!ms) return;
+
+  // Mostra prima il popup fine partita (solo per partite di campionato e playoff)
+  if (!ms.poMatch || true) {
+    _showEndMatchPopup(ms);
+    return; // il flusso continua dopo che l'utente chiude il popup
+  }
+  _doEndMatch();
+}
+
+function _doEndMatch() {
   const ms = G.ms; if (!ms) return;
   const score = getFinalScore(ms);
 

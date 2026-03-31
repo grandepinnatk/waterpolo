@@ -70,8 +70,17 @@ const HAND_POS_PENALTY = {
 };
 
 // ── Costanti stamina ──────────────────────────
-const STAMINA_BASE_DRAIN     = 0.004;   // drain/s base (forma 100, età 25, balanced)
-const STAMINA_BENCH_RECOVERY = 0.0012;  // recupero/s in panchina
+// Sistema a fasce calibrato:
+// - Giovane ≤22, fit 95, spe 75, balanced → ~5% residuo dopo 4 tempi
+// - Anziano 32+, fit bassa → esaurisce nel 3°-4° tempo
+// - Over 35, fit bassa → esaurisce nel 2° tempo
+const STAMINA_BASE_DRAIN     = 0.05251; // drain/s (tempo di gioco)
+const STAMINA_BENCH_RECOVERY = 0.018;   // recupero/s in panchina (più rapido: ~55s per +1%)
+// Soglie per i deficit:
+const STAMINA_FIT_THRESHOLD  = 85;      // sopra questa soglia: nessun malus fitness
+const STAMINA_AGE_THRESHOLD  = 28;      // sopra questa soglia: malus età
+const STAMINA_K_FIT          = 1.2;     // peso del deficit fitness
+const STAMINA_K_AGE          = 2.2;     // peso del deficit età
 
 // Moltiplicatori tattici globali (applicati a tutti i giocatori in campo)
 const TACTIC_STAMINA_MULT = {
@@ -163,19 +172,28 @@ function advanceTime(ms, dt) {
 
 // ── Calo stamina in campo + recupero in panchina ──
 //
-// Drain per giocatore = BASE × tacticMult × posMult × ageFactor / fitnessFactor / statFactor
+// Formula: drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAge×K_AGE)
 //
-//   tacticMult  : globale per tutti (press=1.60, balanced=1.00, defense=0.70)
-//   posMult     : in contropiede, posizioni 1/3/5 corrono di più (fino a ×1.35)
-//   ageFactor   : giocatori >30 anni si stancano +15% per anno oltre i 30
-//   fitnessFactor: forma alta = si stanca meno (0.55–1.0)
-//   statFactor  : alto SPE (velocità) = drain leggermente minore (atleta più efficiente)
+// Fasce età (deficit rispetto alla soglia 28):
+//   ≤28 anni  → nessun malus
+//   30 anni   → +4.4% drain
+//   32 anni   → +8.8% drain
+//   35 anni   → +15.4% drain
+//   36 anni   → +17.6% drain
+//
+// Fasce fitness (deficit rispetto alla soglia 85):
+//   ≥85      → nessun malus
+//   80       → +6% drain
+//   65       → +24% drain
+//   50       → +42% drain
+//
+// SPE alta (velocità): riduce il drain fino a -12% (SPE=85)
+// Tattica: press×1.60, balanced×1.00, defense×0.70
 //
 function _drainStamina(ms, dtGame) {
   const tactic     = ms.tactic || 'balanced';
   const tacticMult = TACTIC_STAMINA_MULT[tactic] || 1.0;
 
-  // Mappa posKey → rosterIdx (solo chi è in campo e non espulso)
   const fieldMap = {};
   Object.entries(ms.onField).forEach(([pk, pi]) => {
     if (!ms.expelled.has(pi)) fieldMap[pi] = pk;
@@ -189,21 +207,23 @@ function _drainStamina(ms, dtGame) {
       // ── IN CAMPO ──────────────────────────
       const pk = fieldMap[pi];
 
-      // Moltiplicatore posizione (rilevante in contropiede)
-      const posMult = (tactic === 'counter')
-        ? (COUNTER_POS_MULT[pk] || 1.0)
-        : 1.0;
+      // Moltiplicatore tattico posizione (solo contropiede)
+      const posMult = (tactic === 'counter') ? (COUNTER_POS_MULT[pk] || 1.0) : 1.0;
 
-      // Età: ogni anno oltre i 30 aumenta il drain del 12%
-      const ageFactor = p.age > 30 ? 1 + (p.age - 30) * 0.12 : 1.0;
+      // Deficit fitness: ogni punto sotto soglia 85 aumenta il drain
+      const defFit = Math.max(0, STAMINA_FIT_THRESHOLD - p.fitness) / 100;
 
-      // Forma fisica: giocatori in forma si stancano meno (range 0.55–1.0)
-      const fitnessFactor = 0.55 + (p.fitness / 222);
+      // Deficit età: ogni anno oltre soglia 28 aumenta il drain
+      const defAge = Math.max(0, p.age - STAMINA_AGE_THRESHOLD) / 100;
 
-      // Statistiche: SPE alto = atleta più efficiente (−10% al massimo)
-      const speFactor = p.stats && p.stats.spe ? 1 - (p.stats.spe / 1000) : 1.0;
+      // SPE alta = atleta più efficiente (max -12%)
+      const speFactor = p.stats && p.stats.spe ? 1 - (p.stats.spe / 700) : 1.0;
 
-      const drain = STAMINA_BASE_DRAIN * tacticMult * posMult * ageFactor / fitnessFactor * speFactor * dtGame;
+      const drain = STAMINA_BASE_DRAIN
+        * tacticMult * posMult * speFactor
+        * (1 + defFit * STAMINA_K_FIT + defAge * STAMINA_K_AGE)
+        * dtGame;
+
       ms.stamina[pi] = Math.max(0, ms.stamina[pi] - drain);
 
     } else {
@@ -250,7 +270,7 @@ function generateMatchEvent(ms) {
     const p = ms.myRoster[pi];
     if (!p || ms.expelled.has(pi)) return;
     const roleFactor    = _roleEffectiveness(p, pk);
-    const staminaFactor = 0.6 + (ms.stamina[pi] / 100) * 0.4; // range 0.6-1.0
+    const staminaFactor = 0.40 + (ms.stamina[pi] / 100) * 0.60; // range 0.40-1.00 (stanca → -60% efficacia)
     const eff           = p.overall * roleFactor * staminaFactor;
     myEffective += eff;
     if (pk !== 'GK') activePlayers.push({ pk, pi, p, eff });

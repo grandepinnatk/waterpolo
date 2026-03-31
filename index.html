@@ -293,37 +293,34 @@
     <!-- Colonna destra: stats + log -->
     <div style="width:280px;flex-shrink:0;display:flex;flex-direction:column;gap:8px">
 
-      <!-- Stats partita -->
-      <div class="card" style="padding:10px">
-        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Stats Partita</div>
+      <!-- Stats partita — compatto -->
+      <div class="card" style="padding:6px 10px">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">Stats</div>
 
-        <!-- Percentuale attacco -->
-        <div style="margin-bottom:10px">
-          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:3px">
-            <span id="m-att-home-pct">0%</span>
-            <span style="font-weight:600">Attacco</span>
-            <span id="m-att-away-pct">0%</span>
+        <!-- Attacco: pct + barra inline -->
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+          <span id="m-att-home-pct" style="font-size:10px;color:var(--blue);font-weight:700;min-width:28px;text-align:right">0%</span>
+          <div style="flex:1;height:4px;border-radius:2px;overflow:hidden;background:rgba(255,255,255,.08)">
+            <div id="m-att-bar-home" style="float:left;height:100%;background:var(--blue);transition:width .5s;width:50%"></div>
+            <div id="m-att-bar-away" style="float:left;height:100%;background:#e74c3c;transition:width .5s;width:50%"></div>
           </div>
-          <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:rgba(255,255,255,.08)">
-            <div id="m-att-bar-home" style="height:100%;background:var(--blue);border-radius:3px;transition:width .5s;width:50%"></div>
-            <div id="m-att-bar-away" style="height:100%;background:#e74c3c;border-radius:3px;transition:width .5s;width:50%"></div>
-          </div>
+          <span id="m-att-away-pct" style="font-size:10px;color:#e74c3c;font-weight:700;min-width:28px">0%</span>
+          <span style="font-size:9px;color:var(--muted);min-width:28px">ATT</span>
         </div>
 
-        <!-- Percentuale difesa -->
-        <div style="margin-bottom:10px">
-          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:3px">
-            <span id="m-def-home-pct">0%</span>
-            <span style="font-weight:600">Difesa</span>
-            <span id="m-def-away-pct">0%</span>
+        <!-- Difesa: pct + barra inline -->
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px">
+          <span id="m-def-home-pct" style="font-size:10px;color:var(--blue);font-weight:700;min-width:28px;text-align:right">0%</span>
+          <div style="flex:1;height:4px;border-radius:2px;overflow:hidden;background:rgba(255,255,255,.08)">
+            <div id="m-def-bar-home" style="float:left;height:100%;background:var(--blue);transition:width .5s;width:50%"></div>
+            <div id="m-def-bar-away" style="float:left;height:100%;background:#e74c3c;transition:width .5s;width:50%"></div>
           </div>
-          <div style="display:flex;height:6px;border-radius:3px;overflow:hidden;background:rgba(255,255,255,.08)">
-            <div id="m-def-bar-home" style="height:100%;background:var(--blue);border-radius:3px;transition:width .5s;width:50%"></div>
-            <div id="m-def-bar-away" style="height:100%;background:#e74c3c;border-radius:3px;transition:width .5s;width:50%"></div>
-          </div>
+          <span id="m-def-away-pct" style="font-size:10px;color:#e74c3c;font-weight:700;min-width:28px">0%</span>
+          <span style="font-size:9px;color:var(--muted);min-width:28px">DIF</span>
         </div>
 
-        <div id="m-stats" style="font-size:12px"></div>
+        <!-- Contatori numerici inline -->
+        <div id="m-stats" style="font-size:11px"></div>
       </div>
 
       <!-- Parziali per tempo -->
@@ -428,7 +425,7 @@
 
   <!-- Footer versione -->
   <div style="text-align:center;padding:10px 0 16px;font-size:11px;color:rgba(255,255,255,.2);user-select:none">
-    Waterpolo v0.4.3 beta
+    Waterpolo v0.4.7 beta
   </div>
 
   <!-- Firebase modules (type="module") — caricati dopo tutti gli script vanilla -->

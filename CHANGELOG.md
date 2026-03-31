@@ -6,6 +6,156 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.4.7-beta] — 2026-03-31
+
+### Corretto — Sistema salvataggio cloud
+
+#### Problema risolto: ripristino carriera cross-device
+- Il sync al login ora avviene **prima** dell'aggiornamento della UI — i panel slot vengono ridisegnati con i dati freschi appena scaricati dal cloud
+- Confronto timestamp reso affidabile: usa `savedAtMs` (millisecondi Unix) invece di stringhe ISO; aggiunto fallback robusto per save precedenti
+- Log dettagliato in console per ogni slot: quale ha vinto (cloud vs locale), motivo
+
+#### engine/save.js — versione 3
+- `SAVE_VERSION` aggiornato a **3** (compatibile con v2 grazie a migrazione automatica)
+- Aggiunto `marketPool` al payload salvato — i giocatori sul mercato persistono tra sessioni
+- Aggiunto `savedAtMs` sia nel payload root che in `meta` per confronto ms affidabile
+- `loadFromSlot` accetta v2 e v3; i save v2 vengono migrati on-the-fly senza perdita dati
+- `readSlotMeta` accetta v2 e v3 (prima scartava tutto ciò che non era esattamente v2)
+
+#### Come funziona ora il sync cross-device
+1. Login su dispositivo B
+2. `syncOnLogin()` legge tutti e 3 gli slot dal cloud
+3. Per ogni slot: confronta `savedAtMs` cloud vs locale
+4. Scarica il più recente nel localStorage locale
+5. La UI (panel slot) viene ridisegnata **dopo** il sync → mostra i dati del cloud
+
+---
+
+## [0.4.6-beta] — 2026-03-31
+
+### Aggiunto / Modificato
+
+#### Tabelle In campo e Panchina
+- Colonna **RUOLO** rinominata in **POS.** — mostra `POR` per il portiere oppure `1`–`6` per le posizioni in campo
+- **In campo**: aggiunta colonna **RUOLO** (CB, CEN, ATT, DIF, POR) e colonna **MANO** (L, R, AMB) dopo la posizione
+- **Panchina**: aggiunta colonna **MANO** dopo RUOLO
+- La mano è colorata: blu per mancini (L), verde per ambidestri (AMB), grigio per destri (R)
+
+#### Velocità di default
+- La velocità di gioco parte ora da **10x** invece di 1x
+
+#### Popup fine partita
+- Al termine della partita appare un popup con:
+  - Risultato finale con label VITTORIA / PAREGGIO / SCONFITTA
+  - **Parziali** per tempo (tabella 4 righe)
+  - **Statistiche**: tiri, parate, falli/espulsioni
+  - **Marcatori & Assist**: chi ha segnato (con assist dello stesso giocatore se presenti) e chi ha solo assist
+- Il pulsante "Chiudi e torna al menu" esegue il salvataggio e torna alla dashboard
+
+---
+
+## [0.4.7-beta] — 2026-03-31
+
+### Corretto — Sistema salvataggio cloud
+
+#### Problema risolto: ripristino carriera cross-device
+- Il sync al login ora avviene **prima** dell'aggiornamento della UI — i panel slot vengono ridisegnati con i dati freschi appena scaricati dal cloud
+- Confronto timestamp reso affidabile: usa `savedAtMs` (millisecondi Unix) invece di stringhe ISO; aggiunto fallback robusto per save precedenti
+- Log dettagliato in console per ogni slot: quale ha vinto (cloud vs locale), motivo
+
+#### engine/save.js — versione 3
+- `SAVE_VERSION` aggiornato a **3** (compatibile con v2 grazie a migrazione automatica)
+- Aggiunto `marketPool` al payload salvato — i giocatori sul mercato persistono tra sessioni
+- Aggiunto `savedAtMs` sia nel payload root che in `meta` per confronto ms affidabile
+- `loadFromSlot` accetta v2 e v3; i save v2 vengono migrati on-the-fly senza perdita dati
+- `readSlotMeta` accetta v2 e v3 (prima scartava tutto ciò che non era esattamente v2)
+
+#### Come funziona ora il sync cross-device
+1. Login su dispositivo B
+2. `syncOnLogin()` legge tutti e 3 gli slot dal cloud
+3. Per ogni slot: confronta `savedAtMs` cloud vs locale
+4. Scarica il più recente nel localStorage locale
+5. La UI (panel slot) viene ridisegnata **dopo** il sync → mostra i dati del cloud
+
+---
+
+## [0.4.6-beta] — 2026-03-31
+
+### Modificato
+- Colonna destra schermata partita: **Stats Partita** resa più compatta
+  - Padding ridotto (da 10px a 6px verticale)
+  - Barre attacco/difesa più sottili (4px) e label affiancato inline
+  - Contatori numerici (Tiri, Parate, Falli) su griglia 2 colonne in font 10px
+  - Parziali e Log azioni risalgono allineandosi meglio alla parte bassa del campo
+
+---
+
+## [0.4.5-beta] — 2026-03-31
+
+### Aggiunto / Modificato
+
+#### Mercato acquisti — lista persistente
+- I giocatori disponibili sul mercato **non cambiano** ad ogni accesso al tab — restano per 1-5 giornate (durata casuale, visibile nella colonna "Scade")
+- La lista viene aggiornata ogni giornata: i giocatori scaduti vengono rimpiazzati, mantenendo ~16 disponibili
+- **Distribuzione bilanciata**: ~30% fascia bassa (OVR 50-64), ~40% media (65-79), ~30% alta (80+) — non solo giocatori delle grandi squadre
+- La colonna "Scade" segnala in rosso l'ultima giornata disponibile, in oro se rimangono ≤2 giornate
+
+#### Sistema offerta
+- Pulsante **"Offerta"** accanto ad ogni giocatore acquistabile (sia in tabella che nel modale)
+- Popup con importo modificabile via pulsanti +/− (step automatico proporzionale al valore) e campo numerico
+- Indicatore in tempo reale della probabilità di accettazione:
+  - ≥100% valore → alta probabilità ✓
+  - 90-99%       → buona probabilità
+  - 75-89%       → probabilità moderata
+  - 50-74%       → probabilità ridotta
+  - <50%         → troppo bassa (non inviabile)
+- **Meccanismo CPU**: la squadra accetta se l'offerta è ≥75% del valore; tra 75% e 100% la probabilità cresce linearmente da 30% a 95%; sopra il 100% accettazione certa
+- La **risposta arriva nella giornata successiva** tramite il pannello messaggi
+- Se accettata, appare il pulsante "Conferma" al posto di "Offerta"; il prezzo pagato è quello dell'offerta
+
+#### Pausa automatica stamina — fix
+- La pausa automatica per giocatore esaurito si attiva **solo se ci sono >5 giocatori in campo E c'è qualcuno in panchina** da mandare in sostituzione
+- Con solo 5 in campo (minimum) la partita non si ferma ma appare un avviso nel log: l'efficacia del giocatore esaurito è al 40% del suo overall
+
+---
+
+## [0.4.4-beta] — 2026-03-31
+
+### Modificato — Sistema Stamina
+
+#### Nuova formula di consumo (engine/match.js)
+Il vecchio sistema a moltiplicatori continui è stato sostituito con una formula basata su **deficit** rispetto a soglie di riferimento:
+
+```
+drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAge×K_AGE)
+```
+
+- **BASE = 0.05251/s** (calibrato per giovane 20 anni, fit 95, SPE 75, balanced → ~5% residuo dopo 4 tempi)
+- **Deficit fitness** (`defFit`): ogni punto sotto la soglia 85 aumenta il drain (×1.2 per punto percentuale)
+- **Deficit età** (`defAge`): ogni anno oltre la soglia 28 aumenta il drain (×2.2 per anno / 100)
+- **SPE**: velocità riduce il drain fino a −12% (SPE=85)
+- **Recupero panchina**: aumentato da 0.0012 a 0.018/s (più rapido e realistico)
+
+#### Fasce comportamentali calibrate
+| Profilo | Stamina finale | Nota |
+|---------|---------------|------|
+| Giovane 20, fit 95, SPE 75 | ~5% | Quasi esaurito — ce la fa |
+| Adulto 26, fit 90, SPE 70 | ~0% | Esaurisce fine 4°T |
+| Anziano 31, fit 85, SPE 60 | esaurisce 3°T | Deve essere sostituito |
+| Over35, fit 50, SPE 40 | esaurisce 1°-2°T | Sostituzione urgente |
+
+#### Impatto stamina sul motore di calcolo
+- Il fattore stamina sull'efficacia è ora **range 0.40–1.00** (prima 0.60–1.00)
+- Un giocatore esaurito (stamina=0) ha efficacia al **40%** del suo overall (prima 60%)
+- Questo rende molto più penalizzante giocare con giocatori stanchi
+
+#### Sostituzione obbligatoria (ui/match.js)
+- La partita si mette in **pausa automatica** quando un giocatore in campo raggiunge stamina = 0
+- Un messaggio nel log segnala il giocatore esaurito: "⚠️ #X Cognome è esaurito — sostituzione necessaria!"
+- La pausa avviene una sola volta per giocatore (evita spam)
+
+---
+
 ## [0.4.3-beta] — 2026-03-31
 
 ### Modificato
@@ -135,6 +285,156 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - Tabelle **In campo** e **Panchina**: mostrano solo il cognome (es. "Rossi") per massima leggibilità nelle colonne strette
 - **Vasca** (canvas) e log azioni: mostrano il formato completo "Cognome I."
 - Modale Rosa e altre schermate: formato completo "Cognome I."
+
+---
+
+## [0.4.7-beta] — 2026-03-31
+
+### Corretto — Sistema salvataggio cloud
+
+#### Problema risolto: ripristino carriera cross-device
+- Il sync al login ora avviene **prima** dell'aggiornamento della UI — i panel slot vengono ridisegnati con i dati freschi appena scaricati dal cloud
+- Confronto timestamp reso affidabile: usa `savedAtMs` (millisecondi Unix) invece di stringhe ISO; aggiunto fallback robusto per save precedenti
+- Log dettagliato in console per ogni slot: quale ha vinto (cloud vs locale), motivo
+
+#### engine/save.js — versione 3
+- `SAVE_VERSION` aggiornato a **3** (compatibile con v2 grazie a migrazione automatica)
+- Aggiunto `marketPool` al payload salvato — i giocatori sul mercato persistono tra sessioni
+- Aggiunto `savedAtMs` sia nel payload root che in `meta` per confronto ms affidabile
+- `loadFromSlot` accetta v2 e v3; i save v2 vengono migrati on-the-fly senza perdita dati
+- `readSlotMeta` accetta v2 e v3 (prima scartava tutto ciò che non era esattamente v2)
+
+#### Come funziona ora il sync cross-device
+1. Login su dispositivo B
+2. `syncOnLogin()` legge tutti e 3 gli slot dal cloud
+3. Per ogni slot: confronta `savedAtMs` cloud vs locale
+4. Scarica il più recente nel localStorage locale
+5. La UI (panel slot) viene ridisegnata **dopo** il sync → mostra i dati del cloud
+
+---
+
+## [0.4.6-beta] — 2026-03-31
+
+### Aggiunto / Modificato
+
+#### Tabelle In campo e Panchina
+- Colonna **RUOLO** rinominata in **POS.** — mostra `POR` per il portiere oppure `1`–`6` per le posizioni in campo
+- **In campo**: aggiunta colonna **RUOLO** (CB, CEN, ATT, DIF, POR) e colonna **MANO** (L, R, AMB) dopo la posizione
+- **Panchina**: aggiunta colonna **MANO** dopo RUOLO
+- La mano è colorata: blu per mancini (L), verde per ambidestri (AMB), grigio per destri (R)
+
+#### Velocità di default
+- La velocità di gioco parte ora da **10x** invece di 1x
+
+#### Popup fine partita
+- Al termine della partita appare un popup con:
+  - Risultato finale con label VITTORIA / PAREGGIO / SCONFITTA
+  - **Parziali** per tempo (tabella 4 righe)
+  - **Statistiche**: tiri, parate, falli/espulsioni
+  - **Marcatori & Assist**: chi ha segnato (con assist dello stesso giocatore se presenti) e chi ha solo assist
+- Il pulsante "Chiudi e torna al menu" esegue il salvataggio e torna alla dashboard
+
+---
+
+## [0.4.7-beta] — 2026-03-31
+
+### Corretto — Sistema salvataggio cloud
+
+#### Problema risolto: ripristino carriera cross-device
+- Il sync al login ora avviene **prima** dell'aggiornamento della UI — i panel slot vengono ridisegnati con i dati freschi appena scaricati dal cloud
+- Confronto timestamp reso affidabile: usa `savedAtMs` (millisecondi Unix) invece di stringhe ISO; aggiunto fallback robusto per save precedenti
+- Log dettagliato in console per ogni slot: quale ha vinto (cloud vs locale), motivo
+
+#### engine/save.js — versione 3
+- `SAVE_VERSION` aggiornato a **3** (compatibile con v2 grazie a migrazione automatica)
+- Aggiunto `marketPool` al payload salvato — i giocatori sul mercato persistono tra sessioni
+- Aggiunto `savedAtMs` sia nel payload root che in `meta` per confronto ms affidabile
+- `loadFromSlot` accetta v2 e v3; i save v2 vengono migrati on-the-fly senza perdita dati
+- `readSlotMeta` accetta v2 e v3 (prima scartava tutto ciò che non era esattamente v2)
+
+#### Come funziona ora il sync cross-device
+1. Login su dispositivo B
+2. `syncOnLogin()` legge tutti e 3 gli slot dal cloud
+3. Per ogni slot: confronta `savedAtMs` cloud vs locale
+4. Scarica il più recente nel localStorage locale
+5. La UI (panel slot) viene ridisegnata **dopo** il sync → mostra i dati del cloud
+
+---
+
+## [0.4.6-beta] — 2026-03-31
+
+### Modificato
+- Colonna destra schermata partita: **Stats Partita** resa più compatta
+  - Padding ridotto (da 10px a 6px verticale)
+  - Barre attacco/difesa più sottili (4px) e label affiancato inline
+  - Contatori numerici (Tiri, Parate, Falli) su griglia 2 colonne in font 10px
+  - Parziali e Log azioni risalgono allineandosi meglio alla parte bassa del campo
+
+---
+
+## [0.4.5-beta] — 2026-03-31
+
+### Aggiunto / Modificato
+
+#### Mercato acquisti — lista persistente
+- I giocatori disponibili sul mercato **non cambiano** ad ogni accesso al tab — restano per 1-5 giornate (durata casuale, visibile nella colonna "Scade")
+- La lista viene aggiornata ogni giornata: i giocatori scaduti vengono rimpiazzati, mantenendo ~16 disponibili
+- **Distribuzione bilanciata**: ~30% fascia bassa (OVR 50-64), ~40% media (65-79), ~30% alta (80+) — non solo giocatori delle grandi squadre
+- La colonna "Scade" segnala in rosso l'ultima giornata disponibile, in oro se rimangono ≤2 giornate
+
+#### Sistema offerta
+- Pulsante **"Offerta"** accanto ad ogni giocatore acquistabile (sia in tabella che nel modale)
+- Popup con importo modificabile via pulsanti +/− (step automatico proporzionale al valore) e campo numerico
+- Indicatore in tempo reale della probabilità di accettazione:
+  - ≥100% valore → alta probabilità ✓
+  - 90-99%       → buona probabilità
+  - 75-89%       → probabilità moderata
+  - 50-74%       → probabilità ridotta
+  - <50%         → troppo bassa (non inviabile)
+- **Meccanismo CPU**: la squadra accetta se l'offerta è ≥75% del valore; tra 75% e 100% la probabilità cresce linearmente da 30% a 95%; sopra il 100% accettazione certa
+- La **risposta arriva nella giornata successiva** tramite il pannello messaggi
+- Se accettata, appare il pulsante "Conferma" al posto di "Offerta"; il prezzo pagato è quello dell'offerta
+
+#### Pausa automatica stamina — fix
+- La pausa automatica per giocatore esaurito si attiva **solo se ci sono >5 giocatori in campo E c'è qualcuno in panchina** da mandare in sostituzione
+- Con solo 5 in campo (minimum) la partita non si ferma ma appare un avviso nel log: l'efficacia del giocatore esaurito è al 40% del suo overall
+
+---
+
+## [0.4.4-beta] — 2026-03-31
+
+### Modificato — Sistema Stamina
+
+#### Nuova formula di consumo (engine/match.js)
+Il vecchio sistema a moltiplicatori continui è stato sostituito con una formula basata su **deficit** rispetto a soglie di riferimento:
+
+```
+drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAge×K_AGE)
+```
+
+- **BASE = 0.05251/s** (calibrato per giovane 20 anni, fit 95, SPE 75, balanced → ~5% residuo dopo 4 tempi)
+- **Deficit fitness** (`defFit`): ogni punto sotto la soglia 85 aumenta il drain (×1.2 per punto percentuale)
+- **Deficit età** (`defAge`): ogni anno oltre la soglia 28 aumenta il drain (×2.2 per anno / 100)
+- **SPE**: velocità riduce il drain fino a −12% (SPE=85)
+- **Recupero panchina**: aumentato da 0.0012 a 0.018/s (più rapido e realistico)
+
+#### Fasce comportamentali calibrate
+| Profilo | Stamina finale | Nota |
+|---------|---------------|------|
+| Giovane 20, fit 95, SPE 75 | ~5% | Quasi esaurito — ce la fa |
+| Adulto 26, fit 90, SPE 70 | ~0% | Esaurisce fine 4°T |
+| Anziano 31, fit 85, SPE 60 | esaurisce 3°T | Deve essere sostituito |
+| Over35, fit 50, SPE 40 | esaurisce 1°-2°T | Sostituzione urgente |
+
+#### Impatto stamina sul motore di calcolo
+- Il fattore stamina sull'efficacia è ora **range 0.40–1.00** (prima 0.60–1.00)
+- Un giocatore esaurito (stamina=0) ha efficacia al **40%** del suo overall (prima 60%)
+- Questo rende molto più penalizzante giocare con giocatori stanchi
+
+#### Sostituzione obbligatoria (ui/match.js)
+- La partita si mette in **pausa automatica** quando un giocatore in campo raggiunge stamina = 0
+- Un messaggio nel log segnala il giocatore esaurito: "⚠️ #X Cognome è esaurito — sostituzione necessaria!"
+- La pausa avviene una sola volta per giocatore (evita spam)
 
 ---
 

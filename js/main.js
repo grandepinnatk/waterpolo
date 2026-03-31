@@ -261,6 +261,114 @@ function _playerAttractiveness(p, matchesPlayed) {
 
 // ── Genera offerte a fine giornata ───────────
 // Chiamata da simNextRound() e da endMatch() dopo ogni gara giocata
+// ── Mercato acquisti persistente ─────────────
+// G.marketPool = array di giocatori disponibili con durata giornate rimanenti
+// Generato una volta e aggiornato ad ogni giornata
+
+function initMarketPool() {
+  if (G.marketPool && G.marketPool.length > 0) return; // già inizializzato
+  G.marketPool = [];
+  _fillMarketPool(16);
+}
+
+function _fillMarketPool(targetSize) {
+  if (!G.marketPool) G.marketPool = [];
+
+  // Raccoglie giocatori disponibili da tutte le squadre avversarie
+  // Distribuisce per fascia: ~30% fascia bassa (OVR 50-64), ~40% media (65-79), ~30% alta (80+)
+  const all = [];
+  G.teams.forEach(t => {
+    if (t.id === G.myId) return;
+    G.rosters[t.id].forEach(p => {
+      if (p.overall >= 50) all.push({ ...p, _tid: t.id, _tname: t.name });
+    });
+  });
+
+  const low    = all.filter(p => p.overall < 65).sort(() => Math.random() - 0.5);
+  const mid    = all.filter(p => p.overall >= 65 && p.overall < 80).sort(() => Math.random() - 0.5);
+  const high   = all.filter(p => p.overall >= 80).sort(() => Math.random() - 0.5);
+
+  const needed = Math.max(0, targetSize - G.marketPool.length);
+  const nLow  = Math.round(needed * 0.30);
+  const nHigh = Math.round(needed * 0.30);
+  const nMid  = needed - nLow - nHigh;
+
+  const toAdd = [
+    ...low.slice(0, nLow),
+    ...mid.slice(0, nMid),
+    ...high.slice(0, nHigh),
+  ];
+
+  // Esclude chi è già nel pool
+  const existing = new Set(G.marketPool.map(e => e._pname + e._tid));
+  toAdd.forEach(p => {
+    const key = p.name + p._tid;
+    if (!existing.has(key)) {
+      existing.add(key);
+      G.marketPool.push({
+        player:      p,
+        daysLeft:    rnd(1, 5),   // rimane 1-5 giornate
+        pendingOffer: null,       // { amount, roundMade } offerta fatta dal giocatore
+      });
+    }
+  });
+}
+
+function refreshMarketPool() {
+  if (!G.marketPool) { initMarketPool(); return; }
+
+  // Decrementa durata e rimuove scaduti
+  G.marketPool = G.marketPool.filter(e => {
+    e.daysLeft--;
+    return e.daysLeft > 0;
+  });
+
+  // Rimpiazza con nuovi giocatori per mantenere ~16 disponibili
+  _fillMarketPool(16);
+
+  // Processa le offerte pendenti: risposta nella giornata successiva
+  _processMarketOfferResponses();
+}
+
+// Meccanismo CPU per accettare offerte:
+// La squadra accetta se l'offerta è ≥ 75% del valore del giocatore.
+// Tra il 75% e il 100% del valore c'è una probabilità crescente (70% al 75%, 100% al 100%+).
+// Questo simula una trattativa realistica: le grandi squadre sono più restie a vendere.
+function _processMarketOfferResponses() {
+  if (!G.marketPool) return;
+  G.marketPool.forEach(entry => {
+    if (!entry.pendingOffer) return;
+    const p      = entry.player;
+    const offer  = entry.pendingOffer.amount;
+    const minAcc = p.value * 0.75;   // soglia minima accettazione
+    const pct    = offer / p.value;  // rapporto offerta/valore
+
+    let acceptProb;
+    if (offer < minAcc) {
+      acceptProb = 0;  // rifiuto immediato sotto il 75%
+    } else if (pct >= 1.0) {
+      acceptProb = 1.0; // accettazione certa sopra il 100%
+    } else {
+      // Tra 75% e 100%: probabilità lineare da 0.30 a 0.95
+      acceptProb = 0.30 + (pct - 0.75) / 0.25 * 0.65;
+    }
+
+    const accepted = Math.random() < acceptProb;
+    entry.offerResult = accepted ? 'accepted' : 'rejected';
+    entry.offerResultAmount = offer;
+
+    if (accepted) {
+      G.msgs.push(`✅ Offerta accettata! ${p._tname} accetta ${formatMoney(offer)} per ${p.name}. Vai al Mercato per concludere l'acquisto.`);
+    } else if (offer < minAcc) {
+      G.msgs.push(`❌ Offerta rifiutata: ${p._tname} ha respinto ${formatMoney(offer)} per ${p.name} (troppo bassa).`);
+      entry.pendingOffer = null;
+    } else {
+      G.msgs.push(`❌ Offerta rifiutata: ${p._tname} ha risposto di no a ${formatMoney(offer)} per ${p.name}.`);
+      entry.pendingOffer = null;
+    }
+  });
+}
+
 function generateTransferOffers() {
   if (!G.transferList || !G.transferList.length) return;
 
@@ -373,5 +481,6 @@ const _origSimNextRound = simNextRound;
 simNextRound = function() {
   _origSimNextRound();
   generateTransferOffers();
+  refreshMarketPool();
   if (G.transferList && G.transferList.length) renderDash();
 };

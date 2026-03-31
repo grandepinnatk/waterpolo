@@ -218,14 +218,13 @@ onAuthStateChanged(auth, async (user) => {
     if (authPanel) authPanel.style.display = 'none';
     console.log('[Auth] Pannello auth nascosto');
 
-    // Sync cloud (non bloccante — anche se fallisce il gioco parte)
+    // Sync cloud — attendi il completamento prima di aggiornare la UI
     _showSyncIndicator(true);
     try {
       await syncOnLogin();
-      console.log('[Auth] Sync completato');
+      console.log('[Auth] Sync completato — aggiorno UI con dati freschi');
     } catch (e) {
       console.warn('[Auth] Sync error (non bloccante):', e);
-      // Non bloccare il gioco per errori di sync
     }
     _showSyncIndicator(false);
 
@@ -233,7 +232,7 @@ onAuthStateChanged(auth, async (user) => {
     const authPanelAfterSync = document.getElementById('wp-auth-panel');
     if (authPanelAfterSync) authPanelAfterSync.style.display = 'none';
 
-    // Aggiorna UI gioco — con retry se le funzioni non sono ancora disponibili
+    // Aggiorna UI — DOPO il sync così i panel slot mostrano i dati del cloud
     _updateGameUI();
 
   } else {

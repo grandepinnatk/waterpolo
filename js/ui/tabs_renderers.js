@@ -693,40 +693,194 @@ function renderMarket() {
   }
   h += `</div>`;
 
-  // Sezione ACQUISTI
+  // Sezione ACQUISTI — usa marketPool persistente
+  if (!G.marketPool || !G.marketPool.length) {
+    if (typeof initMarketPool === 'function') initMarketPool();
+  }
+  const pool = G.marketPool || [];
+  G._mercList = pool.map(e => e.player); // compatibilità con showMarketPlayerModal
+
   h += `<div class="card">
-    <div style="font-weight:600;margin-bottom:8px;color:var(--blue)">🔍 Giocatori disponibili sul mercato</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <div style="font-weight:600;color:var(--blue)">🔍 Giocatori disponibili sul mercato</div>
+      <div style="font-size:11px;color:var(--muted)">Lista aggiornata ogni giornata</div>
+    </div>
     <table><thead><tr>
-      <th>Giocatore</th><th>Mano</th><th>Da</th><th>Ruolo</th><th>OVR</th><th>Morale</th><th>Valore</th><th></th>
+      <th>Giocatore</th><th>Mano</th><th>Da</th><th>Ruolo</th><th>OVR</th><th>Valore</th><th>Scade</th><th></th>
     </tr></thead><tbody>`;
 
-  list.forEach((p, i) => {
-    const ok = G.budget >= p.value;
-    const mc = p.morale > 70 ? 'var(--green)' : p.morale > 40 ? 'var(--gold)' : 'var(--red)';
+  pool.forEach((entry, i) => {
+    const p   = entry.player;
+    const ok  = G.budget >= p.value;
+    const has = entry.pendingOffer !== null;
+    const res = entry.offerResult;
+    const daysLbl = entry.daysLeft === 1 ? '⚠️ ultima G' : entry.daysLeft + ' G';
+    const dayColor = entry.daysLeft === 1 ? 'var(--red)' : entry.daysLeft <= 2 ? 'var(--gold)' : 'var(--muted)';
+
+    let offerBadge = '';
+    if (res === 'accepted') {
+      offerBadge = `<span style="font-size:10px;color:var(--green);font-weight:700">✓ Accettata</span>`;
+    } else if (has) {
+      offerBadge = `<span style="font-size:10px;color:var(--gold)">⏳ In attesa</span>`;
+    }
+
     h += `<tr class="trhov" onclick="showMarketPlayerModal(${i})">
-      <td style="font-weight:600;cursor:pointer">${p.name} <span style="font-size:11px;color:var(--muted)">(${p.age}a)</span></td>
+      <td style="font-weight:600;cursor:pointer">
+        ${p.name} <span style="font-size:11px;color:var(--muted)">(${p.age}a)</span>
+        ${offerBadge ? '<br>' + offerBadge : ''}
+      </td>
       <td><span class="badge ${p.hand==='AMB'?'C':p.hand==='L'?'L':'R'}">${p.hand}</span></td>
       <td style="font-size:12px;color:var(--muted)">${p._tname}</td>
       <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span></td>
       <td style="font-weight:700">${p.overall}</td>
-      <td style="font-size:12px;color:${mc}">${p.morale}%</td>
       <td style="font-size:12px">${formatMoney(p.value)}</td>
-      <td onclick="event.stopPropagation()"><button class="btn sm ${ok?'primary':''}" onclick="buyPlayer(${i})" ${ok?'':'disabled'}>Acquista</button></td>
+      <td style="font-size:11px;color:${dayColor};font-weight:600">${daysLbl}</td>
+      <td onclick="event.stopPropagation()" style="display:flex;gap:4px;flex-wrap:wrap">
+        ${res === 'accepted'
+          ? `<button class="btn sm primary" onclick="buyPlayerFromPool(${i})">Conferma</button>`
+          : ok
+            ? `<button class="btn sm primary" onclick="buyPlayerFromPool(${i})">Acquista</button>`
+            : ''
+        }
+        ${!has && res !== 'accepted'
+          ? `<button class="btn sm warn" onclick="openOfferPopup(${i})">Offerta</button>`
+          : ''
+        }
+      </td>
     </tr>`;
   });
+
+  if (!pool.length) {
+    h += `<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:16px">Nessun giocatore disponibile — gioca una partita per aggiornare il mercato</td></tr>`;
+  }
+
   h += `</tbody></table></div>`;
   document.getElementById('tab-market').innerHTML = h;
 }
 
 function buyPlayer(i) {
-  const p = G._mercList[i];
-  if (!p || G.budget < p.value) return;
-  G.budget -= p.value;
+  buyPlayerFromPool(i);
+}
+
+function buyPlayerFromPool(i) {
+  const pool = G.marketPool || [];
+  const entry = pool[i];
+  if (!entry) return;
+  const p = entry.player;
+  // Se offerta accettata usa quel prezzo, altrimenti prezzo pieno
+  const price = (entry.offerResult === 'accepted' && entry.offerResultAmount)
+    ? entry.offerResultAmount
+    : p.value;
+  if (G.budget < price) {
+    G.msgs.push('❌ Budget insufficiente per acquistare ' + p.name + '.');
+    renderMarket(); return;
+  }
+  G.budget -= price;
   const np = { ...p }; delete np._tid; delete np._tname;
-  // Bonus morale all'acquisto: nuovo giocatore entusiasta
   np.morale = Math.min(100, np.morale + rnd(8, 15));
   G.rosters[G.myId].push(np);
-  G.rosters[p._tid] = G.rosters[p._tid].filter(pl => pl.name !== p.name);
-  G.msgs.push('✅ Acquistato ' + p.name + ' da ' + p._tname + ' per ' + formatMoney(p.value) + '. Morale alto!');
+  G.rosters[p._tid] = (G.rosters[p._tid] || []).filter(pl => pl.name !== p.name);
+  // Rimuovi dal pool
+  G.marketPool.splice(i, 1);
+  G.msgs.push('✅ Acquistato ' + p.name + ' da ' + p._tname + ' per ' + formatMoney(price) + '. Morale alto!');
   updateHeader(); autoSave(); renderMarket();
+}
+
+// ── Popup offerta ─────────────────────────────
+function openOfferPopup(i) {
+  const pool  = G.marketPool || [];
+  const entry = pool[i];
+  if (!entry) return;
+  const p = entry.player;
+
+  const existing = document.getElementById('offer-popup');
+  if (existing) existing.remove();
+
+  const minOffer = Math.round(p.value * 0.50);  // minimo 50% del valore
+  const stepK    = Math.max(1000, Math.round(p.value / 20 / 1000) * 1000);
+
+  const ov = document.createElement('div');
+  ov.id = 'offer-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;z-index:300;backdrop-filter:blur(4px)';
+  ov.innerHTML = `
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px;max-width:360px;width:90%">
+      <div style="font-weight:700;font-size:15px;margin-bottom:4px;color:var(--blue)">Fai un'offerta</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:16px">${p.name} · ${p._tname} · OVR ${p.overall}</div>
+
+      <div class="irow" style="margin-bottom:8px">
+        <span class="ilbl">Valore di mercato</span>
+        <span style="font-weight:700">${formatMoney(p.value)}</span>
+      </div>
+      <div class="irow" style="margin-bottom:16px">
+        <span class="ilbl">Budget disponibile</span>
+        <span style="font-weight:700;color:var(--blue)">${formatMoney(G.budget)}</span>
+      </div>
+
+      <div style="margin-bottom:6px;font-size:12px;color:var(--muted);font-weight:600">Importo offerta</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <button onclick="_offerStep(-1,${i})" style="background:var(--panel2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:16px;color:var(--text)">−</button>
+        <input type="number" id="offer-amount" value="${Math.round(p.value * 0.85)}"
+          min="${minOffer}" step="${stepK}"
+          style="flex:1;text-align:center;background:var(--panel2);border:1px solid var(--border);border-radius:6px;padding:6px;color:var(--text);font-size:14px;font-weight:700">
+        <button onclick="_offerStep(1,${i})" style="background:var(--panel2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:16px;color:var(--text)">+</button>
+      </div>
+      <div id="offer-hint" style="font-size:11px;color:var(--muted);margin-bottom:16px;min-height:16px"></div>
+
+      <div style="display:flex;gap:8px">
+        <button class="btn primary" style="flex:1" onclick="submitOffer(${i})">Invia Offerta</button>
+        <button class="btn" onclick="document.getElementById('offer-popup').remove()">Annulla</button>
+      </div>
+      <div style="margin-top:10px;font-size:10px;color:var(--muted);text-align:center">
+        La risposta arriverà nella prossima giornata
+      </div>
+    </div>`;
+
+  ov.onclick = e => { if (e.target === ov) ov.remove(); };
+  document.body.appendChild(ov);
+  _updateOfferHint(i);
+}
+
+function _offerStep(dir, i) {
+  const pool  = G.marketPool || [];
+  const entry = pool[i]; if (!entry) return;
+  const p     = entry.player;
+  const step  = Math.max(1000, Math.round(p.value / 20 / 1000) * 1000);
+  const inp   = document.getElementById('offer-amount');
+  if (!inp) return;
+  inp.value = Math.max(Math.round(p.value * 0.50), parseInt(inp.value) + dir * step);
+  _updateOfferHint(i);
+}
+
+function _updateOfferHint(i) {
+  const pool  = G.marketPool || [];
+  const entry = pool[i]; if (!entry) return;
+  const p     = entry.player;
+  const inp   = document.getElementById('offer-amount');
+  const hint  = document.getElementById('offer-hint');
+  if (!inp || !hint) return;
+  const amount = parseInt(inp.value) || 0;
+  const pct    = amount / p.value;
+  let txt = '', color = 'var(--muted)';
+  if (pct >= 1.0)      { txt = '✓ Offerta superiore al valore — alta probabilità di accettazione'; color = 'var(--green)'; }
+  else if (pct >= 0.90){ txt = 'Offerta vicina al valore — buona probabilità'; color = 'var(--green)'; }
+  else if (pct >= 0.75){ txt = 'Offerta discreta — probabilità moderata'; color = 'var(--gold)'; }
+  else if (pct >= 0.50){ txt = 'Offerta bassa — probabilità ridotta'; color = 'var(--red)'; }
+  else                 { txt = 'Offerta troppo bassa'; color = 'var(--red)'; }
+  hint.textContent = txt; hint.style.color = color;
+}
+
+function submitOffer(i) {
+  const pool  = G.marketPool || [];
+  const entry = pool[i]; if (!entry) return;
+  const p     = entry.player;
+  const inp   = document.getElementById('offer-amount');
+  const amount = parseInt(inp?.value) || 0;
+  if (amount <= 0 || G.budget < amount) {
+    alert('Budget insufficiente per questa offerta.'); return;
+  }
+  entry.pendingOffer = { amount, roundMade: currentRound ? currentRound() : 0 };
+  entry.offerResult  = null;
+  G.msgs.push('📨 Offerta di ' + formatMoney(amount) + ' inviata per ' + p.name + ' (' + p._tname + '). Risposta alla prossima giornata.');
+  document.getElementById('offer-popup')?.remove();
+  autoSave(); renderMarket();
 }
