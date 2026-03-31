@@ -6,6 +6,42 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.8-beta] — 2026-03-31
+
+### Aggiunto / Modificato
+- **Banner immagine** (`waterpolo-banner.jpg`) mostrato in cima alla schermata di Login e al Menu principale su **PC e tablet** (≥600px) — sostituisce l'icona emoji e i titoli testuali
+- Su **mobile** (<600px) continua a comparire l'icona 🏊 e il titolo testuale
+- **Centratura**: schermata Login e Menu principale allineati al centro sia orizzontalmente che verticalmente
+- La card del login si allarga fino a 720-760px per ospitare il banner nella sua larghezza naturale
+
+---
+
+## [0.5.7-beta] — 2026-03-31
+
+### Aggiunto
+- **Pulsante Logout** visibile nella schermata di selezione carriera (welcome screen), con nome utente affiancato
+- **Tab Credits** dopo Mercato: versione software, licenza MIT, sviluppatore (Davide Lanza — Grandepinna), stack tecnologico
+
+### Modificato
+- Pulsanti header gioco (**💾 Salva**, **⎋ Logout**, **⌂ Menu**) più grandi e con testo leggibile invece dei soli simboli
+
+---
+
+## [0.5.6-beta] — 2026-03-31
+
+### Aggiunto
+- Liste nomi e cognomi **per nazionalità** in `js/data/names.js`:
+  - 🇬🇷 **Greci** (GRE): 97 nomi, 99 cognomi
+  - 🇷🇸 **Serbi** (SRB): 99 nomi, 95 cognomi
+  - 🇲🇪 **Montenegrini** (MNE): 97 nomi, 90 cognomi
+  - 🇭🇷 **Croati** (CRO): 95 nomi, 96 cognomi
+  - 🇪🇸 **Spagnoli** (ESP): 98 nomi, 100 cognomi
+  - 🇭🇺 **Ungheresi** (HUN): 50 nomi, 50 cognomi (lista base)
+  - 🇮🇹 **Italiani** (ITA): lista esistente invariata
+- Il generatore ora sceglie nomi e cognomi dalla lista corrispondente alla nazionalità del giocatore
+
+---
+
 ## [0.5.5-beta] — 2026-03-31
 
 ### Modificato
@@ -130,6 +166,42 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Statistiche**: tiri, parate, falli/espulsioni
   - **Marcatori & Assist**: chi ha segnato (con assist dello stesso giocatore se presenti) e chi ha solo assist
 - Il pulsante "Chiudi e torna al menu" esegue il salvataggio e torna alla dashboard
+
+---
+
+## [0.5.8-beta] — 2026-03-31
+
+### Aggiunto / Modificato
+- **Banner immagine** (`waterpolo-banner.jpg`) mostrato in cima alla schermata di Login e al Menu principale su **PC e tablet** (≥600px) — sostituisce l'icona emoji e i titoli testuali
+- Su **mobile** (<600px) continua a comparire l'icona 🏊 e il titolo testuale
+- **Centratura**: schermata Login e Menu principale allineati al centro sia orizzontalmente che verticalmente
+- La card del login si allarga fino a 720-760px per ospitare il banner nella sua larghezza naturale
+
+---
+
+## [0.5.7-beta] — 2026-03-31
+
+### Aggiunto
+- **Pulsante Logout** visibile nella schermata di selezione carriera (welcome screen), con nome utente affiancato
+- **Tab Credits** dopo Mercato: versione software, licenza MIT, sviluppatore (Davide Lanza — Grandepinna), stack tecnologico
+
+### Modificato
+- Pulsanti header gioco (**💾 Salva**, **⎋ Logout**, **⌂ Menu**) più grandi e con testo leggibile invece dei soli simboli
+
+---
+
+## [0.5.6-beta] — 2026-03-31
+
+### Aggiunto
+- Liste nomi e cognomi **per nazionalità** in `js/data/names.js`:
+  - 🇬🇷 **Greci** (GRE): 97 nomi, 99 cognomi
+  - 🇷🇸 **Serbi** (SRB): 99 nomi, 95 cognomi
+  - 🇲🇪 **Montenegrini** (MNE): 97 nomi, 90 cognomi
+  - 🇭🇷 **Croati** (CRO): 95 nomi, 96 cognomi
+  - 🇪🇸 **Spagnoli** (ESP): 98 nomi, 100 cognomi
+  - 🇭🇺 **Ungheresi** (HUN): 50 nomi, 50 cognomi (lista base)
+  - 🇮🇹 **Italiani** (ITA): lista esistente invariata
+- Il generatore ora sceglie nomi e cognomi dalla lista corrispondente alla nazionalità del giocatore
 
 ---
 
@@ -446,6 +518,42 @@ drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAg
 
 ---
 
+## [0.5.8-beta] — 2026-03-31
+
+### Aggiunto / Modificato
+- **Banner immagine** (`waterpolo-banner.jpg`) mostrato in cima alla schermata di Login e al Menu principale su **PC e tablet** (≥600px) — sostituisce l'icona emoji e i titoli testuali
+- Su **mobile** (<600px) continua a comparire l'icona 🏊 e il titolo testuale
+- **Centratura**: schermata Login e Menu principale allineati al centro sia orizzontalmente che verticalmente
+- La card del login si allarga fino a 720-760px per ospitare il banner nella sua larghezza naturale
+
+---
+
+## [0.5.7-beta] — 2026-03-31
+
+### Aggiunto
+- **Pulsante Logout** visibile nella schermata di selezione carriera (welcome screen), con nome utente affiancato
+- **Tab Credits** dopo Mercato: versione software, licenza MIT, sviluppatore (Davide Lanza — Grandepinna), stack tecnologico
+
+### Modificato
+- Pulsanti header gioco (**💾 Salva**, **⎋ Logout**, **⌂ Menu**) più grandi e con testo leggibile invece dei soli simboli
+
+---
+
+## [0.5.6-beta] — 2026-03-31
+
+### Aggiunto
+- Liste nomi e cognomi **per nazionalità** in `js/data/names.js`:
+  - 🇬🇷 **Greci** (GRE): 97 nomi, 99 cognomi
+  - 🇷🇸 **Serbi** (SRB): 99 nomi, 95 cognomi
+  - 🇲🇪 **Montenegrini** (MNE): 97 nomi, 90 cognomi
+  - 🇭🇷 **Croati** (CRO): 95 nomi, 96 cognomi
+  - 🇪🇸 **Spagnoli** (ESP): 98 nomi, 100 cognomi
+  - 🇭🇺 **Ungheresi** (HUN): 50 nomi, 50 cognomi (lista base)
+  - 🇮🇹 **Italiani** (ITA): lista esistente invariata
+- Il generatore ora sceglie nomi e cognomi dalla lista corrispondente alla nazionalità del giocatore
+
+---
+
 ## [0.5.5-beta] — 2026-03-31
 
 ### Modificato
@@ -570,6 +678,42 @@ drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAg
   - **Statistiche**: tiri, parate, falli/espulsioni
   - **Marcatori & Assist**: chi ha segnato (con assist dello stesso giocatore se presenti) e chi ha solo assist
 - Il pulsante "Chiudi e torna al menu" esegue il salvataggio e torna alla dashboard
+
+---
+
+## [0.5.8-beta] — 2026-03-31
+
+### Aggiunto / Modificato
+- **Banner immagine** (`waterpolo-banner.jpg`) mostrato in cima alla schermata di Login e al Menu principale su **PC e tablet** (≥600px) — sostituisce l'icona emoji e i titoli testuali
+- Su **mobile** (<600px) continua a comparire l'icona 🏊 e il titolo testuale
+- **Centratura**: schermata Login e Menu principale allineati al centro sia orizzontalmente che verticalmente
+- La card del login si allarga fino a 720-760px per ospitare il banner nella sua larghezza naturale
+
+---
+
+## [0.5.7-beta] — 2026-03-31
+
+### Aggiunto
+- **Pulsante Logout** visibile nella schermata di selezione carriera (welcome screen), con nome utente affiancato
+- **Tab Credits** dopo Mercato: versione software, licenza MIT, sviluppatore (Davide Lanza — Grandepinna), stack tecnologico
+
+### Modificato
+- Pulsanti header gioco (**💾 Salva**, **⎋ Logout**, **⌂ Menu**) più grandi e con testo leggibile invece dei soli simboli
+
+---
+
+## [0.5.6-beta] — 2026-03-31
+
+### Aggiunto
+- Liste nomi e cognomi **per nazionalità** in `js/data/names.js`:
+  - 🇬🇷 **Greci** (GRE): 97 nomi, 99 cognomi
+  - 🇷🇸 **Serbi** (SRB): 99 nomi, 95 cognomi
+  - 🇲🇪 **Montenegrini** (MNE): 97 nomi, 90 cognomi
+  - 🇭🇷 **Croati** (CRO): 95 nomi, 96 cognomi
+  - 🇪🇸 **Spagnoli** (ESP): 98 nomi, 100 cognomi
+  - 🇭🇺 **Ungheresi** (HUN): 50 nomi, 50 cognomi (lista base)
+  - 🇮🇹 **Italiani** (ITA): lista esistente invariata
+- Il generatore ora sceglie nomi e cognomi dalla lista corrispondente alla nazionalità del giocatore
 
 ---
 

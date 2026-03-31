@@ -2,9 +2,10 @@
 // engine/generator.js
 // Generazione procedurale: giocatori, rose, calendario
 // ─────────────────────────────────────────────
-// Usa ITALIAN_FIRST_NAMES e ITALIAN_LAST_NAMES da js/data/names.js
+// Usa NAMES_BY_NAT da js/data/names.js per liste per nazionalità
 
-const NATIONALITIES = ['ITA','ITA','ITA','ITA','CRO','SRB','HUN','GRE','MNE'];
+// Pesi nazionalità: ITA preponderante, con presenze realiste delle altre
+const NATIONALITIES = ['ITA','ITA','ITA','ITA','ITA','CRO','SRB','HUN','GRE','MNE','ESP'];
 
 // ── Helpers ──────────────────────────────────
 function rnd(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
@@ -39,10 +40,11 @@ function generatePlayer(teamStrength, role) {
   // Bi-ruolo: ~10% dei giocatori
   const secondRole = _pickSecondaryRole(role);
 
-  // Nome: Cognome + Iniziale nome (es. "Rossi M.")
-  const firstName = pick(ITALIAN_FIRST_NAMES);
-  const lastName  = pick(ITALIAN_LAST_NAMES);
-  const name = lastName + ' ' + firstName[0] + '.';
+  // Nome: usa liste per nazionalità, formato "I. Cognome"
+  const natData   = (typeof NAMES_BY_NAT !== 'undefined' && NAMES_BY_NAT[nat]) ? NAMES_BY_NAT[nat] : { first: ITALIAN_FIRST_NAMES, last: ITALIAN_LAST_NAMES };
+  const firstName = pick(natData.first);
+  const lastName  = pick(natData.last);
+  const name = firstName[0] + '. ' + lastName;
 
   return {
     name,
