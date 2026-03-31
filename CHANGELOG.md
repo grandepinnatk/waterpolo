@@ -6,6 +6,22 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.2-beta] — 2026-03-31
+
+### Corretto
+- Lineup: numero maglia e nome centrati verticalmente nel pallino; rimossa la riga posizione (già visibile nel titolo dello slot vuoto)
+
+---
+
+## [0.5.1-beta] — 2026-03-31
+
+### Modificato — Menu convocazioni
+- **Ruolo e mano** mostrati come badge colorati (stessa grafica del tab Rosa: POR=blu, DIF=verde, ATT/CEN=rosso, CB=arancio; R=rosso, L=blu, AMB=viola)
+- **Età** aggiunta accanto a OVR (es. "24a · OVR 87")
+- **Icona ⓘ** aggiunta a destra di ogni riga — cliccando apre il popup scheda completa del giocatore (con tutti gli attributi, valore, stipendio, ecc.) senza interrompere la selezione per la convocazione
+
+---
+
 ## [0.5.0-beta] — 2026-03-31
 
 ### Corretto
@@ -79,6 +95,22 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Statistiche**: tiri, parate, falli/espulsioni
   - **Marcatori & Assist**: chi ha segnato (con assist dello stesso giocatore se presenti) e chi ha solo assist
 - Il pulsante "Chiudi e torna al menu" esegue il salvataggio e torna alla dashboard
+
+---
+
+## [0.5.2-beta] — 2026-03-31
+
+### Corretto
+- Lineup: numero maglia e nome centrati verticalmente nel pallino; rimossa la riga posizione (già visibile nel titolo dello slot vuoto)
+
+---
+
+## [0.5.1-beta] — 2026-03-31
+
+### Modificato — Menu convocazioni
+- **Ruolo e mano** mostrati come badge colorati (stessa grafica del tab Rosa: POR=blu, DIF=verde, ATT/CEN=rosso, CB=arancio; R=rosso, L=blu, AMB=viola)
+- **Età** aggiunta accanto a OVR (es. "24a · OVR 87")
+- **Icona ⓘ** aggiunta a destra di ogni riga — cliccando apre il popup scheda completa del giocatore (con tutti gli attributi, valore, stipendio, ecc.) senza interrompere la selezione per la convocazione
 
 ---
 
@@ -344,6 +376,22 @@ drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAg
 
 ---
 
+## [0.5.2-beta] — 2026-03-31
+
+### Corretto
+- Lineup: numero maglia e nome centrati verticalmente nel pallino; rimossa la riga posizione (già visibile nel titolo dello slot vuoto)
+
+---
+
+## [0.5.1-beta] — 2026-03-31
+
+### Modificato — Menu convocazioni
+- **Ruolo e mano** mostrati come badge colorati (stessa grafica del tab Rosa: POR=blu, DIF=verde, ATT/CEN=rosso, CB=arancio; R=rosso, L=blu, AMB=viola)
+- **Età** aggiunta accanto a OVR (es. "24a · OVR 87")
+- **Icona ⓘ** aggiunta a destra di ogni riga — cliccando apre il popup scheda completa del giocatore (con tutti gli attributi, valore, stipendio, ecc.) senza interrompere la selezione per la convocazione
+
+---
+
 ## [0.5.0-beta] — 2026-03-31
 
 ### Corretto
@@ -417,6 +465,22 @@ drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAg
   - **Statistiche**: tiri, parate, falli/espulsioni
   - **Marcatori & Assist**: chi ha segnato (con assist dello stesso giocatore se presenti) e chi ha solo assist
 - Il pulsante "Chiudi e torna al menu" esegue il salvataggio e torna alla dashboard
+
+---
+
+## [0.5.2-beta] — 2026-03-31
+
+### Corretto
+- Lineup: numero maglia e nome centrati verticalmente nel pallino; rimossa la riga posizione (già visibile nel titolo dello slot vuoto)
+
+---
+
+## [0.5.1-beta] — 2026-03-31
+
+### Modificato — Menu convocazioni
+- **Ruolo e mano** mostrati come badge colorati (stessa grafica del tab Rosa: POR=blu, DIF=verde, ATT/CEN=rosso, CB=arancio; R=rosso, L=blu, AMB=viola)
+- **Età** aggiunta accanto a OVR (es. "24a · OVR 87")
+- **Icona ⓘ** aggiunta a destra di ogni riga — cliccando apre il popup scheda completa del giocatore (con tutti gli attributi, valore, stipendio, ecc.) senza interrompere la selezione per la convocazione
 
 ---
 

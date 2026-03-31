@@ -70,6 +70,18 @@ function _handLabel(hand) {
   return 'Destro';
 }
 
+// Badge ruolo colorato (stessa CSS del tab Rosa)
+function _luRoleBadge(role) {
+  const cls = role==='POR'?'S': role==='DIF'?'A': role==='CB'?'B': 'C';
+  return `<span class="badge ${cls}">${role}</span>`;
+}
+
+// Badge mano colorato
+function _luHandBadge(hand) {
+  const cls = hand==='AMB'?'AMB': hand==='L'?'L': 'R';
+  return `<span class="badge ${cls}">${hand}</span>`;
+}
+
 function renderLineupPool() {
   const container = document.getElementById('lineup-pool');
   container.innerHTML = '';
@@ -120,10 +132,9 @@ function renderLineupPool() {
       slot.style.color      = '#fff';
       // Nome formato: "Cognome I." su riga dedicata
       const sn = _slotName(p); // es. "Rossi M."
-      slot.innerHTML = `<div style="font-weight:700;text-align:center;line-height:1.3">
-        <div style="font-size:11px;color:#f0c040">${shirt}</div>
-        <div style="font-size:9px;white-space:nowrap;overflow:hidden;max-width:52px;text-overflow:ellipsis">${sn}</div>
-        <div style="font-size:7px;opacity:.7">${_simplePos(pk)}</div>
+      slot.innerHTML = `<div style="font-weight:700;text-align:center;line-height:1.25;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center">
+        <div style="font-size:11px;color:#f0c040;line-height:1">${shirt}</div>
+        <div style="font-size:8px;white-space:nowrap;overflow:hidden;width:48px;text-overflow:ellipsis;text-align:center;line-height:1.2">${sn}</div>
       </div>`;
       slot.title = `#${shirt} ${p.name} · ${_simplePos(pk)}`;
     } else {
@@ -159,8 +170,8 @@ function renderPlayerSelList() {
 
   // Intestazione
   const hdr = document.createElement('div');
-  hdr.style.cssText = 'display:grid;grid-template-columns:34px 1fr 76px 38px;gap:4px;padding:3px 6px 5px;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);margin-bottom:4px';
-  hdr.innerHTML = '<div title="Numero maglia">#</div><div>Giocatore</div><div>Pos / Ruolo</div><div>Forma</div>';
+  hdr.style.cssText = 'display:grid;grid-template-columns:34px 1fr 76px 38px 22px;gap:4px;padding:3px 6px 5px;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border);margin-bottom:4px';
+  hdr.innerHTML = '<div title="Numero maglia">#</div><div>Giocatore</div><div>Pos / Ruolo</div><div>Forma</div><div></div>';
   container.appendChild(hdr);
 
   roster.forEach((p, i) => {
@@ -172,7 +183,7 @@ function renderPlayerSelList() {
 
     const row = document.createElement('div');
     row.style.cssText = [
-      'display:grid', 'grid-template-columns:34px 1fr 76px 38px',
+      'display:grid', 'grid-template-columns:34px 1fr 76px 38px 22px',
       'gap:4px', 'align-items:center', 'padding:5px 6px',
       'border-radius:8px', 'margin-bottom:3px', 'transition:all .12s',
       'border:1.5px solid ' + (isSel ? 'var(--blue)' : usedPk ? '#185FA5' : isConv ? 'rgba(255,255,255,.1)' : 'transparent'),
@@ -205,7 +216,10 @@ function renderPlayerSelList() {
     nameCell.style.cssText = 'min-width:0';
     nameCell.innerHTML = `
       <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.name}</div>
-      <div style="font-size:10px;color:var(--muted)">${p.role} · <span style="color:${p.hand==='L'?'#80c0ff':'var(--muted)'}">${_handLabel(p.hand)}</span> · OVR ${p.overall}</div>`;
+      <div style="font-size:10px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">
+        ${_luRoleBadge(p.role)} ${_luHandBadge(p.hand)}
+        <span style="color:var(--muted)">${p.age}a · OVR ${p.overall}</span>
+      </div>`;
     row.appendChild(nameCell);
 
     // Cella posizione
@@ -218,6 +232,23 @@ function renderPlayerSelList() {
     const fitCell = document.createElement('div');
     fitCell.innerHTML = `<span style="font-size:11px;color:${fc}">${p.fitness}%</span>`;
     row.appendChild(fitCell);
+
+    // Cella icona ⓘ — apre scheda giocatore
+    const infoCell = document.createElement('div');
+    infoCell.style.cssText = 'display:flex;align-items:center;justify-content:center';
+    infoCell.innerHTML = `<span
+      title="Scheda giocatore"
+      style="width:18px;height:18px;border-radius:50%;border:1px solid var(--muted);display:inline-flex;
+             align-items:center;justify-content:center;cursor:pointer;font-size:11px;color:var(--muted);
+             font-style:italic;font-weight:700;flex-shrink:0">i</span>`;
+    infoCell.firstElementChild.addEventListener('click', e => {
+      e.stopPropagation();
+      // Riusa showPlayerModal se disponibile (siamo fuori dalla partita)
+      if (typeof showPlayerModal === 'function') {
+        showPlayerModal(i);
+      }
+    });
+    row.appendChild(infoCell);
 
     // Click per selezionare / aggiungere ai convocati
     row.onclick = () => selectPlayerLu(i);
