@@ -207,36 +207,72 @@ onAuthStateChanged(auth, async (user) => {
   _currentUser = user;
   _setLoading(false);
 
+  console.log('[Auth] onAuthStateChanged — user:', user ? user.email : 'null');
+
   if (user) {
-    // Utente loggato: sync cloud → localStorage, poi mostra il gioco
     _setErr('');
     _updateAuthHeader(user);
 
-    // Nascondi il pannello auth e mostra il welcome
+    // Nascondi pannello auth
     const authPanel = document.getElementById('wp-auth-panel');
     if (authPanel) authPanel.style.display = 'none';
+    console.log('[Auth] Pannello auth nascosto');
 
-    // Mostra indicatore di sync
+    // Sync cloud (non bloccante — anche se fallisce il gioco parte)
     _showSyncIndicator(true);
     try {
       await syncOnLogin();
+      console.log('[Auth] Sync completato');
     } catch (e) {
-      console.warn('[Auth] Sync error:', e);
+      console.warn('[Auth] Sync error (non bloccante):', e);
+      // Non bloccare il gioco per errori di sync
     }
     _showSyncIndicator(false);
 
-    // Aggiorna la UI degli slot (ora può avere dati dal cloud)
-    if (typeof renderSlots === 'function') renderSlots();
-    if (typeof renderTeamList === 'function') renderTeamList();
+    // Assicura che il pannello auth sia nascosto anche dopo il sync
+    const authPanelAfterSync = document.getElementById('wp-auth-panel');
+    if (authPanelAfterSync) authPanelAfterSync.style.display = 'none';
+
+    // Aggiorna UI gioco — con retry se le funzioni non sono ancora disponibili
+    _updateGameUI();
 
   } else {
-    // Utente non loggato: mostra pannello auth sopra al welcome
     _updateAuthHeader(null);
     const authPanel = document.getElementById('wp-auth-panel');
     if (authPanel) authPanel.style.display = '';
     wpSwitchToLogin();
+    console.log('[Auth] Utente non loggato — pannello auth mostrato');
   }
 });
+
+// Aggiorna la UI del gioco con retry (le funzioni vanilla potrebbero
+// non essere ancora disponibili al primo tick del module)
+function _updateGameUI() {
+  const tryUpdate = (attempt) => {
+    // Nomi reali delle funzioni in welcome.js
+    const hasSlotsPanel   = typeof window._buildSlotsPanel === 'function';
+    const hasTeamList     = typeof window._buildTeamList   === 'function';
+    const hasBuildWelcome = typeof window.buildWelcomeScreen === 'function';
+    console.log(`[Auth] _updateGameUI attempt ${attempt} — slotsPanel:${hasSlotsPanel} teamList:${hasTeamList} welcome:${hasBuildWelcome}`);
+    if (hasSlotsPanel || hasBuildWelcome) {
+      try {
+        if (hasBuildWelcome) window.buildWelcomeScreen();
+        else {
+          if (hasSlotsPanel) window._buildSlotsPanel();
+          if (hasTeamList)   window._buildTeamList();
+        }
+        console.log('[Auth] UI welcome aggiornata');
+      } catch(e) {
+        console.warn('[Auth] UI update error:', e);
+      }
+    } else if (attempt < 20) {
+      setTimeout(() => tryUpdate(attempt + 1), 150);
+    } else {
+      console.warn('[Auth] Funzioni welcome non disponibili dopo 3s');
+    }
+  };
+  tryUpdate(1);
+}
 
 function _showSyncIndicator(show) {
   const el = document.getElementById('wp-sync-indicator');

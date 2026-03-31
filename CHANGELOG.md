@@ -6,6 +6,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.4.0-beta] — 2026-03-31
+
+### Corretto
+- Login: corretto bug che faceva riapparire il pannello credenziali dopo il login riuscito
+  - Il pannello auth viene ora nascosto **prima** del sync cloud e **nuovamente forzato nascosto** dopo, così eventuali errori di sync non lo fanno ricomparire
+  - Corretti i nomi delle funzioni chiamate dopo il login (`_buildSlotsPanel`, `_buildTeamList`, `buildWelcomeScreen`) — erano sbagliati e causavano un errore silenzioso
+  - Aggiunto meccanismo di retry con timeout per attendere che le funzioni vanilla siano disponibili nel global scope prima di invocarle dal modulo ES
+  - Aggiunto logging dettagliato nella console per diagnosticare futuri problemi di autenticazione
+
+---
+
 ## [0.3.9-beta] — 2026-03-31
 
 ### Corretto
@@ -95,6 +106,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - Tabelle **In campo** e **Panchina**: mostrano solo il cognome (es. "Rossi") per massima leggibilità nelle colonne strette
 - **Vasca** (canvas) e log azioni: mostrano il formato completo "Cognome I."
 - Modale Rosa e altre schermate: formato completo "Cognome I."
+
+---
+
+## [0.4.0-beta] — 2026-03-31
+
+### Corretto
+- Login: corretto bug che faceva riapparire il pannello credenziali dopo il login riuscito
+  - Il pannello auth viene ora nascosto **prima** del sync cloud e **nuovamente forzato nascosto** dopo, così eventuali errori di sync non lo fanno ricomparire
+  - Corretti i nomi delle funzioni chiamate dopo il login (`_buildSlotsPanel`, `_buildTeamList`, `buildWelcomeScreen`) — erano sbagliati e causavano un errore silenzioso
+  - Aggiunto meccanismo di retry con timeout per attendere che le funzioni vanilla siano disponibili nel global scope prima di invocarle dal modulo ES
+  - Aggiunto logging dettagliato nella console per diagnosticare futuri problemi di autenticazione
 
 ---
 
