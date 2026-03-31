@@ -40,6 +40,8 @@ function _errMsg(code) {
     'auth/invalid-credential':     'Email o password errati',
     'auth/too-many-requests':      'Troppi tentativi. Riprova tra qualche minuto',
     'auth/network-request-failed': 'Errore di rete. Controlla la connessione',
+    'auth/unauthorized-domain':    'Dominio non autorizzato. Aggiungi grandepinnatk.github.io in Firebase Console → Authentication → Settings → Authorized domains',
+    'auth/operation-not-allowed':  'Metodo di login non abilitato. Abilita Google in Firebase Console → Authentication → Sign-in method',
   };
   return map[code] || 'Errore: ' + code;
 }
@@ -143,14 +145,28 @@ export async function wpLogout() {
 
 export async function wpLoginGoogle() {
   const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: 'select_account' });
   _setLoading(true); _setErr('');
   try {
-    // Usa redirect come metodo principale (più compatibile con GitHub Pages)
-    await signInWithRedirect(auth, provider);
-    // La pagina si ricaricherà — onAuthStateChanged gestisce il ritorno
+    // Popup è più affidabile su GitHub Pages (nessun problema di redirect loop)
+    await signInWithPopup(auth, provider);
+    // onAuthStateChanged gestisce il resto
   } catch (e) {
-    _setErr(_errMsg(e.code));
-    _setLoading(false);
+    if (e.code === 'auth/popup-blocked') {
+      // Popup bloccato dal browser: fallback redirect
+      try {
+        await signInWithRedirect(auth, provider);
+      } catch (e2) {
+        _setErr(_errMsg(e2.code));
+        _setLoading(false);
+      }
+    } else if (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') {
+      // Utente ha chiuso il popup: nessun errore
+      _setLoading(false);
+    } else {
+      _setErr(_errMsg(e.code));
+      _setLoading(false);
+    }
   }
 }
 
@@ -176,9 +192,14 @@ function _updateAuthHeader(user) {
   }
 }
 
-// ── Gestione redirect OAuth (es. Google su mobile) ──
-getRedirectResult(auth).catch(e => {
-  if (e.code && e.code !== 'auth/no-current-user') _setErr(_errMsg(e.code));
+// ── Gestione redirect OAuth residui (fallback per popup bloccati) ──
+getRedirectResult(auth).then(result => {
+  // Risultato già gestito da onAuthStateChanged
+  if (result?.user) console.log('[Auth] Redirect result handled for:', result.user.email);
+}).catch(e => {
+  if (e.code && e.code !== 'auth/no-current-user') {
+    console.warn('[Auth] Redirect error:', e.code);
+  }
 });
 
 // ── Auth state observer ───────────────────────

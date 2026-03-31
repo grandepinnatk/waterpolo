@@ -6,6 +6,16 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.3.9-beta] — 2026-03-31
+
+### Corretto
+- Login Google: tornato a **popup** come metodo principale (il redirect causava un loop — dopo il ritorno da Google la pagina mostrava di nuovo il pannello login invece di avviare il gioco)
+- Fallback automatico a redirect solo se il popup è esplicitamente bloccato dal browser
+- Se l'utente chiude il popup manualmente non viene mostrato nessun errore
+- Aggiunto messaggio di errore specifico per `auth/unauthorized-domain` con istruzioni su come aggiungere il dominio in Firebase Console
+
+---
+
 ## [0.3.8-beta] — 2026-03-31
 
 ### Modificato
@@ -85,6 +95,16 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - Tabelle **In campo** e **Panchina**: mostrano solo il cognome (es. "Rossi") per massima leggibilità nelle colonne strette
 - **Vasca** (canvas) e log azioni: mostrano il formato completo "Cognome I."
 - Modale Rosa e altre schermate: formato completo "Cognome I."
+
+---
+
+## [0.3.9-beta] — 2026-03-31
+
+### Corretto
+- Login Google: tornato a **popup** come metodo principale (il redirect causava un loop — dopo il ritorno da Google la pagina mostrava di nuovo il pannello login invece di avviare il gioco)
+- Fallback automatico a redirect solo se il popup è esplicitamente bloccato dal browser
+- Se l'utente chiude il popup manualmente non viene mostrato nessun errore
+- Aggiunto messaggio di errore specifico per `auth/unauthorized-domain` con istruzioni su come aggiungere il dominio in Firebase Console
 
 ---
 
