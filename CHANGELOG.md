@@ -6,6 +6,30 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.31-beta] — 2026-04-02
+
+### Modificato
+- **Icona Logout**: sostituita 🚪 con icona SVG inline stile Feather Icons — porta aperta con freccia che punta verso destra (logout/exit standard universale), visibile sia nella sidebar che nel pulsante della welcome screen
+
+---
+
+## [0.5.30-beta] — 2026-04-02
+
+### Aggiunto
+- **Logout con conferma a due step**:
+  1. "Vuoi veramente fare logout?" → **Sì** / **No**
+  2. "Vuoi salvare il tuo progresso nel gioco?" → **Sì, salva** (salva poi esce) / **No, esci senza salvare**
+- Popup in stile Brawl Stars (parallelogramma, gradiente blu/bordeaux)
+
+---
+
+## [0.5.29-beta] — 2026-04-02
+
+### Modificato
+- Sidebar: pulsante **LOGOUT** spostato immediatamente dopo **CREDITS** (rimosso il flex spacer che lo spingeva in fondo)
+
+---
+
 ## [0.5.28-beta] — 2026-04-02
 
 ### Corretto
@@ -39,6 +63,30 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 #### Sprint
 - Durante lo sprint, i pos 3 si interpolano più velocemente (3.5x) rispetto agli altri giocatori (2.4x), simulando lo scatto
+
+---
+
+## [0.5.31-beta] — 2026-04-02
+
+### Modificato
+- **Icona Logout**: sostituita 🚪 con icona SVG inline stile Feather Icons — porta aperta con freccia che punta verso destra (logout/exit standard universale), visibile sia nella sidebar che nel pulsante della welcome screen
+
+---
+
+## [0.5.30-beta] — 2026-04-02
+
+### Aggiunto
+- **Logout con conferma a due step**:
+  1. "Vuoi veramente fare logout?" → **Sì** / **No**
+  2. "Vuoi salvare il tuo progresso nel gioco?" → **Sì, salva** (salva poi esce) / **No, esci senza salvare**
+- Popup in stile Brawl Stars (parallelogramma, gradiente blu/bordeaux)
+
+---
+
+## [0.5.29-beta] — 2026-04-02
+
+### Modificato
+- Sidebar: pulsante **LOGOUT** spostato immediatamente dopo **CREDITS** (rimosso il flex spacer che lo spingeva in fondo)
 
 ---
 
@@ -81,6 +129,30 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - Gol nostro: `ballTarget.x = 0.96` (destra), Y casuale nello specchio [0.40, 0.60]
 - Gol avversario: `ballTarget.x = 0.04` (sinistra), idem
 - Tiri parati: palla rimane all'esterno della porta (x≈0.78 / 0.22)
+
+---
+
+## [0.5.31-beta] — 2026-04-02
+
+### Modificato
+- **Icona Logout**: sostituita 🚪 con icona SVG inline stile Feather Icons — porta aperta con freccia che punta verso destra (logout/exit standard universale), visibile sia nella sidebar che nel pulsante della welcome screen
+
+---
+
+## [0.5.30-beta] — 2026-04-02
+
+### Aggiunto
+- **Logout con conferma a due step**:
+  1. "Vuoi veramente fare logout?" → **Sì** / **No**
+  2. "Vuoi salvare il tuo progresso nel gioco?" → **Sì, salva** (salva poi esce) / **No, esci senza salvare**
+- Popup in stile Brawl Stars (parallelogramma, gradiente blu/bordeaux)
+
+---
+
+## [0.5.29-beta] — 2026-04-02
+
+### Modificato
+- Sidebar: pulsante **LOGOUT** spostato immediatamente dopo **CREDITS** (rimosso il flex spacer che lo spingeva in fondo)
 
 ---
 

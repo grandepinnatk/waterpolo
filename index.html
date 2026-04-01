@@ -195,7 +195,7 @@
       "
       onmouseover="this.style.background='linear-gradient(135deg,#7a2222,#5a1212)';this.style.borderColor='#e74c3c'"
       onmouseout="this.style.background='linear-gradient(135deg,#5a1a1a,#3a0e0e)';this.style.borderColor='#8a2222'">
-        <span style="font-size:18px">🚪</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         <span style="font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#ff8080">LOGOUT</span>
       </button>
     </div>
@@ -291,10 +291,8 @@
         <span class="bs-nav-icon">ℹ️</span>
         <span class="bs-nav-lbl">CREDITS</span>
       </button>
-      <!-- Logout in fondo alla sidebar -->
-      <div style="flex:1"></div>
       <button class="bs-nav-btn bs-nav-logout" id="wp-btn-logout" onclick="wpLogout()" style="display:none">
-        <span class="bs-nav-icon">🚪</span>
+        <span class="bs-nav-icon" style="display:flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
         <span class="bs-nav-lbl">LOGOUT</span>
       </button>
     </aside>
@@ -527,7 +525,7 @@
 
   <!-- Footer versione -->
   <div class="wp-version-footer" style="text-align:center;padding:10px 0 16px;font-size:11px;color:rgba(255,255,255,.2);user-select:none">
-    v0.5.28 beta
+    v0.5.31 beta
   </div>
 
   <!-- Firebase modules (type="module") — caricati dopo tutti gli script vanilla -->

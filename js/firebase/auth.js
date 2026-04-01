@@ -136,11 +136,96 @@ export async function wpResetPassword() {
 }
 
 export async function wpLogout() {
-  try {
-    await signOut(auth);
-  } catch (e) {
-    console.warn('[Auth] Logout error:', e);
+  // Popup di conferma logout con opzione salvataggio
+  const ov = document.createElement('div');
+  ov.id = 'logout-confirm-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;z-index:9000;backdrop-filter:blur(6px)';
+
+  function _removePopup() { const el = document.getElementById('logout-confirm-popup'); if (el) el.remove(); }
+
+  function _doLogout() {
+    _removePopup();
+    signOut(auth).catch(e => console.warn('[Auth] Logout error:', e));
   }
+
+  function _askSave() {
+    ov.innerHTML = '';
+    ov.appendChild(_popupHTML(
+      '💾', 'Salva progresso',
+      'Vuoi salvare il tuo progresso nel gioco?',
+      'Sì, salva', function() {
+        _removePopup();
+        if (typeof autoSaveToCurrentSlot === 'function' && window.G && window.G.myId) {
+          autoSaveToCurrentSlot(window.G);
+        }
+        setTimeout(_doLogout, 600);
+      },
+      'No, esci senza salvare', _doLogout
+    ));
+  }
+
+  function _popupHTML(icon, title, msg, yesLabel, yesAction, noLabel, noAction) {
+    const wrap = document.createElement('div');
+    wrap.style.cssText = [
+      'background:linear-gradient(180deg,#0d1f3c,#091525)',
+      'border:2px solid #2a5aaa',
+      'border-radius:16px',
+      'padding:28px 24px',
+      'max-width:340px',
+      'width:90%',
+      'text-align:center',
+      'box-shadow:0 8px 40px rgba(0,0,0,.7)',
+    ].join(';');
+    wrap.innerHTML =
+      '<div style="font-size:36px;margin-bottom:12px">' + icon + '</div>' +
+      '<div style="font-size:16px;font-weight:800;color:#00c2ff;margin-bottom:8px">' + title + '</div>' +
+      '<div style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:22px">' + msg + '</div>' +
+      '<div style="display:flex;gap:10px;justify-content:center"></div>';
+    const btnRow = wrap.querySelector('div:last-child');
+
+    const yBtn = document.createElement('button');
+    yBtn.textContent = yesLabel;
+    yBtn.style.cssText = [
+      'padding:10px 26px',
+      'font-size:13px',
+      'font-weight:800',
+      'border-radius:8px',
+      'border:2px solid #00c2ff',
+      'background:linear-gradient(135deg,#0a5ca8,#0844a0)',
+      'color:#fff',
+      'cursor:pointer',
+      'clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)',
+    ].join(';');
+    yBtn.onclick = yesAction;
+
+    const nBtn = document.createElement('button');
+    nBtn.textContent = noLabel;
+    nBtn.style.cssText = [
+      'padding:10px 26px',
+      'font-size:13px',
+      'font-weight:800',
+      'border-radius:8px',
+      'border:2px solid #4a1428',
+      'background:linear-gradient(135deg,#3d1020,#280a14)',
+      'color:#e07090',
+      'cursor:pointer',
+      'clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)',
+    ].join(';');
+    nBtn.onclick = noAction;
+
+    btnRow.appendChild(yBtn);
+    btnRow.appendChild(nBtn);
+    return wrap;
+  }
+
+  // Step 1: Vuoi fare logout?
+  ov.appendChild(_popupHTML(
+    '🔓', 'Logout',
+    'Vuoi veramente fare logout?',
+    'Sì', _askSave,
+    'No', _removePopup
+  ));
+  document.body.appendChild(ov);
 }
 
 export async function wpLoginGoogle() {
