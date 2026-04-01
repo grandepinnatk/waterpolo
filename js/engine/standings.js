@@ -43,9 +43,73 @@ function getTeamPosition(standings, teamId) {
   return getSortedStandings(standings).findIndex(s => s.id === teamId) + 1;
 }
 
+
+// ── Distribuisce gol e assist ai giocatori e restituisce i dettagli della partita ──
+// Restituisce { home: [{name, goals}], away: [{name, goals}], partials: [{h,a}x4] }
+function simulateMatchStats(homeRoster, awayRoster, score) {
+  if (!homeRoster || !awayRoster) return null;
+
+  const homeScorers = [];
+  const awayScorers = [];
+
+  function distributeGoals(roster, numGoals, scorersList) {
+    if (!numGoals || !roster.length) return;
+    const scorers = roster.filter(p => p.role !== 'POR');
+    if (!scorers.length) return;
+
+    for (let i = 0; i < numGoals; i++) {
+      const weights = scorers.map(p =>
+        p.role === 'ATT' ? 4 : p.role === 'CEN' ? 3 : p.role === 'CB' ? 2 : 1
+      );
+      const totalW = weights.reduce((s, w) => s + w, 0);
+      let r = Math.random() * totalW;
+      let scorer = scorers[0];
+      for (let j = 0; j < scorers.length; j++) {
+        r -= weights[j];
+        if (r <= 0) { scorer = scorers[j]; break; }
+      }
+      if (!scorer.goals) scorer.goals = 0;
+      scorer.goals++;
+      // Traccia per details
+      const existing = scorersList.find(s => s.name === scorer.name);
+      if (existing) existing.goals++;
+      else scorersList.push({ name: scorer.name, goals: 1, assists: 0 });
+
+      // Assist
+      if (Math.random() < 0.75) {
+        const candidates = roster.filter(p => p !== scorer);
+        if (candidates.length) {
+          const ast = candidates[Math.floor(Math.random() * candidates.length)];
+          if (!ast.assists) ast.assists = 0;
+          ast.assists++;
+          // Traccia assist nei details
+          const existingA = scorersList.find(s => s.name === ast.name);
+          if (existingA) existingA.assists++;
+          else scorersList.push({ name: ast.name, goals: 0, assists: 1 });
+        }
+      }
+    }
+  }
+
+  distributeGoals(homeRoster, score.home, homeScorers);
+  distributeGoals(awayRoster, score.away, awayScorers);
+
+  // Genera parziali verosimili distribuendo i gol nei 4 tempi
+  function splitGoals(total) {
+    const p = [0,0,0,0];
+    for (let i = 0; i < total; i++) p[Math.floor(Math.random() * 4)]++;
+    return p;
+  }
+  const hP = splitGoals(score.home);
+  const aP = splitGoals(score.away);
+  const partials = [0,1,2,3].map(i => ({ h: hP[i], a: aP[i] }));
+
+  return { home: homeScorers, away: awayScorers, partials };
+}
+
 // ── Simula tutte le partite di una giornata ───
 // Salta le partite del giocatore (home o away = myId)
-function simulateRound(schedule, standings, teams, roundNum, myId) {
+function simulateRound(schedule, standings, teams, roundNum, myId, rosters) {
   const roundMatches = schedule.filter(m => m.round === roundNum && !m.played);
   roundMatches.forEach(m => {
     if (m.home === myId || m.away === myId) return; // partita del giocatore → skip
@@ -54,11 +118,16 @@ function simulateRound(schedule, standings, teams, roundNum, myId) {
     m.score  = simulateResult(hT, aT);
     m.played = true;
     updateStandings(standings, m.home, m.away, m.score);
+    // Distribuisce gol/assist e salva details sul match
+    if (rosters) {
+      const det = simulateMatchStats(rosters[m.home], rosters[m.away], m.score);
+      if (det) m.details = det;
+    }
   });
 }
 
 // ── Simula tutte le rimanenti (campionato rapido) ─
-function simulateAllRemaining(schedule, standings, teams, myId) {
+function simulateAllRemaining(schedule, standings, teams, myId, rosters) {
   schedule
     .filter(m => !m.played && m.home !== myId && m.away !== myId)
     .forEach(m => {
@@ -67,6 +136,7 @@ function simulateAllRemaining(schedule, standings, teams, myId) {
       m.score  = simulateResult(hT, aT);
       m.played = true;
       updateStandings(standings, m.home, m.away, m.score);
+      if (rosters) { const det = simulateMatchStats(rosters[m.home], rosters[m.away], m.score); if (det) m.details = det; }
     });
 }
 

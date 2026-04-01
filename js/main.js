@@ -113,6 +113,10 @@ function simNextRound() {
     m.score  = simulateResult(hT, aT);
     m.played = true;
     updateStandings(G.stand, m.home, m.away, m.score);
+    // Distribuisce gol/assist anche per le partite NPC
+    if (m.home !== G.myId && m.away !== G.myId) {
+      simulateMatchStats(G.rosters[m.home], G.rosters[m.away], m.score);
+    }
 
     // Se è la partita della mia squadra, registra il risultato nei messaggi
     if (m.home === G.myId || m.away === G.myId) {
@@ -148,7 +152,7 @@ function simNextRound() {
 }
 
 function simEntireSeason() {
-  simulateAllRemaining(G.schedule, G.stand, G.teams, G.myId);
+  simulateAllRemaining(G.schedule, G.stand, G.teams, G.myId, G.rosters);
   G.msgs.push('Campionato simulato fino alle tue partite rimanenti.');
   updateHeader(); autoSave(); renderDash();
 }

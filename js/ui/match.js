@@ -812,6 +812,33 @@ function _doEndMatch() {
   } else {
     ms.match.score  = score; ms.match.played = true;
     updateStandings(G.stand, ms.match.home, ms.match.away, score);
+
+    // Salva dettagli partita (marcatori + parziali) sul match per il calendario
+    const homeScorers = [], awayScorers = [];
+    const isHomeMe = ms.isHome;
+    // Marcatori miei (dal matchGoals)
+    Object.entries(ms.matchGoals || {}).forEach(([piStr, goals]) => {
+      const p = ms.myRoster[+piStr];
+      if (p && goals > 0) {
+        const assists = ms.matchAssists?.[+piStr] || 0;
+        (isHomeMe ? homeScorers : awayScorers).push({ name: p.name, goals, assists });
+      }
+    });
+    // Marcatori avversari: generiamo dai gol totali (non tracciati individualmente)
+    if (typeof simulateMatchStats === 'function') {
+      const oppRoster = G.rosters[ms.oppTeam.id] || [];
+      const fakeOppScore = isHomeMe ? { home: 0, away: ms.oppScore } : { home: ms.oppScore, away: 0 };
+      const det = simulateMatchStats(oppRoster, oppRoster, { home: ms.oppScore, away: 0 });
+      if (det) (isHomeMe ? awayScorers : homeScorers).push(...det.home);
+    }
+    // Parziali dalla partita giocata
+    const ps = ms.periodScores || [{my:0,opp:0},{my:0,opp:0},{my:0,opp:0},{my:0,opp:0}];
+    const partials = ps.map(p => isHomeMe ? {h:p.my, a:p.opp} : {h:p.opp, a:p.my});
+    ms.match.details = {
+      home: isHomeMe ? homeScorers : awayScorers,
+      away: isHomeMe ? awayScorers : homeScorers,
+      partials,
+    };
     const mw = (ms.isHome && ms.myScore > ms.oppScore) || (!ms.isHome && ms.myScore > ms.oppScore);
     const md = ms.myScore === ms.oppScore;
     const earned = getMatchReward(ms.myScore, ms.oppScore);
@@ -835,7 +862,7 @@ function _doEndMatch() {
     updateMoraleAfterMatch(ms);
     generateTransferOffers();
     if (typeof refreshMarketPool === 'function') refreshMarketPool();
-    simulateRound(G.schedule, G.stand, G.teams, ms.match.round, G.myId);
+    simulateRound(G.schedule, G.stand, G.teams, ms.match.round, G.myId, G.rosters);
     G.ms = null;
     showScreen('sc-game'); updateHeader(); showTab('dash');
   }

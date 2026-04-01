@@ -111,6 +111,121 @@ function _shortPlayerName(p) {
 // Ogni funzione scrive l'innerHTML del suo contenitore.
 // ─────────────────────────────────────────────
 
+// ── Popup dettaglio partita (clic sul punteggio in calendario) ──
+function showMatchDetailPopup(matchIdx) {
+  const m  = G.schedule[matchIdx];
+  if (!m || !m.played || !m.score) return;
+
+  const hT = G.teams.find(t => t.id === m.home);
+  const aT = G.teams.find(t => t.id === m.away);
+  const d  = m.details || null;
+
+  const existing = document.getElementById('match-detail-popup');
+  if (existing) existing.remove();
+
+  // Parziali
+  let partialsHtml = '';
+  if (d && d.partials) {
+    partialsHtml = `
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Parziali</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border)">
+              <th style="text-align:center;padding:3px 6px;color:var(--muted);font-weight:600;font-size:10px">Tempo</th>
+              <th style="text-align:center;padding:3px 8px;color:${m.home===G.myId?'var(--blue)':'var(--muted)'};font-weight:700;font-size:11px">${hT?hT.abbr:'?'}</th>
+              <th style="text-align:center;padding:3px 8px;color:${m.away===G.myId?'var(--blue)':'var(--muted)'};font-weight:700;font-size:11px">${aT?aT.abbr:'?'}</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${d.partials.map((p,i) => `
+              <tr style="border-bottom:1px solid rgba(255,255,255,.04)">
+                <td style="text-align:center;color:var(--muted);padding:4px">${i+1}° T</td>
+                <td style="text-align:center;font-weight:600;padding:4px">${p.h}</td>
+                <td style="text-align:center;font-weight:600;padding:4px">${p.a}</td>
+              </tr>`).join('')}
+            <tr style="border-top:1px solid var(--border);font-weight:700">
+              <td style="text-align:center;color:var(--muted);padding:5px">Tot.</td>
+              <td style="text-align:center;color:var(--blue);padding:5px">${m.score.home}</td>
+              <td style="text-align:center;color:var(--blue);padding:5px">${m.score.away}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>`;
+  } else {
+    partialsHtml = `<div style="margin-bottom:14px;font-size:12px;color:var(--muted)">Parziali non disponibili</div>`;
+  }
+
+  // Marcatori per squadra
+  function buildScorersList(list, label) {
+    if (!list || !list.length) return `<div style="color:var(--muted);font-size:12px;padding:4px 0">—</div>`;
+    return list
+      .filter(s => s.goals > 0 || s.assists > 0)
+      .sort((a,b) => b.goals - a.goals || b.assists - a.assists)
+      .map(s => {
+        const goalsStr   = s.goals   > 0 ? `<span style="color:var(--blue);font-weight:700">⚽${s.goals}</span>` : '';
+        const assistsStr = s.assists > 0 ? `<span style="color:var(--green);font-size:11px"> 🤝${s.assists}</span>` : '';
+        return `<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px">
+          <span>${s.name}</span>
+          <span style="display:flex;gap:6px;align-items:center">${goalsStr}${assistsStr}</span>
+        </div>`;
+      }).join('') || `<div style="color:var(--muted);font-size:12px;padding:4px 0">—</div>`;
+  }
+
+  const homeIsMe = m.home === G.myId;
+  const awayIsMe = m.away === G.myId;
+
+  const ov = document.createElement('div');
+  ov.id = 'match-detail-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;z-index:500;backdrop-filter:blur(6px);overflow-y:auto;padding:20px';
+  ov.innerHTML = `
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;
+                padding:20px;max-width:540px;width:95%;max-height:85vh;overflow-y:auto">
+
+      <!-- Header risultato -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div style="font-size:11px;color:var(--muted)">G${m.round}</div>
+        <button onclick="document.getElementById('match-detail-popup').remove()"
+                style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
+      </div>
+
+      <!-- Tabellone -->
+      <div style="text-align:center;margin-bottom:16px">
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px">
+          <div style="flex:1;text-align:right">
+            <span onclick="showTeamRosterPopup('${m.home}')" style="font-size:15px;font-weight:${homeIsMe?700:500};cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;color:${homeIsMe?'var(--blue)':'var(--text)'}">${hT?hT.name:'?'}</span>
+          </div>
+          <div style="background:var(--panel2);border-radius:10px;padding:8px 20px;font-size:24px;font-weight:700;flex-shrink:0">
+            ${m.score.home} - ${m.score.away}
+          </div>
+          <div style="flex:1;text-align:left">
+            <span onclick="showTeamRosterPopup('${m.away}')" style="font-size:15px;font-weight:${awayIsMe?700:500};cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;color:${awayIsMe?'var(--blue)':'var(--text)'}">${aT?aT.name:'?'}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parziali -->
+      ${partialsHtml}
+
+      <!-- Marcatori -->
+      ${d ? `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:${homeIsMe?'var(--blue)':'var(--muted)'};text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">${hT?hT.abbr:'Casa'}</div>
+          ${buildScorersList(d.home)}
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:${awayIsMe?'var(--blue)':'var(--muted)'};text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">${aT?aT.abbr:'Ospiti'}</div>
+          ${buildScorersList(d.away)}
+        </div>
+      </div>` : '<div style="font-size:12px;color:var(--muted)">Statistiche dettagliate non disponibili per questa partita.</div>'}
+
+    </div>`;
+  ov.onclick = e => { if (e.target === ov) ov.remove(); };
+  document.body.appendChild(ov);
+}
+window.showMatchDetailPopup = showMatchDetailPopup;
+
 // ════════════════════════════════════════════
 // DASHBOARD
 // ════════════════════════════════════════════
@@ -559,19 +674,21 @@ function _buildStandContent(activeTab) {
   } else {
     // ── Marcatori lega ──
     // Raccoglie tutti i giocatori di tutte le squadre con almeno 1 gol
+    // Raccoglie gol di TUTTI i giocatori di tutte le squadre (incluse NPC)
     const allScorers = [];
     G.teams.forEach(t => {
       const roster = G.rosters[t.id] || [];
       roster.forEach(p => {
-        if (p.goals > 0) {
+        if ((p.goals || 0) > 0) {
           allScorers.push({
-            name:   _shortPlayerName ? _shortPlayerName(p) : p.name,
-            team:   t.name,
+            name:     _shortPlayerName ? _shortPlayerName(p) : p.name,
+            team:     t.name,
             teamAbbr: t.abbr,
-            role:   p.role,
-            goals:  p.goals,
-            assists: p.assists || 0,
-            isMe:   t.id === G.myId,
+            teamId:   t.id,
+            role:     p.role,
+            goals:    p.goals  || 0,
+            assists:  p.assists || 0,
+            isMe:     t.id === G.myId,
           });
         }
       });
@@ -596,7 +713,7 @@ function _buildStandContent(activeTab) {
         h += `<tr style="background:${p.isMe ? 'rgba(0,194,255,.10)' : ''}">
           <td style="font-weight:700;color:var(--muted);font-size:12px">${medal}</td>
           <td style="font-weight:${p.isMe ? 700 : 400}">${p.name}${p.isMe ? ' ★' : ''}</td>
-          <td style="font-size:12px"><span onclick="showTeamRosterPopup(G.teams.find(t=>t.abbr==='${p.teamAbbr}')?.id)" style="cursor:pointer;color:var(--muted);text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">${p.teamAbbr}</span></td>
+          <td style="font-size:12px"><span onclick="showTeamRosterPopup('${p.teamId}')" style="cursor:pointer;color:var(--muted);text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">${p.teamAbbr}</span></td>
           <td><span class="badge ${p.role === 'POR' ? 'S' : p.role === 'CB' ? 'B' : p.role === 'DIF' ? 'A' : 'C'}">${p.role}</span></td>
           <td style="text-align:center;font-weight:700;color:var(--blue)">${p.goals}</td>
           <td style="text-align:center;color:var(--muted)">${p.assists}</td>
@@ -615,33 +732,74 @@ function _buildStandContent(activeTab) {
 // CALENDARIO
 // ════════════════════════════════════════════
 function renderCal() {
-  const myMatches = G.schedule
-    .filter(m => m.home === G.myId || m.away === G.myId)
-    .sort((a, b) => a.round - b.round);
-
-  let h = `<div style="font-weight:700;color:var(--blue);margin-bottom:10px">Calendario ${G.myTeam.name}</div>`;
-  myMatches.forEach(m => {
-    const ih  = m.home === G.myId;
-    const opp = G.teams.find(t => t.id === (ih ? m.away : m.home));
-    let res = '', resc = '';
-    if (m.played && m.score) {
-      const mw = (ih && m.score.home > m.score.away) || (!ih && m.score.away > m.score.home);
-      const md = m.score.home === m.score.away;
-      res  = mw ? 'V' : md ? 'P' : 'S';
-      resc = mw ? 'var(--green)' : md ? 'var(--gold)' : 'var(--red)';
-    }
-    h += `<div class="card" style="padding:10px;margin-bottom:6px">
-      <div style="display:flex;align-items:center;justify-content:space-between">
-        <div style="font-size:11px;color:var(--muted)">G${m.round} · ${ih ? 'Casa' : 'Trasferta'}</div>
-        ${m.played && res ? `<div style="font-size:13px;font-weight:700;color:${resc}">${res}</div>` : '<div style="color:var(--muted)">—</div>'}
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px">
-        <div style="font-size:13px;font-weight:${ih ? 700 : 400}"><span onclick="showTeamRosterPopup('${ih ? G.myId : opp.id}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">${ih ? G.myTeam.name : opp.name}</span></div>
-        ${m.played && m.score ? `<div style="background:var(--panel2);border-radius:6px;padding:3px 14px;font-size:15px;font-weight:700">${m.score.home} - ${m.score.away}</div>` : '<div style="color:var(--muted)">vs</div>'}
-        <div style="font-size:13px;font-weight:${ih ? 400 : 700}"><span onclick="showTeamRosterPopup('${ih ? opp.id : G.myId}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">${ih ? opp.name : G.myTeam.name}</span></div>
-      </div>
-    </div>`;
+  // Raggruppa TUTTE le partite per giornata
+  const rounds = {};
+  G.schedule.forEach(m => {
+    if (!rounds[m.round]) rounds[m.round] = [];
+    rounds[m.round].push(m);
   });
+  const sortedRounds = Object.keys(rounds).map(Number).sort((a,b) => a - b);
+
+  let h = `<div style="font-weight:700;color:var(--blue);margin-bottom:12px">Calendario — Tutte le giornate</div>`;
+
+  sortedRounds.forEach(r => {
+    const matches = rounds[r];
+    const myMatch = matches.find(m => m.home === G.myId || m.away === G.myId);
+    const allPlayed = matches.every(m => m.played);
+    const somePlayedByMe = myMatch && myMatch.played;
+
+    // Badge giornata
+    let roundBadgeColor = 'var(--border)';
+    let roundBadgeText  = '';
+    if (myMatch && myMatch.played) {
+      const ih = myMatch.home === G.myId;
+      const mw = (ih && myMatch.score.home > myMatch.score.away) || (!ih && myMatch.score.away > myMatch.score.home);
+      const md = myMatch.score.home === myMatch.score.away;
+      roundBadgeColor = mw ? 'rgba(46,204,113,.2)' : md ? 'rgba(240,192,64,.2)' : 'rgba(231,76,60,.2)';
+      roundBadgeText  = mw ? 'V' : md ? 'P' : 'S';
+    }
+
+    h += `<div style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <div style="font-size:12px;font-weight:700;color:var(--blue)">Giornata ${r}</div>
+        ${roundBadgeText ? `<span style="font-size:11px;padding:1px 8px;border-radius:4px;background:${roundBadgeColor};font-weight:700">${roundBadgeText}</span>` : ''}
+      </div>`;
+
+    matches.forEach(m => {
+      const hT   = G.teams.find(t => t.id === m.home);
+      const aT   = G.teams.find(t => t.id === m.away);
+      const isMe = m.home === G.myId || m.away === G.myId;
+      const ih   = m.home === G.myId;
+
+      let scoreLine = '<span style="color:var(--muted);font-size:13px">vs</span>';
+      let badge = '';
+      if (m.played && m.score) {
+        scoreLine = `<span style="background:var(--panel2);border-radius:6px;padding:2px 12px;font-size:14px;font-weight:700">${m.score.home} - ${m.score.away}</span>`;
+        if (isMe) {
+          const mw = (ih && m.score.home > m.score.away) || (!ih && m.score.away > m.score.home);
+          const md = m.score.home === m.score.away;
+          const resc = mw ? 'var(--green)' : md ? 'var(--gold)' : 'var(--red)';
+          const res  = mw ? 'V' : md ? 'P' : 'S';
+          badge = `<span style="font-size:11px;font-weight:700;color:${resc};margin-left:4px">${res}</span>`;
+        }
+      }
+
+      h += `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;
+                        border-radius:8px;margin-bottom:3px;
+                        background:${isMe ? 'rgba(0,194,255,.06)' : 'rgba(255,255,255,.02)'};
+                        border:1px solid ${isMe ? 'rgba(0,194,255,.18)' : 'rgba(255,255,255,.05)'}">
+        <div style="flex:1;text-align:right;font-size:13px;font-weight:${m.home===G.myId?700:400}">
+          <span onclick="showTeamRosterPopup('${m.home}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px">${hT ? hT.name : '?'}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:4px;flex-shrink:0">${scoreLine}${badge}</div>
+        <div style="flex:1;text-align:left;font-size:13px;font-weight:${m.away===G.myId?700:400}">
+          <span onclick="showTeamRosterPopup('${m.away}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px">${aT ? aT.name : '?'}</span>
+        </div>
+      </div>`;
+    });
+    h += `</div>`;
+  });
+
   document.getElementById('tab-cal').innerHTML = h;
 }
 

@@ -6,6 +6,46 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.14-beta] — 2026-04-01
+
+### Aggiunto
+
+#### Calendario — popup dettaglio partita
+- Cliccando sul **punteggio** di qualsiasi partita disputata nel calendario si apre un popup con:
+  - Tabellone con nomi squadra (cliccabili per vedere la rosa) e risultato finale
+  - **Parziali per tempo** (4 righe: 1°T / 2°T / 3°T / 4°T + totale)
+  - **Marcatori e assist per squadra** su due colonne affiancate (nome, ⚽ gol, 🤝 assist)
+- Il punteggio evidenziato in azzurro al passaggio del mouse segnala la cliccabilità
+
+#### Statistiche dettagliate
+- `simulateMatchStats` aggiornata: ora genera e restituisce parziali verosimili (gol distribuiti casualmente nei 4 tempi) e lista marcatori/assist per squadra
+- I dati vengono salvati in `m.details` su ogni match simulato
+- Per le partite giocate manualmente: parziali reali da `ms.periodScores`, marcatori propri da `ms.matchGoals`
+
+---
+
+## [0.5.13-beta] — 2026-04-01
+
+### Aggiunto / Modificato
+
+#### Statistiche giocatori NPC
+- Gol e assist vengono ora distribuiti a **tutti i giocatori di tutte le squadre** durante la simulazione, incluse le partite NPC vs NPC
+- Algoritmo di distribuzione pesato per ruolo: ATT (peso 4), CEN (3), CB (2), DIF (1) — i portieri non segnano
+- Assist con probabilità 75% su ogni gol, a giocatore casuale della stessa squadra
+- Le statistiche gol/assist sono ora visibili nella scheda giocatore del mercato e nella classifica marcatori
+
+#### Calendario — tutti i risultati
+- Il tab Calendario mostra ora **tutte le partite di ogni giornata** (non solo le nostre), raggruppate per giornata
+- Le partite della propria squadra sono evidenziate con sfondo azzurro e badge V/P/S
+- Ogni nome squadra è cliccabile per vedere la rosa
+- L'intestazione della giornata mostra il badge V/P/S se si è già giocata
+
+#### Classifica Marcatori
+- Aggiornata per mostrare i cannonieri di **tutte le 14 squadre** della lega (non solo la propria)
+- La squadra è ora cliccabile con ID diretto invece di ricerca per abbreviazione
+
+---
+
 ## [0.5.12-beta] — 2026-04-01
 
 ### Corretto / Modificato
