@@ -6,6 +6,24 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.26-beta] — 2026-04-02
+
+### Modificato — Animazione vasca: fasi di gioco realistiche
+
+#### Kickoff (inizio di ogni tempo)
+- Segnalini **fermi sui bordi** (fase `idle`) finché non si preme **Avvia**
+- Al click su Avvia: la velocità scende a **1x** e i **pos 3** di entrambe le squadre scattano verso il centro per prendere la palla
+- Quando il pos 3 raggiunge la palla (~0.05 di distanza), la velocità torna a quella precedente e inizia il gioco
+
+#### Schieramento a semicerchio (fase di gioco)
+- Chi ha la palla si schiera a **semicerchio davanti alla porta avversaria**: pos 1 e 5 sulle ali alte/basse, pos 2 e 4 a metà semicerchio, pos 3 al centro, pos 6 (centroboa) vicino alla porta
+- Chi difende si dispone in **blocco compatto** davanti alla propria porta
+
+#### Sprint
+- Durante lo sprint, i pos 3 si interpolano più velocemente (3.5x) rispetto agli altri giocatori (2.4x), simulando lo scatto
+
+---
+
 ## [0.5.25-beta] — 2026-04-02
 
 ### Modificato — Animazione vasca (pool.js)

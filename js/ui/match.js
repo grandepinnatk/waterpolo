@@ -466,6 +466,24 @@ function togglePlay() {
   ms.running = !ms.running;
   document.getElementById('btn-play').textContent = ms.running ? '⏸ Pausa' : '▶ Avvia';
   _lastFrameT = null;
+
+  // Se stiamo avviando e il canvas è in fase 'idle' (kickoff),
+  // inizia lo sprint a 1x — la velocità verrà ripristinata quando il pos 3 tocca la palla
+  if (ms.running && typeof poolBeginSprint === 'function') {
+    // poolBeginSprint gestisce internamente la fase; se non è idle non fa nulla
+    const prevSpeed = ms.speed;
+    poolBeginSprint(prevSpeed);
+    // Forza velocità 1x durante lo sprint
+    if (typeof _poolPhaseIsSprint === 'function' && _poolPhaseIsSprint()) {
+      setSpeed(1);
+    }
+  }
+}
+
+// Espone la fase corrente del pool al match UI
+function _poolPhaseIsSprint() {
+  // pool.js espone _phase tramite questa funzione
+  return typeof poolGetPhase === 'function' && poolGetPhase() === 'sprint';
 }
 
 function skipPeriod() {
