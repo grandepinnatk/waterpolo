@@ -6,6 +6,24 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.19-beta] — 2026-04-01
+
+### Aggiunto / Modificato — Visualizzazione partita (canvas pool)
+- **Sfondo**: immagine reale `campo-per-pallanuoto.jpg` (vasca vista dall'alto con corde colorate e porte) sostituisce il canvas disegnato a codice
+- **Token giocatori**:
+  - Nostra squadra: **cerchio bianco** con bordo grigio scuro + numero maglia + etichetta posizione + nome sotto su pill semitrasparente
+  - Avversario: **cerchio blu** (`#1565C0`) con bordo celeste (`#00c2ff`) + numero posizione
+  - Cartellini gialli visibili sopra il cerchio
+- **Pallone**: cerchio giallo con gradiente radiale e striscia decorativa
+- **Animazione realistica pallanuoto**:
+  - All'inizio di ogni periodo: scatto di tutti i giocatori verso il centro vasca (`poolStartPeriod()`)
+  - I segnalini si posizionano nelle formazioni di attacco/difesa in base a chi ha la palla
+  - Micro-movimenti casuali ogni ~1.6s per realismo
+  - Portieri: si muovono orizzontalmente sulla linea di porta seguendo il cono specchio (posizione X della palla proiettata sulla larghezza della porta)
+  - Tutti i movimenti restano nei confini del campo di gioco (corde)
+
+---
+
 ## [0.5.18-beta] — 2026-04-01
 
 ### Modificato

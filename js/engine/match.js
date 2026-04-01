@@ -161,6 +161,8 @@ function advanceTime(ms, dt) {
   if (curPeriodSec >= PERIOD_SECONDS) {
     if (ms.period < TOTAL_PERIODS) {
       ms.period++;
+      // Avvia animazione scatto per il nuovo periodo
+      if (typeof poolStartPeriod === 'function') poolStartPeriod();
       return { periodEnded: true, matchEnded: false };
     } else {
       ms.finished = true; ms.running = false;
