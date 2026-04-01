@@ -1,72 +1,80 @@
 // ─────────────────────────────────────────────
-// canvas/pool.js — Vasca con immagine reale + animazione pallanuoto
+// canvas/pool.js — Campo orizzontale (porte sx/dx)
 // ─────────────────────────────────────────────
 
 const POOL_W = 760;
 const POOL_H = 430;
 
-// ── Confini di gioco mappati sull'immagine ────
+// ── Confini del campo sull'immagine (orientamento orizzontale) ────
+// Porte: sinistra (nostra) x≈0.03  porta destra (avversario) x≈0.97
+// Corsie verticali definiscono l'altezza di gioco y:[0.13, 0.87]
 const PLAY = {
-  x0: 0.10, x1: 0.90,
-  y0: 0.13, y1: 0.87,
-  cx: 0.50, cy: 0.50,
-  myGoalY:  0.87,
-  oppGoalY: 0.13,
-  goalX0:   0.38,
-  goalX1:   0.62,
+  x0: 0.05,  x1: 0.95,   // limiti orizzontali (tra le porte)
+  y0: 0.13,  y1: 0.87,   // limiti verticali (corde laterali)
+  cx: 0.50,  cy: 0.50,   // centro vasca
+  // Porte (asse X)
+  myGoalX:    0.04,       // porta nostra (sinistra)
+  oppGoalX:   0.96,       // porta avversario (destra)
+  // Larghezza porta (asse Y normalizzato)
+  goalY0:     0.38,
+  goalY1:     0.62,
+  // Linee 2m e 5m
+  my2mX:      0.18,
+  my5mX:      0.30,
+  opp2mX:     0.82,
+  opp5mX:     0.70,
 };
 
-// ── Posizioni tattiche ─────────────────────────
-// Nostri in attacco (verso porta avversaria, alto)
-const ATK_POS = {
-  GK:  { x: 0.50, y: 0.87 },
-  '1': { x: 0.84, y: 0.32 },
-  '2': { x: 0.72, y: 0.44 },
-  '3': { x: 0.50, y: 0.52 },
-  '4': { x: 0.28, y: 0.44 },
-  '5': { x: 0.16, y: 0.32 },
-  '6': { x: 0.50, y: 0.22 },
+// ── Posizioni tattiche (campo orizzontale) ─────
+// Nostra squadra attacca verso DESTRA (porta avversario)
+// x piccolo = vicino nostra porta  |  x grande = vicino porta avv
+const ATK_POS = {           // Nostri in attacco
+  GK:  { x: 0.06, y: 0.50 },
+  '1': { x: 0.78, y: 0.22 }, // ala alta dx
+  '2': { x: 0.62, y: 0.38 }, // difensore dx avanzato
+  '3': { x: 0.55, y: 0.58 }, // attaccante centro
+  '4': { x: 0.62, y: 0.70 }, // difensore sx avanzato
+  '5': { x: 0.78, y: 0.82 }, // ala bassa dx
+  '6': { x: 0.88, y: 0.50 }, // centroboa sotto porta avv
 };
-// Nostri in difesa
-const DEF_POS = {
-  GK:  { x: 0.50, y: 0.87 },
-  '1': { x: 0.82, y: 0.70 },
-  '2': { x: 0.70, y: 0.76 },
-  '3': { x: 0.50, y: 0.72 },
-  '4': { x: 0.30, y: 0.76 },
-  '5': { x: 0.18, y: 0.70 },
-  '6': { x: 0.50, y: 0.60 },
+const DEF_POS = {           // Nostri in difesa
+  GK:  { x: 0.06, y: 0.50 },
+  '1': { x: 0.28, y: 0.22 },
+  '2': { x: 0.36, y: 0.35 },
+  '3': { x: 0.40, y: 0.50 },
+  '4': { x: 0.36, y: 0.65 },
+  '5': { x: 0.28, y: 0.78 },
+  '6': { x: 0.50, y: 0.50 },
 };
-// Avversario in attacco (verso nostra porta, basso)
-const OPP_ATK = {
-  GK:  { x: 0.50, y: 0.13 },
-  '1': { x: 0.16, y: 0.68 },
-  '2': { x: 0.28, y: 0.56 },
-  '3': { x: 0.50, y: 0.48 },
-  '4': { x: 0.72, y: 0.56 },
-  '5': { x: 0.84, y: 0.68 },
-  '6': { x: 0.50, y: 0.78 },
+const OPP_ATK = {           // Avversario in attacco (verso sinistra)
+  GK:  { x: 0.94, y: 0.50 },
+  '1': { x: 0.22, y: 0.78 },
+  '2': { x: 0.38, y: 0.62 },
+  '3': { x: 0.45, y: 0.42 },
+  '4': { x: 0.38, y: 0.30 },
+  '5': { x: 0.22, y: 0.18 },
+  '6': { x: 0.12, y: 0.50 },
 };
-// Avversario in difesa
-const OPP_DEF = {
-  GK:  { x: 0.50, y: 0.13 },
-  '1': { x: 0.84, y: 0.32 },
-  '2': { x: 0.72, y: 0.24 },
-  '3': { x: 0.50, y: 0.28 },
-  '4': { x: 0.28, y: 0.24 },
-  '5': { x: 0.16, y: 0.32 },
-  '6': { x: 0.50, y: 0.40 },
+const OPP_DEF = {           // Avversario in difesa
+  GK:  { x: 0.94, y: 0.50 },
+  '1': { x: 0.72, y: 0.78 },
+  '2': { x: 0.64, y: 0.65 },
+  '3': { x: 0.60, y: 0.50 },
+  '4': { x: 0.64, y: 0.35 },
+  '5': { x: 0.72, y: 0.22 },
+  '6': { x: 0.50, y: 0.50 },
 };
 
 // ── Stato ────────────────────────────────────
-let _tokens = {};
-let _ball   = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
-let _bgImg  = null;
-let _bgReady = false;
-let _phase  = 'play';
-let _attack = 'my';
-let _sprintT = 0;
-let _microT  = 0;
+var _tokens  = {};
+var _ball    = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
+var _bgImg   = null;
+var _bgReady = false;
+var _phase   = 'play';   // 'sprint' | 'play' | 'goal'
+var _attack  = 'my';
+var _sprintT = 0;
+var _microT  = 0;
+var _goalAnim = null;    // { timer, scorer, team, cx, cy }
 
 // ── Carica sfondo ─────────────────────────────
 (function() {
@@ -79,8 +87,7 @@ let _microT  = 0;
 // ── Helpers ───────────────────────────────────
 function _clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
 function _rnd(lo, hi)      { return lo + Math.random() * (hi - lo); }
-
-function _shortName(p) { return (p && p.name) ? p.name : ''; }
+function _shortName(p)     { return (p && p.name) ? p.name : ''; }
 
 function _jitter(pos, amp) {
   amp = amp || 0.025;
@@ -92,19 +99,20 @@ function _jitter(pos, amp) {
 
 // ── API pubblica ──────────────────────────────
 function poolInitTokens(ms) {
-  _tokens = {};
-  _ball   = { x: PLAY.cx, y: PLAY.cy, tx: PLAY.cx, ty: PLAY.cy };
-  _phase  = 'sprint';
-  _attack = 'my';
+  _tokens  = {};
+  _ball    = { x: PLAY.cx, y: PLAY.cy, tx: PLAY.cx, ty: PLAY.cy };
+  _phase   = 'sprint';
+  _attack  = 'my';
   _sprintT = 0;
+  _goalAnim = null;
 
   Object.entries(ms.onField).forEach(function(entry) {
     var pk = entry[0], pi = entry[1];
     var p = ms.myRoster[pi];
     _tokens['my_' + pk] = {
-      x: PLAY.cx + _rnd(-0.08, 0.08),
-      y: PLAY.cy + 0.04 + _rnd(-0.03, 0.03),
-      tx: PLAY.cx, ty: PLAY.cy + 0.04,
+      x: PLAY.cx - 0.06 + _rnd(-0.06, 0.06),
+      y: PLAY.cy + _rnd(-0.08, 0.08),
+      tx: PLAY.cx - 0.04, ty: PLAY.cy,
       team: 'my', pk: pk, pi: pi,
       posLabel: pk === 'GK' ? 'P' : pk,
       shortName: _shortName(p),
@@ -116,8 +124,8 @@ function poolInitTokens(ms) {
   Object.keys(OPP_DEF).forEach(function(pk) {
     var pos = OPP_DEF[pk];
     _tokens['opp_' + pk] = {
-      x: PLAY.cx + _rnd(-0.08, 0.08),
-      y: PLAY.cy - 0.04 + _rnd(-0.03, 0.03),
+      x: PLAY.cx + 0.06 + _rnd(-0.06, 0.06),
+      y: PLAY.cy + _rnd(-0.08, 0.08),
       tx: pos.x, ty: pos.y,
       team: 'opp', pk: pk, pi: -1,
       posLabel: pk === 'GK' ? 'P' : pk,
@@ -154,7 +162,8 @@ function poolUpdateToken(key, ms) {
 function poolMoveBall(tx, ty) {
   _ball.tx = _clamp(tx, PLAY.x0, PLAY.x1);
   _ball.ty = _clamp(ty, PLAY.y0, PLAY.y1);
-  _attack  = ty < PLAY.cy ? 'my' : 'opp';
+  // Chi attacca: se palla è nella metà destra → nostra squadra attacca
+  _attack = tx > PLAY.cx ? 'my' : 'opp';
   _triggerTactical();
 }
 
@@ -176,20 +185,52 @@ function poolResetToken(key, delay) {
   }, delay);
 }
 
-// Chiamata dall'engine match all'inizio di ogni periodo
+// ── Scatto inizio periodo ─────────────────────
 function poolStartPeriod() {
   _phase   = 'sprint';
   _sprintT = 0;
   _ball.tx = PLAY.cx;
   _ball.ty = PLAY.cy;
   Object.values(_tokens).forEach(function(tok) {
-    var yOff = tok.team === 'my' ? 0.05 : -0.05;
-    tok.tx = PLAY.cx + _rnd(-0.10, 0.10);
-    tok.ty = PLAY.cy + yOff + _rnd(-0.03, 0.03);
+    var xOff = tok.team === 'my' ? -0.06 : 0.06;
+    tok.tx = PLAY.cx + xOff + _rnd(-0.08, 0.08);
+    tok.ty = PLAY.cy + _rnd(-0.10, 0.10);
   });
 }
 
-// ── Logica interna ────────────────────────────
+// ── Animazione GOAL ───────────────────────────
+// scorer: nome marcatore, team: 'my'|'opp'
+function poolShowGoal(scorer, team) {
+  _goalAnim = {
+    timer:  0,
+    total:  2.2,      // durata animazione secondi
+    scorer: scorer || '',
+    team:   team || 'my',
+  };
+  _phase = 'goal';
+  // La squadra che ha subito torna al centro
+  _returnToCenter(team === 'my' ? 'opp' : 'my');
+  // Palla torna al centro (rimessa)
+  setTimeout(function() {
+    _ball.tx = PLAY.cx;
+    _ball.ty = PLAY.cy;
+  }, 1200);
+  setTimeout(function() {
+    _phase = 'play';
+    _triggerTactical();
+  }, 2400);
+}
+
+function _returnToCenter(team) {
+  // La squadra che subisce torna al centrocampo per la rimessa
+  Object.values(_tokens).forEach(function(tok) {
+    if (tok.team !== team) return;
+    tok.tx = PLAY.cx + (team === 'my' ? -0.05 : 0.05) + _rnd(-0.12, 0.12);
+    tok.ty = PLAY.cy + _rnd(-0.15, 0.15);
+  });
+}
+
+// ── Logica tattica ────────────────────────────
 function _triggerTactical() {
   ['1','2','3','4','5','6','GK'].forEach(function(pk) {
     var myTok  = _tokens['my_'  + pk];
@@ -205,17 +246,18 @@ function _triggerTactical() {
   });
 }
 
+// Portieri seguono la palla sullo specchio della porta (asse Y)
 function _updateKeepers() {
-  var bx = _ball.x;
+  var by = _ball.y;
   var myGK = _tokens['my_GK'];
   if (myGK && !myGK.expelled) {
-    myGK.tx = _clamp(bx, PLAY.goalX0 + 0.03, PLAY.goalX1 - 0.03);
-    myGK.ty = PLAY.myGoalY;
+    myGK.tx = PLAY.myGoalX;
+    myGK.ty = _clamp(by, PLAY.goalY0 + 0.04, PLAY.goalY1 - 0.04);
   }
   var oppGK = _tokens['opp_GK'];
   if (oppGK) {
-    oppGK.tx = _clamp(bx, PLAY.goalX0 + 0.03, PLAY.goalX1 - 0.03);
-    oppGK.ty = PLAY.oppGoalY;
+    oppGK.tx = PLAY.oppGoalX;
+    oppGK.ty = _clamp(by, PLAY.goalY0 + 0.04, PLAY.goalY1 - 0.04);
   }
 }
 
@@ -230,15 +272,21 @@ function _microMovements(dt) {
   });
 }
 
+// ── Step animazione ───────────────────────────
 function poolAnimStep(dt) {
   var f = Math.min(dt, 0.1);
 
   if (_phase === 'sprint') {
     _sprintT += dt;
     if (_sprintT > 1.4) {
-      _phase   = 'play';
-      _attack  = Math.random() < 0.5 ? 'my' : 'opp';
+      _phase  = 'play';
+      _attack = Math.random() < 0.5 ? 'my' : 'opp';
       _triggerTactical();
+    }
+  } else if (_phase === 'goal') {
+    if (_goalAnim) {
+      _goalAnim.timer += dt;
+      if (_goalAnim.timer >= _goalAnim.total) _goalAnim = null;
     }
   } else {
     _updateKeepers();
@@ -246,11 +294,11 @@ function poolAnimStep(dt) {
   }
 
   Object.values(_tokens).forEach(function(tok) {
-    tok.x += (tok.tx - tok.x) * Math.min(f * 2.2, 1);
-    tok.y += (tok.ty - tok.y) * Math.min(f * 2.2, 1);
+    tok.x += (tok.tx - tok.x) * Math.min(f * 2.4, 1);
+    tok.y += (tok.ty - tok.y) * Math.min(f * 2.4, 1);
   });
-  _ball.x += (_ball.tx - _ball.x) * Math.min(f * 3.5, 1);
-  _ball.y += (_ball.ty - _ball.y) * Math.min(f * 3.5, 1);
+  _ball.x += (_ball.tx - _ball.x) * Math.min(f * 3.8, 1);
+  _ball.y += (_ball.ty - _ball.y) * Math.min(f * 3.8, 1);
 }
 
 // ── Disegno ───────────────────────────────────
@@ -259,7 +307,7 @@ function drawPool(canvas, myTeamAbbr, oppTeamAbbr) {
   var ctx = canvas.getContext('2d');
   var W = POOL_W, H = POOL_H;
 
-  // Sfondo
+  // 1. Sfondo
   if (_bgReady && _bgImg) {
     ctx.drawImage(_bgImg, 0, 0, W, H);
   } else {
@@ -267,7 +315,7 @@ function drawPool(canvas, myTeamAbbr, oppTeamAbbr) {
     ctx.fillRect(0, 0, W, H);
   }
 
-  // Token
+  // 2. Token giocatori
   Object.values(_tokens).forEach(function(tok) {
     if (tok.expelled) return;
     var px = tok.x * W, py = tok.y * H;
@@ -283,13 +331,13 @@ function drawPool(canvas, myTeamAbbr, oppTeamAbbr) {
     ctx.fill();
     ctx.restore();
 
-    // Cerchio
+    // Cerchio: bianco (ns) o blu (avv)
     ctx.beginPath();
     ctx.arc(px, py, R, 0, Math.PI * 2);
     if (isMy) {
       ctx.fillStyle   = '#ffffff';
       ctx.fill();
-      ctx.strokeStyle = '#444';
+      ctx.strokeStyle = '#444444';
       ctx.lineWidth   = 2.5;
       ctx.stroke();
     } else {
@@ -300,7 +348,7 @@ function drawPool(canvas, myTeamAbbr, oppTeamAbbr) {
       ctx.stroke();
     }
 
-    // Cartellini gialli
+    // Cartellini gialli (sopra il cerchio)
     if (isMy && tok.yellows > 0) {
       for (var i = 0; i < tok.yellows; i++) {
         ctx.fillStyle = (tok.yellows >= MAX_TEMP_EXP) ? '#e74c3c' : '#f0c040';
@@ -315,7 +363,7 @@ function drawPool(canvas, myTeamAbbr, oppTeamAbbr) {
       ctx.fillStyle = '#111';
       ctx.font      = 'bold 10px sans-serif';
       ctx.fillText(tok.shirt, px, py - 3);
-      ctx.fillStyle = '#555';
+      ctx.fillStyle = '#666';
       ctx.font      = '7px sans-serif';
       ctx.fillText(tok.posLabel, px, py + 6);
     } else {
@@ -328,8 +376,8 @@ function drawPool(canvas, myTeamAbbr, oppTeamAbbr) {
     if (isMy && tok.shortName) {
       ctx.font = 'bold 9px sans-serif';
       var tw = ctx.measureText(tok.shortName).width + 8;
-      ctx.fillStyle = 'rgba(0,0,0,0.60)';
-      _pill(ctx, px - tw/2, py + R + 3, tw, 14, 4);
+      ctx.fillStyle = 'rgba(0,0,0,0.58)';
+      _pill(ctx, px - tw / 2, py + R + 3, tw, 14, 4);
       ctx.fill();
       ctx.fillStyle    = '#fff';
       ctx.textAlign    = 'center';
@@ -338,7 +386,7 @@ function drawPool(canvas, myTeamAbbr, oppTeamAbbr) {
     }
   });
 
-  // Pallone
+  // 3. Pallone
   var bx = _ball.x * W, by = _ball.y * H;
   ctx.save();
   ctx.globalAlpha = 0.22;
@@ -353,21 +401,58 @@ function drawPool(canvas, myTeamAbbr, oppTeamAbbr) {
   var g = ctx.createRadialGradient(bx - 3, by - 3, 1, bx, by, 9);
   g.addColorStop(0, '#fff9c4');
   g.addColorStop(0.55, '#fdd835');
-  g.addColorStop(1,    '#f9a825');
+  g.addColorStop(1, '#f9a825');
   ctx.fillStyle = g;
   ctx.fill();
-  ctx.strokeStyle = '#c17900';
-  ctx.lineWidth   = 1.5;
-  ctx.stroke();
-  // Striscia
-  ctx.strokeStyle = 'rgba(0,0,0,0.15)';
-  ctx.lineWidth   = 1;
-  ctx.beginPath();
-  ctx.arc(bx, by, 6, 0.4, Math.PI - 0.4);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(bx, by, 6, Math.PI + 0.4, -0.4);
-  ctx.stroke();
+  ctx.strokeStyle = '#c17900'; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.strokeStyle = 'rgba(0,0,0,0.15)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(bx, by, 6, 0.4, Math.PI - 0.4); ctx.stroke();
+  ctx.beginPath(); ctx.arc(bx, by, 6, Math.PI + 0.4, -0.4); ctx.stroke();
+
+  // 4. Animazione GOAL!!!
+  if (_goalAnim) {
+    var t = _goalAnim.timer / _goalAnim.total; // 0→1
+    var pulse = 0.5 + 0.5 * Math.abs(Math.sin(t * Math.PI * 6));
+    var alpha = t < 0.8 ? 1 : 1 - (t - 0.8) / 0.2;
+
+    ctx.save();
+    ctx.globalAlpha = alpha;
+
+    // Overlay semitrasparente
+    ctx.fillStyle = _goalAnim.team === 'my'
+      ? 'rgba(0, 80, 20, 0.45)'
+      : 'rgba(80, 0, 0, 0.45)';
+    ctx.fillRect(0, 0, W, H);
+
+    // Testo GOAL!!!
+    var fontSize = Math.round(72 + pulse * 20);
+    ctx.font      = 'bold ' + fontSize + 'px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Ombra testo
+    ctx.shadowColor   = 'rgba(0,0,0,0.8)';
+    ctx.shadowBlur    = 12;
+    ctx.shadowOffsetX = 3;
+    ctx.shadowOffsetY = 3;
+
+    // Colore: giallo per ns gol, rosso per gol subito
+    ctx.fillStyle = _goalAnim.team === 'my' ? '#fdd835' : '#ff5252';
+    ctx.fillText('GOAL!!!', W / 2, H / 2 - 24);
+
+    // Marcatore sotto
+    ctx.shadowBlur = 6;
+    ctx.font       = 'bold 22px sans-serif';
+    ctx.fillStyle  = '#fff';
+    ctx.fillText(_goalAnim.scorer, W / 2, H / 2 + 30);
+
+    // Ripresa dal centro
+    ctx.font      = '15px sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    ctx.fillText('Rimessa dal centrocampo', W / 2, H / 2 + 62);
+
+    ctx.restore();
+  }
 }
 
 function _pill(ctx, x, y, w, h, r) {

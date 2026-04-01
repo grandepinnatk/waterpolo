@@ -300,7 +300,7 @@ function generateMatchEvent(ms) {
       return {
         txt: '❌ Palla persa — ' + attacker.p.name + ' sbaglia il passaggio',
         cls: 'fl',
-        ballTarget: { x: rnd(3, 7) / 10, y: rnd(3, 7) / 10 },
+        ballTarget: { x: 0.45 + rnd(-0.1, 0.1), y: 0.3 + rnd(0, 0.4) },
       };
     }
 
@@ -331,18 +331,19 @@ function generateMatchEvent(ms) {
         txt: '⚽ GOL! ' + attacker.p.name + ' (#' + (ms.shirtNumbers[attacker.pi] || '?') + ') segna!' +
              (ast ? ' Assist: ' + ast.p.name : ''),
         cls: 'myg',
-        ballTarget:  { x: 0.50, y: 0.05 },
+        ballTarget:  { x: 0.96, y: 0.50 },
         moverKey:    'my_' + attacker.pk,
-        moverTarget: { x: MY_POS_MAP[attacker.pk]?.x || 0.5, y: 0.15 },
+        moverTarget: { x: 0.75, y: 0.50 },
+        goalScored:  true, goalTeam: 'my', goalScorer: attacker.p.name,
       };
     } else {
       const oppGk = ms.oppRoster.find(p => p.role === 'POR');
       return {
         txt: 'Tiro di ' + attacker.p.name + ' — parata' + (oppGk ? ' di ' + oppGk.name : ''),
         cls: '',
-        ballTarget:  { x: 0.50, y: 0.12 },
+        ballTarget:  { x: 0.82, y: 0.50 },
         moverKey:    'my_' + attacker.pk,
-        moverTarget: { x: MY_POS_MAP[attacker.pk]?.x || 0.5, y: 0.20 },
+        moverTarget: { x: 0.68, y: 0.50 },
       };
     }
   }
@@ -357,13 +358,13 @@ function generateMatchEvent(ms) {
       if (ms.periodScores && ms.period >= 1 && ms.period <= 4) {
         ms.periodScores[ms.period - 1].opp++;
       }
-      return { txt: '⚽ ' + ms.oppTeam.name + ' segna! Gol subito.', cls: 'og', ballTarget: { x: 0.50, y: 0.95 } };
+      return { txt: '⚽ ' + ms.oppTeam.name + ' segna! Gol subito.', cls: 'og', ballTarget: { x: 0.04, y: 0.50 }, goalScored: true, goalTeam: 'opp', goalScorer: ms.oppTeam.name };
     } else {
       const myGk = ms.myRoster[ms.onField['GK']];
       if (myGk) { ms.mySaves++; myGk.saves++; }
       return {
         txt: 'Parata' + (myGk ? ' di ' + myGk.name : '') + '!',
-        cls: 'sv', ballTarget: { x: 0.50, y: 0.88 },
+        cls: 'sv', ballTarget: { x: 0.18, y: 0.50 },
       };
     }
   }
@@ -380,7 +381,7 @@ function generateMatchEvent(ms) {
       foulWeight: YELLOW_WEIGHTS[Math.min(ms.tempExp[x.pi] || 0, 2)],
     })).filter(x => (ms.tempExp[x.pi] || 0) < MAX_TEMP_EXP);
 
-    if (!foulCandidates.length) return { txt: pick(NEUTRAL_EVENTS), cls: '', ballTarget: { x: 0.5, y: 0.5 } };
+    if (!foulCandidates.length) return { txt: pick(NEUTRAL_EVENTS), cls: '', ballTarget: { x: 0.5, y: 0.5 + rnd(-0.15, 0.15) } };
 
     const fp    = _weightedPick(foulCandidates, x => x.foulWeight);
     const pi    = fp.pi;
@@ -400,7 +401,7 @@ function generateMatchEvent(ms) {
       return {
         txt: '🟡 Esp. temporanea (' + count + '/3) — ' + fp.p.name + ' (#' + shirt + ')',
         cls: 'fl',
-        ballTarget: { x: rnd(3, 7) / 10, y: rnd(3, 7) / 10 },
+        ballTarget: { x: 0.45 + rnd(-0.1, 0.1), y: 0.3 + rnd(0, 0.4) },
       };
     }
   }

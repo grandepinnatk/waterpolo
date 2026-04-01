@@ -6,6 +6,20 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.20-beta] — 2026-04-01
+
+### Modificato — Visualizzazione partita (canvas pool)
+- **Orientamento corretto**: campo ruotato orizzontalmente — porta nostra a **sinistra**, porta avversario a **destra** (come nell'immagine di sfondo)
+- **Posizioni tattiche**: schemi attacco/difesa ricalibrati per l'orientamento orizzontale
+  - Attacco: portiere fisso a sx, ali e difensori avanzano verso destra, centroboa vicino porta destra
+  - Difesa: tutti rientrano nella propria metà sinistra
+  - Portieri: si muovono sull'asse verticale (Y) della propria linea di porta seguendo il cono dello specchio
+- **Animazione GOAL!!!**: overlay colorato con testo pulsante (giallo per gol segnato, rosso per gol subito), nome del marcatore e indicazione "Rimessa dal centrocampo" — durata ~2.2s, poi fade out
+- **Rimessa dal centrocampo**: dopo ogni gol la squadra che ha subito converge verso il centrocampo, la palla torna al centro
+- **Coordinate ballTarget** aggiornate nell'engine per il campo orizzontale
+
+---
+
 ## [0.5.19-beta] — 2026-04-01
 
 ### Aggiunto / Modificato — Visualizzazione partita (canvas pool)

@@ -88,6 +88,10 @@ function _animLoop(timestamp) {
             poolMoveToken(event.moverKey, event.moverTarget?.x || 0.5, event.moverTarget?.y || 0.5);
             poolResetToken(event.moverKey);
           }
+          // Animazione GOAL con rimessa al centro
+          if (event.goalScored && typeof poolShowGoal === 'function') {
+            poolShowGoal(event.goalScorer || '', event.goalTeam || 'my');
+          }
           if (event.expelled !== undefined) _handleExpulsion(event.expelled, event.moverKey);
           poolSyncTokens(G.ms);
         }
