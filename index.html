@@ -194,45 +194,110 @@
      GIOCO PRINCIPALE
      ══════════════════════════════════════════ -->
 <div id="sc-game" style="display:none">
-  <div class="hdr">
-    <div style="display:flex;align-items:center;gap:8px">
-      <span style="font-size:18px">🏊</span>
-      <div>
-        <div style="font-size:13px;font-weight:600;color:var(--blue)" id="hdr-team">—</div>
-        <div style="font-size:11px;color:var(--muted)" id="hdr-info">—</div>
+
+  <!-- ══ TOP BAR stile Brawl Stars ══ -->
+  <div class="bs-topbar">
+
+    <!-- Sinistra: info squadra -->
+    <div class="bs-top-left">
+      <div class="bs-player-box">
+        <div class="bs-player-avatar">🏊</div>
+        <div class="bs-player-info">
+          <div id="hdr-team" class="bs-player-name">—</div>
+          <div id="hdr-info" class="bs-player-sub">—</div>
+        </div>
       </div>
     </div>
-    <nav class="nav">
-      <button class="nb active" onclick="showTab('dash')">Dashboard</button>
-      <button class="nb" onclick="showTab('rosa')">Rosa</button>
-      <button class="nb" onclick="showTab('train')">Allenamento</button>
-      <button class="nb" onclick="showTab('goals')">Obiettivi</button>
-      <button class="nb" onclick="showTab('stand')">Classifica</button>
-      <button class="nb" onclick="showTab('cal')">Calendario</button>
-      <button class="nb" onclick="showTab('playoff')">Playoff</button>
-      <button class="nb" onclick="showTab('market')">Mercato</button>
-      <button class="nb" onclick="showTab('finance')">Finanza</button>
-      <button class="nb" onclick="showTab('credits')">Credits</button>
-    </nav>
-    <div style="display:flex;gap:6px;align-items:center">
-      <span id="wp-user-info" style="display:none;font-size:11px;color:var(--muted);margin-right:4px"></span>
-      <span id="wp-cloud-icon" style="display:none;font-size:14px" title="Cloud sync attivo">☁️</span>
-      <button class="btn sm" onclick="openSaveMenu()" style="font-size:12px;padding:5px 12px">💾 Salva</button>
-      <button id="wp-btn-logout" class="btn sm" onclick="wpLogout()" style="display:none;font-size:12px;padding:5px 12px">⎋ Logout</button>
-      <button class="btn sm" onclick="goToWelcome()" style="font-size:12px;padding:5px 12px">⌂ Menu</button>
+
+    <!-- Destra: box azioni stile Brawl Stars -->
+    <div class="bs-top-right">
+      <!-- Box utente loggato -->
+      <div class="bs-top-box bs-box-user" id="bs-user-box" style="display:none">
+        <div class="bs-box-icon">👤</div>
+        <div class="bs-box-val" id="bs-username-lbl">—</div>
+      </div>
+      <!-- Box stelle (placeholder futuro) -->
+      <div class="bs-top-box bs-box-stars">
+        <div class="bs-box-icon">⭐</div>
+        <div class="bs-box-val">0</div>
+      </div>
+      <!-- Box salva -->
+      <div class="bs-top-box bs-box-save" onclick="openSaveMenu()" title="Salva partita">
+        <div class="bs-box-icon">💾</div>
+        <div class="bs-box-val">Salva</div>
+      </div>
+      <!-- Box menu (hamburger) -->
+      <div class="bs-top-box bs-box-menu" onclick="goToWelcome()" title="Menu principale">
+        <div class="bs-box-icon" style="font-size:18px;line-height:1">☰</div>
+      </div>
     </div>
   </div>
-  <div class="content">
-    <div id="tab-dash"></div>
-    <div id="tab-rosa"    style="display:none"></div>
-    <div id="tab-train"   style="display:none"></div>
-    <div id="tab-goals"   style="display:none"></div>
-    <div id="tab-stand"   style="display:none"></div>
-    <div id="tab-cal"     style="display:none"></div>
-    <div id="tab-playoff" style="display:none"></div>
-    <div id="tab-market"  style="display:none"></div>
-    <div id="tab-finance" style="display:none"></div>
-    <div id="tab-credits" style="display:none"></div>
+
+  <!-- ══ LAYOUT: sidebar + contenuto ══ -->
+  <div class="bs-layout">
+
+    <!-- Sidebar sinistra -->
+    <aside class="bs-sidebar">
+      <button class="bs-nav-btn active" onclick="showTab('dash')">
+        <span class="bs-nav-icon">📊</span>
+        <span class="bs-nav-lbl">DASHBOARD</span>
+      </button>
+      <button class="bs-nav-btn" onclick="showTab('rosa')">
+        <span class="bs-nav-icon">👥</span>
+        <span class="bs-nav-lbl">ROSA</span>
+      </button>
+      <button class="bs-nav-btn" onclick="showTab('train')">
+        <span class="bs-nav-icon">🏋️</span>
+        <span class="bs-nav-lbl">ALLENAMENTO</span>
+      </button>
+      <button class="bs-nav-btn" onclick="showTab('goals')">
+        <span class="bs-nav-icon">🎯</span>
+        <span class="bs-nav-lbl">OBIETTIVI</span>
+      </button>
+      <button class="bs-nav-btn" onclick="showTab('stand')">
+        <span class="bs-nav-icon">🏆</span>
+        <span class="bs-nav-lbl">CLASSIFICA</span>
+      </button>
+      <button class="bs-nav-btn" onclick="showTab('cal')">
+        <span class="bs-nav-icon">📅</span>
+        <span class="bs-nav-lbl">CALENDARIO</span>
+      </button>
+      <button class="bs-nav-btn" onclick="showTab('playoff')">
+        <span class="bs-nav-icon">⚡</span>
+        <span class="bs-nav-lbl">PLAYOFF</span>
+      </button>
+      <button class="bs-nav-btn" onclick="showTab('market')">
+        <span class="bs-nav-icon">💰</span>
+        <span class="bs-nav-lbl">MERCATO</span>
+      </button>
+      <button class="bs-nav-btn" onclick="showTab('finance')">
+        <span class="bs-nav-icon">📈</span>
+        <span class="bs-nav-lbl">FINANZA</span>
+      </button>
+      <button class="bs-nav-btn" onclick="showTab('credits')">
+        <span class="bs-nav-icon">ℹ️</span>
+        <span class="bs-nav-lbl">CREDITS</span>
+      </button>
+      <!-- Logout in fondo -->
+      <button class="bs-nav-btn bs-nav-logout" id="wp-btn-logout" onclick="wpLogout()" style="display:none;margin-top:auto">
+        <span class="bs-nav-icon">⎋</span>
+        <span class="bs-nav-lbl">LOGOUT</span>
+      </button>
+    </aside>
+
+    <!-- Contenuto principale -->
+    <main class="bs-content">
+      <div id="tab-dash"></div>
+      <div id="tab-rosa"    style="display:none"></div>
+      <div id="tab-train"   style="display:none"></div>
+      <div id="tab-goals"   style="display:none"></div>
+      <div id="tab-stand"   style="display:none"></div>
+      <div id="tab-cal"     style="display:none"></div>
+      <div id="tab-playoff" style="display:none"></div>
+      <div id="tab-market"  style="display:none"></div>
+      <div id="tab-finance" style="display:none"></div>
+      <div id="tab-credits" style="display:none"></div>
+    </main>
   </div>
 </div>
 
@@ -448,7 +513,7 @@
 
   <!-- Footer versione -->
   <div class="wp-version-footer" style="text-align:center;padding:10px 0 16px;font-size:11px;color:rgba(255,255,255,.2);user-select:none">
-    v0.5.20 beta
+    v0.5.21 beta
   </div>
 
   <!-- Firebase modules (type="module") — caricati dopo tutti gli script vanilla -->

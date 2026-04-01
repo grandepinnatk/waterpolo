@@ -6,6 +6,27 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.21-beta] — 2026-04-01
+
+### Modificato — UI stile Brawl Stars
+
+#### Top bar
+- **Box profilo** (sinistra): nome squadra e giornata/fase in un riquadro con clip-path parallelogramma, avatar emoji 🏊
+- **Box utente loggato** (destra): mostra il nome dell'account Firebase quando autenticato
+- **Box stelle** ⭐: contatore a 0, placeholder per funzionalità future
+- **Box 💾 Salva**: tasto salva integrato nel box con stile BS (clic apre il menu salvataggio)
+- **Box ☰ Menu**: tasto menu principale con stile BS
+- Tutti i box hanno effetto parallelogramma (`clip-path`), ombra inferiore e highlight hover
+
+#### Sidebar sinistra
+- Pulsanti a **parallelogramma** (`clip-path: polygon`) con icona + label in maiuscolo
+- Stato attivo: bordo sinistro ciano + sfondo blu intenso + glow
+- Hover: slittamento orizzontale + bordo celeste
+- Pulsante **LOGOUT** in rosso in fondo alla sidebar
+- Layout `flex-direction: column`, sidebar fissa 172px, contenuto scrollabile a destra
+
+---
+
 ## [0.5.20-beta] — 2026-04-01
 
 ### Modificato — Visualizzazione partita (canvas pool)

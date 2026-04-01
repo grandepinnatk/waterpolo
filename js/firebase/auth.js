@@ -185,7 +185,14 @@ function _updateAuthHeader(user) {
     if (logoutBtn)  logoutBtn.style.display  = '';
     if (cloudIcon)  cloudIcon.style.display  = '';
     cloudIcon.title = 'Salvataggi sincronizzati con il cloud ☁️';
-    // Logout visibile anche nella welcome screen
+    // Box utente nella topbar BS
+    const bsUserBox = document.getElementById('bs-user-box');
+    const bsUserLbl = document.getElementById('bs-username-lbl');
+    if (bsUserBox) bsUserBox.style.display = '';
+    if (bsUserLbl) bsUserLbl.textContent = name;
+    // Logout sidebar
+    if (logoutBtn) logoutBtn.style.display = '';
+    // Logout welcome screen
     const wlLogout = document.getElementById('wp-welcome-logout');
     const wlUser   = document.getElementById('wp-welcome-user');
     if (wlLogout) wlLogout.style.display = '';
@@ -194,6 +201,8 @@ function _updateAuthHeader(user) {
     loggedEl.style.display  = 'none';
     if (logoutBtn)  logoutBtn.style.display  = 'none';
     if (cloudIcon)  cloudIcon.style.display  = 'none';
+    const bsUserBox2 = document.getElementById('bs-user-box');
+    if (bsUserBox2) bsUserBox2.style.display = 'none';
     const wlLogout2 = document.getElementById('wp-welcome-logout');
     if (wlLogout2) wlLogout2.style.display = 'none';
   }

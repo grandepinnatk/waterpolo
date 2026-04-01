@@ -11,7 +11,13 @@ function showTab(tab) {
     document.getElementById('tab-' + t).style.display = t === tab ? 'block' : 'none';
   });
 
+  // Vecchi .nb (retrocompatibilità)
   document.querySelectorAll('.nb').forEach(b => {
+    const active = b.getAttribute('onclick')?.includes("'" + tab + "'") ?? false;
+    b.classList.toggle('active', active);
+  });
+  // Nuovi pulsanti sidebar BS
+  document.querySelectorAll('.bs-nav-btn').forEach(b => {
     const active = b.getAttribute('onclick')?.includes("'" + tab + "'") ?? false;
     b.classList.toggle('active', active);
   });
