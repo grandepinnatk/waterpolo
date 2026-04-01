@@ -182,9 +182,22 @@
     </div>
 
     <!-- Logout nella welcome -->
-    <div id="wp-welcome-logout" style="display:none;text-align:center;margin-top:20px">
-      <span id="wp-welcome-user" style="font-size:12px;color:var(--muted);margin-right:10px"></span>
-      <button class="btn sm" onclick="wpLogout()" style="font-size:12px;padding:5px 14px">⎋ Logout</button>
+    <div id="wp-welcome-logout" style="display:none;margin-top:16px;display:none;flex-direction:column;align-items:center;gap:8px">
+      <div style="font-size:12px;color:var(--muted)" id="wp-welcome-user"></div>
+      <button onclick="wpLogout()" style="
+        display:flex;align-items:center;gap:8px;
+        background:linear-gradient(135deg,#5a1a1a,#3a0e0e);
+        border:2px solid #8a2222;border-radius:10px;
+        padding:8px 20px;cursor:pointer;
+        clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);
+        box-shadow:0 3px 0 #200808,0 4px 12px rgba(0,0,0,.4);
+        transition:all .15s;
+      "
+      onmouseover="this.style.background='linear-gradient(135deg,#7a2222,#5a1212)';this.style.borderColor='#e74c3c'"
+      onmouseout="this.style.background='linear-gradient(135deg,#5a1a1a,#3a0e0e)';this.style.borderColor='#8a2222'">
+        <span style="font-size:18px">🚪</span>
+        <span style="font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#ff8080">LOGOUT</span>
+      </button>
     </div>
 
   </div>
@@ -278,9 +291,10 @@
         <span class="bs-nav-icon">ℹ️</span>
         <span class="bs-nav-lbl">CREDITS</span>
       </button>
-      <!-- Logout in fondo -->
-      <button class="bs-nav-btn bs-nav-logout" id="wp-btn-logout" onclick="wpLogout()" style="display:none;margin-top:auto">
-        <span class="bs-nav-icon">⎋</span>
+      <!-- Logout in fondo alla sidebar -->
+      <div style="flex:1"></div>
+      <button class="bs-nav-btn bs-nav-logout" id="wp-btn-logout" onclick="wpLogout()" style="display:none">
+        <span class="bs-nav-icon">🚪</span>
         <span class="bs-nav-lbl">LOGOUT</span>
       </button>
     </aside>
@@ -513,7 +527,7 @@
 
   <!-- Footer versione -->
   <div class="wp-version-footer" style="text-align:center;padding:10px 0 16px;font-size:11px;color:rgba(255,255,255,.2);user-select:none">
-    v0.5.26 beta
+    v0.5.27 beta
   </div>
 
   <!-- Firebase modules (type="module") — caricati dopo tutti gli script vanilla -->

@@ -640,17 +640,24 @@ tr:last-child td { border-bottom: none; }
 }
 
 /* Logout: rosso */
+/* Logout: bordeaux scuro, separato visivamente dagli altri */
 .bs-nav-logout {
-  background:   linear-gradient(135deg, #5a1a1a 0%, #3a0e0e 100%) !important;
-  border-color: #8a2222 !important;
-  margin-top:   8px !important;
+  background:     linear-gradient(135deg, #3d1020 0%, #280a14 100%) !important;
+  border-color:   #7a2040 !important;
+  border-top:     1px solid #4a1428 !important;
+  color:          #e07090 !important;
+  margin-top:     4px !important;
 }
 .bs-nav-logout:hover {
-  background:   linear-gradient(135deg, #7a2222 0%, #5a1212 100%) !important;
-  border-color: #e74c3c !important;
+  background:     linear-gradient(135deg, #5a1830 0%, #3d0e1e 100%) !important;
+  border-color:   #e05070 !important;
+  color:          #ffaacc !important;
+  transform:      translateX(3px) !important;
+  box-shadow:     0 3px 0 #180610, 0 4px 14px rgba(200,50,100,.25) !important;
 }
-.bs-nav-logout.active,
-.bs-nav-logout:hover { color: #ff8080 !important; }
+.bs-nav-logout .bs-nav-icon {
+  filter: drop-shadow(0 0 4px rgba(220,80,120,.5));
+}
 
 /* ── Content area ─────────────────────────────── */
 .bs-content {

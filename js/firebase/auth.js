@@ -195,7 +195,7 @@ function _updateAuthHeader(user) {
     // Logout welcome screen
     const wlLogout = document.getElementById('wp-welcome-logout');
     const wlUser   = document.getElementById('wp-welcome-user');
-    if (wlLogout) wlLogout.style.display = '';
+    if (wlLogout) wlLogout.style.display = 'flex';  // flex per il column layout
     if (wlUser)   wlUser.textContent = '👤 ' + name;
   } else {
     loggedEl.style.display  = 'none';

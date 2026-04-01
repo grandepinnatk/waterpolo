@@ -6,6 +6,16 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.27-beta] — 2026-04-02
+
+### Corretto / Modificato
+- **Pulsante Logout** ripristinato in entrambe le posizioni:
+  - **Welcome screen**: pulsante in stile BS con icona 🚪, colore bordeaux scuro, clip-path parallelogramma, ombra inferiore — appare sotto il nome utente al login
+  - **Sidebar sinistra**: ultimo elemento della colonna (con spacer flessibile sopra), stessa forma dei bot nav ma con palette bordeaux/rosato distinta dal resto — icona 🚪 con glow rosa al hover
+- CSS `.bs-nav-logout` aggiornato con gradiente `#3d1020→#280a14` e bordo `#7a2040`
+
+---
+
 ## [0.5.26-beta] — 2026-04-02
 
 ### Modificato — Animazione vasca: fasi di gioco realistiche
@@ -21,6 +31,16 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 #### Sprint
 - Durante lo sprint, i pos 3 si interpolano più velocemente (3.5x) rispetto agli altri giocatori (2.4x), simulando lo scatto
+
+---
+
+## [0.5.27-beta] — 2026-04-02
+
+### Corretto / Modificato
+- **Pulsante Logout** ripristinato in entrambe le posizioni:
+  - **Welcome screen**: pulsante in stile BS con icona 🚪, colore bordeaux scuro, clip-path parallelogramma, ombra inferiore — appare sotto il nome utente al login
+  - **Sidebar sinistra**: ultimo elemento della colonna (con spacer flessibile sopra), stessa forma dei bot nav ma con palette bordeaux/rosato distinta dal resto — icona 🚪 con glow rosa al hover
+- CSS `.bs-nav-logout` aggiornato con gradiente `#3d1020→#280a14` e bordo `#7a2040`
 
 ---
 
@@ -45,6 +65,16 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - Gol nostro: `ballTarget.x = 0.96` (destra), Y casuale nello specchio [0.40, 0.60]
 - Gol avversario: `ballTarget.x = 0.04` (sinistra), idem
 - Tiri parati: palla rimane all'esterno della porta (x≈0.78 / 0.22)
+
+---
+
+## [0.5.27-beta] — 2026-04-02
+
+### Corretto / Modificato
+- **Pulsante Logout** ripristinato in entrambe le posizioni:
+  - **Welcome screen**: pulsante in stile BS con icona 🚪, colore bordeaux scuro, clip-path parallelogramma, ombra inferiore — appare sotto il nome utente al login
+  - **Sidebar sinistra**: ultimo elemento della colonna (con spacer flessibile sopra), stessa forma dei bot nav ma con palette bordeaux/rosato distinta dal resto — icona 🚪 con glow rosa al hover
+- CSS `.bs-nav-logout` aggiornato con gradiente `#3d1020→#280a14` e bordo `#7a2040`
 
 ---
 
