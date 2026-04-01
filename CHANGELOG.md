@@ -24,6 +24,37 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.26-beta] — 2026-04-02
+
+### Modificato — Animazione vasca
+
+#### Velocità di movimento proporzionale a SPE e Stamina
+- Introdotta `poolSetSpeeds(ms)`: calcola per ogni giocatore il fattore lerp individuale da `stats.spe` (0-100) e stamina corrente — formula `lerp = 2.4 × (spe/100) × (0.4 + stamina/100 × 0.6)`
+- Aggiornata dopo ogni evento durante la partita per riflettere il calo stamina
+- Avversari NPC: velocità media fissa al 75%
+
+#### Sprint inizio periodo durata realistica
+- Per un giocatore con spe=100 e stamina=100 lo sprint dura **5 secondi reali**
+- Proporionale: spe=50, stamina=80 → ~11 secondi; spe=30, stamina=50 → ~20 secondi
+
+#### Pausa movimenti durante GOAL!!!
+- Durante l'animazione GOAL i segnalini restano **completamente fermi** (il loop esce prima dell'interpolazione token)
+- Solo la palla continua a muoversi (entra nella porta)
+
+#### Palla entra nella porta
+- Gol nostro: `ballTarget.x = 0.96` (destra), Y casuale nello specchio [0.40, 0.60]
+- Gol avversario: `ballTarget.x = 0.04` (sinistra), idem
+- Tiri parati: palla rimane all'esterno della porta (x≈0.78 / 0.22)
+
+---
+
+## [0.5.26-beta] — 2026-04-02
+
+### Modificato
+- **Pallone**: sostituito il cerchio canvas con lo sprite `palla.png` (pallone da pallanuoto cartoon giallo). Il JPEG viene mascherato con `ctx.clip()` su cerchio per eliminare lo sfondo nero. Dimensione raggio 13px (leggermente inferiore ai segnalini giocatori R=19). Fallback al gradiente giallo se l'immagine non è disponibile.
+
+---
+
 ## [0.5.25-beta] — 2026-04-02
 
 ### Modificato — Animazione vasca (pool.js)

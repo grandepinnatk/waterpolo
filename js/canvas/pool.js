@@ -120,9 +120,11 @@ const AFTERGOAL_MY_DEFEND = {
 };
 
 // ── Stato ─────────────────────────────────────
-var _tokens     = {};
-var _ball       = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
-var _bgImg      = null;
+var _tokens      = {};
+var _tokenSpeeds = {};   // key → lerp speed (calcolata da spe + stamina)
+var _SPRINT_DUR  = 5.0;  // secondi per spe=100, stamina=100
+var _ball        = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
+var _bgImg       = null;
 var _bgReady    = false;
 var _phase      = 'idle';    // 'idle'|'sprint'|'play'|'goal'
 var _attack     = 'my';
@@ -138,6 +140,16 @@ var _sprintDone = false;
   img.onload  = function() { _bgImg = img; _bgReady = true; };
   img.onerror = function() { _bgReady = false; };
   img.src = 'campo-per-pallanuoto.jpg';
+})();
+
+// Carica sprite pallone
+var _ballImg   = null;
+var _ballReady = false;
+(function() {
+  var img = new Image();
+  img.onload  = function() { _ballImg = img; _ballReady = true; };
+  img.onerror = function() { _ballReady = false; };
+  img.src = 'palla.png';
 })();
 
 // ── Helpers ──────────────────────────────────
@@ -206,6 +218,26 @@ function poolSyncTokens(ms) {
     tok.yellows   = ms.tempExp[pi] || 0;
     tok.expelled  = ms.expelled.has(pi);
     tok.posLabel  = pk === 'GK' ? 'P' : pk;
+  });
+  // Aggiorna velocità dopo ogni sync
+  poolSetSpeeds(ms);
+}
+
+// Aggiorna velocità token da spe + stamina attuale (chiamata dopo sync)
+function poolSetSpeeds(ms) {
+  if (!ms) return;
+  Object.entries(ms.onField).forEach(function(entry) {
+    var pk = entry[0], pi = entry[1];
+    var p       = ms.myRoster[pi]; if (!p) return;
+    var spe     = (p.stats && p.stats.spe) ? p.stats.spe : 50;
+    var stamina = (ms.stamina && ms.stamina[pi] !== undefined) ? ms.stamina[pi] : (p.fitness || 50);
+    var speFact  = spe / 100;
+    var stamFact = 0.40 + (stamina / 100) * 0.60;
+    _tokenSpeeds['my_' + pk] = 2.4 * speFact * stamFact;
+  });
+  // Avversari: velocità media fissa (npc)
+  ['GK','1','2','3','4','5','6'].forEach(function(pk) {
+    _tokenSpeeds['opp_' + pk] = 2.4 * 0.75;
   });
 }
 
@@ -362,38 +394,45 @@ function poolAnimStep(dt) {
     // Fermi sui bordi — nessun aggiornamento
   } else if (_phase === 'sprint') {
     _sprintT += dt;
-    // Controlla se il pos 3 (il più veloce) ha raggiunto la palla
-    var my3  = _tokens['my_3'];
-    var opp3 = _tokens['opp_3'];
-    var reached = false;
-    if (my3  && _dist(my3)  < 0.05) reached = true;
-    if (opp3 && _dist(opp3) < 0.05) reached = true;
-    if (reached || _sprintT > 2.5) {
+    // Durata sprint proporzionale alla velocità del pos 3 (scattista)
+    // spe=100, stamina=100 → lerp=2.4 → durata=_SPRINT_DUR (5s)
+    // spe=50, stamina=80  → lerp≈1.1 → durata≈11s
+    var sprintLerp = _tokenSpeeds['my_3'] || 2.4;
+    var sprintDur  = _SPRINT_DUR * (2.4 / Math.max(sprintLerp, 0.3));
+    if (_sprintT >= sprintDur) {
       _sprintDone = true;
       _phase = 'play';
-      _attack = reached && my3 && _dist(my3) < 0.05 ? 'my' : 'opp';
-      // Ripristina velocità precedente
-      if (typeof setSpeed === 'function') setSpeed(_prevSpeed);
+      var my3 = _tokens['my_3'], opp3 = _tokens['opp_3'];
+      // Chi ha preso la palla: il più vicino al centro
+      var my3dist  = my3  ? Math.abs(my3.x  - PLAY.cx) + Math.abs(my3.y  - PLAY.cy) : 999;
+      var opp3dist = opp3 ? Math.abs(opp3.x - PLAY.cx) + Math.abs(opp3.y - PLAY.cy) : 999;
+      _attack = (my3dist <= opp3dist) ? 'my' : 'opp';
       _triggerTactical();
     }
   } else if (_phase === 'goal') {
+    // Durante l'animazione GOAL i giocatori sono in PAUSA (non si muovono)
     if (_goalAnim) {
       _goalAnim.timer += dt;
       if (_goalAnim.timer >= _goalAnim.total) _goalAnim = null;
     }
+    // Interpola solo palla (entra in porta), token fermi
+    _ball.x += (_ball.tx - _ball.x) * Math.min(f * 5.0, 1);
+    _ball.y += (_ball.ty - _ball.y) * Math.min(f * 5.0, 1);
+    return;   // <-- esce prima dell'interpolazione generale dei token
   } else { // 'play'
     _updateKeepers();
     _microMovements(dt);
   }
 
-  // Interpolazione — sprint più veloce per i pos 3
+  // Interpolazione token con velocità individuale (spe + stamina)
+  // Durante lo sprint il pos 3 usa velocità piena, gli altri la loro normale
   Object.values(_tokens).forEach(function(tok) {
-    var speed = (_phase === 'sprint' && tok.pk === '3') ? 3.5 : 2.4;
-    tok.x += (tok.tx - tok.x) * Math.min(f * speed, 1);
-    tok.y += (tok.ty - tok.y) * Math.min(f * speed, 1);
+    var spd = _tokenSpeeds[tok.team + '_' + tok.pk] || 2.4;
+    tok.x += (tok.tx - tok.x) * Math.min(f * spd, 1);
+    tok.y += (tok.ty - tok.y) * Math.min(f * spd, 1);
   });
-  _ball.x += (_ball.tx - _ball.x) * Math.min(f * 3.8, 1);
-  _ball.y += (_ball.ty - _ball.y) * Math.min(f * 3.8, 1);
+  _ball.x += (_ball.tx - _ball.x) * Math.min(f * 4.5, 1);
+  _ball.y += (_ball.ty - _ball.y) * Math.min(f * 4.5, 1);
 }
 
 // ── Disegno ──────────────────────────────────
@@ -462,18 +501,44 @@ function drawPool(canvas, myTeamAbbr, oppTeamAbbr) {
     }
   });
 
-  // Pallone
-  var bx=_ball.x*W, by=_ball.y*H;
-  ctx.save(); ctx.globalAlpha=0.22; ctx.fillStyle='#000';
-  ctx.beginPath(); ctx.ellipse(bx+2, by+4, 8, 3, 0, 0, Math.PI*2); ctx.fill(); ctx.restore();
-  ctx.beginPath(); ctx.arc(bx, by, 9, 0, Math.PI*2);
-  var g=ctx.createRadialGradient(bx-3,by-3,1,bx,by,9);
-  g.addColorStop(0,'#fff9c4'); g.addColorStop(0.55,'#fdd835'); g.addColorStop(1,'#f9a825');
-  ctx.fillStyle=g; ctx.fill();
-  ctx.strokeStyle='#c17900'; ctx.lineWidth=1.5; ctx.stroke();
-  ctx.strokeStyle='rgba(0,0,0,0.15)'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.arc(bx,by,6,0.4,Math.PI-0.4); ctx.stroke();
-  ctx.beginPath(); ctx.arc(bx,by,6,Math.PI+0.4,-0.4); ctx.stroke();
+  // ── Pallone ──
+  var bx = _ball.x * W, by = _ball.y * H;
+  var BR = 13; // raggio palla — leggermente più piccolo dei segnalini (R=19)
+
+  // Ombra
+  ctx.save();
+  ctx.globalAlpha = 0.28;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(bx + 2, by + BR + 1, BR * 0.65, 3, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  if (_ballReady && _ballImg) {
+    // Ritaglia il JPEG con una maschera circolare (elimina sfondo nero)
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(bx, by, BR, 0, Math.PI * 2);
+    ctx.clip();
+    ctx.drawImage(_ballImg, bx - BR, by - BR, BR * 2, BR * 2);
+    ctx.restore();
+    // Bordo sottile di definizione
+    ctx.beginPath();
+    ctx.arc(bx, by, BR, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(0,0,0,0.30)';
+    ctx.lineWidth = 1.0;
+    ctx.stroke();
+  } else {
+    // Fallback gradiente giallo
+    ctx.beginPath();
+    ctx.arc(bx, by, BR, 0, Math.PI * 2);
+    var g = ctx.createRadialGradient(bx - 4, by - 4, 1, bx, by, BR);
+    g.addColorStop(0, '#fff9c4');
+    g.addColorStop(0.55, '#fdd835');
+    g.addColorStop(1, '#f9a825');
+    ctx.fillStyle = g; ctx.fill();
+    ctx.strokeStyle = '#c17900'; ctx.lineWidth = 1.5; ctx.stroke();
+  }
 
   // GOAL overlay
   if (_goalAnim) {

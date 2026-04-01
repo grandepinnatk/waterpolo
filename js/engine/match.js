@@ -331,9 +331,9 @@ function generateMatchEvent(ms) {
         txt: '⚽ GOL! ' + attacker.p.name + ' (#' + (ms.shirtNumbers[attacker.pi] || '?') + ') segna!' +
              (ast ? ' Assist: ' + ast.p.name : ''),
         cls: 'myg',
-        ballTarget:  { x: 0.96, y: 0.50 },
+        ballTarget:  { x: 0.96, y: 0.40 + rnd(0, 0.20) },   // entra nella porta destra
         moverKey:    'my_' + attacker.pk,
-        moverTarget: { x: 0.75, y: 0.50 },
+        moverTarget: { x: 0.80, y: 0.50 },
         goalScored:  true, goalTeam: 'my', goalScorer: attacker.p.name,
       };
     } else {
@@ -341,7 +341,7 @@ function generateMatchEvent(ms) {
       return {
         txt: 'Tiro di ' + attacker.p.name + ' — parata' + (oppGk ? ' di ' + oppGk.name : ''),
         cls: '',
-        ballTarget:  { x: 0.82, y: 0.50 },
+        ballTarget:  { x: 0.78, y: 0.38 + rnd(0, 0.24) },   // tiro respinto dalla porta
         moverKey:    'my_' + attacker.pk,
         moverTarget: { x: 0.68, y: 0.50 },
       };
@@ -358,13 +358,13 @@ function generateMatchEvent(ms) {
       if (ms.periodScores && ms.period >= 1 && ms.period <= 4) {
         ms.periodScores[ms.period - 1].opp++;
       }
-      return { txt: '⚽ ' + ms.oppTeam.name + ' segna! Gol subito.', cls: 'og', ballTarget: { x: 0.04, y: 0.50 }, goalScored: true, goalTeam: 'opp', goalScorer: ms.oppTeam.name };
+      return { txt: '⚽ ' + ms.oppTeam.name + ' segna! Gol subito.', cls: 'og', ballTarget: { x: 0.04, y: 0.40 + rnd(0, 0.20) }, goalScored: true, goalTeam: 'opp', goalScorer: ms.oppTeam.name };
     } else {
       const myGk = ms.myRoster[ms.onField['GK']];
       if (myGk) { ms.mySaves++; myGk.saves++; }
       return {
         txt: 'Parata' + (myGk ? ' di ' + myGk.name : '') + '!',
-        cls: 'sv', ballTarget: { x: 0.18, y: 0.50 },
+        cls: 'sv', ballTarget: { x: 0.22, y: 0.38 + rnd(0, 0.24) },   // parata
       };
     }
   }

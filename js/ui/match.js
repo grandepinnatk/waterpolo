@@ -24,6 +24,7 @@ function startLiveMatch(match, isHome, opp, poType = null, poMatch = null) {
   G.ms.speed   = 10;
 
   poolInitTokens(G.ms);
+  if (typeof poolSetSpeeds === 'function') poolSetSpeeds(G.ms);
 
   const homeTeam = isHome ? G.myTeam : opp;
   const awayTeam = isHome ? opp : G.myTeam;
@@ -94,6 +95,7 @@ function _animLoop(timestamp) {
           }
           if (event.expelled !== undefined) _handleExpulsion(event.expelled, event.moverKey);
           poolSyncTokens(G.ms);
+          if (typeof poolSetSpeeds === 'function') poolSetSpeeds(G.ms);
         }
       }
       renderFieldLists();
