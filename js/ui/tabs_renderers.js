@@ -1312,8 +1312,10 @@ function renderFinance() {
 // CREDITS
 // ════════════════════════════════════════════
 function renderCredits() {
-  const version = 'v0.5.7 beta';
-  const year    = new Date().getFullYear();
+  // Legge la versione attuale dal footer della pagina (aggiornato ad ogni release)
+  const footerEl = document.querySelector('.wp-version-footer');
+  const version  = footerEl ? footerEl.textContent.trim() : 'v0.5.17 beta';
+  const year     = new Date().getFullYear();
 
   document.getElementById('tab-credits').innerHTML = `
     <div style="max-width:600px;margin:0 auto">
@@ -1332,8 +1334,7 @@ function renderCredits() {
         <div style="display:flex;align-items:center;gap:16px">
           <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#0a3a6a);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">🤽</div>
           <div>
-            <div style="font-size:17px;font-weight:700;color:var(--text)">Davide Lanza</div>
-            <div style="font-size:13px;color:var(--muted);margin-top:2px">Grandepinna</div>
+            <div style="font-size:17px;font-weight:700;color:var(--text)">Sviluppato da Davide Lanza - Grandepinna</div>
           </div>
         </div>
       </div>
@@ -1367,7 +1368,7 @@ function renderCredits() {
         <div style="font-size:11px;color:var(--muted)">
           Waterpolo Manager ${version} · ${year}<br>
           <span style="margin-top:4px;display:inline-block">
-            Sviluppato con ❤️ per gli appassionati di pallanuoto italiana
+            Sviluppato da Davide Lanza - Grandepinna · con ❤️ per gli appassionati di pallanuoto italiana
           </span>
         </div>
       </div>

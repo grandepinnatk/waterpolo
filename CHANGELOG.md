@@ -6,6 +6,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.18-beta] — 2026-04-01
+
+### Modificato
+- **Tab Credits**: la versione mostrata viene ora letta dinamicamente dal footer della pagina — si aggiorna automaticamente ad ogni release senza modificare `renderCredits`
+- **Credits**: riga sviluppatore aggiornata in **"Sviluppato da Davide Lanza - Grandepinna"** (sia nella card sviluppatore che nella nota a fondo pagina)
+
+---
+
 ## [0.5.17-beta] — 2026-04-01
 
 ### Corretto
