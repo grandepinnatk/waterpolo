@@ -6,6 +6,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.15-beta] — 2026-04-01
+
+### Corretto / Modificato
+- **Calendario — tab Andata/Ritorno**: le partite sono ora divise in due tab (⬅ Andata G1-G13 / Ritorno ➡ G14-G26) con navigazione dedicata
+- **Popup dettaglio partita**: corretto il bug che impediva l'apertura cliccando sul punteggio — riscritta la funzione `renderCal` con concatenazione di stringhe per evitare problemi di escape nei template literal
+
+---
+
 ## [0.5.14-beta] — 2026-04-01
 
 ### Aggiunto

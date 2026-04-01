@@ -731,77 +731,97 @@ function _buildStandContent(activeTab) {
 // ════════════════════════════════════════════
 // CALENDARIO
 // ════════════════════════════════════════════
-function renderCal() {
-  // Raggruppa TUTTE le partite per giornata
+function renderCal(activeTab) {
+  activeTab = activeTab || 'andata';
+  const halfRounds    = 13;
+  const andataRounds  = Array.from({length: halfRounds}, (_, i) => i + 1);
+  const ritornoRounds = Array.from({length: halfRounds}, (_, i) => i + halfRounds + 1);
+  const currentRounds = activeTab === 'andata' ? andataRounds : ritornoRounds;
+
   const rounds = {};
-  G.schedule.forEach(m => {
+  G.schedule.forEach(function(m) {
     if (!rounds[m.round]) rounds[m.round] = [];
     rounds[m.round].push(m);
   });
-  const sortedRounds = Object.keys(rounds).map(Number).sort((a,b) => a - b);
 
-  let h = `<div style="font-weight:700;color:var(--blue);margin-bottom:12px">Calendario — Tutte le giornate</div>`;
+  function matchRow(m) {
+    var hT   = G.teams.find(function(t){ return t.id === m.home; });
+    var aT   = G.teams.find(function(t){ return t.id === m.away; });
+    var isMe = m.home === G.myId || m.away === G.myId;
+    var ih   = m.home === G.myId;
+    var mIdx = G.schedule.indexOf(m);
+    var scoreHtml, badge = '';
 
-  sortedRounds.forEach(r => {
-    const matches = rounds[r];
-    const myMatch = matches.find(m => m.home === G.myId || m.away === G.myId);
-    const allPlayed = matches.every(m => m.played);
-    const somePlayedByMe = myMatch && myMatch.played;
-
-    // Badge giornata
-    let roundBadgeColor = 'var(--border)';
-    let roundBadgeText  = '';
-    if (myMatch && myMatch.played) {
-      const ih = myMatch.home === G.myId;
-      const mw = (ih && myMatch.score.home > myMatch.score.away) || (!ih && myMatch.score.away > myMatch.score.home);
-      const md = myMatch.score.home === myMatch.score.away;
-      roundBadgeColor = mw ? 'rgba(46,204,113,.2)' : md ? 'rgba(240,192,64,.2)' : 'rgba(231,76,60,.2)';
-      roundBadgeText  = mw ? 'V' : md ? 'P' : 'S';
+    if (m.played && m.score) {
+      scoreHtml = '<span'
+        + ' onclick="showMatchDetailPopup(' + mIdx + ')"'
+        + ' style="background:var(--panel2);border-radius:6px;padding:3px 14px;'
+        + 'font-size:14px;font-weight:700;cursor:pointer;transition:background .15s"'
+        + ' onmouseover="this.style.background=\'rgba(0,194,255,.18)\'"'
+        + ' onmouseout="this.style.background=\'var(--panel2)\'"'
+        + ' title="Dettaglio partita">'
+        + m.score.home + ' - ' + m.score.away
+        + '</span>';
+      if (isMe) {
+        var mw = (ih && m.score.home > m.score.away) || (!ih && m.score.away > m.score.home);
+        var md = m.score.home === m.score.away;
+        var vc = mw ? 'var(--green)' : md ? 'var(--gold)' : 'var(--red)';
+        badge = '<span style="font-size:11px;font-weight:700;color:' + vc + ';margin-left:2px">' + (mw?'V':md?'P':'S') + '</span>';
+      }
+    } else {
+      scoreHtml = '<span style="color:var(--muted);font-size:13px;padding:0 10px">vs</span>';
     }
 
-    h += `<div style="margin-bottom:16px">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <div style="font-size:12px;font-weight:700;color:var(--blue)">Giornata ${r}</div>
-        ${roundBadgeText ? `<span style="font-size:11px;padding:1px 8px;border-radius:4px;background:${roundBadgeColor};font-weight:700">${roundBadgeText}</span>` : ''}
-      </div>`;
+    var homeName = hT ? hT.name : '?';
+    var awayName = aT ? aT.name : '?';
+    return '<div style="display:flex;align-items:center;gap:6px;padding:6px 10px;'
+      + 'border-radius:8px;margin-bottom:3px;'
+      + 'background:' + (isMe ? 'rgba(0,194,255,.06)' : 'rgba(255,255,255,.02)') + ';'
+      + 'border:1px solid ' + (isMe ? 'rgba(0,194,255,.18)' : 'rgba(255,255,255,.05)') + '">'
+      + '<div style="flex:1;text-align:right;font-size:13px;font-weight:' + (m.home===G.myId?700:400) + '">'
+      + '<span onclick="showTeamRosterPopup(\'' + m.home + '\')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px">' + homeName + '</span>'
+      + '</div>'
+      + '<div style="display:flex;align-items:center;gap:4px;flex-shrink:0">' + scoreHtml + badge + '</div>'
+      + '<div style="flex:1;text-align:left;font-size:13px;font-weight:' + (m.away===G.myId?700:400) + '">'
+      + '<span onclick="showTeamRosterPopup(\'' + m.away + '\')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px">' + awayName + '</span>'
+      + '</div>'
+      + '</div>';
+  }
 
-    matches.forEach(m => {
-      const hT   = G.teams.find(t => t.id === m.home);
-      const aT   = G.teams.find(t => t.id === m.away);
-      const isMe = m.home === G.myId || m.away === G.myId;
-      const ih   = m.home === G.myId;
+  var h = '<div style="display:flex;gap:6px;margin-bottom:14px">'
+    + '<button class="btn' + (activeTab==='andata'?' primary':' sm') + '" onclick="_showCalTab(\'andata\')" style="font-size:13px">&#x2B05; Andata</button>'
+    + '<button class="btn' + (activeTab==='ritorno'?' primary':' sm') + '" onclick="_showCalTab(\'ritorno\')" style="font-size:13px">Ritorno &#x27A1;</button>'
+    + '</div>';
 
-      let scoreLine = '<span style="color:var(--muted);font-size:13px">vs</span>';
-      let badge = '';
-      if (m.played && m.score) {
-        scoreLine = `<span style="background:var(--panel2);border-radius:6px;padding:2px 12px;font-size:14px;font-weight:700">${m.score.home} - ${m.score.away}</span>`;
-        if (isMe) {
-          const mw = (ih && m.score.home > m.score.away) || (!ih && m.score.away > m.score.home);
-          const md = m.score.home === m.score.away;
-          const resc = mw ? 'var(--green)' : md ? 'var(--gold)' : 'var(--red)';
-          const res  = mw ? 'V' : md ? 'P' : 'S';
-          badge = `<span style="font-size:11px;font-weight:700;color:${resc};margin-left:4px">${res}</span>`;
-        }
-      }
+  currentRounds.forEach(function(r) {
+    var matches = rounds[r];
+    if (!matches) return;
+    var myMatch = matches.find(function(m){ return m.home === G.myId || m.away === G.myId; });
+    var roundBadge = '';
+    if (myMatch && myMatch.played) {
+      var ih = myMatch.home === G.myId;
+      var mw = (ih && myMatch.score.home > myMatch.score.away) || (!ih && myMatch.score.away > myMatch.score.home);
+      var md = myMatch.score.home === myMatch.score.away;
+      var col = mw ? 'rgba(46,204,113,.25)' : md ? 'rgba(240,192,64,.25)' : 'rgba(231,76,60,.25)';
+      roundBadge = '<span style="font-size:10px;padding:1px 7px;border-radius:4px;background:' + col + ';font-weight:700">' + (mw?'V':md?'P':'S') + '</span>';
+    }
 
-      h += `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;
-                        border-radius:8px;margin-bottom:3px;
-                        background:${isMe ? 'rgba(0,194,255,.06)' : 'rgba(255,255,255,.02)'};
-                        border:1px solid ${isMe ? 'rgba(0,194,255,.18)' : 'rgba(255,255,255,.05)'}">
-        <div style="flex:1;text-align:right;font-size:13px;font-weight:${m.home===G.myId?700:400}">
-          <span onclick="showTeamRosterPopup('${m.home}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px">${hT ? hT.name : '?'}</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:4px;flex-shrink:0">${scoreLine}${badge}</div>
-        <div style="flex:1;text-align:left;font-size:13px;font-weight:${m.away===G.myId?700:400}">
-          <span onclick="showTeamRosterPopup('${m.away}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px">${aT ? aT.name : '?'}</span>
-        </div>
-      </div>`;
-    });
-    h += `</div>`;
+    h += '<div style="margin-bottom:14px">'
+      + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">'
+      + '<span style="font-size:12px;font-weight:700;color:var(--blue)">G' + r + '</span>'
+      + roundBadge
+      + '</div>'
+      + matches.map(matchRow).join('')
+      + '</div>';
   });
 
   document.getElementById('tab-cal').innerHTML = h;
 }
+
+function _showCalTab(tab) {
+  renderCal(tab);
+}
+
 
 // ════════════════════════════════════════════
 // PLAYOFF
