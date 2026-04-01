@@ -45,9 +45,17 @@ function updateHeader() {
 }
 
 // ── Mostra/nasconde le schermate principali ───
+// Ogni schermata ha il proprio display corretto (flex per quelle centrate)
+const SCREEN_DISPLAY = {
+  'sc-welcome': 'flex',
+  'sc-game':    'block',
+  'sc-lineup':  'block',
+  'sc-match':   'block',
+};
 function showScreen(id) {
-  ['sc-welcome','sc-game','sc-lineup','sc-match'].forEach(s => {
+  Object.keys(SCREEN_DISPLAY).forEach(s => {
     const el = document.getElementById(s);
-    if (el) el.style.display = s === id ? 'block' : 'none';
+    if (!el) return;
+    el.style.display = s === id ? SCREEN_DISPLAY[s] : 'none';
   });
 }

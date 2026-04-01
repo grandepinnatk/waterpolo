@@ -6,6 +6,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.17-beta] — 2026-04-01
+
+### Corretto
+- **Allineamento pagina**: tornando al menu principale (⌂ Menu) o alla schermata di login (⎋ Logout), la welcome screen ora mantiene il corretto allineamento centrato — `showScreen()` usava `display:block` per tutte le schermate, sovrascrivendo il `display:flex` necessario per la centratura della welcome
+
+---
+
 ## [0.5.16-beta] — 2026-04-01
 
 ### Corretto
