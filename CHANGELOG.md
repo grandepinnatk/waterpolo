@@ -6,6 +6,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.28-beta] — 2026-04-02
+
+### Corretto
+- **Logout non visibile**: `_updateAuthHeader()` in `auth.js` usciva prematuramente perché cercava `wp-user-info` che non esiste più dopo il refactoring BS. La guardia `if (!loggedEl) return` è stata rimossa — ora la funzione aggiorna direttamente i nuovi elementi (`wp-btn-logout`, `bs-user-box`, `wp-welcome-logout`) senza dipendere dall'elemento rimosso
+- Rimosso il doppio `display:none` nel `wp-welcome-logout`
+
+---
+
 ## [0.5.27-beta] — 2026-04-02
 
 ### Corretto / Modificato
@@ -31,6 +39,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 #### Sprint
 - Durante lo sprint, i pos 3 si interpolano più velocemente (3.5x) rispetto agli altri giocatori (2.4x), simulando lo scatto
+
+---
+
+## [0.5.28-beta] — 2026-04-02
+
+### Corretto
+- **Logout non visibile**: `_updateAuthHeader()` in `auth.js` usciva prematuramente perché cercava `wp-user-info` che non esiste più dopo il refactoring BS. La guardia `if (!loggedEl) return` è stata rimossa — ora la funzione aggiorna direttamente i nuovi elementi (`wp-btn-logout`, `bs-user-box`, `wp-welcome-logout`) senza dipendere dall'elemento rimosso
+- Rimosso il doppio `display:none` nel `wp-welcome-logout`
 
 ---
 
@@ -65,6 +81,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - Gol nostro: `ballTarget.x = 0.96` (destra), Y casuale nello specchio [0.40, 0.60]
 - Gol avversario: `ballTarget.x = 0.04` (sinistra), idem
 - Tiri parati: palla rimane all'esterno della porta (x≈0.78 / 0.22)
+
+---
+
+## [0.5.28-beta] — 2026-04-02
+
+### Corretto
+- **Logout non visibile**: `_updateAuthHeader()` in `auth.js` usciva prematuramente perché cercava `wp-user-info` che non esiste più dopo il refactoring BS. La guardia `if (!loggedEl) return` è stata rimossa — ora la funzione aggiorna direttamente i nuovi elementi (`wp-btn-logout`, `bs-user-box`, `wp-welcome-logout`) senza dipendere dall'elemento rimosso
+- Rimosso il doppio `display:none` nel `wp-welcome-logout`
 
 ---
 

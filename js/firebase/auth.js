@@ -170,41 +170,41 @@ export async function wpLoginGoogle() {
   }
 }
 
-// ── Aggiorna la UI dell'header con le info utente ──
+// ── Aggiorna la UI con le info utente ──
 function _updateAuthHeader(user) {
-  const loggedEl   = document.getElementById('wp-user-info');
-  const logoutBtn  = document.getElementById('wp-btn-logout');
-  const cloudIcon  = document.getElementById('wp-cloud-icon');
-
-  if (!loggedEl) return;
+  // Elementi nuova UI (BS layout)
+  const logoutSidebar = document.getElementById('wp-btn-logout');
+  const bsUserBox     = document.getElementById('bs-user-box');
+  const bsUserLbl     = document.getElementById('bs-username-lbl');
+  const wlLogout      = document.getElementById('wp-welcome-logout');
+  const wlUser        = document.getElementById('wp-welcome-user');
+  // Elementi vecchia UI (retrocompatibilità, potrebbero non esistere)
+  const loggedEl  = document.getElementById('wp-user-info');
+  const cloudIcon = document.getElementById('wp-cloud-icon');
 
   if (user) {
     const name = user.displayName || user.email.split('@')[0];
-    loggedEl.textContent  = '👤 ' + name;
-    loggedEl.style.display = '';
-    if (logoutBtn)  logoutBtn.style.display  = '';
-    if (cloudIcon)  cloudIcon.style.display  = '';
-    cloudIcon.title = 'Salvataggi sincronizzati con il cloud ☁️';
-    // Box utente nella topbar BS
-    const bsUserBox = document.getElementById('bs-user-box');
-    const bsUserLbl = document.getElementById('bs-username-lbl');
+
+    // Topbar BS — box utente
     if (bsUserBox) bsUserBox.style.display = '';
     if (bsUserLbl) bsUserLbl.textContent = name;
-    // Logout sidebar
-    if (logoutBtn) logoutBtn.style.display = '';
-    // Logout welcome screen
-    const wlLogout = document.getElementById('wp-welcome-logout');
-    const wlUser   = document.getElementById('wp-welcome-user');
-    if (wlLogout) wlLogout.style.display = 'flex';  // flex per il column layout
+
+    // Sidebar — pulsante logout
+    if (logoutSidebar) logoutSidebar.style.display = '';
+
+    // Welcome screen — logout
+    if (wlLogout) wlLogout.style.display = 'flex';
     if (wlUser)   wlUser.textContent = '👤 ' + name;
+
+    // Retrocompatibilità
+    if (loggedEl)  { loggedEl.textContent = '👤 ' + name; loggedEl.style.display = ''; }
+    if (cloudIcon) { cloudIcon.style.display = ''; cloudIcon.title = '☁️ Cloud sync'; }
   } else {
-    loggedEl.style.display  = 'none';
-    if (logoutBtn)  logoutBtn.style.display  = 'none';
-    if (cloudIcon)  cloudIcon.style.display  = 'none';
-    const bsUserBox2 = document.getElementById('bs-user-box');
-    if (bsUserBox2) bsUserBox2.style.display = 'none';
-    const wlLogout2 = document.getElementById('wp-welcome-logout');
-    if (wlLogout2) wlLogout2.style.display = 'none';
+    if (bsUserBox)     bsUserBox.style.display     = 'none';
+    if (logoutSidebar) logoutSidebar.style.display = 'none';
+    if (wlLogout)      wlLogout.style.display      = 'none';
+    if (loggedEl)      loggedEl.style.display      = 'none';
+    if (cloudIcon)     cloudIcon.style.display     = 'none';
   }
 }
 
