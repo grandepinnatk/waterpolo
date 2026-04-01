@@ -6,6 +6,37 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.25-beta] — 2026-04-02
+
+### Modificato — Animazione vasca (pool.js)
+
+#### Portieri (cerchio rosso)
+- **Colore**: cerchio rosso per entrambi i portieri (con bordo rosa chiaro), lettera **P** bianca
+- **Area di movimento**: vincolati alla fascia verticale della propria porta (x fisso ~4% dal bordo), si muovono solo verticalmente seguendo la Y della palla nello specchio porta (Y limitata tra le due traverse)
+
+#### Inizio di ogni tempo (kickoff)
+- Tutti i giocatori si posizionano sui **bordi verticali** della vasca (nostra squadra a sinistra, avversari a destra), replicando la foto di riferimento
+- Il **pos 3** di entrambe le squadre parte già vicino al centro pronto allo scatto per il pallone
+
+#### Dopo il goal
+- La **squadra che ha subito** batte dal centrocampo (formazione offensiva centrata)
+- La **squadra che ha segnato** rientra nella propria metà in difesa
+- Se il goal lo ha segnato la squadra avversaria, le posizioni sono specchiate
+
+#### Segnalini
+- Nostra squadra: **bianco** con bordo grigio scuro
+- Avversario: **blu** con bordo celeste
+- Portieri: **rosso** (entrambi)
+
+---
+
+## [0.5.24-beta] — 2026-04-02
+
+### Modificato
+- **Sfondo vasca**: immagine `campo-per-pallanuoto.jpg` aggiornata con versione cartoon (stile illustrato con corde colorate e coni ben visibili)
+
+---
+
 ## [0.5.23-beta] — 2026-04-02
 
 ### Corretto
