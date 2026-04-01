@@ -113,12 +113,13 @@ function simNextRound() {
     m.score  = simulateResult(hT, aT);
     m.played = true;
     updateStandings(G.stand, m.home, m.away, m.score);
-    // Distribuisce gol/assist anche per le partite NPC
-    if (m.home !== G.myId && m.away !== G.myId) {
-      simulateMatchStats(G.rosters[m.home], G.rosters[m.away], m.score);
-    }
 
-    // Se è la partita della mia squadra, registra il risultato nei messaggi
+    // Distribuisce gol/assist a TUTTI i giocatori (inclusa la nostra squadra)
+    // e salva i dettagli (marcatori + parziali) sul match
+    const det = simulateMatchStats(G.rosters[m.home], G.rosters[m.away], m.score);
+    if (det) m.details = det;
+
+    // Se è la partita della mia squadra, registra risultato e premi
     if (m.home === G.myId || m.away === G.myId) {
       const ih      = m.home === G.myId;
       const opp     = G.teams.find(t => t.id === (ih ? m.away : m.home));

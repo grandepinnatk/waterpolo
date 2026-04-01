@@ -6,6 +6,15 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.16-beta] — 2026-04-01
+
+### Corretto
+- **"Simula Giornata"**: corretto bug per cui i dettagli delle partite (marcatori, assist, parziali) erano vuoti nel popup del calendario
+  - Il risultato di `simulateMatchStats` ora viene salvato in `m.details` per ogni partita della giornata
+  - Gol e assist vengono ora distribuiti anche ai giocatori della **propria squadra** durante la simulazione (prima veniva saltata)
+
+---
+
 ## [0.5.15-beta] — 2026-04-01
 
 ### Corretto / Modificato
