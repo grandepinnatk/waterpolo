@@ -328,7 +328,33 @@ function removeFromConvocati(pi) {
   Object.keys(luState.formation).forEach(pk => {
     if (luState.formation[pk] === pi) delete luState.formation[pk];
   });
+  // Riassegna numeri sequenziali ai convocati rimanenti che ne sono privi
+  _resequenceShirts();
   renderLineupPool(); renderPlayerSelList(); updateLuStatus();
+}
+
+// Riassegna numeri mancanti mantenendo quelli già assegnati
+function _resequenceShirts() {
+  const allNums  = new Set(Object.values(luState.shirtNumbers).filter(v => v !== undefined));
+  let nextNum = 1;
+  // Prima i titolari in ordine posizione
+  POS_KEYS.forEach(pk => {
+    const pi = luState.formation[pk];
+    if (pi === undefined) return;
+    if (luState.shirtNumbers[pi] === undefined) {
+      while (allNums.has(nextNum)) nextNum++;
+      luState.shirtNumbers[pi] = nextNum;
+      allNums.add(nextNum);
+    }
+  });
+  // Poi i convocati rimanenti
+  [...luState.convocati].forEach(pi => {
+    if (luState.shirtNumbers[pi] === undefined) {
+      while (allNums.has(nextNum)) nextNum++;
+      luState.shirtNumbers[pi] = nextNum;
+      allNums.add(nextNum);
+    }
+  });
 }
 
 // ── Auto-formazione ───────────────────────────
@@ -384,17 +410,22 @@ function updateLuStatus() {
   const hasGK     = luState.formation['GK'] !== undefined;
   const convCount = luState.convocati.size;
 
-  // Numeri assegnati: conta solo i convocati (non tutti i giocatori della rosa)
+  // Giocatori in formazione: devono essere ancora convocati
+  const formationPis = Object.values(luState.formation);
+  const formationValid = formationPis.every(pi => luState.convocati.has(pi));
+
+  // Numeri: tutti i convocati devono avere un numero (riserve comprese)
   const convArr    = [...luState.convocati];
   const withShirt  = convArr.filter(pi => luState.shirtNumbers[pi] !== undefined).length;
   const allHaveNum = withShirt === convCount && convCount > 0;
 
-  // Verifica duplicati solo tra i convocati
+  // Verifica duplicati solo tra i convocati che hanno numero
   const convNums = convArr.map(pi => luState.shirtNumbers[pi]).filter(v => v !== undefined);
   const unique   = new Set(convNums).size === convNums.length;
 
   let msg = `Formazione: <strong>${filled}/${POS_KEYS.length}</strong> · Convocati: <strong>${convCount}/${MAX_CONVOCATI}</strong>`;
-  if (!hasGK && filled > 0) msg += ' · <span style="color:var(--red)">⚠ Portiere mancante</span>';
+  if (!hasGK && filled > 0)    msg += ' · <span style="color:var(--red)">⚠ Portiere mancante</span>';
+  if (!formationValid)          msg += ' · <span style="color:var(--red)">⚠ Riassegna le posizioni vuote</span>';
   if (convCount >= MIN_CONVOCATI && !allHaveNum) msg += ' · <span style="color:var(--gold)">Assegna un # a tutti i convocati</span>';
   if (!unique && convNums.length > 0) msg += ' · <span style="color:var(--red)">⚠ Numeri duplicati</span>';
   if (luState.selectedPlayer !== null) msg += ' · <span style="color:var(--gold)">Ora clicca una posizione</span>';
@@ -402,8 +433,9 @@ function updateLuStatus() {
 
   document.getElementById('lu-status').innerHTML = msg;
 
-  // Può avviare: formazione completa + portiere + almeno MIN_CONVOCATI con numero + no duplicati
-  const canGo = filled === POS_KEYS.length && hasGK && convCount >= MIN_CONVOCATI && allHaveNum && unique;
+  // Può avviare: 7 posizioni coperte da convocati validi + GK + MIN_CONVOCATI + numeri ok
+  const canGo = filled === POS_KEYS.length && hasGK && formationValid
+              && convCount >= MIN_CONVOCATI && allHaveNum && unique;
   document.getElementById('btn-confirm-lu').disabled = !canGo;
 }
 

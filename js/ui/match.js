@@ -472,11 +472,70 @@ function skipPeriod() {
   const ms = G.ms; if (!ms || ms.finished) return;
   ms.running = false;
   document.getElementById('btn-play').textContent = '▶ Avvia';
-  ms.totalSeconds = ms.period * PERIOD_SECONDS - 3;
-  if (ms.totalSeconds > TOTAL_PERIODS * PERIOD_SECONDS) {
-    ms.totalSeconds = TOTAL_PERIODS * PERIOD_SECONDS;
-    ms.finished = true;
+
+  // Calcola quanti secondi di gioco restano nel periodo corrente
+  const periodStart  = (ms.period - 1) * PERIOD_SECONDS;
+  const periodEnd    = ms.period * PERIOD_SECONDS;
+  const secsLeft     = periodEnd - ms.totalSeconds;
+
+  if (secsLeft <= 0) { refreshMatchUI(); return; }
+
+  // Simula gli eventi rimanenti del periodo: ogni evento si ripete
+  // ogni ~7s di gioco (media dell'intervallo 4-11s usato nel loop reale)
+  const SIM_INTERVAL = 7; // secondi di gioco per evento
+  let simTime = 0;
+
+  _appendLog('⏩ Simulazione fine ' + ms.period + '° tempo...', '');
+
+  while (simTime < secsLeft) {
+    // Avanza la stamina per questo chunk di tempo
+    if (typeof _drainStaminaChunk === 'function') {
+      _drainStaminaChunk(ms, SIM_INTERVAL);
+    } else {
+      // Fallback inline: applica drain proporzionale
+      const DRAIN_BASE = 0.012;
+      Object.entries(ms.onField).forEach(([pk, pi]) => {
+        if (ms.expelled.has(pi)) return;
+        const p = ms.myRoster[pi];
+        if (!p) return;
+        const drain = DRAIN_BASE * SIM_INTERVAL * (pk === 'GK' ? 0.4 : 1.0);
+        if (ms.stamina[pi] === undefined) ms.stamina[pi] = p.fitness;
+        ms.stamina[pi] = Math.max(0, ms.stamina[pi] - drain);
+      });
+    }
+
+    // Genera un evento simulato
+    const event = generateMatchEvent(ms);
+    if (event && event.txt) {
+      _appendLog(event.txt, event.cls);
+      // Aggiorna animazione canvas
+      if (event.ballTarget) poolMoveBall(event.ballTarget.x, event.ballTarget.y);
+      if (event.goalScored && typeof poolShowGoal === 'function') {
+        poolShowGoal(event.goalScorer || '', event.goalTeam || 'my');
+      }
+      if (event.expelled !== undefined) _handleExpulsion(event.expelled, event.moverKey);
+    }
+
+    simTime += SIM_INTERVAL;
   }
+
+  // Porta il tempo esattamente a fine periodo
+  ms.totalSeconds = periodEnd;
+
+  // Triggera la fine periodo come fa il game loop
+  if (ms.period < TOTAL_PERIODS) {
+    ms.period++;
+    if (typeof poolStartPeriod === 'function') poolStartPeriod();
+    _appendLog('⏸ Fine ' + (ms.period - 1) + '° Tempo — Partita in pausa. Puoi effettuare sostituzioni.', 'sv');
+  } else {
+    ms.finished = true;
+    document.getElementById('btn-end').style.display  = '';
+    document.getElementById('btn-play').style.display = 'none';
+    _appendLog('🏁 Fine partita!', 'sv');
+  }
+
+  poolSyncTokens(ms);
+  renderFieldLists();
   refreshMatchUI();
 }
 

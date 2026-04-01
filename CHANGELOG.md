@@ -6,6 +6,23 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.23-beta] — 2026-04-02
+
+### Corretto
+- **Convocazioni**: rimovere un convocato non blocca più il pulsante "Inizia Partita" se la formazione è ancora valida
+  - La condizione `canGo` ora distingue tra validità della formazione (7 posizioni coperte da convocati) e numero minimo di convocati
+  - Aggiunto messaggio "⚠ Riassegna le posizioni vuote" se si rimuove un titolare
+  - `_resequenceShirts()`: dopo ogni rimozione, i numeri maglia vengono automaticamente riassegnati ai convocati che ne sono privi, evitando che il controllo `allHaveNum` fallisca
+
+---
+
+## [0.5.22-beta] — 2026-04-01
+
+### Corretto
+- **"Fine Periodo"**: riscritta `skipPeriod()` — invece di congelare il risultato, simula tutti gli eventi rimanenti del periodo (ogni ~7s di gioco simulato): gol, assist, espulsioni, drain stamina. Al termine triggera correttamente il cambio periodo (scatto animazione) o la fine partita. I log degli eventi simulati appaiono nel diario di gara.
+
+---
+
 ## [0.5.21-beta] — 2026-04-01
 
 ### Modificato — UI stile Brawl Stars
