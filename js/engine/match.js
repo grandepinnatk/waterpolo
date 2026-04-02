@@ -133,7 +133,7 @@ function createMatchState({ match, isHome, myTeam, oppTeam, myRoster, oppRoster,
     actions: [],
     myRoster, oppRoster,
     subs: 0, subOut: null, subIn: null,
-    lastActionTime: 0, nextActionIn: rnd(4, 9),
+    lastActionTime: 0, nextActionIn: rnd(7, 14),
     poType: null, poMatch: null,
     shirtNumbers: shirtNumbers || {},
     tempExp,
@@ -307,7 +307,7 @@ function generateMatchEvent(ms) {
     // ── Finalizzazione: tecnica influenza la prob gol ──
     // Bonus tecnica: da -0.04 (tec=0) a +0.04 (tec=100), centrato su tec=50
     const tecBonus  = (tec - 50) / 100 * 0.08;
-    const goalProb  = 0.38 + ((myEffective - oppStr) / 250) + tecBonus;
+    const goalProb  = 0.18 + ((myEffective - oppStr) / 500) + tecBonus * 0.5;
 
     if (Math.random() < goalProb) {
       ms.myScore++;
@@ -351,7 +351,7 @@ function generateMatchEvent(ms) {
   // ── ATTACCO AVVERSARIO ───────────────────
   if (r > 1 - (1 - myCh) * 0.35) {
     ms.oppShots++;
-    const goalProb = 0.38 + ((oppStr - myEffective) / 250);
+    const goalProb = 0.18 + ((oppStr - myEffective) / 500);
     if (Math.random() < goalProb) {
       ms.oppScore++;
       // Aggiorna parziale del periodo corrente

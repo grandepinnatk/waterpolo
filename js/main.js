@@ -105,6 +105,9 @@ function simNextRound() {
   const r = nextMyRound();
   if (!r) { G.msgs.push('Nessuna giornata rimanente.'); renderDash(); return; }
 
+  // Salva posizione attuale PRIMA di aggiornare la classifica
+  G.prevPos = getTeamPosition(G.stand, G.myId);
+
   // Simula TUTTE le partite della giornata, inclusa quella della mia squadra
   const roundMatches = G.schedule.filter(m => m.round === r && !m.played);
   roundMatches.forEach(m => {

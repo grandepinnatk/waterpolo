@@ -75,6 +75,7 @@ function _buildPayload(G) {
     transferList:  G.transferList  || [],
     marketPool:    G.marketPool    || [],
     ledger:        G.ledger        || [],
+    prevPos:       G.prevPos       || null,
   };
 }
 
@@ -219,6 +220,7 @@ function applyLoadedSave(payload) {
     transferList:  payload.transferList  || [],
     marketPool:    payload.marketPool    || [],
     ledger:        payload.ledger        || [],
+    prevPos:       payload.prevPos       || null,
     _currentSlot:  null,
     tactic:        'balanced',
   };

@@ -237,7 +237,13 @@ function renderDash() {
   const nextOpp = nm ? G.teams.find(t => t.id === (nm.home === G.myId ? nm.away : nm.home)) : null;
 
   let h = `<div class="g4" style="margin-bottom:12px">
-    <div class="sc"><div class="sc-l">Posizione</div><div class="sc-n">${pos}°</div></div>
+    <div class="sc"><div class="sc-l">Posizione</div><div class="sc-n" style="display:flex;align-items:center;justify-content:center;gap:6px">${pos}°${(function(){
+      const played = G.schedule ? G.schedule.filter(m => m.played && (m.home === G.myId || m.away === G.myId)).length : 0;
+      if (played <= 1) return ''; // nessuna variazione alla prima giornata
+      if (!G.prevPos || G.prevPos === pos) return '<span style="color:#f0a030;font-size:14px;line-height:1" title="Stabile">—</span>';
+      if (pos < G.prevPos) return '<span style="color:#2ecc71;font-size:16px;line-height:1" title="Salito di ' + (G.prevPos - pos) + ' posizioni">▲</span>';
+      return '<span style="color:#e74c3c;font-size:16px;line-height:1" title="Sceso di ' + (pos - G.prevPos) + ' posizioni">▼</span>';
+    })()}</div></div>
     <div class="sc"><div class="sc-l">Punti</div><div class="sc-n">${ms.pts}</div></div>
     <div class="sc"><div class="sc-l">V / P / S</div><div class="sc-n" style="font-size:15px">${ms.w}/${ms.d}/${ms.l}</div></div>
     <div class="sc"><div class="sc-l">Budget</div><div class="sc-n" style="font-size:13px">${formatMoney(G.budget)}</div></div>

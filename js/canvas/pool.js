@@ -15,6 +15,13 @@ const PLAY = {
   oppGoalY0: 0.38,  oppGoalY1: 0.62,
   myGKminX:  0.07,  myGKmaxX:  0.12,
   oppGKminX: 0.88,  oppGKmaxX: 0.93,
+  // Area rete (rettangolo DIETRO il portiere, dove entra la palla per essere goal)
+  // Porta nostra (sinistra): la rete è a x < myGoalX
+  myNetX0:   0.02,  myNetX1:   0.09,
+  myNetY0:   0.38,  myNetY1:   0.62,
+  // Porta avversario (destra): la rete è a x > oppGoalX
+  oppNetX0:  0.91,  oppNetX1:  0.98,
+  oppNetY0:  0.38,  oppNetY1:  0.62,
 };
 
 // ── Posizioni kickoff: schierate sui bordi ────
@@ -131,6 +138,7 @@ var _attack     = 'my';
 var _sprintT    = 0;
 var _microT     = 0;
 var _goalAnim   = null;
+var _pendingGoal = null; // { scorer, team } — aspetta che la palla entri in rete
 var _prevSpeed  = 10;        // velocità prima dello sprint
 var _sprintDone = false;
 
@@ -313,10 +321,19 @@ function poolBeginSprint(prevSpeed) {
   if (opp3) { opp3.tx = PLAY.cx + 0.02; opp3.ty = PLAY.cy; }
 }
 
-function poolGetPhase() { return _phase; }
+function poolGetPhase()  { return _phase; }
+function poolGetTokens() { return _tokens; }  // per MovementController
 
-// ── Goal ──────────────────────────────────────
+// ── Tiro: anima la palla verso la porta, goal dichiarato solo all'ingresso ──
+function poolShootAndScore(targetX, targetY, scorer, team) {
+  _ball.tx = _clamp(targetX, PLAY.x0, PLAY.x1);
+  _ball.ty = _clamp(targetY, PLAY.y0, PLAY.y1);
+  _pendingGoal = { scorer: scorer || '', team: team || 'my' };
+}
+
+// ── Goal: dichiarato quando la palla è entrata in rete ────────────
 function poolShowGoal(scorer, team) {
+  _pendingGoal = null;
   _goalAnim = { timer: 0, total: 2.4, scorer: scorer || '', team: team || 'my' };
   _phase = 'goal';
   var mySubito = (team === 'opp');
@@ -389,6 +406,16 @@ function _microMovements(dt) {
 // ── Step animazione ───────────────────────────
 function poolAnimStep(dt) {
   var f = Math.min(dt, 0.1);
+
+  // ── Controlla se la palla è entrata nella rete (goal pendente) ──
+  if (_pendingGoal) {
+    var bx = _ball.x, by = _ball.y;
+    var inMyNet  = bx >= PLAY.myNetX0  && bx <= PLAY.myNetX1  && by >= PLAY.myNetY0  && by <= PLAY.myNetY1;
+    var inOppNet = bx >= PLAY.oppNetX0 && bx <= PLAY.oppNetX1 && by >= PLAY.oppNetY0 && by <= PLAY.oppNetY1;
+    if (inOppNet || inMyNet) {
+      poolShowGoal(_pendingGoal.scorer, _pendingGoal.team);
+    }
+  }
 
   if (_phase === 'idle') {
     // Fermi sui bordi — nessun aggiornamento

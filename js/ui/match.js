@@ -24,6 +24,7 @@ function startLiveMatch(match, isHome, opp, poType = null, poMatch = null) {
   G.ms.speed   = 10;
 
   poolInitTokens(G.ms);
+  if (typeof MovementController !== 'undefined') MovementController.init(G.ms);
   if (typeof poolSetSpeeds === 'function') poolSetSpeeds(G.ms);
 
   const homeTeam = isHome ? G.myTeam : opp;
@@ -68,10 +69,12 @@ function _animLoop(timestamp) {
       document.getElementById('btn-play').textContent = '▶ Avvia';
       _lastFrameT = null;
       _appendLog('⏸ Fine ' + (G.ms.period - 1) + '° Tempo — Partita in pausa. Puoi effettuare sostituzioni.', 'sv');
+      if (typeof MovementController !== 'undefined') MovementController.onPeriodStart();
     }
     if (matchEnded) {
       document.getElementById('btn-end').style.display  = '';
       document.getElementById('btn-play').style.display = 'none';
+      if (typeof MovementController !== 'undefined') MovementController.stop();
     }
 
     // Accumula tempo di gioco verso il prossimo evento
@@ -80,18 +83,23 @@ function _animLoop(timestamp) {
       // A velocità alta possono scattare più eventi per frame
       while (G.ms.lastActionTime >= G.ms.nextActionIn && !G.ms.finished) {
         G.ms.lastActionTime -= G.ms.nextActionIn;
-        G.ms.nextActionIn    = rnd(4, 11);
+        G.ms.nextActionIn    = rnd(7, 14);
         const event = generateMatchEvent(G.ms);
         if (event) {
           _appendLog(event.txt, event.cls);
-          if (event.ballTarget) poolMoveBall(event.ballTarget.x, event.ballTarget.y);
+          if (event.goalScored && typeof poolShootAndScore === 'function') {
+            const bt = event.ballTarget || { x: 0.5, y: 0.5 };
+            poolShootAndScore(bt.x, bt.y, event.goalScorer || '', event.goalTeam || 'my');
+            if (typeof MovementController !== 'undefined') MovementController.onPossessChange(event.goalTeam === 'my' ? 'opp' : 'my');
+          } else if (event.ballTarget) {
+            poolMoveBall(event.ballTarget.x, event.ballTarget.y);
+            if (event.cls === 'myg' || event.cls === 'og') {
+              if (typeof MovementController !== 'undefined') MovementController.onPossessChange(event.cls === 'myg' ? 'opp' : 'my');
+            }
+          }
           if (event.moverKey) {
             poolMoveToken(event.moverKey, event.moverTarget?.x || 0.5, event.moverTarget?.y || 0.5);
             poolResetToken(event.moverKey);
-          }
-          // Animazione GOAL con rimessa al centro
-          if (event.goalScored && typeof poolShowGoal === 'function') {
-            poolShowGoal(event.goalScorer || '', event.goalTeam || 'my');
           }
           if (event.expelled !== undefined) _handleExpulsion(event.expelled, event.moverKey);
           poolSyncTokens(G.ms);
@@ -102,6 +110,7 @@ function _animLoop(timestamp) {
     }
 
     poolAnimStep(rawDt); // l'animazione visiva resta fluida indipendentemente da speed
+    if (typeof MovementController !== 'undefined') MovementController.update(rawDt * (G.ms.speed || 1));
 
     // ── Sostituzione obbligatoria: giocatori a stamina 0 ──
     _checkExhaustedPlayers();
@@ -893,6 +902,8 @@ function _doEndMatch() {
     G.ms = null;
     showScreen('sc-game'); updateHeader(); showTab('playoff');
   } else {
+    // Salva posizione PRIMA di aggiornare la classifica
+    G.prevPos = getTeamPosition(G.stand, G.myId);
     ms.match.score  = score; ms.match.played = true;
     updateStandings(G.stand, ms.match.home, ms.match.away, score);
 

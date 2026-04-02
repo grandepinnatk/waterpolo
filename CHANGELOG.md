@@ -6,6 +6,71 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.36-beta] — 2026-04-02
+
+### Corretto — Score realistici
+- **Probabilità gol**: abbassata da 0.38 a 0.18 base (range effettivo ~0.14-0.22 in base alla forza relativa) — allineata ai risultati delle simulazioni (~7-9 gol per squadra)
+- **Frequenza eventi**: intervallo tra azioni aumentato da `rnd(4,9)` a `rnd(7,14)` secondi — meno azioni totali per tempo, più realistici
+
+### Aggiunto
+- **`js/canvas/movement.js`**: nuovo componente `MovementController` (pattern module) che gestisce in modo autonomo micro-movimenti e riposizionamento tattico dei segnalini separato dalla logica di rendering di `pool.js`
+  - `init(ms)`, `update(dt)`, `stop()`, `onPossessChange(team)`, `onPeriodStart()`
+  - Integrato nel loop di partita: si avvia con `poolInitTokens`, si aggiorna ogni frame, si ferma a fine partita
+
+---
+
+## [0.5.35-beta] — 2026-04-02
+
+### Modificato
+- **Top bar**: rimossi giornata e budget dal box in alto a sinistra — rimane solo il nome della squadra
+
+---
+
+## [0.5.34-beta] — 2026-04-02
+
+### Aggiunto
+- **Indicatore trend posizione** nel box "Posizione" della dashboard:
+  - ▲ verde — la posizione è salita rispetto alla giornata precedente
+  - ▼ rosso — la posizione è scesa
+  - — arancio — posizione stabile (o prima giornata)
+- `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.36-beta] — 2026-04-02
+
+### Corretto — Score realistici
+- **Probabilità gol**: abbassata da 0.38 a 0.18 base (range effettivo ~0.14-0.22 in base alla forza relativa) — allineata ai risultati delle simulazioni (~7-9 gol per squadra)
+- **Frequenza eventi**: intervallo tra azioni aumentato da `rnd(4,9)` a `rnd(7,14)` secondi — meno azioni totali per tempo, più realistici
+
+### Aggiunto
+- **`js/canvas/movement.js`**: nuovo componente `MovementController` (pattern module) che gestisce in modo autonomo micro-movimenti e riposizionamento tattico dei segnalini separato dalla logica di rendering di `pool.js`
+  - `init(ms)`, `update(dt)`, `stop()`, `onPossessChange(team)`, `onPeriodStart()`
+  - Integrato nel loop di partita: si avvia con `poolInitTokens`, si aggiorna ogni frame, si ferma a fine partita
+
+---
+
+## [0.5.35-beta] — 2026-04-02
+
+### Modificato
+- **Top bar**: rimossi giornata e budget dal box in alto a sinistra — rimane solo il nome della squadra
+
+---
+
+## [0.5.34-beta] — 2026-04-02
+
+### Corretto
+- **Dashboard**: l'indicatore di variazione posizione (▲▼—) non viene mostrato fino a quando non è stata giocata almeno una partita (prima giornata)
+
+---
+
+## [0.5.33-beta] — 2026-04-02
+
+### Corretto
+- **Sidebar**: rimosso lo scroll verticale (`overflow-y: hidden`) — solo il frame centrale scorre, la colonna di navigazione rimane fissa
+
+---
+
 ## [0.5.32-beta] — 2026-04-02
 
 ### Corretto
@@ -70,6 +135,71 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 #### Sprint
 - Durante lo sprint, i pos 3 si interpolano più velocemente (3.5x) rispetto agli altri giocatori (2.4x), simulando lo scatto
+
+---
+
+## [0.5.36-beta] — 2026-04-02
+
+### Corretto — Score realistici
+- **Probabilità gol**: abbassata da 0.38 a 0.18 base (range effettivo ~0.14-0.22 in base alla forza relativa) — allineata ai risultati delle simulazioni (~7-9 gol per squadra)
+- **Frequenza eventi**: intervallo tra azioni aumentato da `rnd(4,9)` a `rnd(7,14)` secondi — meno azioni totali per tempo, più realistici
+
+### Aggiunto
+- **`js/canvas/movement.js`**: nuovo componente `MovementController` (pattern module) che gestisce in modo autonomo micro-movimenti e riposizionamento tattico dei segnalini separato dalla logica di rendering di `pool.js`
+  - `init(ms)`, `update(dt)`, `stop()`, `onPossessChange(team)`, `onPeriodStart()`
+  - Integrato nel loop di partita: si avvia con `poolInitTokens`, si aggiorna ogni frame, si ferma a fine partita
+
+---
+
+## [0.5.35-beta] — 2026-04-02
+
+### Modificato
+- **Top bar**: rimossi giornata e budget dal box in alto a sinistra — rimane solo il nome della squadra
+
+---
+
+## [0.5.34-beta] — 2026-04-02
+
+### Aggiunto
+- **Indicatore trend posizione** nel box "Posizione" della dashboard:
+  - ▲ verde — la posizione è salita rispetto alla giornata precedente
+  - ▼ rosso — la posizione è scesa
+  - — arancio — posizione stabile (o prima giornata)
+- `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.36-beta] — 2026-04-02
+
+### Corretto — Score realistici
+- **Probabilità gol**: abbassata da 0.38 a 0.18 base (range effettivo ~0.14-0.22 in base alla forza relativa) — allineata ai risultati delle simulazioni (~7-9 gol per squadra)
+- **Frequenza eventi**: intervallo tra azioni aumentato da `rnd(4,9)` a `rnd(7,14)` secondi — meno azioni totali per tempo, più realistici
+
+### Aggiunto
+- **`js/canvas/movement.js`**: nuovo componente `MovementController` (pattern module) che gestisce in modo autonomo micro-movimenti e riposizionamento tattico dei segnalini separato dalla logica di rendering di `pool.js`
+  - `init(ms)`, `update(dt)`, `stop()`, `onPossessChange(team)`, `onPeriodStart()`
+  - Integrato nel loop di partita: si avvia con `poolInitTokens`, si aggiorna ogni frame, si ferma a fine partita
+
+---
+
+## [0.5.35-beta] — 2026-04-02
+
+### Modificato
+- **Top bar**: rimossi giornata e budget dal box in alto a sinistra — rimane solo il nome della squadra
+
+---
+
+## [0.5.34-beta] — 2026-04-02
+
+### Corretto
+- **Dashboard**: l'indicatore di variazione posizione (▲▼—) non viene mostrato fino a quando non è stata giocata almeno una partita (prima giornata)
+
+---
+
+## [0.5.33-beta] — 2026-04-02
+
+### Corretto
+- **Sidebar**: rimosso lo scroll verticale (`overflow-y: hidden`) — solo il frame centrale scorre, la colonna di navigazione rimane fissa
 
 ---
 
@@ -143,6 +273,71 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - Gol nostro: `ballTarget.x = 0.96` (destra), Y casuale nello specchio [0.40, 0.60]
 - Gol avversario: `ballTarget.x = 0.04` (sinistra), idem
 - Tiri parati: palla rimane all'esterno della porta (x≈0.78 / 0.22)
+
+---
+
+## [0.5.36-beta] — 2026-04-02
+
+### Corretto — Score realistici
+- **Probabilità gol**: abbassata da 0.38 a 0.18 base (range effettivo ~0.14-0.22 in base alla forza relativa) — allineata ai risultati delle simulazioni (~7-9 gol per squadra)
+- **Frequenza eventi**: intervallo tra azioni aumentato da `rnd(4,9)` a `rnd(7,14)` secondi — meno azioni totali per tempo, più realistici
+
+### Aggiunto
+- **`js/canvas/movement.js`**: nuovo componente `MovementController` (pattern module) che gestisce in modo autonomo micro-movimenti e riposizionamento tattico dei segnalini separato dalla logica di rendering di `pool.js`
+  - `init(ms)`, `update(dt)`, `stop()`, `onPossessChange(team)`, `onPeriodStart()`
+  - Integrato nel loop di partita: si avvia con `poolInitTokens`, si aggiorna ogni frame, si ferma a fine partita
+
+---
+
+## [0.5.35-beta] — 2026-04-02
+
+### Modificato
+- **Top bar**: rimossi giornata e budget dal box in alto a sinistra — rimane solo il nome della squadra
+
+---
+
+## [0.5.34-beta] — 2026-04-02
+
+### Aggiunto
+- **Indicatore trend posizione** nel box "Posizione" della dashboard:
+  - ▲ verde — la posizione è salita rispetto alla giornata precedente
+  - ▼ rosso — la posizione è scesa
+  - — arancio — posizione stabile (o prima giornata)
+- `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.36-beta] — 2026-04-02
+
+### Corretto — Score realistici
+- **Probabilità gol**: abbassata da 0.38 a 0.18 base (range effettivo ~0.14-0.22 in base alla forza relativa) — allineata ai risultati delle simulazioni (~7-9 gol per squadra)
+- **Frequenza eventi**: intervallo tra azioni aumentato da `rnd(4,9)` a `rnd(7,14)` secondi — meno azioni totali per tempo, più realistici
+
+### Aggiunto
+- **`js/canvas/movement.js`**: nuovo componente `MovementController` (pattern module) che gestisce in modo autonomo micro-movimenti e riposizionamento tattico dei segnalini separato dalla logica di rendering di `pool.js`
+  - `init(ms)`, `update(dt)`, `stop()`, `onPossessChange(team)`, `onPeriodStart()`
+  - Integrato nel loop di partita: si avvia con `poolInitTokens`, si aggiorna ogni frame, si ferma a fine partita
+
+---
+
+## [0.5.35-beta] — 2026-04-02
+
+### Modificato
+- **Top bar**: rimossi giornata e budget dal box in alto a sinistra — rimane solo il nome della squadra
+
+---
+
+## [0.5.34-beta] — 2026-04-02
+
+### Corretto
+- **Dashboard**: l'indicatore di variazione posizione (▲▼—) non viene mostrato fino a quando non è stata giocata almeno una partita (prima giornata)
+
+---
+
+## [0.5.33-beta] — 2026-04-02
+
+### Corretto
+- **Sidebar**: rimosso lo scroll verticale (`overflow-y: hidden`) — solo il frame centrale scorre, la colonna di navigazione rimane fissa
 
 ---
 

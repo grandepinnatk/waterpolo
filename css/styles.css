@@ -581,7 +581,7 @@ tr:last-child td { border-bottom: none; }
   min-width:      172px;
   background:     linear-gradient(180deg, #091525 0%, #0d1f3c 100%);
   border-right:   3px solid #1a3a6a;
-  overflow-y:     auto;
+  overflow-y:     hidden;
   overflow-x:     hidden;
   box-shadow:     3px 0 16px rgba(0,0,0,.5);
 }
