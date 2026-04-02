@@ -6,6 +6,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.32-beta] — 2026-04-02
+
+### Corretto
+- **Popup logout non appariva**: riscritto `wpLogout()` come funzione sincrona semplice (era `async`) con due funzioni ausiliarie `_showLogoutStep1()` e `_showLogoutStep2()` — usa `addEventListener` invece di `onclick` inline per evitare problemi di scope, e `z-index:99999` per sovrascrivere qualsiasi overlay esistente
+
+---
+
 ## [0.5.31-beta] — 2026-04-02
 
 ### Modificato
@@ -63,6 +70,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 #### Sprint
 - Durante lo sprint, i pos 3 si interpolano più velocemente (3.5x) rispetto agli altri giocatori (2.4x), simulando lo scatto
+
+---
+
+## [0.5.32-beta] — 2026-04-02
+
+### Corretto
+- **Popup logout non appariva**: riscritto `wpLogout()` come funzione sincrona semplice (era `async`) con due funzioni ausiliarie `_showLogoutStep1()` e `_showLogoutStep2()` — usa `addEventListener` invece di `onclick` inline per evitare problemi di scope, e `z-index:99999` per sovrascrivere qualsiasi overlay esistente
 
 ---
 
@@ -129,6 +143,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - Gol nostro: `ballTarget.x = 0.96` (destra), Y casuale nello specchio [0.40, 0.60]
 - Gol avversario: `ballTarget.x = 0.04` (sinistra), idem
 - Tiri parati: palla rimane all'esterno della porta (x≈0.78 / 0.22)
+
+---
+
+## [0.5.32-beta] — 2026-04-02
+
+### Corretto
+- **Popup logout non appariva**: riscritto `wpLogout()` come funzione sincrona semplice (era `async`) con due funzioni ausiliarie `_showLogoutStep1()` e `_showLogoutStep2()` — usa `addEventListener` invece di `onclick` inline per evitare problemi di scope, e `z-index:99999` per sovrascrivere qualsiasi overlay esistente
 
 ---
 
