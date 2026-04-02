@@ -47,7 +47,8 @@ function updateHeader() {
     playout: 'PLAY-OUT',
     done:    'Fine Stagione',
   }[G.phase] || G.phase;
-  document.getElementById('hdr-info').textContent = phaseLabel + ' · ' + formatMoney(G.budget);
+  const infoEl = document.getElementById('hdr-info');
+  if (infoEl) infoEl.textContent = phaseLabel + ' · ' + formatMoney(G.budget);
 }
 
 // ── Mostra/nasconde le schermate principali ───

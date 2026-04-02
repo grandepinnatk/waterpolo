@@ -6,6 +6,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.39-beta] — 2026-04-02
+
+### Corretto
+- **TypeError `hdr-info` null**: `updateHeader()` crashava perché cercava `#hdr-info` rimosso in v0.5.35. Aggiunto controllo null prima dell'accesso.
+
+---
+
 ## [0.5.38-beta] — 2026-04-02
 
 ### Corretto
@@ -49,6 +56,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ▼ rosso — la posizione è scesa
   - — arancio — posizione stabile (o prima giornata)
 - `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.39-beta] — 2026-04-02
+
+### Corretto
+- **TypeError `hdr-info` null**: `updateHeader()` crashava perché cercava `#hdr-info` rimosso in v0.5.35. Aggiunto controllo null prima dell'accesso.
 
 ---
 
@@ -168,6 +182,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.39-beta] — 2026-04-02
+
+### Corretto
+- **TypeError `hdr-info` null**: `updateHeader()` crashava perché cercava `#hdr-info` rimosso in v0.5.35. Aggiunto controllo null prima dell'accesso.
+
+---
+
 ## [0.5.38-beta] — 2026-04-02
 
 ### Corretto
@@ -211,6 +232,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ▼ rosso — la posizione è scesa
   - — arancio — posizione stabile (o prima giornata)
 - `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.39-beta] — 2026-04-02
+
+### Corretto
+- **TypeError `hdr-info` null**: `updateHeader()` crashava perché cercava `#hdr-info` rimosso in v0.5.35. Aggiunto controllo null prima dell'accesso.
 
 ---
 
@@ -336,6 +364,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.39-beta] — 2026-04-02
+
+### Corretto
+- **TypeError `hdr-info` null**: `updateHeader()` crashava perché cercava `#hdr-info` rimosso in v0.5.35. Aggiunto controllo null prima dell'accesso.
+
+---
+
 ## [0.5.38-beta] — 2026-04-02
 
 ### Corretto
@@ -379,6 +414,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ▼ rosso — la posizione è scesa
   - — arancio — posizione stabile (o prima giornata)
 - `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.39-beta] — 2026-04-02
+
+### Corretto
+- **TypeError `hdr-info` null**: `updateHeader()` crashava perché cercava `#hdr-info` rimosso in v0.5.35. Aggiunto controllo null prima dell'accesso.
 
 ---
 
