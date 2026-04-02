@@ -132,7 +132,8 @@ function loadSlot(slotIndex) {
   G._currentSlot = slotIndex;
   showScreen('sc-game');
   updateHeader();
-  showTab('dash');
+  // requestAnimationFrame garantisce che sc-game sia visibile prima del render
+  requestAnimationFrame(function() { showTab('dash'); });
 }
 
 // Avvia nuova carriera in uno slot specifico
@@ -232,7 +233,7 @@ function _doStartNewGame(slotIndex) {
 
   showScreen('sc-game');
   updateHeader();
-  showTab('dash');
+  requestAnimationFrame(function() { showTab('dash'); });
 }
 
 // Pulsante "Nuova Carriera" dalla welcome (sceglie primo slot libero)

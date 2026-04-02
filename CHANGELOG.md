@@ -6,6 +6,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.38-beta] — 2026-04-02
+
+### Corretto
+- **Dashboard vuota al caricamento**: `showTab('dash')` ora viene eseguito dentro `requestAnimationFrame()` — garantisce che `sc-game` sia già visibile nel DOM prima che `renderDash` scriva il contenuto
+
+---
+
 ## [0.5.37-beta] — 2026-04-02
 
 ### Corretto
@@ -42,6 +49,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ▼ rosso — la posizione è scesa
   - — arancio — posizione stabile (o prima giornata)
 - `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.38-beta] — 2026-04-02
+
+### Corretto
+- **Dashboard vuota al caricamento**: `showTab('dash')` ora viene eseguito dentro `requestAnimationFrame()` — garantisce che `sc-game` sia già visibile nel DOM prima che `renderDash` scriva il contenuto
 
 ---
 
@@ -154,6 +168,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.38-beta] — 2026-04-02
+
+### Corretto
+- **Dashboard vuota al caricamento**: `showTab('dash')` ora viene eseguito dentro `requestAnimationFrame()` — garantisce che `sc-game` sia già visibile nel DOM prima che `renderDash` scriva il contenuto
+
+---
+
 ## [0.5.37-beta] — 2026-04-02
 
 ### Corretto
@@ -190,6 +211,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ▼ rosso — la posizione è scesa
   - — arancio — posizione stabile (o prima giornata)
 - `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.38-beta] — 2026-04-02
+
+### Corretto
+- **Dashboard vuota al caricamento**: `showTab('dash')` ora viene eseguito dentro `requestAnimationFrame()` — garantisce che `sc-game` sia già visibile nel DOM prima che `renderDash` scriva il contenuto
 
 ---
 
@@ -308,6 +336,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.38-beta] — 2026-04-02
+
+### Corretto
+- **Dashboard vuota al caricamento**: `showTab('dash')` ora viene eseguito dentro `requestAnimationFrame()` — garantisce che `sc-game` sia già visibile nel DOM prima che `renderDash` scriva il contenuto
+
+---
+
 ## [0.5.37-beta] — 2026-04-02
 
 ### Corretto
@@ -344,6 +379,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ▼ rosso — la posizione è scesa
   - — arancio — posizione stabile (o prima giornata)
 - `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.38-beta] — 2026-04-02
+
+### Corretto
+- **Dashboard vuota al caricamento**: `showTab('dash')` ora viene eseguito dentro `requestAnimationFrame()` — garantisce che `sc-game` sia già visibile nel DOM prima che `renderDash` scriva il contenuto
 
 ---
 
