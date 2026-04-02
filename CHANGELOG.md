@@ -6,6 +6,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.37-beta] — 2026-04-02
+
+### Corretto
+- **Homepage**: dopo la selezione della carriera la Dashboard è sempre il tab mostrato per default (`showTab('dash')` già presente, ora correttamente eseguito con `credits` aggiunto a `TAB_IDS`)
+- **Sidebar fissa**: rimossa la dipendenza da `calc(100vh - 62px)` — `#sc-game` è ora un flex container colonna a tutta altezza, `.bs-layout` occupa il resto con `flex:1`, la sidebar ha `align-self:stretch` e `overflow:hidden` garantendo che non scorra mai sotto la topbar
+
+---
+
 ## [0.5.36-beta] — 2026-04-02
 
 ### Corretto — Score realistici
@@ -34,6 +42,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ▼ rosso — la posizione è scesa
   - — arancio — posizione stabile (o prima giornata)
 - `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.37-beta] — 2026-04-02
+
+### Corretto
+- **Homepage**: dopo la selezione della carriera la Dashboard è sempre il tab mostrato per default (`showTab('dash')` già presente, ora correttamente eseguito con `credits` aggiunto a `TAB_IDS`)
+- **Sidebar fissa**: rimossa la dipendenza da `calc(100vh - 62px)` — `#sc-game` è ora un flex container colonna a tutta altezza, `.bs-layout` occupa il resto con `flex:1`, la sidebar ha `align-self:stretch` e `overflow:hidden` garantendo che non scorra mai sotto la topbar
 
 ---
 
@@ -138,6 +154,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.37-beta] — 2026-04-02
+
+### Corretto
+- **Homepage**: dopo la selezione della carriera la Dashboard è sempre il tab mostrato per default (`showTab('dash')` già presente, ora correttamente eseguito con `credits` aggiunto a `TAB_IDS`)
+- **Sidebar fissa**: rimossa la dipendenza da `calc(100vh - 62px)` — `#sc-game` è ora un flex container colonna a tutta altezza, `.bs-layout` occupa il resto con `flex:1`, la sidebar ha `align-self:stretch` e `overflow:hidden` garantendo che non scorra mai sotto la topbar
+
+---
+
 ## [0.5.36-beta] — 2026-04-02
 
 ### Corretto — Score realistici
@@ -166,6 +190,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ▼ rosso — la posizione è scesa
   - — arancio — posizione stabile (o prima giornata)
 - `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.37-beta] — 2026-04-02
+
+### Corretto
+- **Homepage**: dopo la selezione della carriera la Dashboard è sempre il tab mostrato per default (`showTab('dash')` già presente, ora correttamente eseguito con `credits` aggiunto a `TAB_IDS`)
+- **Sidebar fissa**: rimossa la dipendenza da `calc(100vh - 62px)` — `#sc-game` è ora un flex container colonna a tutta altezza, `.bs-layout` occupa il resto con `flex:1`, la sidebar ha `align-self:stretch` e `overflow:hidden` garantendo che non scorra mai sotto la topbar
 
 ---
 
@@ -276,6 +308,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.37-beta] — 2026-04-02
+
+### Corretto
+- **Homepage**: dopo la selezione della carriera la Dashboard è sempre il tab mostrato per default (`showTab('dash')` già presente, ora correttamente eseguito con `credits` aggiunto a `TAB_IDS`)
+- **Sidebar fissa**: rimossa la dipendenza da `calc(100vh - 62px)` — `#sc-game` è ora un flex container colonna a tutta altezza, `.bs-layout` occupa il resto con `flex:1`, la sidebar ha `align-self:stretch` e `overflow:hidden` garantendo che non scorra mai sotto la topbar
+
+---
+
 ## [0.5.36-beta] — 2026-04-02
 
 ### Corretto — Score realistici
@@ -304,6 +344,14 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ▼ rosso — la posizione è scesa
   - — arancio — posizione stabile (o prima giornata)
 - `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.37-beta] — 2026-04-02
+
+### Corretto
+- **Homepage**: dopo la selezione della carriera la Dashboard è sempre il tab mostrato per default (`showTab('dash')` già presente, ora correttamente eseguito con `credits` aggiunto a `TAB_IDS`)
+- **Sidebar fissa**: rimossa la dipendenza da `calc(100vh - 62px)` — `#sc-game` è ora un flex container colonna a tutta altezza, `.bs-layout` occupa il resto con `flex:1`, la sidebar ha `align-self:stretch` e `overflow:hidden` garantendo che non scorra mai sotto la topbar
 
 ---
 

@@ -565,10 +565,19 @@ tr:last-child td { border-bottom: none; }
 .bs-box-menu  { min-width: 42px; }
 
 /* ── Layout sidebar + content ─────────────────── */
+/* sc-game occupa tutta la viewport come flex column */
+#sc-game {
+  display:        flex;
+  flex-direction: column;
+  height:         100vh;
+  overflow:       hidden;
+}
+
 .bs-layout {
   display:  flex;
-  height:   calc(100vh - 62px); /* topbar ~62px */
+  flex:     1;          /* occupa tutto lo spazio sotto la topbar */
   overflow: hidden;
+  min-height: 0;        /* fondamentale per flex child scrollabile */
 }
 
 /* ── Sidebar ──────────────────────────────────── */
@@ -579,11 +588,13 @@ tr:last-child td { border-bottom: none; }
   padding:        10px 8px;
   width:          172px;
   min-width:      172px;
+  flex-shrink:    0;
   background:     linear-gradient(180deg, #091525 0%, #0d1f3c 100%);
   border-right:   3px solid #1a3a6a;
-  overflow-y:     hidden;
-  overflow-x:     hidden;
+  overflow:       hidden;       /* mai scrollabile */
   box-shadow:     3px 0 16px rgba(0,0,0,.5);
+  /* Altezza calcolata automaticamente dal flex layout */
+  align-self:     stretch;
 }
 
 .bs-nav-btn {

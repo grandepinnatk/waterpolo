@@ -3,7 +3,7 @@
 // Navigazione tra i tab del gioco principale
 // ─────────────────────────────────────────────
 
-const TAB_IDS = ['dash','rosa','train','goals','stand','cal','playoff','market','finance'];
+const TAB_IDS = ['dash','rosa','train','goals','stand','cal','playoff','market','finance','credits'];
 
 // ── Mostra un tab e nasconde gli altri ────────
 function showTab(tab) {
@@ -54,7 +54,7 @@ function updateHeader() {
 // Ogni schermata ha il proprio display corretto (flex per quelle centrate)
 const SCREEN_DISPLAY = {
   'sc-welcome': 'flex',
-  'sc-game':    'block',
+  'sc-game':    'flex',   // flex column — necessario per il layout sidebar fisso
   'sc-lineup':  'block',
   'sc-match':   'block',
 };
