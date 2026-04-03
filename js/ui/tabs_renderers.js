@@ -309,25 +309,36 @@ function renderRosa() {
     <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Clicca su un giocatore per il dettaglio · Pulsante <strong>Vendi</strong> nel modale per metterlo sul mercato</div>
     <table><thead><tr>
       <th>Giocatore</th><th>Ruolo</th><th>Mano</th><th>Naz</th>
-      <th>Età</th><th>OVR</th><th>Morale</th><th>Forma</th><th>GOL</th><th>ASS</th><th>Valore</th>
+      <th>Età</th><th>OVR</th><th>Morale</th><th>Forma</th><th>GOL</th><th>ASS</th>
+      <th title="Ultimi 4 voti" style="color:var(--gold)">Voti</th>
+      <th>Valore</th>
     </tr></thead><tbody>`;
 
   roster.forEach((p, i) => {
     const c   = p.overall >= 80 ? 'var(--blue)' : p.overall >= 65 ? 'var(--green)' : 'var(--gold)';
     const mc  = p.morale > 70 ? 'var(--green)' : p.morale > 40 ? 'var(--gold)' : 'var(--red)';
     const onMarket = tlSet.has(i);
-    h += `<tr class="trhov" onclick="showPlayerModal(${i})" style="${onMarket ? 'background:rgba(240,192,64,.08)' : ''}">
-      <td style="font-weight:600">${p.name}${onMarket ? ' <span style="font-size:10px;color:var(--gold);font-weight:600">VENDITA</span>' : ''}</td>
-      <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span></td>
-      <td><span class="badge ${p.hand==='AMB'?'C':p.hand==='L'?'L':'R'}" title="${p.hand==='AMB'?'Ambidestro':p.hand==='L'?'Mancino':'Destro'}">${p.hand}</span></td>
-      <td style="color:var(--muted);font-size:12px">${p.nat}</td>
-      <td>${p.age}</td>
-      <td style="font-weight:700;color:${c}">${p.overall}</td>
-      <td><span style="font-size:12px;font-weight:600;color:${mc}">${p.morale}%</span></td>
-      <td><div class="prog-w" style="width:44px"><div class="prog-f" style="width:${p.fitness}%;background:${p.fitness>70?'var(--green)':'var(--gold)'}"></div></div></td>
-      <td>${p.goals}</td><td>${p.assists}</td>
-      <td style="font-size:12px;color:var(--muted)">${formatMoney(p.value)}</td>
-    </tr>`;
+    // Voti ultime 4 partite
+    const ratings = p.lastRatings || [];
+    const ratingsHtml = ratings.length === 0
+      ? '<span style="color:var(--muted);font-size:11px">—</span>'
+      : ratings.map(function(r) {
+          var col = r >= 7.5 ? 'var(--green)' : r >= 6.5 ? 'var(--gold)' : r >= 5.5 ? 'var(--muted)' : 'var(--red)';
+          return '<span style="font-size:11px;font-weight:700;color:' + col + ';margin-right:3px">' + r.toFixed(1) + '</span>';
+        }).join('<span style="color:var(--muted);font-size:9px">·</span>');
+    h += '<tr class="trhov" onclick="showPlayerModal(' + i + ')" style="' + (onMarket ? 'background:rgba(240,192,64,.08)' : '') + '">'
+      + '<td style="font-weight:600">' + p.name + (onMarket ? ' <span style="font-size:10px;color:var(--gold);font-weight:600">VENDITA</span>' : '') + '</td>'
+      + '<td><span class="badge ' + (p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C') + '">' + p.role + '</span></td>'
+      + '<td><span class="badge ' + (p.hand==='AMB'?'C':p.hand==='L'?'L':'R') + '" title="' + (p.hand==='AMB'?'Ambidestro':p.hand==='L'?'Mancino':'Destro') + '">' + p.hand + '</span></td>'
+      + '<td style="color:var(--muted);font-size:12px">' + p.nat + '</td>'
+      + '<td>' + p.age + '</td>'
+      + '<td style="font-weight:700;color:' + c + '">' + p.overall + '</td>'
+      + '<td><span style="font-size:12px;font-weight:600;color:' + mc + '">' + p.morale + '%</span></td>'
+      + '<td><div class="prog-w" style="width:44px"><div class="prog-f" style="width:' + p.fitness + '%;background:' + (p.fitness>70?'var(--green)':'var(--gold)') + '"></div></div></td>'
+      + '<td>' + p.goals + '</td><td>' + p.assists + '</td>'
+      + '<td style="white-space:nowrap">' + ratingsHtml + '</td>'
+      + '<td style="font-size:12px;color:var(--muted)">' + formatMoney(p.value) + '</td>'
+      + '</tr>';
   });
 
   h += `</tbody></table></div>`;
@@ -354,13 +365,13 @@ function showPlayerModal(i) {
       <div class="irow"><span class="ilbl">Potenziale</span><span>${p.potential}</span></div>
       <div class="irow"><span class="ilbl">Valore</span>    <span>${formatMoney(p.value)}</span></div>
       <div class="irow"><span class="ilbl">Stipendio</span> <span>${formatMoney(p.salary)}/anno</span></div>
-      <div class="irow"><span class="ilbl">Fitness</span>   <span style="color:${p.fitness > 70 ? 'var(--green)' : 'var(--gold)'}">${p.fitness}%</span></div>
+      <div class="irow"><span class="ilbl">Forma</span>   <span style="color:${p.fitness > 70 ? 'var(--green)' : 'var(--gold)'}">${p.fitness}%</span></div>
       <div class="irow"><span class="ilbl">Morale</span>    <span>${p.morale}%</span></div>
       <div class="irow"><span class="ilbl">Gol / Assist</span><span>${p.goals} / ${p.assists}</span></div>
       ${p.role === 'POR' ? `<div class="irow"><span class="ilbl">Parate</span><span>${p.saves}</span></div>` : ''}
       <div style="margin-top:10px">
         <div class="slbl" style="margin-top:0">Attributi</div>
-        ${[['att','ATT'],['def','DIF'],['spe','VEL'],['str','FOR'],['tec','TEC']].map(([a,lbl]) => `
+        ${[['att','ATT'],['def','DIF'],['spe','VEL'],['str','FOR'],['tec','TEC'],['res','RES']].map(([a,lbl]) => `
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
             <div style="font-size:12px;color:var(--muted);width:28px">${lbl}</div>
             <div style="flex:1;height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden">
@@ -402,13 +413,13 @@ function showMarketPlayerModal(i) {
       <div class="irow"><span class="ilbl">Potenziale</span> <span>${p.potential}</span></div>
       <div class="irow"><span class="ilbl">Valore</span>     <span>${formatMoney(p.value)}</span></div>
       <div class="irow"><span class="ilbl">Stipendio</span>  <span>${formatMoney(p.salary)}/anno</span></div>
-      <div class="irow"><span class="ilbl">Fitness</span>    <span style="color:${p.fitness > 70 ? 'var(--green)' : 'var(--gold)'}">${p.fitness}%</span></div>
+      <div class="irow"><span class="ilbl">Forma</span>    <span style="color:${p.fitness > 70 ? 'var(--green)' : 'var(--gold)'}">${p.fitness}%</span></div>
       <div class="irow"><span class="ilbl">Morale</span>     <span style="color:${mc}">${p.morale}%</span></div>
       <div class="irow"><span class="ilbl">Gol / Assist</span><span>${p.goals} / ${p.assists}</span></div>
       ${p.role === 'POR' ? `<div class="irow"><span class="ilbl">Parate</span><span>${p.saves}</span></div>` : ''}
       <div style="margin-top:10px">
         <div class="slbl" style="margin-top:0">Attributi</div>
-        ${[['att','ATT'],['def','DIF'],['spe','VEL'],['str','FOR'],['tec','TEC']].map(([a,lbl]) => `
+        ${[['att','ATT'],['def','DIF'],['spe','VEL'],['str','FOR'],['tec','TEC'],['res','RES']].map(([a,lbl]) => `
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
             <div style="font-size:12px;color:var(--muted);width:28px">${lbl}</div>
             <div style="flex:1;height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden">
@@ -486,32 +497,48 @@ function renderTrain() {
   const roster = G.rosters[G.myId];
   const avgFit = Math.round(roster.reduce((s, p) => s + p.fitness, 0) / roster.length);
   const avgOvr = Math.round(roster.reduce((s, p) => s + p.overall, 0) / roster.length);
+  const stars  = G.stars || 0;
 
-  let h = `<div class="g3" style="margin-bottom:12px">
+  let h = `<div class="g4" style="margin-bottom:12px">
     <div class="sc"><div class="sc-l">Sessioni</div><div class="sc-n">${G.trainWeeks}</div></div>
-    <div class="sc"><div class="sc-l">Fitness media</div><div class="sc-n">${avgFit}%</div></div>
-    <div class="sc"><div class="sc-l">OVR media rosa</div><div class="sc-n">${avgOvr}</div></div>
+    <div class="sc"><div class="sc-l">Forma media</div><div class="sc-n">${avgFit}%</div></div>
+    <div class="sc"><div class="sc-l">OVR media</div><div class="sc-n">${avgOvr}</div></div>
+    <div class="sc"><div class="sc-l">⭐ Stelle</div><div class="sc-n" style="color:var(--gold)">${stars}</div></div>
+  </div>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:10px">
+    Ogni giornata ricevi <strong>+4 stelle</strong>. Le stelle si spendono selezionando un tipo di allenamento.
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">`;
 
   TRAINING_TYPES.forEach((tr, i) => {
-    const ok  = G.budget >= tr.cost;
-    const sel = G._selTrain === i;
+    const starCost = tr.stars || 1;
+    const canAffordBudget = G.budget >= tr.cost;
+    const canAffordStars  = stars >= starCost;
+    const ok  = canAffordBudget && canAffordStars;
     h += `<div class="card" style="cursor:${ok ? 'pointer' : 'not-allowed'};opacity:${ok ? 1 : 0.5};
-               border:1px solid ${sel ? 'var(--gold)' : 'var(--border)'}"
-               onclick="${ok ? 'pickTrain(' + i + ')' : ''}">
+               border:1px solid var(--border);transition:border-color .15s"
+               onmouseover="if(${ok}) this.style.borderColor='var(--gold)'"
+               onmouseout="this.style.borderColor='var(--border)'"
+               onclick="${ok ? 'openTrainPopup(' + i + ')' : 'showTrainBlockedMsg(' + canAffordStars + ',' + canAffordBudget + ')'}">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-        <span style="font-size:18px">${tr.icon}</span>
+        <span style="font-size:20px">${tr.icon}</span>
         <div style="font-size:13px;font-weight:600">${tr.name}</div>
       </div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:6px">${tr.desc}</div>
-      <div style="font-size:12px;color:${tr.cost ? 'var(--gold)' : 'var(--green)'};font-weight:600">
-        ${tr.cost ? formatMoney(tr.cost) : 'Gratuito'}
+      <div style="font-size:11px;color:var(--muted);margin-bottom:8px">${tr.desc}</div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <span style="font-size:12px;color:var(--gold);font-weight:700">
+          ${'⭐'.repeat(starCost)} ${starCost} ${starCost===1?'stella':'stelle'}
+        </span>
+        <span style="font-size:12px;color:${tr.cost ? (canAffordBudget?'var(--muted)':'var(--red)') : 'var(--green)'}">
+          ${tr.cost ? formatMoney(tr.cost) : 'Gratuito'}
+        </span>
+        ${!canAffordStars ? '<span style="font-size:10px;color:var(--red)">Stelle insufficienti</span>' : ''}
+        ${!canAffordBudget ? '<span style="font-size:10px;color:var(--red)">Budget insufficiente</span>' : ''}
       </div>
     </div>`;
   });
 
-  h += `</div><div id="train-confirm"></div>`;
+  h += `</div>`;
 
   if (G.trainHistory && G.trainHistory.length) {
     h += `<div class="card">
@@ -526,22 +553,163 @@ function renderTrain() {
   document.getElementById('tab-train').innerHTML = h;
 }
 
-function pickTrain(i) {
-  G._selTrain = i;
-  const tr = TRAINING_TYPES[i];
-  document.getElementById('train-confirm').innerHTML = `
-    <div class="card" style="border:1px solid var(--gold)">
-      <div style="font-weight:600;color:var(--gold);margin-bottom:6px">${tr.icon} ${tr.name}</div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Costo: ${formatMoney(tr.cost)}</div>
-      <button class="btn success" onclick="doTrain(${i})">Conferma Sessione</button>
-      <button class="btn" onclick="G._selTrain=null;renderTrain()" style="margin-left:8px">Annulla</button>
+// Mostra messaggio bloccante se stelle o budget insufficienti
+function showTrainBlockedMsg(hasStars, hasBudget) {
+  var existing = document.getElementById('train-blocked-popup');
+  if (existing) existing.remove();
+
+  var msg, icon;
+  if (!hasStars) {
+    icon = '⭐';
+    msg  = 'Non hai abbastanza token <strong>⭐ Stella</strong> per completare l&#39;attività.<br><br>Attendi il prossimo turno per ricevere nuove stelle.';
+  } else {
+    icon = '💸';
+    msg  = 'Non hai il <strong>denaro sufficiente</strong> per completare questa attività.<br><br>Controlla il tuo budget nel tab Finanza.';
+  }
+
+  var ov = document.createElement('div');
+  ov.id = 'train-blocked-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;z-index:500;backdrop-filter:blur(6px)';
+
+  var box = document.createElement('div');
+  box.style.cssText = [
+    'background:linear-gradient(180deg,#1a1a2e,#0f0f1e)',
+    'border:2px solid #3a3060',
+    'border-radius:16px',
+    'padding:28px 24px',
+    'max-width:360px',
+    'width:90%',
+    'text-align:center',
+    'box-shadow:0 8px 40px rgba(0,0,0,.8)'
+  ].join(';');
+  box.innerHTML =
+    '<div style="font-size:44px;margin-bottom:12px">' + icon + '</div>' +
+    '<div style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:22px">' + msg + '</div>' +
+    '<button id="train-blocked-ok" style="padding:10px 32px;font-size:13px;font-weight:800;' +
+    'border-radius:8px;border:2px solid #00c2ff;background:linear-gradient(135deg,#0a5ca8,#0844a0);' +
+    'color:#fff;cursor:pointer">OK</button>';
+
+  ov.appendChild(box);
+  document.body.appendChild(ov);
+
+  document.getElementById('train-blocked-ok').addEventListener('click', function() {
+    document.getElementById('train-blocked-popup').remove();
+  });
+  ov.addEventListener('click', function(e) {
+    if (e.target === ov) ov.remove();
+  });
+}
+
+// Apre il popup di conferma allenamento con indicatori +/-
+function openTrainPopup(i) {
+  const tr     = TRAINING_TYPES[i];
+  const stars  = G.stars || 0;
+  const starCost = tr.stars || 1;
+
+  // Calcola effetti attesi (range min-max)
+  function effRow(label, minV, maxV, color) {
+    if (!maxV) return '';
+    const sign = minV >= 0 ? '+' : '';
+    return `<div style="display:flex;align-items:center;justify-content:space-between;
+                         padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06)">
+      <span style="font-size:12px;color:var(--muted)">${label}</span>
+      <span style="font-size:13px;font-weight:700;color:${color}">
+        ${sign}${minV === maxV ? minV : minV + '→' + sign + maxV}
+      </span>
     </div>`;
+  }
+
+  const eff = tr.eff;
+  const fatigueSign = (tr.fatigue || 0) > 0;
+  let effHTML = '';
+  if (eff.fitness)  effHTML += effRow('Forma',          1, eff.fitness,  'var(--green)');
+  if (eff.morale)   effHTML += effRow('Morale',           1, eff.morale,   'var(--green)');
+  if (eff.att)      effHTML += effRow('ATT (attacco)',     0, eff.att,      'var(--blue)');
+  if (eff.def)      effHTML += effRow('DIF (difesa)',      0, eff.def,      'var(--blue)');
+  if (eff.spe)      effHTML += effRow('VEL (velocità)',    0, eff.spe,      'var(--blue)');
+  if (eff.str)      effHTML += effRow('FOR (forza)',       0, eff.str,      'var(--blue)');
+  if (eff.tec)      effHTML += effRow('TEC (tecnica)',     0, eff.tec,      'var(--blue)');
+  if (eff.res)      effHTML += effRow('RES (resistenza)',   0, eff.res,      'var(--blue)');
+  if (eff.gk)       effHTML += effRow('OVR Portieri',      2, 2,            'var(--blue)');
+  if (tr.fatigue)   effHTML += effRow('Forma (fatica)',  fatigueSign ? -(tr.fatigue) : Math.abs(tr.fatigue),
+                                                           fatigueSign ? -(tr.fatigue) : Math.abs(tr.fatigue),
+                                                           fatigueSign ? 'var(--red)' : 'var(--green)');
+  effHTML += effRow('OVR (miglioramento)', 0, '+1 (12% prob)', 'var(--gold)');
+
+  const ov = document.createElement('div');
+  ov.id = 'train-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;z-index:500;backdrop-filter:blur(6px)';
+  ov.innerHTML = `
+    <div style="background:var(--panel);border:2px solid var(--border);border-radius:16px;
+                padding:22px;max-width:400px;width:92%;max-height:85vh;overflow-y:auto">
+      <!-- Header -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:28px">${tr.icon}</span>
+          <div>
+            <div style="font-weight:800;font-size:15px;color:var(--blue)">${tr.name}</div>
+            <div style="font-size:11px;color:var(--muted)">${tr.desc}</div>
+          </div>
+        </div>
+        <button onclick="document.getElementById('train-popup').remove()"
+                style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)">✕</button>
+      </div>
+
+      <!-- Costi -->
+      <div style="display:flex;gap:12px;margin-bottom:14px">
+        <div style="flex:1;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.3);
+                    border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:20px">⭐</div>
+          <div style="font-size:16px;font-weight:800;color:var(--gold)">${starCost}</div>
+          <div style="font-size:10px;color:var(--muted)">${starCost===1?'stella':'stelle'} (hai ${stars})</div>
+        </div>
+        <div style="flex:1;background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.3);
+                    border-radius:8px;padding:10px;text-align:center">
+          <div style="font-size:20px">💰</div>
+          <div style="font-size:14px;font-weight:800;color:var(--gold)">${tr.cost ? formatMoney(tr.cost) : 'Gratuito'}</div>
+          <div style="font-size:10px;color:var(--muted)">costo</div>
+        </div>
+      </div>
+
+      <!-- Effetti attesi -->
+      <div style="margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;
+                    letter-spacing:.5px;margin-bottom:8px">Effetti attesi (intera rosa)</div>
+        ${effHTML}
+      </div>
+
+      <!-- Bottoni -->
+      <div style="display:flex;gap:10px">
+        <button onclick="doTrain(${i})"
+                style="flex:1;padding:11px;font-size:13px;font-weight:800;border-radius:8px;
+                       border:2px solid var(--blue);background:linear-gradient(135deg,#0a5ca8,#0844a0);
+                       color:#fff;cursor:pointer">
+          ✓ Conferma allenamento
+        </button>
+        <button onclick="document.getElementById('train-popup').remove()"
+                style="padding:11px 18px;font-size:13px;font-weight:700;border-radius:8px;
+                       border:2px solid var(--border);background:var(--panel2);color:var(--muted);cursor:pointer">
+          Annulla
+        </button>
+      </div>
+    </div>`;
+  ov.onclick = e => { if (e.target === ov) ov.remove(); };
+  document.body.appendChild(ov);
 }
 
 function doTrain(i) {
   const tr = TRAINING_TYPES[i];
-  if (G.budget < tr.cost) return;
+  const starCost = tr.stars || 1;
+  if (G.budget < tr.cost) { alert('Budget insufficiente.'); return; }
+  if ((G.stars || 0) < starCost) { alert('Stelle insufficienti.'); return; }
+
+  // Rimuovi popup
+  const popup = document.getElementById('train-popup');
+  if (popup) popup.remove();
+
   G.budget -= tr.cost;
+  G.stars   = (G.stars || 0) - starCost;
+  if (typeof _updateStarsBox === 'function') _updateStarsBox();
   addLedger('allenamento', -tr.cost, `Sessione: ${tr.name}`, currentRound());
   G.trainWeeks++;
   const roster = G.rosters[G.myId];
@@ -554,11 +722,10 @@ function doTrain(i) {
     if (tr.eff.def)     p.stats.def = cap(p.stats.def + rnd(0, tr.eff.def));
     if (tr.eff.spe)     p.stats.spe = cap(p.stats.spe + rnd(0, tr.eff.spe));
     if (tr.eff.str)     p.stats.str = cap(p.stats.str + rnd(0, tr.eff.str));
+    if (tr.eff.res)     p.stats.res = cap((p.stats.res || 50) + rnd(0, tr.eff.res));
     if (tr.eff.tec) {
-      // La Tecnica non può superare il massimo nascosto (maxTec) del giocatore
       const ceiling = p.maxTec !== undefined ? p.maxTec : 99;
-      const gain    = rnd(0, tr.eff.tec);
-      p.stats.tec   = Math.min(ceiling, cap(p.stats.tec + gain));
+      p.stats.tec   = Math.min(ceiling, cap(p.stats.tec + rnd(0, tr.eff.tec)));
     }
     if (tr.eff.gk && p.role === 'POR') p.overall = Math.min(99, p.overall + 2);
     p.fitness = cap(p.fitness - (tr.fatigue || 0) + rnd(-2, 2));

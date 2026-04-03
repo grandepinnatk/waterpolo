@@ -70,9 +70,10 @@ function generatePlayer(teamStrength, role) {
     stats: {
       att: cap(base + rnd(-8, 8)),
       def: cap(base + rnd(-8, 8)),
-      spe: cap(base + rnd(-8, 8)),
+      spe: cap(base + rnd(-8, 8)),  // VEL — velocità in campo
       str: cap(base + rnd(-8, 8)),
-      tec: cap(base + rnd(-8, 8)),  // Tecnica: finalizzazione, assist, precisione passaggi
+      tec: cap(base + rnd(-8, 8)),  // TEC — tecnica
+      res: cap(base + rnd(-8, 8)),  // RES — resistenza fisica (influenza stamina drain)
     },
     // Massimo di Tecnica raggiungibile con l'allenamento (attributo nascosto)
     // Range: overall - 5 ... min(99, overall + 15 + bonus giovani)

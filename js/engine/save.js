@@ -125,6 +125,17 @@ function _migratePayload(p) {
   if (!p) return null;
   // v2 → v3: aggiungi marketPool e savedAtMs
   if (!p.marketPool)  p.marketPool  = [];
+  if (p.stars === undefined) p.stars = 5; // stelle: default 5 per salvataggi vecchi
+  // Aggiunge res a tutti i giocatori di salvataggi vecchi
+  if (p.rosters) {
+    Object.values(p.rosters).forEach(function(roster) {
+      (roster || []).forEach(function(pl) {
+        if (pl && pl.stats && pl.stats.res === undefined) {
+          pl.stats.res = Math.max(1, Math.min(99, Math.round(pl.overall + (Math.random()*16-8))));
+        }
+      });
+    });
+  }
   if (!p.savedAtMs)   p.savedAtMs   = p.meta?.savedAtMs || (p.savedAt ? new Date(p.savedAt).getTime() : 0);
   if (!p.meta?.savedAtMs && p.savedAtMs) p.meta = { ...p.meta, savedAtMs: p.savedAtMs };
 

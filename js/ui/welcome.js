@@ -213,6 +213,7 @@ function _doStartNewGame(slotIndex) {
     playoffResult: null,
     trainWeeks:    0,
     trainHistory:  [],
+    stars:         5,   // stelle disponibili (5 iniziali, +4 per giornata)
     _selTrain:     null,
     _mercList:     [],
     savedLineup:   null,

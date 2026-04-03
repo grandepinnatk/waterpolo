@@ -34,6 +34,12 @@ function addLedger(type, amount, note, round) {
 // ── Monte ingaggi ─────────────────────────────
 // Somma annuale degli stipendi diviso le giornate di regular season (26).
 const REGULAR_SEASON_ROUNDS = 26;
+// Aggiorna il box stelle in topbar
+function _updateStarsBox() {
+  const el = document.getElementById('bs-stars-val');
+  if (el && G) el.textContent = G.stars || 0;
+}
+
 function calcWageBill() {
   if (!G.rosters || !G.myId) return 0;
   const total = (G.rosters[G.myId] || []).reduce((s, p) => s + (p.salary || 0), 0);
@@ -150,9 +156,12 @@ function simNextRound() {
     }
   }
 
+  // +4 stelle per giornata
+  if (G.stars !== undefined) G.stars = (G.stars || 0) + 4;
   refreshMarketPool();
   generateTransferOffers();
   updateHeader(); autoSave(); renderDash();
+  _updateStarsBox();
 }
 
 function simEntireSeason() {

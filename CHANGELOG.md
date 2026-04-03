@@ -6,6 +6,104 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.43-beta] — 2026-04-02
+
+### Aggiunto — Sistema Voti Giocatori
+
+#### Durante la partita
+- Nuova colonna **VOT** nella lista "In campo", subito dopo il nome, aggiornata in tempo reale ad ogni render
+- Scala 0–10 a scatti di 0.5, colorata: verde ≥7.5, oro ≥6.5, grigio ≥5.5, rosso <5.5
+- **Formula voto**: base 6.0 (6.5 per portieri) + gol×1.5 + assist×0.8 + duello_vinto×0.3 − duello_perso×0.2 + parata×0.4; malus per stamina <50%
+- **Confronti (duelli)**: tracciati su ogni evento — gol/passaggio riuscito = duel won; tiro parato/palla persa = duel lost; parata portiere = duel won per GK
+
+#### Tab Rosa
+- Nuova colonna **Voti** (ultima a destra dei gol/assist) con i voti delle **ultime 4 partite** per ogni giocatore, colorati per intensità
+- I voti vengono salvati in `p.lastRatings` a fine ogni partita giocata manualmente
+
+---
+
+## [0.5.42-beta] — 2026-04-02
+
+### Aggiunto — Attributo Resistenza (RES)
+- Nuovo parametro **`stats.res`** (0-100) generato per tutti i giocatori nuovi e migrato automaticamente per i salvataggi esistenti
+- **Formula stamina drain aggiornata**: `drain = BASE × tacticMult × posMult × resFactor × formFactor × ageFactor`
+  - **resFactor** (RES 0→100): range 1.18 (res=0, drain +18%) → 1.00 (res=50, neutro) → 0.82 (res=100, drain -18%)
+  - **formFactor** (Forma, soglia 85): ogni punto sotto 85 aggiunge malus ×K_FIT=1.2
+  - **ageFactor** (Età, soglia 28): ogni anno sopra 28 aggiunge malus ×K_AGE=2.2
+  - **tacticMult**: press×1.60 → defense×0.70 (invariato)
+  - **posMult**: ali in contropiede ×1.35 (invariato)
+- Attributo `spe` rinominato **VEL (Velocità)** nelle etichette (era stato temporaneamente chiamato RES)
+- RES visibile nelle barre attributi della scheda giocatore (dopo TEC)
+- Nuovo tipo di allenamento **🏊 Allenamento Resistenza** (2 stelle, 13.000€): res +0→+5, fitness +0→+3
+- Preparazione Atletica e Allenamento Difesa migliorano leggermente anche res (+2/+1)
+
+---
+
+## [0.5.41-beta] — 2026-04-02
+
+### Aggiunto
+- **Popup blocco allenamento**: cliccando una sessione non disponibile appare un popup specifico:
+  - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
+  - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
+  - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.43-beta] — 2026-04-02
+
+### Aggiunto — Sistema Voti Giocatori
+
+#### Durante la partita
+- Nuova colonna **VOT** nella lista "In campo", subito dopo il nome, aggiornata in tempo reale ad ogni render
+- Scala 0–10 a scatti di 0.5, colorata: verde ≥7.5, oro ≥6.5, grigio ≥5.5, rosso <5.5
+- **Formula voto**: base 6.0 (6.5 per portieri) + gol×1.5 + assist×0.8 + duello_vinto×0.3 − duello_perso×0.2 + parata×0.4; malus per stamina <50%
+- **Confronti (duelli)**: tracciati su ogni evento — gol/passaggio riuscito = duel won; tiro parato/palla persa = duel lost; parata portiere = duel won per GK
+
+#### Tab Rosa
+- Nuova colonna **Voti** (ultima a destra dei gol/assist) con i voti delle **ultime 4 partite** per ogni giocatore, colorati per intensità
+- I voti vengono salvati in `p.lastRatings` a fine ogni partita giocata manualmente
+
+---
+
+## [0.5.42-beta] — 2026-04-02
+
+### Aggiunto — Attributo Resistenza (RES)
+- Nuovo parametro **`stats.res`** (0-100) generato per tutti i giocatori nuovi e migrato automaticamente per i salvataggi esistenti
+- **Formula stamina drain aggiornata**: `drain = BASE × tacticMult × posMult × resFactor × formFactor × ageFactor`
+  - **resFactor** (RES 0→100): range 1.18 (res=0, drain +18%) → 1.00 (res=50, neutro) → 0.82 (res=100, drain -18%)
+  - **formFactor** (Forma, soglia 85): ogni punto sotto 85 aggiunge malus ×K_FIT=1.2
+  - **ageFactor** (Età, soglia 28): ogni anno sopra 28 aggiunge malus ×K_AGE=2.2
+  - **tacticMult**: press×1.60 → defense×0.70 (invariato)
+  - **posMult**: ali in contropiede ×1.35 (invariato)
+- Attributo `spe` rinominato **VEL (Velocità)** nelle etichette (era stato temporaneamente chiamato RES)
+- RES visibile nelle barre attributi della scheda giocatore (dopo TEC)
+- Nuovo tipo di allenamento **🏊 Allenamento Resistenza** (2 stelle, 13.000€): res +0→+5, fitness +0→+3
+- Preparazione Atletica e Allenamento Difesa migliorano leggermente anche res (+2/+1)
+
+---
+
+## [0.5.41-beta] — 2026-04-02
+
+### Modificato
+- **Scheda giocatore**: "Fitness" rinominato in **"Forma"** in tutti i punti dell'interfaccia (tab Rosa, popup info giocatore, menu cambi durante la partita, popup conferma allenamento, tab Allenamento)
+- **Attributo SPE**: etichetta rinominata da "VEL" a **"RES" (Resistenza)** in tutte le schede e i popup — il valore interno rimane invariato su scala 0-100
+
+---
+
+## [0.5.40-beta] — 2026-04-02
+
+### Aggiunto — Sistema Stelle Allenamento
+- **⭐ Stelle manager**: ogni carriera inizia con **5 stelle**. Ogni giornata (simulata o giocata) aggiunge **+4 stelle**. Le stelle sono visibili nel box ⭐ in alto a destra (aggiornato in tempo reale).
+- **Costo stelle per allenamento**: ogni sessione richiede stelle (1-2) oltre al costo in denaro. Valori: Riposo/Tattica = 1 stella; tutti gli altri = 2 stelle.
+- **Popup conferma allenamento**: cliccando un tipo di allenamento si apre un popup con:
+  - Icona, nome e descrizione
+  - Box costo stelle (con stelle disponibili) e costo in denaro
+  - Tabella effetti attesi con indicatori colorati (+verde per fitness/morale, +blu per attributi, -rosso per fatica, +oro per OVR)
+  - Pulsanti Conferma / Annulla
+- I pulsanti di allenamento mostrano avvisi "Stelle insufficienti" / "Budget insufficiente" quando non si può procedere
+
+---
+
 ## [0.5.39-beta] — 2026-04-02
 
 ### Corretto
@@ -56,6 +154,104 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ▼ rosso — la posizione è scesa
   - — arancio — posizione stabile (o prima giornata)
 - `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.43-beta] — 2026-04-02
+
+### Aggiunto — Sistema Voti Giocatori
+
+#### Durante la partita
+- Nuova colonna **VOT** nella lista "In campo", subito dopo il nome, aggiornata in tempo reale ad ogni render
+- Scala 0–10 a scatti di 0.5, colorata: verde ≥7.5, oro ≥6.5, grigio ≥5.5, rosso <5.5
+- **Formula voto**: base 6.0 (6.5 per portieri) + gol×1.5 + assist×0.8 + duello_vinto×0.3 − duello_perso×0.2 + parata×0.4; malus per stamina <50%
+- **Confronti (duelli)**: tracciati su ogni evento — gol/passaggio riuscito = duel won; tiro parato/palla persa = duel lost; parata portiere = duel won per GK
+
+#### Tab Rosa
+- Nuova colonna **Voti** (ultima a destra dei gol/assist) con i voti delle **ultime 4 partite** per ogni giocatore, colorati per intensità
+- I voti vengono salvati in `p.lastRatings` a fine ogni partita giocata manualmente
+
+---
+
+## [0.5.42-beta] — 2026-04-02
+
+### Aggiunto — Attributo Resistenza (RES)
+- Nuovo parametro **`stats.res`** (0-100) generato per tutti i giocatori nuovi e migrato automaticamente per i salvataggi esistenti
+- **Formula stamina drain aggiornata**: `drain = BASE × tacticMult × posMult × resFactor × formFactor × ageFactor`
+  - **resFactor** (RES 0→100): range 1.18 (res=0, drain +18%) → 1.00 (res=50, neutro) → 0.82 (res=100, drain -18%)
+  - **formFactor** (Forma, soglia 85): ogni punto sotto 85 aggiunge malus ×K_FIT=1.2
+  - **ageFactor** (Età, soglia 28): ogni anno sopra 28 aggiunge malus ×K_AGE=2.2
+  - **tacticMult**: press×1.60 → defense×0.70 (invariato)
+  - **posMult**: ali in contropiede ×1.35 (invariato)
+- Attributo `spe` rinominato **VEL (Velocità)** nelle etichette (era stato temporaneamente chiamato RES)
+- RES visibile nelle barre attributi della scheda giocatore (dopo TEC)
+- Nuovo tipo di allenamento **🏊 Allenamento Resistenza** (2 stelle, 13.000€): res +0→+5, fitness +0→+3
+- Preparazione Atletica e Allenamento Difesa migliorano leggermente anche res (+2/+1)
+
+---
+
+## [0.5.41-beta] — 2026-04-02
+
+### Aggiunto
+- **Popup blocco allenamento**: cliccando una sessione non disponibile appare un popup specifico:
+  - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
+  - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
+  - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.43-beta] — 2026-04-02
+
+### Aggiunto — Sistema Voti Giocatori
+
+#### Durante la partita
+- Nuova colonna **VOT** nella lista "In campo", subito dopo il nome, aggiornata in tempo reale ad ogni render
+- Scala 0–10 a scatti di 0.5, colorata: verde ≥7.5, oro ≥6.5, grigio ≥5.5, rosso <5.5
+- **Formula voto**: base 6.0 (6.5 per portieri) + gol×1.5 + assist×0.8 + duello_vinto×0.3 − duello_perso×0.2 + parata×0.4; malus per stamina <50%
+- **Confronti (duelli)**: tracciati su ogni evento — gol/passaggio riuscito = duel won; tiro parato/palla persa = duel lost; parata portiere = duel won per GK
+
+#### Tab Rosa
+- Nuova colonna **Voti** (ultima a destra dei gol/assist) con i voti delle **ultime 4 partite** per ogni giocatore, colorati per intensità
+- I voti vengono salvati in `p.lastRatings` a fine ogni partita giocata manualmente
+
+---
+
+## [0.5.42-beta] — 2026-04-02
+
+### Aggiunto — Attributo Resistenza (RES)
+- Nuovo parametro **`stats.res`** (0-100) generato per tutti i giocatori nuovi e migrato automaticamente per i salvataggi esistenti
+- **Formula stamina drain aggiornata**: `drain = BASE × tacticMult × posMult × resFactor × formFactor × ageFactor`
+  - **resFactor** (RES 0→100): range 1.18 (res=0, drain +18%) → 1.00 (res=50, neutro) → 0.82 (res=100, drain -18%)
+  - **formFactor** (Forma, soglia 85): ogni punto sotto 85 aggiunge malus ×K_FIT=1.2
+  - **ageFactor** (Età, soglia 28): ogni anno sopra 28 aggiunge malus ×K_AGE=2.2
+  - **tacticMult**: press×1.60 → defense×0.70 (invariato)
+  - **posMult**: ali in contropiede ×1.35 (invariato)
+- Attributo `spe` rinominato **VEL (Velocità)** nelle etichette (era stato temporaneamente chiamato RES)
+- RES visibile nelle barre attributi della scheda giocatore (dopo TEC)
+- Nuovo tipo di allenamento **🏊 Allenamento Resistenza** (2 stelle, 13.000€): res +0→+5, fitness +0→+3
+- Preparazione Atletica e Allenamento Difesa migliorano leggermente anche res (+2/+1)
+
+---
+
+## [0.5.41-beta] — 2026-04-02
+
+### Modificato
+- **Scheda giocatore**: "Fitness" rinominato in **"Forma"** in tutti i punti dell'interfaccia (tab Rosa, popup info giocatore, menu cambi durante la partita, popup conferma allenamento, tab Allenamento)
+- **Attributo SPE**: etichetta rinominata da "VEL" a **"RES" (Resistenza)** in tutte le schede e i popup — il valore interno rimane invariato su scala 0-100
+
+---
+
+## [0.5.40-beta] — 2026-04-02
+
+### Aggiunto — Sistema Stelle Allenamento
+- **⭐ Stelle manager**: ogni carriera inizia con **5 stelle**. Ogni giornata (simulata o giocata) aggiunge **+4 stelle**. Le stelle sono visibili nel box ⭐ in alto a destra (aggiornato in tempo reale).
+- **Costo stelle per allenamento**: ogni sessione richiede stelle (1-2) oltre al costo in denaro. Valori: Riposo/Tattica = 1 stella; tutti gli altri = 2 stelle.
+- **Popup conferma allenamento**: cliccando un tipo di allenamento si apre un popup con:
+  - Icona, nome e descrizione
+  - Box costo stelle (con stelle disponibili) e costo in denaro
+  - Tabella effetti attesi con indicatori colorati (+verde per fitness/morale, +blu per attributi, -rosso per fatica, +oro per OVR)
+  - Pulsanti Conferma / Annulla
+- I pulsanti di allenamento mostrano avvisi "Stelle insufficienti" / "Budget insufficiente" quando non si può procedere
 
 ---
 
@@ -182,6 +378,104 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.43-beta] — 2026-04-02
+
+### Aggiunto — Sistema Voti Giocatori
+
+#### Durante la partita
+- Nuova colonna **VOT** nella lista "In campo", subito dopo il nome, aggiornata in tempo reale ad ogni render
+- Scala 0–10 a scatti di 0.5, colorata: verde ≥7.5, oro ≥6.5, grigio ≥5.5, rosso <5.5
+- **Formula voto**: base 6.0 (6.5 per portieri) + gol×1.5 + assist×0.8 + duello_vinto×0.3 − duello_perso×0.2 + parata×0.4; malus per stamina <50%
+- **Confronti (duelli)**: tracciati su ogni evento — gol/passaggio riuscito = duel won; tiro parato/palla persa = duel lost; parata portiere = duel won per GK
+
+#### Tab Rosa
+- Nuova colonna **Voti** (ultima a destra dei gol/assist) con i voti delle **ultime 4 partite** per ogni giocatore, colorati per intensità
+- I voti vengono salvati in `p.lastRatings` a fine ogni partita giocata manualmente
+
+---
+
+## [0.5.42-beta] — 2026-04-02
+
+### Aggiunto — Attributo Resistenza (RES)
+- Nuovo parametro **`stats.res`** (0-100) generato per tutti i giocatori nuovi e migrato automaticamente per i salvataggi esistenti
+- **Formula stamina drain aggiornata**: `drain = BASE × tacticMult × posMult × resFactor × formFactor × ageFactor`
+  - **resFactor** (RES 0→100): range 1.18 (res=0, drain +18%) → 1.00 (res=50, neutro) → 0.82 (res=100, drain -18%)
+  - **formFactor** (Forma, soglia 85): ogni punto sotto 85 aggiunge malus ×K_FIT=1.2
+  - **ageFactor** (Età, soglia 28): ogni anno sopra 28 aggiunge malus ×K_AGE=2.2
+  - **tacticMult**: press×1.60 → defense×0.70 (invariato)
+  - **posMult**: ali in contropiede ×1.35 (invariato)
+- Attributo `spe` rinominato **VEL (Velocità)** nelle etichette (era stato temporaneamente chiamato RES)
+- RES visibile nelle barre attributi della scheda giocatore (dopo TEC)
+- Nuovo tipo di allenamento **🏊 Allenamento Resistenza** (2 stelle, 13.000€): res +0→+5, fitness +0→+3
+- Preparazione Atletica e Allenamento Difesa migliorano leggermente anche res (+2/+1)
+
+---
+
+## [0.5.41-beta] — 2026-04-02
+
+### Aggiunto
+- **Popup blocco allenamento**: cliccando una sessione non disponibile appare un popup specifico:
+  - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
+  - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
+  - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.43-beta] — 2026-04-02
+
+### Aggiunto — Sistema Voti Giocatori
+
+#### Durante la partita
+- Nuova colonna **VOT** nella lista "In campo", subito dopo il nome, aggiornata in tempo reale ad ogni render
+- Scala 0–10 a scatti di 0.5, colorata: verde ≥7.5, oro ≥6.5, grigio ≥5.5, rosso <5.5
+- **Formula voto**: base 6.0 (6.5 per portieri) + gol×1.5 + assist×0.8 + duello_vinto×0.3 − duello_perso×0.2 + parata×0.4; malus per stamina <50%
+- **Confronti (duelli)**: tracciati su ogni evento — gol/passaggio riuscito = duel won; tiro parato/palla persa = duel lost; parata portiere = duel won per GK
+
+#### Tab Rosa
+- Nuova colonna **Voti** (ultima a destra dei gol/assist) con i voti delle **ultime 4 partite** per ogni giocatore, colorati per intensità
+- I voti vengono salvati in `p.lastRatings` a fine ogni partita giocata manualmente
+
+---
+
+## [0.5.42-beta] — 2026-04-02
+
+### Aggiunto — Attributo Resistenza (RES)
+- Nuovo parametro **`stats.res`** (0-100) generato per tutti i giocatori nuovi e migrato automaticamente per i salvataggi esistenti
+- **Formula stamina drain aggiornata**: `drain = BASE × tacticMult × posMult × resFactor × formFactor × ageFactor`
+  - **resFactor** (RES 0→100): range 1.18 (res=0, drain +18%) → 1.00 (res=50, neutro) → 0.82 (res=100, drain -18%)
+  - **formFactor** (Forma, soglia 85): ogni punto sotto 85 aggiunge malus ×K_FIT=1.2
+  - **ageFactor** (Età, soglia 28): ogni anno sopra 28 aggiunge malus ×K_AGE=2.2
+  - **tacticMult**: press×1.60 → defense×0.70 (invariato)
+  - **posMult**: ali in contropiede ×1.35 (invariato)
+- Attributo `spe` rinominato **VEL (Velocità)** nelle etichette (era stato temporaneamente chiamato RES)
+- RES visibile nelle barre attributi della scheda giocatore (dopo TEC)
+- Nuovo tipo di allenamento **🏊 Allenamento Resistenza** (2 stelle, 13.000€): res +0→+5, fitness +0→+3
+- Preparazione Atletica e Allenamento Difesa migliorano leggermente anche res (+2/+1)
+
+---
+
+## [0.5.41-beta] — 2026-04-02
+
+### Modificato
+- **Scheda giocatore**: "Fitness" rinominato in **"Forma"** in tutti i punti dell'interfaccia (tab Rosa, popup info giocatore, menu cambi durante la partita, popup conferma allenamento, tab Allenamento)
+- **Attributo SPE**: etichetta rinominata da "VEL" a **"RES" (Resistenza)** in tutte le schede e i popup — il valore interno rimane invariato su scala 0-100
+
+---
+
+## [0.5.40-beta] — 2026-04-02
+
+### Aggiunto — Sistema Stelle Allenamento
+- **⭐ Stelle manager**: ogni carriera inizia con **5 stelle**. Ogni giornata (simulata o giocata) aggiunge **+4 stelle**. Le stelle sono visibili nel box ⭐ in alto a destra (aggiornato in tempo reale).
+- **Costo stelle per allenamento**: ogni sessione richiede stelle (1-2) oltre al costo in denaro. Valori: Riposo/Tattica = 1 stella; tutti gli altri = 2 stelle.
+- **Popup conferma allenamento**: cliccando un tipo di allenamento si apre un popup con:
+  - Icona, nome e descrizione
+  - Box costo stelle (con stelle disponibili) e costo in denaro
+  - Tabella effetti attesi con indicatori colorati (+verde per fitness/morale, +blu per attributi, -rosso per fatica, +oro per OVR)
+  - Pulsanti Conferma / Annulla
+- I pulsanti di allenamento mostrano avvisi "Stelle insufficienti" / "Budget insufficiente" quando non si può procedere
+
+---
+
 ## [0.5.39-beta] — 2026-04-02
 
 ### Corretto
@@ -232,6 +526,104 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ▼ rosso — la posizione è scesa
   - — arancio — posizione stabile (o prima giornata)
 - `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.43-beta] — 2026-04-02
+
+### Aggiunto — Sistema Voti Giocatori
+
+#### Durante la partita
+- Nuova colonna **VOT** nella lista "In campo", subito dopo il nome, aggiornata in tempo reale ad ogni render
+- Scala 0–10 a scatti di 0.5, colorata: verde ≥7.5, oro ≥6.5, grigio ≥5.5, rosso <5.5
+- **Formula voto**: base 6.0 (6.5 per portieri) + gol×1.5 + assist×0.8 + duello_vinto×0.3 − duello_perso×0.2 + parata×0.4; malus per stamina <50%
+- **Confronti (duelli)**: tracciati su ogni evento — gol/passaggio riuscito = duel won; tiro parato/palla persa = duel lost; parata portiere = duel won per GK
+
+#### Tab Rosa
+- Nuova colonna **Voti** (ultima a destra dei gol/assist) con i voti delle **ultime 4 partite** per ogni giocatore, colorati per intensità
+- I voti vengono salvati in `p.lastRatings` a fine ogni partita giocata manualmente
+
+---
+
+## [0.5.42-beta] — 2026-04-02
+
+### Aggiunto — Attributo Resistenza (RES)
+- Nuovo parametro **`stats.res`** (0-100) generato per tutti i giocatori nuovi e migrato automaticamente per i salvataggi esistenti
+- **Formula stamina drain aggiornata**: `drain = BASE × tacticMult × posMult × resFactor × formFactor × ageFactor`
+  - **resFactor** (RES 0→100): range 1.18 (res=0, drain +18%) → 1.00 (res=50, neutro) → 0.82 (res=100, drain -18%)
+  - **formFactor** (Forma, soglia 85): ogni punto sotto 85 aggiunge malus ×K_FIT=1.2
+  - **ageFactor** (Età, soglia 28): ogni anno sopra 28 aggiunge malus ×K_AGE=2.2
+  - **tacticMult**: press×1.60 → defense×0.70 (invariato)
+  - **posMult**: ali in contropiede ×1.35 (invariato)
+- Attributo `spe` rinominato **VEL (Velocità)** nelle etichette (era stato temporaneamente chiamato RES)
+- RES visibile nelle barre attributi della scheda giocatore (dopo TEC)
+- Nuovo tipo di allenamento **🏊 Allenamento Resistenza** (2 stelle, 13.000€): res +0→+5, fitness +0→+3
+- Preparazione Atletica e Allenamento Difesa migliorano leggermente anche res (+2/+1)
+
+---
+
+## [0.5.41-beta] — 2026-04-02
+
+### Aggiunto
+- **Popup blocco allenamento**: cliccando una sessione non disponibile appare un popup specifico:
+  - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
+  - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
+  - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.43-beta] — 2026-04-02
+
+### Aggiunto — Sistema Voti Giocatori
+
+#### Durante la partita
+- Nuova colonna **VOT** nella lista "In campo", subito dopo il nome, aggiornata in tempo reale ad ogni render
+- Scala 0–10 a scatti di 0.5, colorata: verde ≥7.5, oro ≥6.5, grigio ≥5.5, rosso <5.5
+- **Formula voto**: base 6.0 (6.5 per portieri) + gol×1.5 + assist×0.8 + duello_vinto×0.3 − duello_perso×0.2 + parata×0.4; malus per stamina <50%
+- **Confronti (duelli)**: tracciati su ogni evento — gol/passaggio riuscito = duel won; tiro parato/palla persa = duel lost; parata portiere = duel won per GK
+
+#### Tab Rosa
+- Nuova colonna **Voti** (ultima a destra dei gol/assist) con i voti delle **ultime 4 partite** per ogni giocatore, colorati per intensità
+- I voti vengono salvati in `p.lastRatings` a fine ogni partita giocata manualmente
+
+---
+
+## [0.5.42-beta] — 2026-04-02
+
+### Aggiunto — Attributo Resistenza (RES)
+- Nuovo parametro **`stats.res`** (0-100) generato per tutti i giocatori nuovi e migrato automaticamente per i salvataggi esistenti
+- **Formula stamina drain aggiornata**: `drain = BASE × tacticMult × posMult × resFactor × formFactor × ageFactor`
+  - **resFactor** (RES 0→100): range 1.18 (res=0, drain +18%) → 1.00 (res=50, neutro) → 0.82 (res=100, drain -18%)
+  - **formFactor** (Forma, soglia 85): ogni punto sotto 85 aggiunge malus ×K_FIT=1.2
+  - **ageFactor** (Età, soglia 28): ogni anno sopra 28 aggiunge malus ×K_AGE=2.2
+  - **tacticMult**: press×1.60 → defense×0.70 (invariato)
+  - **posMult**: ali in contropiede ×1.35 (invariato)
+- Attributo `spe` rinominato **VEL (Velocità)** nelle etichette (era stato temporaneamente chiamato RES)
+- RES visibile nelle barre attributi della scheda giocatore (dopo TEC)
+- Nuovo tipo di allenamento **🏊 Allenamento Resistenza** (2 stelle, 13.000€): res +0→+5, fitness +0→+3
+- Preparazione Atletica e Allenamento Difesa migliorano leggermente anche res (+2/+1)
+
+---
+
+## [0.5.41-beta] — 2026-04-02
+
+### Modificato
+- **Scheda giocatore**: "Fitness" rinominato in **"Forma"** in tutti i punti dell'interfaccia (tab Rosa, popup info giocatore, menu cambi durante la partita, popup conferma allenamento, tab Allenamento)
+- **Attributo SPE**: etichetta rinominata da "VEL" a **"RES" (Resistenza)** in tutte le schede e i popup — il valore interno rimane invariato su scala 0-100
+
+---
+
+## [0.5.40-beta] — 2026-04-02
+
+### Aggiunto — Sistema Stelle Allenamento
+- **⭐ Stelle manager**: ogni carriera inizia con **5 stelle**. Ogni giornata (simulata o giocata) aggiunge **+4 stelle**. Le stelle sono visibili nel box ⭐ in alto a destra (aggiornato in tempo reale).
+- **Costo stelle per allenamento**: ogni sessione richiede stelle (1-2) oltre al costo in denaro. Valori: Riposo/Tattica = 1 stella; tutti gli altri = 2 stelle.
+- **Popup conferma allenamento**: cliccando un tipo di allenamento si apre un popup con:
+  - Icona, nome e descrizione
+  - Box costo stelle (con stelle disponibili) e costo in denaro
+  - Tabella effetti attesi con indicatori colorati (+verde per fitness/morale, +blu per attributi, -rosso per fatica, +oro per OVR)
+  - Pulsanti Conferma / Annulla
+- I pulsanti di allenamento mostrano avvisi "Stelle insufficienti" / "Budget insufficiente" quando non si può procedere
 
 ---
 
@@ -364,6 +756,104 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.43-beta] — 2026-04-02
+
+### Aggiunto — Sistema Voti Giocatori
+
+#### Durante la partita
+- Nuova colonna **VOT** nella lista "In campo", subito dopo il nome, aggiornata in tempo reale ad ogni render
+- Scala 0–10 a scatti di 0.5, colorata: verde ≥7.5, oro ≥6.5, grigio ≥5.5, rosso <5.5
+- **Formula voto**: base 6.0 (6.5 per portieri) + gol×1.5 + assist×0.8 + duello_vinto×0.3 − duello_perso×0.2 + parata×0.4; malus per stamina <50%
+- **Confronti (duelli)**: tracciati su ogni evento — gol/passaggio riuscito = duel won; tiro parato/palla persa = duel lost; parata portiere = duel won per GK
+
+#### Tab Rosa
+- Nuova colonna **Voti** (ultima a destra dei gol/assist) con i voti delle **ultime 4 partite** per ogni giocatore, colorati per intensità
+- I voti vengono salvati in `p.lastRatings` a fine ogni partita giocata manualmente
+
+---
+
+## [0.5.42-beta] — 2026-04-02
+
+### Aggiunto — Attributo Resistenza (RES)
+- Nuovo parametro **`stats.res`** (0-100) generato per tutti i giocatori nuovi e migrato automaticamente per i salvataggi esistenti
+- **Formula stamina drain aggiornata**: `drain = BASE × tacticMult × posMult × resFactor × formFactor × ageFactor`
+  - **resFactor** (RES 0→100): range 1.18 (res=0, drain +18%) → 1.00 (res=50, neutro) → 0.82 (res=100, drain -18%)
+  - **formFactor** (Forma, soglia 85): ogni punto sotto 85 aggiunge malus ×K_FIT=1.2
+  - **ageFactor** (Età, soglia 28): ogni anno sopra 28 aggiunge malus ×K_AGE=2.2
+  - **tacticMult**: press×1.60 → defense×0.70 (invariato)
+  - **posMult**: ali in contropiede ×1.35 (invariato)
+- Attributo `spe` rinominato **VEL (Velocità)** nelle etichette (era stato temporaneamente chiamato RES)
+- RES visibile nelle barre attributi della scheda giocatore (dopo TEC)
+- Nuovo tipo di allenamento **🏊 Allenamento Resistenza** (2 stelle, 13.000€): res +0→+5, fitness +0→+3
+- Preparazione Atletica e Allenamento Difesa migliorano leggermente anche res (+2/+1)
+
+---
+
+## [0.5.41-beta] — 2026-04-02
+
+### Aggiunto
+- **Popup blocco allenamento**: cliccando una sessione non disponibile appare un popup specifico:
+  - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
+  - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
+  - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.43-beta] — 2026-04-02
+
+### Aggiunto — Sistema Voti Giocatori
+
+#### Durante la partita
+- Nuova colonna **VOT** nella lista "In campo", subito dopo il nome, aggiornata in tempo reale ad ogni render
+- Scala 0–10 a scatti di 0.5, colorata: verde ≥7.5, oro ≥6.5, grigio ≥5.5, rosso <5.5
+- **Formula voto**: base 6.0 (6.5 per portieri) + gol×1.5 + assist×0.8 + duello_vinto×0.3 − duello_perso×0.2 + parata×0.4; malus per stamina <50%
+- **Confronti (duelli)**: tracciati su ogni evento — gol/passaggio riuscito = duel won; tiro parato/palla persa = duel lost; parata portiere = duel won per GK
+
+#### Tab Rosa
+- Nuova colonna **Voti** (ultima a destra dei gol/assist) con i voti delle **ultime 4 partite** per ogni giocatore, colorati per intensità
+- I voti vengono salvati in `p.lastRatings` a fine ogni partita giocata manualmente
+
+---
+
+## [0.5.42-beta] — 2026-04-02
+
+### Aggiunto — Attributo Resistenza (RES)
+- Nuovo parametro **`stats.res`** (0-100) generato per tutti i giocatori nuovi e migrato automaticamente per i salvataggi esistenti
+- **Formula stamina drain aggiornata**: `drain = BASE × tacticMult × posMult × resFactor × formFactor × ageFactor`
+  - **resFactor** (RES 0→100): range 1.18 (res=0, drain +18%) → 1.00 (res=50, neutro) → 0.82 (res=100, drain -18%)
+  - **formFactor** (Forma, soglia 85): ogni punto sotto 85 aggiunge malus ×K_FIT=1.2
+  - **ageFactor** (Età, soglia 28): ogni anno sopra 28 aggiunge malus ×K_AGE=2.2
+  - **tacticMult**: press×1.60 → defense×0.70 (invariato)
+  - **posMult**: ali in contropiede ×1.35 (invariato)
+- Attributo `spe` rinominato **VEL (Velocità)** nelle etichette (era stato temporaneamente chiamato RES)
+- RES visibile nelle barre attributi della scheda giocatore (dopo TEC)
+- Nuovo tipo di allenamento **🏊 Allenamento Resistenza** (2 stelle, 13.000€): res +0→+5, fitness +0→+3
+- Preparazione Atletica e Allenamento Difesa migliorano leggermente anche res (+2/+1)
+
+---
+
+## [0.5.41-beta] — 2026-04-02
+
+### Modificato
+- **Scheda giocatore**: "Fitness" rinominato in **"Forma"** in tutti i punti dell'interfaccia (tab Rosa, popup info giocatore, menu cambi durante la partita, popup conferma allenamento, tab Allenamento)
+- **Attributo SPE**: etichetta rinominata da "VEL" a **"RES" (Resistenza)** in tutte le schede e i popup — il valore interno rimane invariato su scala 0-100
+
+---
+
+## [0.5.40-beta] — 2026-04-02
+
+### Aggiunto — Sistema Stelle Allenamento
+- **⭐ Stelle manager**: ogni carriera inizia con **5 stelle**. Ogni giornata (simulata o giocata) aggiunge **+4 stelle**. Le stelle sono visibili nel box ⭐ in alto a destra (aggiornato in tempo reale).
+- **Costo stelle per allenamento**: ogni sessione richiede stelle (1-2) oltre al costo in denaro. Valori: Riposo/Tattica = 1 stella; tutti gli altri = 2 stelle.
+- **Popup conferma allenamento**: cliccando un tipo di allenamento si apre un popup con:
+  - Icona, nome e descrizione
+  - Box costo stelle (con stelle disponibili) e costo in denaro
+  - Tabella effetti attesi con indicatori colorati (+verde per fitness/morale, +blu per attributi, -rosso per fatica, +oro per OVR)
+  - Pulsanti Conferma / Annulla
+- I pulsanti di allenamento mostrano avvisi "Stelle insufficienti" / "Budget insufficiente" quando non si può procedere
+
+---
+
 ## [0.5.39-beta] — 2026-04-02
 
 ### Corretto
@@ -414,6 +904,104 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ▼ rosso — la posizione è scesa
   - — arancio — posizione stabile (o prima giornata)
 - `G.prevPos` viene salvato prima di ogni aggiornamento classifica (fine partita giocata e "Simula Giornata") e persistito nel salvataggio
+
+---
+
+## [0.5.43-beta] — 2026-04-02
+
+### Aggiunto — Sistema Voti Giocatori
+
+#### Durante la partita
+- Nuova colonna **VOT** nella lista "In campo", subito dopo il nome, aggiornata in tempo reale ad ogni render
+- Scala 0–10 a scatti di 0.5, colorata: verde ≥7.5, oro ≥6.5, grigio ≥5.5, rosso <5.5
+- **Formula voto**: base 6.0 (6.5 per portieri) + gol×1.5 + assist×0.8 + duello_vinto×0.3 − duello_perso×0.2 + parata×0.4; malus per stamina <50%
+- **Confronti (duelli)**: tracciati su ogni evento — gol/passaggio riuscito = duel won; tiro parato/palla persa = duel lost; parata portiere = duel won per GK
+
+#### Tab Rosa
+- Nuova colonna **Voti** (ultima a destra dei gol/assist) con i voti delle **ultime 4 partite** per ogni giocatore, colorati per intensità
+- I voti vengono salvati in `p.lastRatings` a fine ogni partita giocata manualmente
+
+---
+
+## [0.5.42-beta] — 2026-04-02
+
+### Aggiunto — Attributo Resistenza (RES)
+- Nuovo parametro **`stats.res`** (0-100) generato per tutti i giocatori nuovi e migrato automaticamente per i salvataggi esistenti
+- **Formula stamina drain aggiornata**: `drain = BASE × tacticMult × posMult × resFactor × formFactor × ageFactor`
+  - **resFactor** (RES 0→100): range 1.18 (res=0, drain +18%) → 1.00 (res=50, neutro) → 0.82 (res=100, drain -18%)
+  - **formFactor** (Forma, soglia 85): ogni punto sotto 85 aggiunge malus ×K_FIT=1.2
+  - **ageFactor** (Età, soglia 28): ogni anno sopra 28 aggiunge malus ×K_AGE=2.2
+  - **tacticMult**: press×1.60 → defense×0.70 (invariato)
+  - **posMult**: ali in contropiede ×1.35 (invariato)
+- Attributo `spe` rinominato **VEL (Velocità)** nelle etichette (era stato temporaneamente chiamato RES)
+- RES visibile nelle barre attributi della scheda giocatore (dopo TEC)
+- Nuovo tipo di allenamento **🏊 Allenamento Resistenza** (2 stelle, 13.000€): res +0→+5, fitness +0→+3
+- Preparazione Atletica e Allenamento Difesa migliorano leggermente anche res (+2/+1)
+
+---
+
+## [0.5.41-beta] — 2026-04-02
+
+### Aggiunto
+- **Popup blocco allenamento**: cliccando una sessione non disponibile appare un popup specifico:
+  - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
+  - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
+  - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.43-beta] — 2026-04-02
+
+### Aggiunto — Sistema Voti Giocatori
+
+#### Durante la partita
+- Nuova colonna **VOT** nella lista "In campo", subito dopo il nome, aggiornata in tempo reale ad ogni render
+- Scala 0–10 a scatti di 0.5, colorata: verde ≥7.5, oro ≥6.5, grigio ≥5.5, rosso <5.5
+- **Formula voto**: base 6.0 (6.5 per portieri) + gol×1.5 + assist×0.8 + duello_vinto×0.3 − duello_perso×0.2 + parata×0.4; malus per stamina <50%
+- **Confronti (duelli)**: tracciati su ogni evento — gol/passaggio riuscito = duel won; tiro parato/palla persa = duel lost; parata portiere = duel won per GK
+
+#### Tab Rosa
+- Nuova colonna **Voti** (ultima a destra dei gol/assist) con i voti delle **ultime 4 partite** per ogni giocatore, colorati per intensità
+- I voti vengono salvati in `p.lastRatings` a fine ogni partita giocata manualmente
+
+---
+
+## [0.5.42-beta] — 2026-04-02
+
+### Aggiunto — Attributo Resistenza (RES)
+- Nuovo parametro **`stats.res`** (0-100) generato per tutti i giocatori nuovi e migrato automaticamente per i salvataggi esistenti
+- **Formula stamina drain aggiornata**: `drain = BASE × tacticMult × posMult × resFactor × formFactor × ageFactor`
+  - **resFactor** (RES 0→100): range 1.18 (res=0, drain +18%) → 1.00 (res=50, neutro) → 0.82 (res=100, drain -18%)
+  - **formFactor** (Forma, soglia 85): ogni punto sotto 85 aggiunge malus ×K_FIT=1.2
+  - **ageFactor** (Età, soglia 28): ogni anno sopra 28 aggiunge malus ×K_AGE=2.2
+  - **tacticMult**: press×1.60 → defense×0.70 (invariato)
+  - **posMult**: ali in contropiede ×1.35 (invariato)
+- Attributo `spe` rinominato **VEL (Velocità)** nelle etichette (era stato temporaneamente chiamato RES)
+- RES visibile nelle barre attributi della scheda giocatore (dopo TEC)
+- Nuovo tipo di allenamento **🏊 Allenamento Resistenza** (2 stelle, 13.000€): res +0→+5, fitness +0→+3
+- Preparazione Atletica e Allenamento Difesa migliorano leggermente anche res (+2/+1)
+
+---
+
+## [0.5.41-beta] — 2026-04-02
+
+### Modificato
+- **Scheda giocatore**: "Fitness" rinominato in **"Forma"** in tutti i punti dell'interfaccia (tab Rosa, popup info giocatore, menu cambi durante la partita, popup conferma allenamento, tab Allenamento)
+- **Attributo SPE**: etichetta rinominata da "VEL" a **"RES" (Resistenza)** in tutte le schede e i popup — il valore interno rimane invariato su scala 0-100
+
+---
+
+## [0.5.40-beta] — 2026-04-02
+
+### Aggiunto — Sistema Stelle Allenamento
+- **⭐ Stelle manager**: ogni carriera inizia con **5 stelle**. Ogni giornata (simulata o giocata) aggiunge **+4 stelle**. Le stelle sono visibili nel box ⭐ in alto a destra (aggiornato in tempo reale).
+- **Costo stelle per allenamento**: ogni sessione richiede stelle (1-2) oltre al costo in denaro. Valori: Riposo/Tattica = 1 stella; tutti gli altri = 2 stelle.
+- **Popup conferma allenamento**: cliccando un tipo di allenamento si apre un popup con:
+  - Icona, nome e descrizione
+  - Box costo stelle (con stelle disponibili) e costo in denaro
+  - Tabella effetti attesi con indicatori colorati (+verde per fitness/morale, +blu per attributi, -rosso per fatica, +oro per OVR)
+  - Pulsanti Conferma / Annulla
+- I pulsanti di allenamento mostrano avvisi "Stelle insufficienti" / "Budget insufficiente" quando non si può procedere
 
 ---
 

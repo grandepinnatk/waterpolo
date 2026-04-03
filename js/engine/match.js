@@ -143,6 +143,8 @@ function createMatchState({ match, isHome, myTeam, oppTeam, myRoster, oppRoster,
     // Gol segnati IN QUESTA PARTITA: { rosterIdx → count }
     matchGoals:   {},
     matchAssists: {},
+    matchRatings: {},   // { rosterIdx → voto live 0-10 }
+    matchDuels:   {},   // { rosterIdx → { won, lost } } confronti vinti/persi
     // Parziali per periodo: array di { my, opp } per ciascuno dei 4 tempi
     periodScores: [ {my:0,opp:0}, {my:0,opp:0}, {my:0,opp:0}, {my:0,opp:0} ],
     // Punteggio al termine del periodo precedente (per calcolare il parziale corrente)
@@ -174,23 +176,31 @@ function advanceTime(ms, dt) {
 
 // ── Calo stamina in campo + recupero in panchina ──
 //
-// Formula: drain = BASE × tacticMult × posMult × speFactor × (1 + defFit×K_FIT + defAge×K_AGE)
+// Formula: drain = BASE × tacticMult × posMult × resFactor × formFactor × ageFactor
 //
-// Fasce età (deficit rispetto alla soglia 28):
-//   ≤28 anni  → nessun malus
-//   30 anni   → +4.4% drain
-//   32 anni   → +8.8% drain
-//   35 anni   → +15.4% drain
-//   36 anni   → +17.6% drain
+// Fattori moltiplicativi (tutti ≥ 0, si compongono):
 //
-// Fasce fitness (deficit rispetto alla soglia 85):
-//   ≥85      → nessun malus
-//   80       → +6% drain
-//   65       → +24% drain
-//   50       → +42% drain
+// ── resFactor (Resistenza 0-100) ──────────────────────────────────
+//   RES riduce il drain: range da 1.18 (RES=0) a 0.82 (RES=100)
+//   Formula: 1.18 - (res / 278)  → media RES=50 → factor≈1.00
 //
-// SPE alta (velocità): riduce il drain fino a -12% (SPE=85)
-// Tattica: press×1.60, balanced×1.00, defense×0.70
+// ── formFactor (Forma/Fitness 0-100, soglia 85) ───────────────────
+//   Sotto 85: ogni punto mancante aggiunge malus (K_FIT = 1.2)
+//   Forma 85  → factor = 1.00
+//   Forma 65  → factor = 1.24
+//   Forma 50  → factor = 1.42
+//
+// ── ageFactor (Età, soglia 28) ────────────────────────────────────
+//   Sopra 28: ogni anno aggiuntivo aumenta drain (K_AGE = 2.2)
+//   Età 28   → factor = 1.00
+//   Età 32   → factor = 1.088
+//   Età 36   → factor = 1.176
+//
+// ── tacticMult (tattica globale) ──────────────────────────────────
+//   defense×0.70, balanced×1.00, counter×1.10, attack×1.30, press×1.60
+//
+// ── posMult (posizione × tattica contropiede) ─────────────────────
+//   In contropiede: ali(1,5)×1.35, centro(3)×1.25, CB(6)×1.10
 //
 function _drainStamina(ms, dtGame) {
   const tactic     = ms.tactic || 'balanced';
@@ -218,12 +228,20 @@ function _drainStamina(ms, dtGame) {
       // Deficit età: ogni anno oltre soglia 28 aumenta il drain
       const defAge = Math.max(0, p.age - STAMINA_AGE_THRESHOLD) / 100;
 
-      // SPE alta = atleta più efficiente (max -12%)
-      const speFactor = p.stats && p.stats.spe ? 1 - (p.stats.spe / 700) : 1.0;
+      // RES (Resistenza 0-100): riduce il drain — range da 1.18 (res=0) a 0.82 (res=100)
+      // Media res=50 → factor=1.00 (neutro). 1.18 - (res/278)
+      const res       = (p.stats && p.stats.res !== undefined) ? p.stats.res : 50;
+      const resFactor = 1.18 - (res / 278);
+
+      // Forma (fitness): deficit sotto soglia 85 aumenta il drain
+      const formFactor = 1 + defFit * STAMINA_K_FIT;
+
+      // Età: deficit sopra soglia 28 aumenta il drain
+      const ageFactor  = 1 + defAge * STAMINA_K_AGE;
 
       const drain = STAMINA_BASE_DRAIN
-        * tacticMult * posMult * speFactor
-        * (1 + defFit * STAMINA_K_FIT + defAge * STAMINA_K_AGE)
+        * tacticMult * posMult
+        * resFactor * formFactor * ageFactor
         * dtGame;
 
       ms.stamina[pi] = Math.max(0, ms.stamina[pi] - drain);
@@ -262,6 +280,37 @@ function _roleEffectiveness(player, posKey) {
 }
 
 // ── Genera evento di gioco ────────────────────
+// ── Calcola voto live di un giocatore ────────────────────────────
+// Base 6.0 per tutti i giocatori in campo
+// +1.5 per gol, +0.8 per assist
+// +0.3 per duel vinto, -0.2 per duel perso
+// Portiere: base 6.5, ogni parata +0.4
+// Arrotondato a 0.5
+function calcPlayerRating(pi, ms) {
+  const p = ms.myRoster[pi]; if (!p) return 6.0;
+  const isGK    = p.role === 'POR';
+  let rating    = isGK ? 6.5 : 6.0;
+  const goals   = ms.matchGoals[pi]   || 0;
+  const assists = ms.matchAssists[pi] || 0;
+  const duels   = ms.matchDuels[pi]   || { won: 0, lost: 0 };
+  const saves   = ms.mySaves          || 0; // solo per GK titolare
+
+  rating += goals   * 1.5;
+  rating += assists * 0.8;
+  rating += duels.won  * 0.3;
+  rating -= duels.lost * 0.2;
+  if (isGK) rating += saves * 0.4;
+
+  // Stamina bassa penalizza leggermente
+  const st = ms.stamina[pi] !== undefined ? ms.stamina[pi] : 100;
+  if (st < 30) rating -= 0.5;
+  else if (st < 50) rating -= 0.25;
+
+  // Clamp 3.0-10.0, arrotonda a 0.5
+  rating = Math.max(3.0, Math.min(10.0, rating));
+  return Math.round(rating * 2) / 2;
+}
+
 function generateMatchEvent(ms) {
   const tacticBoost = TACTIC_BOOST[ms.tactic] || 0;
 
@@ -297,6 +346,8 @@ function generateMatchEvent(ms) {
     // Prob errore passaggio: da ~15% (tec=0) a ~2% (tec=100)
     const passErrProb = 0.15 - (tec / 100) * 0.13;
     if (Math.random() < passErrProb) {
+      if (!ms.matchDuels[attacker.pi]) ms.matchDuels[attacker.pi] = { won:0, lost:0 };
+      ms.matchDuels[attacker.pi].lost++;
       return {
         txt: '❌ Palla persa — ' + attacker.p.name + ' sbaglia il passaggio',
         cls: 'fl',
@@ -313,6 +364,9 @@ function generateMatchEvent(ms) {
       ms.myScore++;
       attacker.p.goals++;
       ms.matchGoals[attacker.pi] = (ms.matchGoals[attacker.pi] || 0) + 1;
+      // Duel vinto per l'attaccante
+      if (!ms.matchDuels[attacker.pi]) ms.matchDuels[attacker.pi] = { won:0, lost:0 };
+      ms.matchDuels[attacker.pi].won++;
       // Aggiorna parziale del periodo corrente
       if (ms.periodScores && ms.period >= 1 && ms.period <= 4) {
         ms.periodScores[ms.period - 1].my++;
@@ -338,6 +392,10 @@ function generateMatchEvent(ms) {
       };
     } else {
       const oppGk = ms.oppRoster.find(p => p.role === 'POR');
+      // Duel perso per l'attaccante sul tiro parato
+      if (!ms.matchDuels[attacker.pi]) ms.matchDuels[attacker.pi] = { won:0, lost:0 };
+      ms.matchDuels[attacker.pi].lost++;
+      // Duel vinto per il nostro portiere se para l'avversario
       return {
         txt: 'Tiro di ' + attacker.p.name + ' — parata' + (oppGk ? ' di ' + oppGk.name : ''),
         cls: '',

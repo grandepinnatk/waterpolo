@@ -370,14 +370,16 @@ function renderFieldLists() {
   }
 
   // Intestazione colonne — IN CAMPO e PANCHINA hanno griglie diverse
-  const COL_FIELD = '24px 1fr 28px 30px 28px 60px 36px 22px 22px 28px';
+  const COL_FIELD = '24px 1fr 36px 28px 30px 28px 60px 36px 22px 22px 28px';  // aggiunta col VOTO
   const COL_BENCH = '24px 1fr 30px 28px 60px 36px 22px 22px 28px';
 
   const fieldTableHeader = `
     <div style="display:grid;grid-template-columns:${COL_FIELD};
                 gap:3px;padding:3px 4px 5px;border-bottom:1px solid var(--border);
                 font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px">
-      <div>#</div><div>Nome</div><div>Pos.</div><div>Ruolo</div><div>Mano</div>
+      <div>#</div><div>Nome</div>
+      <div title="Voto" style="text-align:center;color:var(--gold)">VOT</div>
+      <div>Pos.</div><div>Ruolo</div><div>Mano</div>
       <div>Stamina</div><div>Esp.</div>
       <div title="Gol" style="text-align:center">&#x26BD;</div>
       <div title="Assist" style="text-align:center">&#x1F91D;</div>
@@ -415,6 +417,9 @@ function renderFieldLists() {
     const posLabel = _simplePosLabel(pk);
     // Colore mano
     const handColor = p.hand === 'L' ? '#80c0ff' : p.hand === 'AMB' ? 'var(--green)' : 'var(--muted)';
+    // Voto live
+    const rating = (typeof calcPlayerRating === 'function') ? calcPlayerRating(pi, ms) : 6.0;
+    const ratingColor = rating >= 7.5 ? 'var(--green)' : rating >= 6.5 ? 'var(--gold)' : rating >= 5.5 ? 'var(--muted)' : 'var(--red)';
     fieldHtml += `
       <div style="display:grid;grid-template-columns:${COL_FIELD};
                   gap:3px;align-items:center;padding:5px 4px;
@@ -425,6 +430,7 @@ function renderFieldLists() {
           ${_shortPlayerName(p)}
           ${isExp ? '<span style="font-size:9px;color:var(--red);display:block">ESP</span>' : ''}
         </div>
+        <div style="font-size:12px;font-weight:800;color:${ratingColor};text-align:center">${rating.toFixed(1)}</div>
         <div style="font-size:10px;font-weight:700;color:var(--blue);text-align:center">${posLabel}</div>
         <div style="font-size:10px;font-weight:600;color:var(--muted);text-align:center">${p.role}</div>
         <div style="font-size:10px;font-weight:600;color:${handColor};text-align:center">${p.hand}</div>
@@ -713,7 +719,7 @@ function showMatchPlayerInfo(pi) {
       <div class="irow"><span class="ilbl">Assist partita</span><span style="color:var(--green);font-weight:700">${mAssists}</span></div>
       <div style="margin-top:10px">
         <div class="slbl" style="margin-top:0">Attributi</div>
-        ${[['att','ATT'],['def','DIF'],['spe','VEL'],['str','FOR'],['tec','TEC']].map(([a,lbl]) => `
+        ${[['att','ATT'],['def','DIF'],['spe','VEL'],['str','FOR'],['tec','TEC'],['res','RES']].map(([a,lbl]) => `
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
             <div style="font-size:11px;color:var(--muted);width:28px">${lbl}</div>
             <div style="flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden">
@@ -953,7 +959,20 @@ function _doEndMatch() {
     G.msgs.push('G' + ms.match.round + ': ' + G.myTeam.name + ' ' +
                 (mw ? 'VINCE' : md ? 'pareggia' : 'perde') + ' vs ' + ms.oppTeam.name +
                 ' (' + ms.myScore + '-' + ms.oppScore + ')' + (earned ? ' +' + formatMoney(earned) : ''));
+    // Salva voti finali nelle ultime 4 partite di ogni giocatore
+    if (typeof calcPlayerRating === 'function') {
+      ms.myRoster.forEach((p, pi) => {
+        if (!p) return;
+        const finalRating = calcPlayerRating(pi, ms);
+        if (!p.lastRatings) p.lastRatings = [];
+        p.lastRatings.push(finalRating);
+        if (p.lastRatings.length > 4) p.lastRatings.shift(); // mantieni solo ultime 4
+      });
+    }
     updateMoraleAfterMatch(ms);
+    // +4 stelle per giornata
+    if (window.G && G.stars !== undefined) G.stars = (G.stars || 0) + 4;
+    if (typeof _updateStarsBox === 'function') _updateStarsBox();
     generateTransferOffers();
     if (typeof refreshMarketPool === 'function') refreshMarketPool();
     simulateRound(G.schedule, G.stand, G.teams, ms.match.round, G.myId, G.rosters);

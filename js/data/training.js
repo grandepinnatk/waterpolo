@@ -4,15 +4,17 @@
 const TRAINING_TYPES = [
   {
     id:      'physical',
+    stars:   2,
     name:    'Preparazione Atletica',
     desc:    'Migliora fitness e resistenza di tutta la rosa',
     icon:    '💪',
     cost:    15000,
-    eff:     { fitness:8, att:1, def:1 },
+    eff:     { fitness:8, att:1, def:1, res:2 },
     fatigue: 5,
   },
   {
     id:      'attack',
+    stars:   2,
     name:    'Allenamento Attacco',
     desc:    'Sessione offensiva: aumenta pericolosità in attacco',
     icon:    '🎯',
@@ -22,15 +24,17 @@ const TRAINING_TYPES = [
   },
   {
     id:      'defense',
+    stars:   2,
     name:    'Allenamento Difesa',
     desc:    'Migliora copertura difensiva e forza fisica',
     icon:    '🛡️',
     cost:    12000,
-    eff:     { def:4, str:2 },
+    eff:     { def:4, str:2, res:1 },
     fatigue: 6,
   },
   {
     id:      'tactics',
+    stars:   1,
     name:    'Sessione Tattica',
     desc:    'Migliora intesa collettiva e movimenti coordinati',
     icon:    '📋',
@@ -40,6 +44,7 @@ const TRAINING_TYPES = [
   },
   {
     id:      'gk',
+    stars:   2,
     name:    'Allenamento Portieri',
     desc:    'Sessione specifica: migliora overall dei portieri',
     icon:    '🥅',
@@ -49,6 +54,7 @@ const TRAINING_TYPES = [
   },
   {
     id:      'technique',
+    stars:   2,
     name:    'Allenamento Tecnico',
     desc:    'Sessione di perfezionamento tecnico: migliora la precisione nei passaggi e la finalizzazione',
     icon:    '🤽',
@@ -58,11 +64,22 @@ const TRAINING_TYPES = [
   },
   {
     id:      'rest',
+    stars:   1,
     name:    'Riposo e Recupero',
     desc:    'Recupero fisico e mentale — migliora fitness e morale',
     icon:    '🏖️',
     cost:    0,
     eff:     { fitness:12, morale:8 },
     fatigue: -10,
+  },
+  {
+    id:      'endurance',
+    stars:   2,
+    name:    'Allenamento Resistenza',
+    desc:    'Lavoro fisico intensivo: migliora la resistenza ai carichi prolungati e riduce l\'affaticamento in partita',
+    icon:    '🏊',
+    cost:    13000,
+    eff:     { res:5, fitness:3 },
+    fatigue: 7,
   },
 ];

@@ -49,6 +49,9 @@ function updateHeader() {
   }[G.phase] || G.phase;
   const infoEl = document.getElementById('hdr-info');
   if (infoEl) infoEl.textContent = phaseLabel + ' · ' + formatMoney(G.budget);
+  // Aggiorna stelle nella topbar
+  const starsEl = document.getElementById('bs-stars-val');
+  if (starsEl && G) starsEl.textContent = G.stars || 0;
 }
 
 // ── Mostra/nasconde le schermate principali ───
