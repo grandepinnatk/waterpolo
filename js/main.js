@@ -114,7 +114,19 @@ function confirmSimNextRound() {
 function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey) {
   if (!roster) return;
 
-  // Mappa nome → { goals, assists } dai details della partita simulata
+  // ── Costruisce la convocazione simulata (13 giocatori) ──────────────────
+  // Regola: 2 POR (titolare + riserva) + 11 di campo selezionati per overall
+  // Rispecchia il limite reale di convocazione in pallanuoto A1.
+  const goalies  = roster.filter(p => p && p.role === 'POR')
+                         .sort((a, b) => b.overall - a.overall);
+  const field    = roster.filter(p => p && p.role !== 'POR')
+                         .sort((a, b) => b.overall - a.overall);
+
+  const calledGK  = goalies.slice(0, 2);   // max 2 portieri
+  const calledFld = field.slice(0, 11);    // max 11 di campo
+  const convocati = new Set([...calledGK, ...calledFld].map(p => p.name));
+
+  // ── Mappa nome → { goals, assists } dai details ────────────────────────
   const matchMap = {};
   if (matchDetails && scorerKey && matchDetails[scorerKey]) {
     matchDetails[scorerKey].forEach(s => {
@@ -122,38 +134,48 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
     });
   }
 
+  // ── Assegna voti / null ────────────────────────────────────────────────
   roster.forEach(p => {
     if (!p) return;
-    let rating;
+    if (!p.lastRatings) p.lastRatings = [];
 
-    if (p.role === 'POR') {
-      // Portiere: voto basato su gol subiti e parate stimate
-      const estSaves = Math.max(0, Math.round(goalsConceded * 0.5 + Math.random() * 1.5));
-      rating = 6.0 + estSaves * 0.4 - goalsConceded * 0.3;
-      if (goalsConceded === 0)      rating += 1.0;
-      else if (goalsConceded <= 3)  rating += 0.3;
+    if (!convocati.has(p.name)) {
+      // Non convocato → null
+      p.lastRatings.push(null);
+    } else if (p.role === 'POR') {
+      // Portiere titolare (il migliore): voto basato su gol subiti e parate stimate
+      // Portiere riserva (secondo): voto neutro fisso (non ha giocato ma è convocato)
+      const isTitolare = p === calledGK[0];
+      let rating;
+      if (isTitolare) {
+        const estSaves = Math.max(0, Math.round(goalsConceded * 0.5 + Math.random() * 1.5));
+        rating = 6.0 + estSaves * 0.4 - goalsConceded * 0.3;
+        if (goalsConceded === 0)     rating += 1.0;
+        else if (goalsConceded <= 3) rating += 0.3;
+      } else {
+        // Riserva: non ha giocato ma è convocato → null (non impiegato)
+        p.lastRatings.push(null);
+        if (p.lastRatings.length > 4) p.lastRatings.shift();
+        return;
+      }
+      rating = Math.max(3.0, Math.min(10.0, rating));
+      p.lastRatings.push(Math.round(rating * 2) / 2);
     } else {
-      // Giocatori di movimento: gol/assist dalla partita + ruolo + piccola varianza
+      // Giocatori di campo convocati
       const contrib  = matchMap[p.name] || { goals: 0, assists: 0 };
       const roleBase = p.role === 'ATT' ? 0.2 : p.role === 'CB' ? 0.15 : p.role === 'CEN' ? 0.1 : 0;
-      rating = 6.0
+      let rating = 6.0
         + contrib.goals   * 1.5
-        + contrib.assists  * 0.8
+        + contrib.assists * 0.8
         + roleBase
-        + (Math.random() * 0.6 - 0.3); // varianza ±0.3
+        + (Math.random() * 0.6 - 0.3);
+      rating = Math.max(3.0, Math.min(10.0, rating));
+      p.lastRatings.push(Math.round(rating * 2) / 2);
     }
 
-    rating = Math.max(3.0, Math.min(10.0, rating));
-    rating = Math.round(rating * 2) / 2;
-    if (!p.lastRatings) p.lastRatings = [];
-    p.lastRatings.push(rating);
     if (p.lastRatings.length > 4) p.lastRatings.shift();
   });
 }
-
-// Segna null (= non ha giocato) per i giocatori della rosa NON inclusi nella partita simulata.
-// Per la simulazione tutti giocano, quindi non serve qui — ma teniamo il hook per futura convocazione.
-// Al momento _assignSimulatedRatings assegna un voto a tutti.
 
 function simNextRound() {
   const r = nextMyRound();

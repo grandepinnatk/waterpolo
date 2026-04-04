@@ -6,6 +6,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.49-beta] — 2026-04-02
+
+### Corretto
+- **Voti partita simulata**: la convocazione simulata è ora limitata a **13 giocatori** (2 POR + 11 di campo, selezionati per overall decrescente). I restanti della rosa ricevono `null` → mostrato come `-` nella colonna Voti. Il portiere riserva riceve anch'esso `null` (convocato ma non scende in campo).
+
+---
+
 ## [0.5.48-beta] — 2026-04-02
 
 ### Aggiunto
@@ -82,6 +89,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.49-beta] — 2026-04-02
+
+### Corretto
+- **Voti partita simulata**: la convocazione simulata è ora limitata a **13 giocatori** (2 POR + 11 di campo, selezionati per overall decrescente). I restanti della rosa ricevono `null` → mostrato come `-` nella colonna Voti. Il portiere riserva riceve anch'esso `null` (convocato ma non scende in campo).
 
 ---
 
@@ -229,6 +243,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.49-beta] — 2026-04-02
+
+### Corretto
+- **Voti partita simulata**: la convocazione simulata è ora limitata a **13 giocatori** (2 POR + 11 di campo, selezionati per overall decrescente). I restanti della rosa ricevono `null` → mostrato come `-` nella colonna Voti. Il portiere riserva riceve anch'esso `null` (convocato ma non scende in campo).
+
+---
+
 ## [0.5.48-beta] — 2026-04-02
 
 ### Aggiunto
@@ -305,6 +326,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.49-beta] — 2026-04-02
+
+### Corretto
+- **Voti partita simulata**: la convocazione simulata è ora limitata a **13 giocatori** (2 POR + 11 di campo, selezionati per overall decrescente). I restanti della rosa ricevono `null` → mostrato come `-` nella colonna Voti. Il portiere riserva riceve anch'esso `null` (convocato ma non scende in campo).
 
 ---
 
@@ -522,6 +550,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.49-beta] — 2026-04-02
+
+### Corretto
+- **Voti partita simulata**: la convocazione simulata è ora limitata a **13 giocatori** (2 POR + 11 di campo, selezionati per overall decrescente). I restanti della rosa ricevono `null` → mostrato come `-` nella colonna Voti. Il portiere riserva riceve anch'esso `null` (convocato ma non scende in campo).
+
+---
+
 ## [0.5.48-beta] — 2026-04-02
 
 ### Aggiunto
@@ -598,6 +633,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.49-beta] — 2026-04-02
+
+### Corretto
+- **Voti partita simulata**: la convocazione simulata è ora limitata a **13 giocatori** (2 POR + 11 di campo, selezionati per overall decrescente). I restanti della rosa ricevono `null` → mostrato come `-` nella colonna Voti. Il portiere riserva riceve anch'esso `null` (convocato ma non scende in campo).
 
 ---
 
@@ -745,6 +787,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.49-beta] — 2026-04-02
+
+### Corretto
+- **Voti partita simulata**: la convocazione simulata è ora limitata a **13 giocatori** (2 POR + 11 di campo, selezionati per overall decrescente). I restanti della rosa ricevono `null` → mostrato come `-` nella colonna Voti. Il portiere riserva riceve anch'esso `null` (convocato ma non scende in campo).
+
+---
+
 ## [0.5.48-beta] — 2026-04-02
 
 ### Aggiunto
@@ -821,6 +870,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.49-beta] — 2026-04-02
+
+### Corretto
+- **Voti partita simulata**: la convocazione simulata è ora limitata a **13 giocatori** (2 POR + 11 di campo, selezionati per overall decrescente). I restanti della rosa ricevono `null` → mostrato come `-` nella colonna Voti. Il portiere riserva riceve anch'esso `null` (convocato ma non scende in campo).
 
 ---
 
@@ -1044,6 +1100,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.49-beta] — 2026-04-02
+
+### Corretto
+- **Voti partita simulata**: la convocazione simulata è ora limitata a **13 giocatori** (2 POR + 11 di campo, selezionati per overall decrescente). I restanti della rosa ricevono `null` → mostrato come `-` nella colonna Voti. Il portiere riserva riceve anch'esso `null` (convocato ma non scende in campo).
+
+---
+
 ## [0.5.48-beta] — 2026-04-02
 
 ### Aggiunto
@@ -1120,6 +1183,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.49-beta] — 2026-04-02
+
+### Corretto
+- **Voti partita simulata**: la convocazione simulata è ora limitata a **13 giocatori** (2 POR + 11 di campo, selezionati per overall decrescente). I restanti della rosa ricevono `null` → mostrato come `-` nella colonna Voti. Il portiere riserva riceve anch'esso `null` (convocato ma non scende in campo).
 
 ---
 
@@ -1267,6 +1337,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.49-beta] — 2026-04-02
+
+### Corretto
+- **Voti partita simulata**: la convocazione simulata è ora limitata a **13 giocatori** (2 POR + 11 di campo, selezionati per overall decrescente). I restanti della rosa ricevono `null` → mostrato come `-` nella colonna Voti. Il portiere riserva riceve anch'esso `null` (convocato ma non scende in campo).
+
+---
+
 ## [0.5.48-beta] — 2026-04-02
 
 ### Aggiunto
@@ -1343,6 +1420,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.49-beta] — 2026-04-02
+
+### Corretto
+- **Voti partita simulata**: la convocazione simulata è ora limitata a **13 giocatori** (2 POR + 11 di campo, selezionati per overall decrescente). I restanti della rosa ricevono `null` → mostrato come `-` nella colonna Voti. Il portiere riserva riceve anch'esso `null` (convocato ma non scende in campo).
 
 ---
 
