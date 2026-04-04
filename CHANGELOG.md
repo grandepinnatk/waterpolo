@@ -6,6 +6,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.47-beta] — 2026-04-02
+
+### Aggiunto
+- **Voti su partite simulate**: dopo "Simula Giornata" i giocatori della propria rosa ricevono un voto calcolato dai dati della simulazione — gol e assist dalla partita (estratti dai `details` del match), malus gol subiti per il portiere, piccola varianza casuale per realismo. I voti vengono salvati in `p.lastRatings` esattamente come per le partite giocate e sono visibili nel tab Rosa colonna "Voti".
+
+---
+
+## [0.5.46-beta] — 2026-04-02
+
+### Aggiunto
+- **Voto panchina**: colonna VOT aggiunta anche nella lista giocatori in panchina — mostra il voto se il giocatore ha già giocato (è entrato e uscito), oppure "—" se non ha ancora messo piede in campo
+- **Voto nel pannello cambi**: il voto live viene mostrato accanto alla stamina sia nella lista "esce dal campo" che nella lista "entra in campo", con la stessa colorazione (verde/oro/grigio/rosso) — "—" per chi non ha ancora giocato
+
+---
+
+## [0.5.45-beta] — 2026-04-02
+
+### Corretto
+- **Voto portiere**: aggiunto malus per gol subiti (`-0.3` per ogni rete incassata). La formula ora è: base 6.0 + parate×0.4 − gol_subiti×0.3 + bonus clean sheet (+1.0) o quasi clean sheet ≤3 gol (+0.3). Range realistico: clean sheet → ~8.5-9.0, 5 gol subiti → ~5.5, 9 gol subiti → ~3.5.
+
+---
+
+## [0.5.44-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate con "Fine Periodo"**: aggiunto flag `ms._starsAssigned` per garantire che le +4 stelle vengano assegnate esattamente una volta per partita — sia nel percorso normale (`_doEndMatch`) sia quando la partita finisce via `skipPeriod` (le stelle vengono assegnate al click di "Fine Partita" in `endMatch()`)
+
+---
+
 ## [0.5.43-beta] — 2026-04-02
 
 ### Aggiunto — Sistema Voti Giocatori
@@ -46,6 +75,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.47-beta] — 2026-04-02
+
+### Aggiunto
+- **Voti su partite simulate**: dopo "Simula Giornata" i giocatori della propria rosa ricevono un voto calcolato dai dati della simulazione — gol e assist dalla partita (estratti dai `details` del match), malus gol subiti per il portiere, piccola varianza casuale per realismo. I voti vengono salvati in `p.lastRatings` esattamente come per le partite giocate e sono visibili nel tab Rosa colonna "Voti".
+
+---
+
+## [0.5.46-beta] — 2026-04-02
+
+### Aggiunto
+- **Voto panchina**: colonna VOT aggiunta anche nella lista giocatori in panchina — mostra il voto se il giocatore ha già giocato (è entrato e uscito), oppure "—" se non ha ancora messo piede in campo
+- **Voto nel pannello cambi**: il voto live viene mostrato accanto alla stamina sia nella lista "esce dal campo" che nella lista "entra in campo", con la stessa colorazione (verde/oro/grigio/rosso) — "—" per chi non ha ancora giocato
+
+---
+
+## [0.5.45-beta] — 2026-04-02
+
+### Corretto
+- **Voto portiere**: aggiunto malus per gol subiti (`-0.3` per ogni rete incassata). La formula ora è: base 6.0 + parate×0.4 − gol_subiti×0.3 + bonus clean sheet (+1.0) o quasi clean sheet ≤3 gol (+0.3). Range realistico: clean sheet → ~8.5-9.0, 5 gol subiti → ~5.5, 9 gol subiti → ~3.5.
+
+---
+
+## [0.5.44-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate con "Fine Periodo"**: aggiunto flag `ms._starsAssigned` per garantire che le +4 stelle vengano assegnate esattamente una volta per partita — sia nel percorso normale (`_doEndMatch`) sia quando la partita finisce via `skipPeriod` (le stelle vengono assegnate al click di "Fine Partita" in `endMatch()`)
 
 ---
 
@@ -157,6 +215,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.47-beta] — 2026-04-02
+
+### Aggiunto
+- **Voti su partite simulate**: dopo "Simula Giornata" i giocatori della propria rosa ricevono un voto calcolato dai dati della simulazione — gol e assist dalla partita (estratti dai `details` del match), malus gol subiti per il portiere, piccola varianza casuale per realismo. I voti vengono salvati in `p.lastRatings` esattamente come per le partite giocate e sono visibili nel tab Rosa colonna "Voti".
+
+---
+
+## [0.5.46-beta] — 2026-04-02
+
+### Aggiunto
+- **Voto panchina**: colonna VOT aggiunta anche nella lista giocatori in panchina — mostra il voto se il giocatore ha già giocato (è entrato e uscito), oppure "—" se non ha ancora messo piede in campo
+- **Voto nel pannello cambi**: il voto live viene mostrato accanto alla stamina sia nella lista "esce dal campo" che nella lista "entra in campo", con la stessa colorazione (verde/oro/grigio/rosso) — "—" per chi non ha ancora giocato
+
+---
+
+## [0.5.45-beta] — 2026-04-02
+
+### Corretto
+- **Voto portiere**: aggiunto malus per gol subiti (`-0.3` per ogni rete incassata). La formula ora è: base 6.0 + parate×0.4 − gol_subiti×0.3 + bonus clean sheet (+1.0) o quasi clean sheet ≤3 gol (+0.3). Range realistico: clean sheet → ~8.5-9.0, 5 gol subiti → ~5.5, 9 gol subiti → ~3.5.
+
+---
+
+## [0.5.44-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate con "Fine Periodo"**: aggiunto flag `ms._starsAssigned` per garantire che le +4 stelle vengano assegnate esattamente una volta per partita — sia nel percorso normale (`_doEndMatch`) sia quando la partita finisce via `skipPeriod` (le stelle vengono assegnate al click di "Fine Partita" in `endMatch()`)
+
+---
+
 ## [0.5.43-beta] — 2026-04-02
 
 ### Aggiunto — Sistema Voti Giocatori
@@ -197,6 +284,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.47-beta] — 2026-04-02
+
+### Aggiunto
+- **Voti su partite simulate**: dopo "Simula Giornata" i giocatori della propria rosa ricevono un voto calcolato dai dati della simulazione — gol e assist dalla partita (estratti dai `details` del match), malus gol subiti per il portiere, piccola varianza casuale per realismo. I voti vengono salvati in `p.lastRatings` esattamente come per le partite giocate e sono visibili nel tab Rosa colonna "Voti".
+
+---
+
+## [0.5.46-beta] — 2026-04-02
+
+### Aggiunto
+- **Voto panchina**: colonna VOT aggiunta anche nella lista giocatori in panchina — mostra il voto se il giocatore ha già giocato (è entrato e uscito), oppure "—" se non ha ancora messo piede in campo
+- **Voto nel pannello cambi**: il voto live viene mostrato accanto alla stamina sia nella lista "esce dal campo" che nella lista "entra in campo", con la stessa colorazione (verde/oro/grigio/rosso) — "—" per chi non ha ancora giocato
+
+---
+
+## [0.5.45-beta] — 2026-04-02
+
+### Corretto
+- **Voto portiere**: aggiunto malus per gol subiti (`-0.3` per ogni rete incassata). La formula ora è: base 6.0 + parate×0.4 − gol_subiti×0.3 + bonus clean sheet (+1.0) o quasi clean sheet ≤3 gol (+0.3). Range realistico: clean sheet → ~8.5-9.0, 5 gol subiti → ~5.5, 9 gol subiti → ~3.5.
+
+---
+
+## [0.5.44-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate con "Fine Periodo"**: aggiunto flag `ms._starsAssigned` per garantire che le +4 stelle vengano assegnate esattamente una volta per partita — sia nel percorso normale (`_doEndMatch`) sia quando la partita finisce via `skipPeriod` (le stelle vengono assegnate al click di "Fine Partita" in `endMatch()`)
 
 ---
 
@@ -378,6 +494,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.47-beta] — 2026-04-02
+
+### Aggiunto
+- **Voti su partite simulate**: dopo "Simula Giornata" i giocatori della propria rosa ricevono un voto calcolato dai dati della simulazione — gol e assist dalla partita (estratti dai `details` del match), malus gol subiti per il portiere, piccola varianza casuale per realismo. I voti vengono salvati in `p.lastRatings` esattamente come per le partite giocate e sono visibili nel tab Rosa colonna "Voti".
+
+---
+
+## [0.5.46-beta] — 2026-04-02
+
+### Aggiunto
+- **Voto panchina**: colonna VOT aggiunta anche nella lista giocatori in panchina — mostra il voto se il giocatore ha già giocato (è entrato e uscito), oppure "—" se non ha ancora messo piede in campo
+- **Voto nel pannello cambi**: il voto live viene mostrato accanto alla stamina sia nella lista "esce dal campo" che nella lista "entra in campo", con la stessa colorazione (verde/oro/grigio/rosso) — "—" per chi non ha ancora giocato
+
+---
+
+## [0.5.45-beta] — 2026-04-02
+
+### Corretto
+- **Voto portiere**: aggiunto malus per gol subiti (`-0.3` per ogni rete incassata). La formula ora è: base 6.0 + parate×0.4 − gol_subiti×0.3 + bonus clean sheet (+1.0) o quasi clean sheet ≤3 gol (+0.3). Range realistico: clean sheet → ~8.5-9.0, 5 gol subiti → ~5.5, 9 gol subiti → ~3.5.
+
+---
+
+## [0.5.44-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate con "Fine Periodo"**: aggiunto flag `ms._starsAssigned` per garantire che le +4 stelle vengano assegnate esattamente una volta per partita — sia nel percorso normale (`_doEndMatch`) sia quando la partita finisce via `skipPeriod` (le stelle vengono assegnate al click di "Fine Partita" in `endMatch()`)
+
+---
+
 ## [0.5.43-beta] — 2026-04-02
 
 ### Aggiunto — Sistema Voti Giocatori
@@ -418,6 +563,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.47-beta] — 2026-04-02
+
+### Aggiunto
+- **Voti su partite simulate**: dopo "Simula Giornata" i giocatori della propria rosa ricevono un voto calcolato dai dati della simulazione — gol e assist dalla partita (estratti dai `details` del match), malus gol subiti per il portiere, piccola varianza casuale per realismo. I voti vengono salvati in `p.lastRatings` esattamente come per le partite giocate e sono visibili nel tab Rosa colonna "Voti".
+
+---
+
+## [0.5.46-beta] — 2026-04-02
+
+### Aggiunto
+- **Voto panchina**: colonna VOT aggiunta anche nella lista giocatori in panchina — mostra il voto se il giocatore ha già giocato (è entrato e uscito), oppure "—" se non ha ancora messo piede in campo
+- **Voto nel pannello cambi**: il voto live viene mostrato accanto alla stamina sia nella lista "esce dal campo" che nella lista "entra in campo", con la stessa colorazione (verde/oro/grigio/rosso) — "—" per chi non ha ancora giocato
+
+---
+
+## [0.5.45-beta] — 2026-04-02
+
+### Corretto
+- **Voto portiere**: aggiunto malus per gol subiti (`-0.3` per ogni rete incassata). La formula ora è: base 6.0 + parate×0.4 − gol_subiti×0.3 + bonus clean sheet (+1.0) o quasi clean sheet ≤3 gol (+0.3). Range realistico: clean sheet → ~8.5-9.0, 5 gol subiti → ~5.5, 9 gol subiti → ~3.5.
+
+---
+
+## [0.5.44-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate con "Fine Periodo"**: aggiunto flag `ms._starsAssigned` per garantire che le +4 stelle vengano assegnate esattamente una volta per partita — sia nel percorso normale (`_doEndMatch`) sia quando la partita finisce via `skipPeriod` (le stelle vengono assegnate al click di "Fine Partita" in `endMatch()`)
 
 ---
 
@@ -529,6 +703,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.47-beta] — 2026-04-02
+
+### Aggiunto
+- **Voti su partite simulate**: dopo "Simula Giornata" i giocatori della propria rosa ricevono un voto calcolato dai dati della simulazione — gol e assist dalla partita (estratti dai `details` del match), malus gol subiti per il portiere, piccola varianza casuale per realismo. I voti vengono salvati in `p.lastRatings` esattamente come per le partite giocate e sono visibili nel tab Rosa colonna "Voti".
+
+---
+
+## [0.5.46-beta] — 2026-04-02
+
+### Aggiunto
+- **Voto panchina**: colonna VOT aggiunta anche nella lista giocatori in panchina — mostra il voto se il giocatore ha già giocato (è entrato e uscito), oppure "—" se non ha ancora messo piede in campo
+- **Voto nel pannello cambi**: il voto live viene mostrato accanto alla stamina sia nella lista "esce dal campo" che nella lista "entra in campo", con la stessa colorazione (verde/oro/grigio/rosso) — "—" per chi non ha ancora giocato
+
+---
+
+## [0.5.45-beta] — 2026-04-02
+
+### Corretto
+- **Voto portiere**: aggiunto malus per gol subiti (`-0.3` per ogni rete incassata). La formula ora è: base 6.0 + parate×0.4 − gol_subiti×0.3 + bonus clean sheet (+1.0) o quasi clean sheet ≤3 gol (+0.3). Range realistico: clean sheet → ~8.5-9.0, 5 gol subiti → ~5.5, 9 gol subiti → ~3.5.
+
+---
+
+## [0.5.44-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate con "Fine Periodo"**: aggiunto flag `ms._starsAssigned` per garantire che le +4 stelle vengano assegnate esattamente una volta per partita — sia nel percorso normale (`_doEndMatch`) sia quando la partita finisce via `skipPeriod` (le stelle vengono assegnate al click di "Fine Partita" in `endMatch()`)
+
+---
+
 ## [0.5.43-beta] — 2026-04-02
 
 ### Aggiunto — Sistema Voti Giocatori
@@ -569,6 +772,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.47-beta] — 2026-04-02
+
+### Aggiunto
+- **Voti su partite simulate**: dopo "Simula Giornata" i giocatori della propria rosa ricevono un voto calcolato dai dati della simulazione — gol e assist dalla partita (estratti dai `details` del match), malus gol subiti per il portiere, piccola varianza casuale per realismo. I voti vengono salvati in `p.lastRatings` esattamente come per le partite giocate e sono visibili nel tab Rosa colonna "Voti".
+
+---
+
+## [0.5.46-beta] — 2026-04-02
+
+### Aggiunto
+- **Voto panchina**: colonna VOT aggiunta anche nella lista giocatori in panchina — mostra il voto se il giocatore ha già giocato (è entrato e uscito), oppure "—" se non ha ancora messo piede in campo
+- **Voto nel pannello cambi**: il voto live viene mostrato accanto alla stamina sia nella lista "esce dal campo" che nella lista "entra in campo", con la stessa colorazione (verde/oro/grigio/rosso) — "—" per chi non ha ancora giocato
+
+---
+
+## [0.5.45-beta] — 2026-04-02
+
+### Corretto
+- **Voto portiere**: aggiunto malus per gol subiti (`-0.3` per ogni rete incassata). La formula ora è: base 6.0 + parate×0.4 − gol_subiti×0.3 + bonus clean sheet (+1.0) o quasi clean sheet ≤3 gol (+0.3). Range realistico: clean sheet → ~8.5-9.0, 5 gol subiti → ~5.5, 9 gol subiti → ~3.5.
+
+---
+
+## [0.5.44-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate con "Fine Periodo"**: aggiunto flag `ms._starsAssigned` per garantire che le +4 stelle vengano assegnate esattamente una volta per partita — sia nel percorso normale (`_doEndMatch`) sia quando la partita finisce via `skipPeriod` (le stelle vengono assegnate al click di "Fine Partita" in `endMatch()`)
 
 ---
 
@@ -756,6 +988,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.47-beta] — 2026-04-02
+
+### Aggiunto
+- **Voti su partite simulate**: dopo "Simula Giornata" i giocatori della propria rosa ricevono un voto calcolato dai dati della simulazione — gol e assist dalla partita (estratti dai `details` del match), malus gol subiti per il portiere, piccola varianza casuale per realismo. I voti vengono salvati in `p.lastRatings` esattamente come per le partite giocate e sono visibili nel tab Rosa colonna "Voti".
+
+---
+
+## [0.5.46-beta] — 2026-04-02
+
+### Aggiunto
+- **Voto panchina**: colonna VOT aggiunta anche nella lista giocatori in panchina — mostra il voto se il giocatore ha già giocato (è entrato e uscito), oppure "—" se non ha ancora messo piede in campo
+- **Voto nel pannello cambi**: il voto live viene mostrato accanto alla stamina sia nella lista "esce dal campo" che nella lista "entra in campo", con la stessa colorazione (verde/oro/grigio/rosso) — "—" per chi non ha ancora giocato
+
+---
+
+## [0.5.45-beta] — 2026-04-02
+
+### Corretto
+- **Voto portiere**: aggiunto malus per gol subiti (`-0.3` per ogni rete incassata). La formula ora è: base 6.0 + parate×0.4 − gol_subiti×0.3 + bonus clean sheet (+1.0) o quasi clean sheet ≤3 gol (+0.3). Range realistico: clean sheet → ~8.5-9.0, 5 gol subiti → ~5.5, 9 gol subiti → ~3.5.
+
+---
+
+## [0.5.44-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate con "Fine Periodo"**: aggiunto flag `ms._starsAssigned` per garantire che le +4 stelle vengano assegnate esattamente una volta per partita — sia nel percorso normale (`_doEndMatch`) sia quando la partita finisce via `skipPeriod` (le stelle vengono assegnate al click di "Fine Partita" in `endMatch()`)
+
+---
+
 ## [0.5.43-beta] — 2026-04-02
 
 ### Aggiunto — Sistema Voti Giocatori
@@ -796,6 +1057,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.47-beta] — 2026-04-02
+
+### Aggiunto
+- **Voti su partite simulate**: dopo "Simula Giornata" i giocatori della propria rosa ricevono un voto calcolato dai dati della simulazione — gol e assist dalla partita (estratti dai `details` del match), malus gol subiti per il portiere, piccola varianza casuale per realismo. I voti vengono salvati in `p.lastRatings` esattamente come per le partite giocate e sono visibili nel tab Rosa colonna "Voti".
+
+---
+
+## [0.5.46-beta] — 2026-04-02
+
+### Aggiunto
+- **Voto panchina**: colonna VOT aggiunta anche nella lista giocatori in panchina — mostra il voto se il giocatore ha già giocato (è entrato e uscito), oppure "—" se non ha ancora messo piede in campo
+- **Voto nel pannello cambi**: il voto live viene mostrato accanto alla stamina sia nella lista "esce dal campo" che nella lista "entra in campo", con la stessa colorazione (verde/oro/grigio/rosso) — "—" per chi non ha ancora giocato
+
+---
+
+## [0.5.45-beta] — 2026-04-02
+
+### Corretto
+- **Voto portiere**: aggiunto malus per gol subiti (`-0.3` per ogni rete incassata). La formula ora è: base 6.0 + parate×0.4 − gol_subiti×0.3 + bonus clean sheet (+1.0) o quasi clean sheet ≤3 gol (+0.3). Range realistico: clean sheet → ~8.5-9.0, 5 gol subiti → ~5.5, 9 gol subiti → ~3.5.
+
+---
+
+## [0.5.44-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate con "Fine Periodo"**: aggiunto flag `ms._starsAssigned` per garantire che le +4 stelle vengano assegnate esattamente una volta per partita — sia nel percorso normale (`_doEndMatch`) sia quando la partita finisce via `skipPeriod` (le stelle vengono assegnate al click di "Fine Partita" in `endMatch()`)
 
 ---
 
@@ -907,6 +1197,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.47-beta] — 2026-04-02
+
+### Aggiunto
+- **Voti su partite simulate**: dopo "Simula Giornata" i giocatori della propria rosa ricevono un voto calcolato dai dati della simulazione — gol e assist dalla partita (estratti dai `details` del match), malus gol subiti per il portiere, piccola varianza casuale per realismo. I voti vengono salvati in `p.lastRatings` esattamente come per le partite giocate e sono visibili nel tab Rosa colonna "Voti".
+
+---
+
+## [0.5.46-beta] — 2026-04-02
+
+### Aggiunto
+- **Voto panchina**: colonna VOT aggiunta anche nella lista giocatori in panchina — mostra il voto se il giocatore ha già giocato (è entrato e uscito), oppure "—" se non ha ancora messo piede in campo
+- **Voto nel pannello cambi**: il voto live viene mostrato accanto alla stamina sia nella lista "esce dal campo" che nella lista "entra in campo", con la stessa colorazione (verde/oro/grigio/rosso) — "—" per chi non ha ancora giocato
+
+---
+
+## [0.5.45-beta] — 2026-04-02
+
+### Corretto
+- **Voto portiere**: aggiunto malus per gol subiti (`-0.3` per ogni rete incassata). La formula ora è: base 6.0 + parate×0.4 − gol_subiti×0.3 + bonus clean sheet (+1.0) o quasi clean sheet ≤3 gol (+0.3). Range realistico: clean sheet → ~8.5-9.0, 5 gol subiti → ~5.5, 9 gol subiti → ~3.5.
+
+---
+
+## [0.5.44-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate con "Fine Periodo"**: aggiunto flag `ms._starsAssigned` per garantire che le +4 stelle vengano assegnate esattamente una volta per partita — sia nel percorso normale (`_doEndMatch`) sia quando la partita finisce via `skipPeriod` (le stelle vengono assegnate al click di "Fine Partita" in `endMatch()`)
+
+---
+
 ## [0.5.43-beta] — 2026-04-02
 
 ### Aggiunto — Sistema Voti Giocatori
@@ -947,6 +1266,35 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.47-beta] — 2026-04-02
+
+### Aggiunto
+- **Voti su partite simulate**: dopo "Simula Giornata" i giocatori della propria rosa ricevono un voto calcolato dai dati della simulazione — gol e assist dalla partita (estratti dai `details` del match), malus gol subiti per il portiere, piccola varianza casuale per realismo. I voti vengono salvati in `p.lastRatings` esattamente come per le partite giocate e sono visibili nel tab Rosa colonna "Voti".
+
+---
+
+## [0.5.46-beta] — 2026-04-02
+
+### Aggiunto
+- **Voto panchina**: colonna VOT aggiunta anche nella lista giocatori in panchina — mostra il voto se il giocatore ha già giocato (è entrato e uscito), oppure "—" se non ha ancora messo piede in campo
+- **Voto nel pannello cambi**: il voto live viene mostrato accanto alla stamina sia nella lista "esce dal campo" che nella lista "entra in campo", con la stessa colorazione (verde/oro/grigio/rosso) — "—" per chi non ha ancora giocato
+
+---
+
+## [0.5.45-beta] — 2026-04-02
+
+### Corretto
+- **Voto portiere**: aggiunto malus per gol subiti (`-0.3` per ogni rete incassata). La formula ora è: base 6.0 + parate×0.4 − gol_subiti×0.3 + bonus clean sheet (+1.0) o quasi clean sheet ≤3 gol (+0.3). Range realistico: clean sheet → ~8.5-9.0, 5 gol subiti → ~5.5, 9 gol subiti → ~3.5.
+
+---
+
+## [0.5.44-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate con "Fine Periodo"**: aggiunto flag `ms._starsAssigned` per garantire che le +4 stelle vengano assegnate esattamente una volta per partita — sia nel percorso normale (`_doEndMatch`) sia quando la partita finisce via `skipPeriod` (le stelle vengono assegnate al click di "Fine Partita" in `endMatch()`)
 
 ---
 

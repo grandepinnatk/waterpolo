@@ -107,6 +107,50 @@ function confirmSimNextRound() {
   document.body.appendChild(ov);
 }
 
+// Genera voti simulati per la rosa dopo una partita simulata.
+// matchDetails: l'oggetto m.details con { home/away: [{name, goals, assists}] }
+// scorerKey: 'home' o 'away' secondo se la mia squadra giocava in casa o fuori
+// goalsConceded: gol subiti dalla mia squadra
+function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey) {
+  if (!roster) return;
+
+  // Mappa nome → { goals, assists } dai details della partita simulata
+  const matchMap = {};
+  if (matchDetails && scorerKey && matchDetails[scorerKey]) {
+    matchDetails[scorerKey].forEach(s => {
+      matchMap[s.name] = { goals: s.goals || 0, assists: s.assists || 0 };
+    });
+  }
+
+  roster.forEach(p => {
+    if (!p) return;
+    let rating;
+
+    if (p.role === 'POR') {
+      // Portiere: voto basato su gol subiti e parate stimate
+      const estSaves = Math.max(0, Math.round(goalsConceded * 0.5 + Math.random() * 1.5));
+      rating = 6.0 + estSaves * 0.4 - goalsConceded * 0.3;
+      if (goalsConceded === 0)      rating += 1.0;
+      else if (goalsConceded <= 3)  rating += 0.3;
+    } else {
+      // Giocatori di movimento: gol/assist dalla partita + ruolo + piccola varianza
+      const contrib  = matchMap[p.name] || { goals: 0, assists: 0 };
+      const roleBase = p.role === 'ATT' ? 0.2 : p.role === 'CB' ? 0.15 : p.role === 'CEN' ? 0.1 : 0;
+      rating = 6.0
+        + contrib.goals   * 1.5
+        + contrib.assists  * 0.8
+        + roleBase
+        + (Math.random() * 0.6 - 0.3); // varianza ±0.3
+    }
+
+    rating = Math.max(3.0, Math.min(10.0, rating));
+    rating = Math.round(rating * 2) / 2;
+    if (!p.lastRatings) p.lastRatings = [];
+    p.lastRatings.push(rating);
+    if (p.lastRatings.length > 4) p.lastRatings.shift();
+  });
+}
+
 function simNextRound() {
   const r = nextMyRound();
   if (!r) { G.msgs.push('Nessuna giornata rimanente.'); renderDash(); return; }
@@ -143,6 +187,10 @@ function simNextRound() {
       }
       G.msgs.push(`G${r}: ${G.myTeam.name} ${res} vs ${opp.name} (${myScore}-${opScore})` +
                   (reward ? ` +${formatMoney(reward)}` : ''));
+
+      // Genera voti simulati per i giocatori della mia rosa
+      const _sk = ih ? 'home' : 'away';
+      _assignSimulatedRatings(G.rosters[G.myId], opScore, m.details, _sk);
     }
   });
 

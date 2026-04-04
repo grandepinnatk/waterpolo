@@ -371,7 +371,7 @@ function renderFieldLists() {
 
   // Intestazione colonne — IN CAMPO e PANCHINA hanno griglie diverse
   const COL_FIELD = '24px 1fr 36px 28px 30px 28px 60px 36px 22px 22px 28px';  // aggiunta col VOTO
-  const COL_BENCH = '24px 1fr 30px 28px 60px 36px 22px 22px 28px';
+  const COL_BENCH = '24px 1fr 36px 30px 28px 60px 36px 22px 22px 28px';  // aggiunta col VOT
 
   const fieldTableHeader = `
     <div style="display:grid;grid-template-columns:${COL_FIELD};
@@ -390,7 +390,9 @@ function renderFieldLists() {
     <div style="display:grid;grid-template-columns:${COL_BENCH};
                 gap:3px;padding:3px 4px 5px;border-bottom:1px solid var(--border);
                 font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px">
-      <div>#</div><div>Nome</div><div>Ruolo</div><div>Mano</div>
+      <div>#</div><div>Nome</div>
+      <div title="Voto" style="text-align:center;color:var(--gold)">VOT</div>
+      <div>Ruolo</div><div>Mano</div>
       <div>Stamina</div><div>Esp.</div>
       <div title="Gol" style="text-align:center">&#x26BD;</div>
       <div title="Assist" style="text-align:center">&#x1F91D;</div>
@@ -456,6 +458,10 @@ function renderFieldLists() {
     const bGoals   = ms.matchGoals   && ms.matchGoals[pi]   || 0;
     const bAssists = ms.matchAssists && ms.matchAssists[pi] || 0;
     const bHandCol = p.hand === 'L' ? '#80c0ff' : p.hand === 'AMB' ? 'var(--green)' : 'var(--muted)';
+    // Voto panchina: se ha già giocato lo calcoliamo, altrimenti '-'
+    const bHasPlayed = ms.matchDuels && ms.matchDuels[pi] !== undefined;
+    const bRating    = bHasPlayed && typeof calcPlayerRating === 'function' ? calcPlayerRating(pi, ms) : null;
+    const bRatingCol = bRating ? (bRating >= 7.5 ? 'var(--green)' : bRating >= 6.5 ? 'var(--gold)' : bRating >= 5.5 ? 'var(--muted)' : 'var(--red)') : 'var(--muted)';
     benchHtml += `
       <div style="display:grid;grid-template-columns:${COL_BENCH};
                   gap:3px;align-items:center;padding:5px 4px;
@@ -466,6 +472,7 @@ function renderFieldLists() {
         <div style="font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
           ${_shortPlayerName(p)}
         </div>
+        <div style="font-size:12px;font-weight:800;color:${bRatingCol};text-align:center">${bRating !== null ? bRating.toFixed(1) : '—'}</div>
         <div style="font-size:10px;font-weight:600;color:var(--muted);text-align:center">${p.role}</div>
         <div style="font-size:10px;font-weight:600;color:${bHandCol};text-align:center">${p.hand}</div>
         <div>${staminaCell(pi)}</div>
@@ -567,6 +574,9 @@ function skipPeriod() {
     document.getElementById('btn-end').style.display  = '';
     document.getElementById('btn-play').style.display = 'none';
     _appendLog('🏁 Fine partita!', 'sv');
+    // Le stelle e la deduzione ingaggi vengono assegnate in _doEndMatch
+    // quando l'utente clicca "Fine Partita". Segniamo un flag per sicurezza.
+    ms._skipEndedMatch = true;
   }
 
   poolSyncTokens(ms);
@@ -642,6 +652,7 @@ function _renderSubLists() {
             ${p.name}
             ${expDots(pi)}
             ${staminaBadge(pi)}
+            ${(function(){ const r = (typeof calcPlayerRating==='function') ? calcPlayerRating(pi,ms) : null; const col = r?(r>=7.5?'var(--green)':r>=6.5?'var(--gold)':r>=5.5?'var(--muted)':'var(--red)'):'var(--muted)'; return '<span style="font-size:11px;font-weight:800;color:'+col+';margin-left:5px">'+( r!==null ? r.toFixed(1) : '—')+'</span>'; })()}
             ${isExp ? '<span style="color:var(--red);font-size:10px;margin-left:4px">ESPULSO</span>' : ''}
           </div>
           <div style="font-size:11px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">${_simplePosLabel(pk)} · ${_roleBadge(p.role)} ${_handBadge(p.hand)} <span style="color:var(--muted)">${p.age}a</span></div>
@@ -673,6 +684,7 @@ function _renderSubLists() {
             ${p.name}
             ${expDots(pi)}
             ${staminaBadge(pi)}
+            ${(function(){ const played = ms.matchDuels && ms.matchDuels[pi]!==undefined; const r = played&&(typeof calcPlayerRating==='function') ? calcPlayerRating(pi,ms) : null; const col = r?(r>=7.5?'var(--green)':r>=6.5?'var(--gold)':r>=5.5?'var(--muted)':'var(--red)'):'var(--muted)'; return '<span style="font-size:11px;font-weight:800;color:'+col+';margin-left:5px">'+(r!==null?r.toFixed(1):'—')+'</span>'; })()}
             ${targetPk ? roleBadge(pi, targetPk) : ''}
             ${isExp ? '<span style="color:var(--red);font-size:10px;margin-left:4px">ESPULSO</span>' : ''}
           </div>
@@ -878,6 +890,13 @@ function endMatch() {
   if (_animReqId) { cancelAnimationFrame(_animReqId); _animReqId = null; }
   _lastFrameT = null;
   const ms = G.ms; if (!ms) return;
+  // Garanzia: se la partita è già finished (via skipPeriod) le stelle
+  // vengono assegnate qui se non lo sono state ancora
+  if (ms.finished && !ms._starsAssigned && G && G.stars !== undefined) {
+    ms._starsAssigned = true;
+    G.stars = (G.stars || 0) + 4;
+    if (typeof _updateStarsBox === 'function') _updateStarsBox();
+  }
 
   // Mostra prima il popup fine partita (solo per partite di campionato e playoff)
   if (!ms.poMatch || true) {
@@ -970,9 +989,12 @@ function _doEndMatch() {
       });
     }
     updateMoraleAfterMatch(ms);
-    // +4 stelle per giornata
-    if (window.G && G.stars !== undefined) G.stars = (G.stars || 0) + 4;
-    if (typeof _updateStarsBox === 'function') _updateStarsBox();
+    // +4 stelle per giornata (una sola volta per partita)
+    if (window.G && G.stars !== undefined && !ms._starsAssigned) {
+      ms._starsAssigned = true;
+      G.stars = (G.stars || 0) + 4;
+      if (typeof _updateStarsBox === 'function') _updateStarsBox();
+    }
     generateTransferOffers();
     if (typeof refreshMarketPool === 'function') refreshMarketPool();
     simulateRound(G.schedule, G.stand, G.teams, ms.match.round, G.myId, G.rosters);

@@ -289,19 +289,29 @@ function _roleEffectiveness(player, posKey) {
 function calcPlayerRating(pi, ms) {
   const p = ms.myRoster[pi]; if (!p) return 6.0;
   const isGK    = p.role === 'POR';
-  let rating    = isGK ? 6.5 : 6.0;
+  let rating    = isGK ? 6.0 : 6.0;   // stesso punto di partenza
   const goals   = ms.matchGoals[pi]   || 0;
   const assists = ms.matchAssists[pi] || 0;
   const duels   = ms.matchDuels[pi]   || { won: 0, lost: 0 };
-  const saves   = ms.mySaves          || 0; // solo per GK titolare
+  const saves   = ms.mySaves          || 0;
 
-  rating += goals   * 1.5;
-  rating += assists * 0.8;
-  rating += duels.won  * 0.3;
-  rating -= duels.lost * 0.2;
-  if (isGK) rating += saves * 0.4;
+  if (isGK) {
+    // Portiere: parate alzano, gol subiti abbassano
+    const goalsConceded = ms.oppScore || 0;
+    rating += saves        * 0.4;   // ogni parata +0.4
+    rating -= goalsConceded * 0.3;  // ogni gol subito -0.3
+    // Bonus clean sheet o quasi
+    if (goalsConceded === 0) rating += 1.0;
+    else if (goalsConceded <= 3) rating += 0.3;
+  } else {
+    // Giocatori di movimento
+    rating += goals   * 1.5;
+    rating += assists * 0.8;
+    rating += duels.won  * 0.3;
+    rating -= duels.lost * 0.2;
+  }
 
-  // Stamina bassa penalizza leggermente
+  // Stamina bassa penalizza (tutti)
   const st = ms.stamina[pi] !== undefined ? ms.stamina[pi] : 100;
   if (st < 30) rating -= 0.5;
   else if (st < 50) rating -= 0.25;
