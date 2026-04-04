@@ -116,14 +116,14 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
 
   // ── Costruisce la convocazione simulata (13 giocatori) ──────────────────
   // Regola: 2 POR (titolare + riserva) + 11 di campo selezionati per overall
-  // Rispecchia il limite reale di convocazione in pallanuoto A1.
+  // Rispecchia il limite reale di convocazione in pallanuoto A1 (max 13).
   const goalies  = roster.filter(p => p && p.role === 'POR')
                          .sort((a, b) => b.overall - a.overall);
   const field    = roster.filter(p => p && p.role !== 'POR')
                          .sort((a, b) => b.overall - a.overall);
 
-  const calledGK  = goalies.slice(0, 2);   // max 2 portieri
-  const calledFld = field.slice(0, 11);    // max 11 di campo
+  const calledGK  = goalies.slice(0, 2);    // max 2 portieri
+  const calledFld = field.slice(0, 11);     // 11 di campo → totale 13
   const convocati = new Set([...calledGK, ...calledFld].map(p => p.name));
 
   // ── Mappa nome → { goals, assists } dai details ────────────────────────
@@ -193,9 +193,16 @@ function simNextRound() {
     m.played = true;
     updateStandings(G.stand, m.home, m.away, m.score);
 
-    // Distribuisce gol/assist a TUTTI i giocatori (inclusa la nostra squadra)
-    // e salva i dettagli (marcatori + parziali) sul match
-    const det = simulateMatchStats(G.rosters[m.home], G.rosters[m.away], m.score);
+    // Distribuisce gol/assist ai giocatori e salva i dettagli del match.
+    // Per la squadra del manager usa i 13 convocati simulati; per le altre l'intera rosa.
+    const _simRoster = (roster) => {
+      const gk  = roster.filter(p => p && p.role === 'POR').sort((a,b) => b.overall - a.overall).slice(0, 2);
+      const fld = roster.filter(p => p && p.role !== 'POR').sort((a,b) => b.overall - a.overall).slice(0, 11);
+      return [...gk, ...fld]; // 13 giocatori
+    };
+    const homeRoster = (m.home === G.myId) ? _simRoster(G.rosters[m.home]) : G.rosters[m.home];
+    const awayRoster = (m.away === G.myId) ? _simRoster(G.rosters[m.away]) : G.rosters[m.away];
+    const det = simulateMatchStats(homeRoster, awayRoster, m.score);
     if (det) m.details = det;
 
     // Se è la partita della mia squadra, registra risultato e premi
@@ -234,8 +241,8 @@ function simNextRound() {
   if (G.stars !== undefined) G.stars = (G.stars || 0) + 4;
   refreshMarketPool();
   generateTransferOffers();
-  updateHeader(); autoSave(); renderDash();
   _updateStarsBox();
+  updateHeader(); autoSave(); renderDash();
 }
 
 function simEntireSeason() {

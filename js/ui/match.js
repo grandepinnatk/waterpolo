@@ -890,14 +890,6 @@ function endMatch() {
   if (_animReqId) { cancelAnimationFrame(_animReqId); _animReqId = null; }
   _lastFrameT = null;
   const ms = G.ms; if (!ms) return;
-  // Garanzia: se la partita è già finished (via skipPeriod) le stelle
-  // vengono assegnate qui se non lo sono state ancora
-  if (ms.finished && !ms._starsAssigned && G && G.stars !== undefined) {
-    ms._starsAssigned = true;
-    G.stars = (G.stars || 0) + 4;
-    if (typeof _updateStarsBox === 'function') _updateStarsBox();
-  }
-
   // Mostra prima il popup fine partita (solo per partite di campionato e playoff)
   if (!ms.poMatch || true) {
     _showEndMatchPopup(ms);
@@ -996,9 +988,8 @@ function _doEndMatch() {
       });
     }
     updateMoraleAfterMatch(ms);
-    // +4 stelle per giornata (una sola volta per partita)
-    if (window.G && G.stars !== undefined && !ms._starsAssigned) {
-      ms._starsAssigned = true;
+    // +4 stelle per giornata
+    if (window.G && G.stars !== undefined) {
       G.stars = (G.stars || 0) + 4;
       if (typeof _updateStarsBox === 'function') _updateStarsBox();
     }

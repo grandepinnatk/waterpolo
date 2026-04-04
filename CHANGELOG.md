@@ -6,6 +6,23 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate**: rimossa la logica duplicata/condizionale (`_starsAssigned`) che in certi percorsi impediva l'assegnazione. Ora le stelle vengono assegnate in modo semplice e diretto:
+  - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
+  - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
+  - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Simulazione giornata — convocati**: `simulateMatchStats` ora riceve esattamente **13 giocatori** (2 POR + 11 di campo, per overall) per la squadra del manager. I gol e assist vengono quindi distribuiti solo tra i 13 convocati, coerentemente con i voti assegnati.
+
+---
+
 ## [0.5.49-beta] — 2026-04-02
 
 ### Corretto
@@ -89,6 +106,23 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate**: rimossa la logica duplicata/condizionale (`_starsAssigned`) che in certi percorsi impediva l'assegnazione. Ora le stelle vengono assegnate in modo semplice e diretto:
+  - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
+  - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
+  - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Simulazione giornata — convocati**: `simulateMatchStats` ora riceve esattamente **13 giocatori** (2 POR + 11 di campo, per overall) per la squadra del manager. I gol e assist vengono quindi distribuiti solo tra i 13 convocati, coerentemente con i voti assegnati.
 
 ---
 
@@ -243,6 +277,23 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate**: rimossa la logica duplicata/condizionale (`_starsAssigned`) che in certi percorsi impediva l'assegnazione. Ora le stelle vengono assegnate in modo semplice e diretto:
+  - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
+  - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
+  - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Simulazione giornata — convocati**: `simulateMatchStats` ora riceve esattamente **13 giocatori** (2 POR + 11 di campo, per overall) per la squadra del manager. I gol e assist vengono quindi distribuiti solo tra i 13 convocati, coerentemente con i voti assegnati.
+
+---
+
 ## [0.5.49-beta] — 2026-04-02
 
 ### Corretto
@@ -326,6 +377,23 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate**: rimossa la logica duplicata/condizionale (`_starsAssigned`) che in certi percorsi impediva l'assegnazione. Ora le stelle vengono assegnate in modo semplice e diretto:
+  - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
+  - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
+  - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Simulazione giornata — convocati**: `simulateMatchStats` ora riceve esattamente **13 giocatori** (2 POR + 11 di campo, per overall) per la squadra del manager. I gol e assist vengono quindi distribuiti solo tra i 13 convocati, coerentemente con i voti assegnati.
 
 ---
 
@@ -550,6 +618,23 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate**: rimossa la logica duplicata/condizionale (`_starsAssigned`) che in certi percorsi impediva l'assegnazione. Ora le stelle vengono assegnate in modo semplice e diretto:
+  - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
+  - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
+  - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Simulazione giornata — convocati**: `simulateMatchStats` ora riceve esattamente **13 giocatori** (2 POR + 11 di campo, per overall) per la squadra del manager. I gol e assist vengono quindi distribuiti solo tra i 13 convocati, coerentemente con i voti assegnati.
+
+---
+
 ## [0.5.49-beta] — 2026-04-02
 
 ### Corretto
@@ -633,6 +718,23 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate**: rimossa la logica duplicata/condizionale (`_starsAssigned`) che in certi percorsi impediva l'assegnazione. Ora le stelle vengono assegnate in modo semplice e diretto:
+  - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
+  - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
+  - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Simulazione giornata — convocati**: `simulateMatchStats` ora riceve esattamente **13 giocatori** (2 POR + 11 di campo, per overall) per la squadra del manager. I gol e assist vengono quindi distribuiti solo tra i 13 convocati, coerentemente con i voti assegnati.
 
 ---
 
@@ -787,6 +889,23 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate**: rimossa la logica duplicata/condizionale (`_starsAssigned`) che in certi percorsi impediva l'assegnazione. Ora le stelle vengono assegnate in modo semplice e diretto:
+  - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
+  - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
+  - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Simulazione giornata — convocati**: `simulateMatchStats` ora riceve esattamente **13 giocatori** (2 POR + 11 di campo, per overall) per la squadra del manager. I gol e assist vengono quindi distribuiti solo tra i 13 convocati, coerentemente con i voti assegnati.
+
+---
+
 ## [0.5.49-beta] — 2026-04-02
 
 ### Corretto
@@ -870,6 +989,23 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate**: rimossa la logica duplicata/condizionale (`_starsAssigned`) che in certi percorsi impediva l'assegnazione. Ora le stelle vengono assegnate in modo semplice e diretto:
+  - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
+  - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
+  - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Simulazione giornata — convocati**: `simulateMatchStats` ora riceve esattamente **13 giocatori** (2 POR + 11 di campo, per overall) per la squadra del manager. I gol e assist vengono quindi distribuiti solo tra i 13 convocati, coerentemente con i voti assegnati.
 
 ---
 
@@ -1100,6 +1236,23 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate**: rimossa la logica duplicata/condizionale (`_starsAssigned`) che in certi percorsi impediva l'assegnazione. Ora le stelle vengono assegnate in modo semplice e diretto:
+  - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
+  - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
+  - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Simulazione giornata — convocati**: `simulateMatchStats` ora riceve esattamente **13 giocatori** (2 POR + 11 di campo, per overall) per la squadra del manager. I gol e assist vengono quindi distribuiti solo tra i 13 convocati, coerentemente con i voti assegnati.
+
+---
+
 ## [0.5.49-beta] — 2026-04-02
 
 ### Corretto
@@ -1183,6 +1336,23 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate**: rimossa la logica duplicata/condizionale (`_starsAssigned`) che in certi percorsi impediva l'assegnazione. Ora le stelle vengono assegnate in modo semplice e diretto:
+  - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
+  - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
+  - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Simulazione giornata — convocati**: `simulateMatchStats` ora riceve esattamente **13 giocatori** (2 POR + 11 di campo, per overall) per la squadra del manager. I gol e assist vengono quindi distribuiti solo tra i 13 convocati, coerentemente con i voti assegnati.
 
 ---
 
@@ -1337,6 +1507,23 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate**: rimossa la logica duplicata/condizionale (`_starsAssigned`) che in certi percorsi impediva l'assegnazione. Ora le stelle vengono assegnate in modo semplice e diretto:
+  - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
+  - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
+  - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Simulazione giornata — convocati**: `simulateMatchStats` ora riceve esattamente **13 giocatori** (2 POR + 11 di campo, per overall) per la squadra del manager. I gol e assist vengono quindi distribuiti solo tra i 13 convocati, coerentemente con i voti assegnati.
+
+---
+
 ## [0.5.49-beta] — 2026-04-02
 
 ### Corretto
@@ -1420,6 +1607,23 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Stelle non assegnate**: rimossa la logica duplicata/condizionale (`_starsAssigned`) che in certi percorsi impediva l'assegnazione. Ora le stelle vengono assegnate in modo semplice e diretto:
+  - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
+  - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
+  - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.50-beta] — 2026-04-02
+
+### Corretto
+- **Simulazione giornata — convocati**: `simulateMatchStats` ora riceve esattamente **13 giocatori** (2 POR + 11 di campo, per overall) per la squadra del manager. I gol e assist vengono quindi distribuiti solo tra i 13 convocati, coerentemente con i voti assegnati.
 
 ---
 
