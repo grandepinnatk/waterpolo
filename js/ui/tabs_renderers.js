@@ -290,9 +290,32 @@ function renderDash() {
           <button class="btn primary" onclick="showTab('goals')">Vedi Obiettivi →</button>`;
   }
 
+  // Ultime notizie: paginazione 15 per pagina, max 90 notizie
+  const NEWS_PER_PAGE = 15;
+  const NEWS_MAX      = 90;
+  const allMsgs = G.msgs.slice(-NEWS_MAX).reverse(); // ultime 90, più recenti prima
+  const newsPage = G._newsPage || 0;
+  const totalPages = Math.max(1, Math.ceil(allMsgs.length / NEWS_PER_PAGE));
+  const safePage   = Math.min(newsPage, totalPages - 1);
+  const pageItems  = allMsgs.slice(safePage * NEWS_PER_PAGE, (safePage + 1) * NEWS_PER_PAGE);
+
+  const prevDis = safePage === 0 ? 'opacity:.35;pointer-events:none' : 'cursor:pointer';
+  const nextDis = safePage >= totalPages - 1 ? 'opacity:.35;pointer-events:none' : 'cursor:pointer';
+
   h += `<div class="card" style="margin-top:12px">
-    <div class="slbl" style="margin-top:0">Ultime notizie</div>
-    ${G.msgs.slice(-6).reverse().map(m => `<div style="font-size:13px;padding:4px 0;border-bottom:1px solid rgba(30,58,92,.4)">${_linkTeamNames(m)}</div>`).join('')}
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <div class="slbl" style="margin-top:0;margin-bottom:0">Ultime notizie</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)">
+        <span>Pag. ${safePage + 1} / ${totalPages}</span>
+        <button onclick="G._newsPage=Math.max(0,(G._newsPage||0)-1);renderDash()"
+                style="background:var(--panel2);border:1px solid var(--border);border-radius:5px;
+                       padding:2px 8px;color:var(--muted);font-size:12px;${prevDis}">‹</button>
+        <button onclick="G._newsPage=Math.min(${totalPages-1},(G._newsPage||0)+1);renderDash()"
+                style="background:var(--panel2);border:1px solid var(--border);border-radius:5px;
+                       padding:2px 8px;color:var(--muted);font-size:12px;${nextDis}">›</button>
+      </div>
+    </div>
+    ${pageItems.map(m => `<div style="font-size:13px;padding:4px 0;border-bottom:1px solid rgba(30,58,92,.4)">${_linkTeamNames(m)}</div>`).join('')}
   </div>`;
 
   document.getElementById('tab-dash').innerHTML = h;

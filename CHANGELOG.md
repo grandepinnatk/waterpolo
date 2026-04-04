@@ -6,6 +6,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
+
+---
+
 ## [0.5.50-beta] — 2026-04-02
 
 ### Corretto
@@ -13,6 +20,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
 
 ---
 
@@ -109,6 +123,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
+
+---
+
 ## [0.5.50-beta] — 2026-04-02
 
 ### Corretto
@@ -116,6 +137,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
 
 ---
 
@@ -277,6 +305,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
+
+---
+
 ## [0.5.50-beta] — 2026-04-02
 
 ### Corretto
@@ -284,6 +319,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
 
 ---
 
@@ -380,6 +422,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
+
+---
+
 ## [0.5.50-beta] — 2026-04-02
 
 ### Corretto
@@ -387,6 +436,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
 
 ---
 
@@ -618,6 +674,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
+
+---
+
 ## [0.5.50-beta] — 2026-04-02
 
 ### Corretto
@@ -625,6 +688,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
 
 ---
 
@@ -721,6 +791,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
+
+---
+
 ## [0.5.50-beta] — 2026-04-02
 
 ### Corretto
@@ -728,6 +805,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
 
 ---
 
@@ -889,6 +973,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
+
+---
+
 ## [0.5.50-beta] — 2026-04-02
 
 ### Corretto
@@ -896,6 +987,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
 
 ---
 
@@ -992,6 +1090,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
+
+---
+
 ## [0.5.50-beta] — 2026-04-02
 
 ### Corretto
@@ -999,6 +1104,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
 
 ---
 
@@ -1236,6 +1348,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
+
+---
+
 ## [0.5.50-beta] — 2026-04-02
 
 ### Corretto
@@ -1243,6 +1362,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
 
 ---
 
@@ -1339,6 +1465,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
+
+---
+
 ## [0.5.50-beta] — 2026-04-02
 
 ### Corretto
@@ -1346,6 +1479,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
 
 ---
 
@@ -1507,6 +1647,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
+
+---
+
 ## [0.5.50-beta] — 2026-04-02
 
 ### Corretto
@@ -1514,6 +1661,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
 
 ---
 
@@ -1610,6 +1764,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
+
+---
+
 ## [0.5.50-beta] — 2026-04-02
 
 ### Corretto
@@ -1617,6 +1778,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.51-beta] — 2026-04-02
+
+### Aggiunto
+- **Dashboard — Ultime notizie**: paginazione a 15 notizie per pagina (max 90 conservate), con indicatore "Pag. X / Y" e frecce ‹ › per navigare. Le notizie più recenti appaiono sempre in cima.
 
 ---
 
