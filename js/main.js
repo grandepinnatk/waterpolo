@@ -151,6 +151,10 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
   });
 }
 
+// Segna null (= non ha giocato) per i giocatori della rosa NON inclusi nella partita simulata.
+// Per la simulazione tutti giocano, quindi non serve qui — ma teniamo il hook per futura convocazione.
+// Al momento _assignSimulatedRatings assegna un voto a tutti.
+
 function simNextRound() {
   const r = nextMyRound();
   if (!r) { G.msgs.push('Nessuna giornata rimanente.'); renderDash(); return; }

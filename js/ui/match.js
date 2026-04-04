@@ -979,13 +979,20 @@ function _doEndMatch() {
                 (mw ? 'VINCE' : md ? 'pareggia' : 'perde') + ' vs ' + ms.oppTeam.name +
                 ' (' + ms.myScore + '-' + ms.oppScore + ')' + (earned ? ' +' + formatMoney(earned) : ''));
     // Salva voti finali nelle ultime 4 partite di ogni giocatore
+    // null = non convocato / non ha giocato
     if (typeof calcPlayerRating === 'function') {
+      const convocati = new Set(Object.keys(ms.shirtNumbers || {}).map(Number));
       ms.myRoster.forEach((p, pi) => {
         if (!p) return;
-        const finalRating = calcPlayerRating(pi, ms);
         if (!p.lastRatings) p.lastRatings = [];
-        p.lastRatings.push(finalRating);
-        if (p.lastRatings.length > 4) p.lastRatings.shift(); // mantieni solo ultime 4
+        if (!convocati.has(pi)) {
+          // Non convocato → null
+          p.lastRatings.push(null);
+        } else {
+          // Convocato → voto calcolato (anche se è rimasto in panchina tutto il tempo)
+          p.lastRatings.push(calcPlayerRating(pi, ms));
+        }
+        if (p.lastRatings.length > 4) p.lastRatings.shift();
       });
     }
     updateMoraleAfterMatch(ms);

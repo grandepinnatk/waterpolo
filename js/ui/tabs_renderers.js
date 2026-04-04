@@ -318,11 +318,13 @@ function renderRosa() {
     const c   = p.overall >= 80 ? 'var(--blue)' : p.overall >= 65 ? 'var(--green)' : 'var(--gold)';
     const mc  = p.morale > 70 ? 'var(--green)' : p.morale > 40 ? 'var(--gold)' : 'var(--red)';
     const onMarket = tlSet.has(i);
-    // Voti ultime 4 partite
+    // Voti ultime 4 partite (null = non ha giocato, assente dal rating)
     const ratings = p.lastRatings || [];
     const ratingsHtml = ratings.length === 0
       ? '<span style="color:var(--muted);font-size:11px">—</span>'
       : ratings.map(function(r) {
+          if (r === null)
+            return '<span style="font-size:11px;font-weight:600;color:var(--muted);margin-right:3px" title="Non ha giocato">-</span>';
           var col = r >= 7.5 ? 'var(--green)' : r >= 6.5 ? 'var(--gold)' : r >= 5.5 ? 'var(--muted)' : 'var(--red)';
           return '<span style="font-size:11px;font-weight:700;color:' + col + ';margin-right:3px">' + r.toFixed(1) + '</span>';
         }).join('<span style="color:var(--muted);font-size:9px">·</span>');

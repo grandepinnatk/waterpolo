@@ -6,6 +6,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.48-beta] — 2026-04-02
+
+### Aggiunto
+- **Rosa — colonna Voti**: i giocatori non convocati ricevono un voto `null` (mostrato come `-` in grigio) invece di non ricevere nulla — così si distingue chiaramente "non ha giocato" da "nessuna partita ancora disputata". Il tooltip su `-` riporta "Non ha giocato".
+
+---
+
 ## [0.5.47-beta] — 2026-04-02
 
 ### Aggiunto
@@ -75,6 +82,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.48-beta] — 2026-04-02
+
+### Aggiunto
+- **Rosa — colonna Voti**: i giocatori non convocati ricevono un voto `null` (mostrato come `-` in grigio) invece di non ricevere nulla — così si distingue chiaramente "non ha giocato" da "nessuna partita ancora disputata". Il tooltip su `-` riporta "Non ha giocato".
 
 ---
 
@@ -215,6 +229,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.48-beta] — 2026-04-02
+
+### Aggiunto
+- **Rosa — colonna Voti**: i giocatori non convocati ricevono un voto `null` (mostrato come `-` in grigio) invece di non ricevere nulla — così si distingue chiaramente "non ha giocato" da "nessuna partita ancora disputata". Il tooltip su `-` riporta "Non ha giocato".
+
+---
+
 ## [0.5.47-beta] — 2026-04-02
 
 ### Aggiunto
@@ -284,6 +305,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.48-beta] — 2026-04-02
+
+### Aggiunto
+- **Rosa — colonna Voti**: i giocatori non convocati ricevono un voto `null` (mostrato come `-` in grigio) invece di non ricevere nulla — così si distingue chiaramente "non ha giocato" da "nessuna partita ancora disputata". Il tooltip su `-` riporta "Non ha giocato".
 
 ---
 
@@ -494,6 +522,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.48-beta] — 2026-04-02
+
+### Aggiunto
+- **Rosa — colonna Voti**: i giocatori non convocati ricevono un voto `null` (mostrato come `-` in grigio) invece di non ricevere nulla — così si distingue chiaramente "non ha giocato" da "nessuna partita ancora disputata". Il tooltip su `-` riporta "Non ha giocato".
+
+---
+
 ## [0.5.47-beta] — 2026-04-02
 
 ### Aggiunto
@@ -563,6 +598,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.48-beta] — 2026-04-02
+
+### Aggiunto
+- **Rosa — colonna Voti**: i giocatori non convocati ricevono un voto `null` (mostrato come `-` in grigio) invece di non ricevere nulla — così si distingue chiaramente "non ha giocato" da "nessuna partita ancora disputata". Il tooltip su `-` riporta "Non ha giocato".
 
 ---
 
@@ -703,6 +745,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.48-beta] — 2026-04-02
+
+### Aggiunto
+- **Rosa — colonna Voti**: i giocatori non convocati ricevono un voto `null` (mostrato come `-` in grigio) invece di non ricevere nulla — così si distingue chiaramente "non ha giocato" da "nessuna partita ancora disputata". Il tooltip su `-` riporta "Non ha giocato".
+
+---
+
 ## [0.5.47-beta] — 2026-04-02
 
 ### Aggiunto
@@ -772,6 +821,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.48-beta] — 2026-04-02
+
+### Aggiunto
+- **Rosa — colonna Voti**: i giocatori non convocati ricevono un voto `null` (mostrato come `-` in grigio) invece di non ricevere nulla — così si distingue chiaramente "non ha giocato" da "nessuna partita ancora disputata". Il tooltip su `-` riporta "Non ha giocato".
 
 ---
 
@@ -988,6 +1044,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.48-beta] — 2026-04-02
+
+### Aggiunto
+- **Rosa — colonna Voti**: i giocatori non convocati ricevono un voto `null` (mostrato come `-` in grigio) invece di non ricevere nulla — così si distingue chiaramente "non ha giocato" da "nessuna partita ancora disputata". Il tooltip su `-` riporta "Non ha giocato".
+
+---
+
 ## [0.5.47-beta] — 2026-04-02
 
 ### Aggiunto
@@ -1057,6 +1120,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.48-beta] — 2026-04-02
+
+### Aggiunto
+- **Rosa — colonna Voti**: i giocatori non convocati ricevono un voto `null` (mostrato come `-` in grigio) invece di non ricevere nulla — così si distingue chiaramente "non ha giocato" da "nessuna partita ancora disputata". Il tooltip su `-` riporta "Non ha giocato".
 
 ---
 
@@ -1197,6 +1267,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.48-beta] — 2026-04-02
+
+### Aggiunto
+- **Rosa — colonna Voti**: i giocatori non convocati ricevono un voto `null` (mostrato come `-` in grigio) invece di non ricevere nulla — così si distingue chiaramente "non ha giocato" da "nessuna partita ancora disputata". Il tooltip su `-` riporta "Non ha giocato".
+
+---
+
 ## [0.5.47-beta] — 2026-04-02
 
 ### Aggiunto
@@ -1266,6 +1343,13 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - ⭐ **Stelle insufficienti**: "Non hai abbastanza token ⭐ Stella per completare l'attività. Attendi il prossimo turno."
   - 💸 **Budget insufficiente**: "Non hai il denaro sufficiente per completare questa attività."
   - Popup con sfondo scuro, tasto OK per chiudere
+
+---
+
+## [0.5.48-beta] — 2026-04-02
+
+### Aggiunto
+- **Rosa — colonna Voti**: i giocatori non convocati ricevono un voto `null` (mostrato come `-` in grigio) invece di non ricevere nulla — così si distingue chiaramente "non ha giocato" da "nessuna partita ancora disputata". Il tooltip su `-` riporta "Non ha giocato".
 
 ---
 
