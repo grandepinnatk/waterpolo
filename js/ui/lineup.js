@@ -186,9 +186,9 @@ function renderPlayerSelList() {
       'display:grid', 'grid-template-columns:34px 1fr 76px 38px 22px',
       'gap:4px', 'align-items:center', 'padding:5px 6px',
       'border-radius:8px', 'margin-bottom:3px', 'transition:all .12s',
-      'border:1.5px solid ' + (isSel ? 'var(--blue)' : usedPk ? '#185FA5' : isConv ? 'rgba(255,255,255,.1)' : 'transparent'),
-      'background:' + (isSel ? 'rgba(0,194,255,.12)' : usedPk ? 'rgba(24,95,165,.15)' : isConv ? 'rgba(255,255,255,.04)' : 'transparent'),
-      'cursor:' + (usedPk || isConv ? 'grab' : 'pointer'),
+      'border:1.5px solid ' + (p.injured ? 'rgba(192,57,43,.3)' : isSel ? 'var(--blue)' : usedPk ? '#185FA5' : isConv ? 'rgba(255,255,255,.1)' : 'transparent'),
+      'background:' + (p.injured ? 'rgba(192,57,43,.06)' : isSel ? 'rgba(0,194,255,.12)' : usedPk ? 'rgba(24,95,165,.15)' : isConv ? 'rgba(255,255,255,.04)' : 'transparent'),
+      'cursor:' + (p.injured ? 'not-allowed' : usedPk || isConv ? 'grab' : 'pointer'),
     ].join(';');
 
     // Cella numero maglia
@@ -214,8 +214,9 @@ function renderPlayerSelList() {
     // Cella nome
     const nameCell = document.createElement('div');
     nameCell.style.cssText = 'min-width:0';
+    const infTag = p.injured ? ' <span style="font-size:9px;background:#c0392b;color:#fff;font-weight:700;padding:1px 4px;border-radius:3px;margin-left:3px" title="Giocatore infortunato — non disponibile">INF+</span>' : '';
     nameCell.innerHTML = `
-      <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.name}</div>
+      <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:${p.injured?'.5':'1'}">${p.name}${infTag}</div>
       <div style="font-size:10px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">
         ${_luRoleBadge(p.role)} ${_luHandBadge(p.hand)}
         <span style="color:var(--muted)">${p.age}a · OVR ${p.overall}</span>
@@ -306,6 +307,9 @@ function selectPos(pk) {
 }
 
 function selectPlayerLu(i) {
+  const roster = G.rosters[G.myId];
+  // Non si possono convocare/schierare giocatori infortunati
+  if (roster && roster[i] && roster[i].injured) return;
   if (luState.selectedPlayer === i) {
     luState.selectedPlayer = null;
   } else {

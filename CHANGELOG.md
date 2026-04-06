@@ -6,6 +6,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
+
+---
+
 ## [0.5.51-beta] — 2026-04-02
 
 ### Aggiunto
@@ -20,6 +110,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
 
 ---
 
@@ -123,6 +303,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
+
+---
+
 ## [0.5.51-beta] — 2026-04-02
 
 ### Aggiunto
@@ -137,6 +407,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
 
 ---
 
@@ -305,6 +665,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
+
+---
+
 ## [0.5.51-beta] — 2026-04-02
 
 ### Aggiunto
@@ -319,6 +769,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
 
 ---
 
@@ -422,6 +962,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
+
+---
+
 ## [0.5.51-beta] — 2026-04-02
 
 ### Aggiunto
@@ -436,6 +1066,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
 
 ---
 
@@ -674,6 +1394,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
+
+---
+
 ## [0.5.51-beta] — 2026-04-02
 
 ### Aggiunto
@@ -688,6 +1498,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
 
 ---
 
@@ -791,6 +1691,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
+
+---
+
 ## [0.5.51-beta] — 2026-04-02
 
 ### Aggiunto
@@ -805,6 +1795,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
 
 ---
 
@@ -973,6 +2053,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
+
+---
+
 ## [0.5.51-beta] — 2026-04-02
 
 ### Aggiunto
@@ -987,6 +2157,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
 
 ---
 
@@ -1090,6 +2350,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
+
+---
+
 ## [0.5.51-beta] — 2026-04-02
 
 ### Aggiunto
@@ -1104,6 +2454,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
 
 ---
 
@@ -1348,6 +2788,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
+
+---
+
 ## [0.5.51-beta] — 2026-04-02
 
 ### Aggiunto
@@ -1362,6 +2892,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
 
 ---
 
@@ -1465,6 +3085,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
+
+---
+
 ## [0.5.51-beta] — 2026-04-02
 
 ### Aggiunto
@@ -1479,6 +3189,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
 
 ---
 
@@ -1647,6 +3447,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
+
+---
+
 ## [0.5.51-beta] — 2026-04-02
 
 ### Aggiunto
@@ -1661,6 +3551,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
 
 ---
 
@@ -1764,6 +3744,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
+
+---
+
 ## [0.5.51-beta] — 2026-04-02
 
 ### Aggiunto
@@ -1778,6 +3848,96 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
   - **Partita giocata** (`_doEndMatch`): `G.stars += 4` incondizionato, seguito da `_updateStarsBox()` esplicita
   - **Partita simulata** (`simNextRound`): `G.stars += 4` seguito da `_updateStarsBox()` prima di `updateHeader()`/`renderDash()`
   - Rimossa la logica duplicata in `endMatch()` che creava ambiguità
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-02
+
+### Aggiunto — Nuova stagione in continuità
+- **Pulsante "Nuova Stagione"** disponibile nella Dashboard e nel tab Obiettivi al termine della stagione (`phase === 'done'`)
+- **Popup di conferma** con riepilogo visivo di cosa viene mantenuto (rosa, budget, stelle, ledger) e cosa viene resettato (calendario, classifica, statistiche stagionali, obiettivi)
+- **Cosa viene preservato**: intera rosa con attributi, progressi e lastRatings; budget; stelle; storico finanziario; messaggi stagione precedente (con separatore visivo)
+- **Cosa viene resettato**: calendario e classifica (`generateSchedule` + `initStandings`); statistiche gol/assist/parate; obiettivi (`initObjectives`); fase di gioco
+- **Aging**: ogni giocatore invecchia di 1 anno; i giocatori over-30 hanno 30% di probabilità di perdere -1 overall (declino naturale)
+- Il numero di stagione (`G.seasonNumber`) viene incrementato e mostrato nel titolo del riepilogo
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni
+
+- **`injProb`** (attributo nascosto): ogni giocatore ha una probabilità di infortunio individuale tra 0.02 e 0.15, generata con distribuzione esponenziale troncata — la maggior parte dei giocatori ha bassa fragilità (~0.03-0.06), pochi sono particolarmente predisposti agli infortuni (~0.10-0.15). I salvataggi vecchi ricevono il valore alla migrazione.
+- **Condizioni di infortunio**: un giocatore può infortunarsi durante la partita solo se entrambe le condizioni sono soddisfatte: stamina < 15% **e** forma (fitness) < 65%. La probabilità per evento è `injProb / 60` (normalizzata sulla durata della partita).
+- **Conseguenze**: il giocatore infortunato viene rimosso dal campo (espulso), la partita si mette in pausa automaticamente per la sostituzione. A fine partita la fitness viene ridotta di 15-30 punti e viene pubblicata una notizia con la gravità.
+- **Badge INF** (arancione) nel tab Rosa per i giocatori con `p.injured = true`.
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto — Sistema infortuni completo
+- **Badge INF+** (rosso) accanto al nome in tutti i contesti: tab Rosa, schermata Convocazioni/Formazione, pannello cambi durante la partita
+- **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
+- **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
+- **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.53-beta] — 2026-04-06
+
+### Aggiunto / Corretto — Sistema infortuni completo
+
+- **Durata infortunio**: quando un giocatore si infortuna in partita, riceve `p.injuryWeeks` (2-6 giornate casuali) invece di essere immediatamente disponibile. Il badge **INF+** rimane finché non guarisce.
+- **Badge INF+** nella Rosa ora mostra anche le giornate rimanenti (es. `INF+ 3G`).
+- **Recupero automatico**: ogni giornata simulata (`simNextRound`) e ogni partita giocata manualmente (`_doEndMatch`) decrementano `injuryWeeks` di 1. Quando arriva a 0, `p.injured = false` e appare un messaggio di guarigione nelle notizie.
+- **Esclusione dalla formazione**: già implementata in `lineup.js` (non schierabile) e nella lista cambi in `match.js`.
+- **Esclusione dalle simulazioni**: `_assignSimulatedRatings` e `_simRoster` già filtrano `!p.injured`.
+
+---
+
+## [0.5.52-beta] — 2026-04-06
+
+### Aggiunto — Sistema ritiro giocatori
+
+- **`retirementAge`** (attributo nascosto): ogni giocatore generato ha un'età massima di ritiro compresa tra 32 e 40 anni, estratta con distribuzione normale (media 35, σ≈2). I salvataggi esistenti ricevono il valore automaticamente alla migrazione.
+- **Badge RIT** (rosso) nel tab Rosa: appare accanto al nome dei giocatori che si ritireranno a fine stagione corrente (cioè `età + 1 >= retirementAge`).
+- **Ritiro a inizio nuova stagione**: in `startNewSeason()`, dopo l'aging (+1 anno), i giocatori che hanno raggiunto `retirementAge` vengono rimossi dalla rosa. Un messaggio nelle notizie elenca i ritirati della propria squadra.
+- `lastRatings` e statistiche stagionali resettati all'inizio di ogni nuova stagione.
+- La lineup salvata viene resettata per evitare riferimenti a giocatori ritirati.
 
 ---
 

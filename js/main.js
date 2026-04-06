@@ -117,9 +117,9 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
   // ── Costruisce la convocazione simulata (13 giocatori) ──────────────────
   // Regola: 2 POR (titolare + riserva) + 11 di campo selezionati per overall
   // Rispecchia il limite reale di convocazione in pallanuoto A1 (max 13).
-  const goalies  = roster.filter(p => p && p.role === 'POR')
+  const goalies  = roster.filter(p => p && p.role === 'POR' && !p.injured)
                          .sort((a, b) => b.overall - a.overall);
-  const field    = roster.filter(p => p && p.role !== 'POR')
+  const field    = roster.filter(p => p && p.role !== 'POR' && !p.injured)
                          .sort((a, b) => b.overall - a.overall);
 
   const calledGK  = goalies.slice(0, 2);    // max 2 portieri
@@ -196,9 +196,11 @@ function simNextRound() {
     // Distribuisce gol/assist ai giocatori e salva i dettagli del match.
     // Per la squadra del manager usa i 13 convocati simulati; per le altre l'intera rosa.
     const _simRoster = (roster) => {
-      const gk  = roster.filter(p => p && p.role === 'POR').sort((a,b) => b.overall - a.overall).slice(0, 2);
-      const fld = roster.filter(p => p && p.role !== 'POR').sort((a,b) => b.overall - a.overall).slice(0, 11);
-      return [...gk, ...fld]; // 13 giocatori
+      // Esclude infortunati dalla convocazione simulata
+      const available = roster.filter(p => p && !p.injured);
+      const gk  = available.filter(p => p.role === 'POR').sort((a,b) => b.overall - a.overall).slice(0, 2);
+      const fld = available.filter(p => p.role !== 'POR').sort((a,b) => b.overall - a.overall).slice(0, 11);
+      return [...gk, ...fld]; // max 13 giocatori (meno se ci sono molti infortunati)
     };
     const homeRoster = (m.home === G.myId) ? _simRoster(G.rosters[m.home]) : G.rosters[m.home];
     const awayRoster = (m.away === G.myId) ? _simRoster(G.rosters[m.away]) : G.rosters[m.away];
@@ -224,6 +226,17 @@ function simNextRound() {
       // Genera voti simulati per i giocatori della mia rosa
       const _sk = ih ? 'home' : 'away';
       _assignSimulatedRatings(G.rosters[G.myId], opScore, m.details, _sk);
+    }
+  });
+
+  // ── Aggiorna infortuni: decrementa settimane e riabilita guariti ──
+  (G.rosters[G.myId] || []).forEach(p => {
+    if (!p || !p.injured) return;
+    p.injuryWeeks = (p.injuryWeeks || 1) - 1;
+    if (p.injuryWeeks <= 0) {
+      p.injured     = false;
+      p.injuryWeeks = 0;
+      G.msgs.push('✅ ' + p.name + ' è guarito — torna disponibile.');
     }
   });
 
@@ -342,6 +355,136 @@ function closeSeason() {
   if (reward) addLedger('obiettivo', reward, 'Bonus obiettivi fine stagione', currentRound());
   G.msgs.push('Stagione conclusa! Budget finale: ' + formatMoney(G.budget));
   updateHeader(); autoSave(); showTab('goals');
+}
+
+// ── Popup conferma nuova stagione ────────────
+function _confirmNewSeason() {
+  const sNum = (G.seasonNumber || 1) + 1;
+  const pos  = typeof getTeamPosition === 'function' ? getTeamPosition(G.stand, G.myId) : '?';
+
+  const ov = document.createElement('div');
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;z-index:99999;backdrop-filter:blur(6px)';
+
+  const box = document.createElement('div');
+  box.style.cssText = 'background:linear-gradient(180deg,#0d1f3c,#091525);border:2px solid #2a5aaa;border-radius:16px;padding:24px;max-width:400px;width:92%;box-shadow:0 8px 40px rgba(0,0,0,.8)';
+  box.innerHTML = `
+    <div style="font-size:28px;text-align:center;margin-bottom:10px">🏊</div>
+    <div style="font-size:16px;font-weight:800;color:var(--blue);text-align:center;margin-bottom:6px">Inizia Stagione ${sNum}</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.65);text-align:center;margin-bottom:16px">
+      La nuova stagione riparte da dove hai lasciato.
+    </div>
+    <div style="background:rgba(0,194,255,.06);border:1px solid rgba(0,194,255,.2);border-radius:10px;padding:12px;margin-bottom:16px">
+      <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">✅ Cosa viene mantenuto</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.75);line-height:2">
+        Rosa completa con tutti i progressi<br>
+        Budget: <strong style="color:var(--gold)">${formatMoney(G.budget)}</strong><br>
+        Stelle: <strong style="color:var(--gold)">⭐ ${G.stars || 0}</strong><br>
+        Storico acquisti e cessioni<br>
+        Registro finanziario
+      </div>
+    </div>
+    <div style="background:rgba(240,80,80,.06);border:1px solid rgba(240,80,80,.2);border-radius:10px;padding:12px;margin-bottom:18px">
+      <div style="font-size:11px;font-weight:700;color:#e07070;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">🔄 Cosa viene resettato</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.75);line-height:2">
+        Calendario e classifica<br>
+        Statistiche stagionali (gol, assist, parate)<br>
+        Obiettivi di stagione<br>
+        Giocatori invecchiano di 1 anno
+      </div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button id="ns-confirm" style="flex:1;padding:11px;font-size:13px;font-weight:800;border-radius:8px;border:2px solid var(--green);background:linear-gradient(135deg,#0a6a2a,#055020);color:#fff;cursor:pointer">
+        ✓ Inizia Stagione ${sNum}
+      </button>
+      <button id="ns-cancel" style="padding:11px 16px;font-size:13px;font-weight:700;border-radius:8px;border:2px solid var(--border);background:var(--panel2);color:var(--muted);cursor:pointer">
+        Annulla
+      </button>
+    </div>`;
+
+  ov.appendChild(box);
+  document.body.appendChild(ov);
+  ov.onclick = e => { if (e.target === ov) ov.remove(); };
+  document.getElementById('ns-confirm').onclick = function() { ov.remove(); startNewSeason(); };
+  document.getElementById('ns-cancel').onclick  = function() { ov.remove(); };
+}
+
+// ── Nuova stagione in continuità ──────────────
+// Preserva: roster (con progressi), budget, stelle, ledger storico, storico msgs
+// Resetta: calendario, classifica, statistiche stagionali, fase, playoff, obiettivi
+function startNewSeason() {
+  if (!G) return;
+
+  const seasonNum = (G.seasonNumber || 1) + 1;
+
+  // ── Aging, ritiri e reset statistiche ──────────────────────────────────
+  const retiredNames = []; // nomi giocatori ritirati (solo squadra del manager)
+  Object.entries(G.rosters).forEach(([tid, roster]) => {
+    if (!roster) return;
+    roster.forEach((p, i) => {
+      if (!p) return;
+      // Reset statistiche stagionali
+      p.goals      = 0;
+      p.assists    = 0;
+      p.saves      = 0;
+      p.lastRatings = [];  // reset voti stagionali
+      // Aging: invecchia di 1 anno
+      if (p.age !== undefined) p.age++;
+      // Calo naturale over-30
+      if (p.age > 30 && Math.random() < 0.3) {
+        p.overall = Math.max(50, p.overall - 1);
+      }
+      // Segna come ritirato se ha raggiunto l'età massima
+      if (p.retirementAge !== undefined && p.age >= p.retirementAge) {
+        p._retiring = true;
+        if (tid === G.myId) retiredNames.push(p.name);
+      }
+    });
+
+    // Rimuovi i ritirati dalla rosa (filtra con null per preservare gli indici temporaneamente,
+    // poi compatta — usiamo splice per mantenere coerenza con transferList e savedLineup)
+    for (let i = roster.length - 1; i >= 0; i--) {
+      if (roster[i] && roster[i]._retiring) {
+        roster.splice(i, 1);
+      }
+    }
+  });
+
+  // Notifica ritiri nella squadra del manager
+  if (retiredNames.length > 0) {
+    G.msgs.push('👴 Fine carriera: ' + retiredNames.join(', ') + ' si ritirano dal professionismo.');
+  }
+
+  // Resetta lineup salvata (i ritirati potrebbero essere in campo)
+  G.savedLineup = null;
+
+  // ── Nuovo calendario e classifica ──
+  G.schedule = generateSchedule(G.teams);
+  G.stand    = initStandings(G.teams);
+
+  // ── Nuovi obiettivi ──
+  G.objectives = initObjectives(G.myTeam.tier || 1);
+
+  // ── Reset stato stagione ──
+  G.phase         = 'regular';
+  G.poTeams       = null;
+  G.ploTeams      = null;
+  G.relegated     = null;
+  G.poBracket     = null;
+  G.plBracket     = null;
+  G.playoffResult = null;
+  G.prevPos       = null;
+  G.ms            = null;
+  G.seasonNumber  = seasonNum;
+  G._newsPage     = 0;
+  G.savedLineup   = null;
+
+  // ── Messaggio inizio stagione ──
+  G.msgs.push('─────────────────────────────────');
+  G.msgs.push('🏊 Stagione ' + seasonNum + ' — Benvenuto! Budget: ' + formatMoney(G.budget) + ' · Stelle: ' + (G.stars || 0));
+
+  updateHeader();
+  autoSave();
+  requestAnimationFrame(function() { showTab('dash'); });
 }
 
 // ── Init ──────────────────────────────────────

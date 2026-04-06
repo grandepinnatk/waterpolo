@@ -98,6 +98,10 @@ const COUNTER_POS_MULT = {
   6: 1.10,                       // centroboa: leggermente più fatica
 };
 
+// Soglie per il controllo infortuni
+const INJ_STAMINA_THRESHOLD = 15;  // stamina % sotto cui scatta il rischio
+const INJ_FITNESS_THRESHOLD = 65;  // forma % sotto cui scatta il rischio
+
 const NEUTRAL_EVENTS = [
   'Azione di attacco neutralizzata', 'Contrattacco sventato',
   'Rimessa in gioco', 'Cambio possesso palla',
@@ -145,6 +149,7 @@ function createMatchState({ match, isHome, myTeam, oppTeam, myRoster, oppRoster,
     matchAssists: {},
     matchRatings: {},   // { rosterIdx → voto live 0-10 }
     matchDuels:   {},   // { rosterIdx → { won, lost } } confronti vinti/persi
+    injuries:     [],   // [ rosterIdx ] giocatori infortunati in questa partita
     // Parziali per periodo: array di { my, opp } per ciascuno dei 4 tempi
     periodScores: [ {my:0,opp:0}, {my:0,opp:0}, {my:0,opp:0}, {my:0,opp:0} ],
     // Punteggio al termine del periodo precedente (per calcolare il parziale corrente)
@@ -323,6 +328,34 @@ function calcPlayerRating(pi, ms) {
 
 function generateMatchEvent(ms) {
   const tacticBoost = TACTIC_BOOST[ms.tactic] || 0;
+
+  // ── Controllo infortuni ───────────────────────────────────────────────
+  // Per ogni giocatore in campo: se stamina < 15% E forma < 65% c'è rischio
+  for (const [pk, pi] of Object.entries(ms.onField)) {
+    if (ms.expelled.has(pi)) continue;
+    const p  = ms.myRoster[pi]; if (!p) continue;
+    const st = ms.stamina[pi] !== undefined ? ms.stamina[pi] : 100;
+    if (st > INJ_STAMINA_THRESHOLD || p.fitness > INJ_FITNESS_THRESHOLD) continue;
+    // Entrambe le condizioni soddisfatte: controlla injProb
+    const injP = p.injProb !== undefined ? p.injProb : 0.04;
+    // La probabilità viene scalata per il dt dell'evento (~10s su ~10min)
+    // → divide per ~60 per avere una prob per-evento realistica
+    if (Math.random() < injP / 60) {
+      const shirt = ms.shirtNumbers[pi] || '?';
+      ms.expelled.add(pi);
+      if (!ms.injuries) ms.injuries = [];
+      ms.injuries.push(pi);
+      // Segna il giocatore come infortunato (persiste sulla scheda)
+      p.injured = true;
+      return {
+        txt: '🚑 INFORTUNIO! ' + p.name + ' (#' + shirt + ') lascia il campo — stamina esaurita con forma precaria.',
+        cls: 'exp',
+        expelled: pi,
+        isInjury: true,
+        moverKey: 'my_' + pk,
+      };
+    }
+  }
 
   // Calcola forza effettiva: include malus fuori-ruolo e stamina
   let myEffective = 0;

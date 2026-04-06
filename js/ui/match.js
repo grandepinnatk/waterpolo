@@ -676,12 +676,13 @@ function _renderSubLists() {
     const isExp = ms.expelled.has(pi);
     const sel   = ms.subIn === pi;
     inHtml += `
-      <div class="player-card${sel ? ' selected' : ''}" onclick="${isExp ? '' : 'selSubIn(' + pi + ')'}"
-           style="margin-bottom:6px;${isExp ? 'opacity:.35;cursor:not-allowed' : ''}">
+      <div class="player-card${sel ? ' selected' : ''}" onclick="${(isExp || p.injured) ? '' : 'selSubIn(' + pi + ')'}"
+           style="margin-bottom:6px;${(isExp || p.injured) ? 'opacity:.35;cursor:not-allowed' : ''}">
         <div style="flex:1">
           <div style="font-size:13px;font-weight:600;display:flex;align-items:center;flex-wrap:wrap;gap:2px">
             <span style="color:var(--muted);margin-right:4px">#${shirt}</span>
             ${p.name}
+            ${p.injured ? '<span style="font-size:9px;background:#c0392b;color:#fff;font-weight:700;padding:1px 4px;border-radius:3px;margin-left:4px">INF+</span>' : ''}
             ${expDots(pi)}
             ${staminaBadge(pi)}
             ${(function(){ const played = ms.matchDuels && ms.matchDuels[pi]!==undefined; const r = played&&(typeof calcPlayerRating==='function') ? calcPlayerRating(pi,ms) : null; const col = r?(r>=7.5?'var(--green)':r>=6.5?'var(--gold)':r>=5.5?'var(--muted)':'var(--red)'):'var(--muted)'; return '<span style="font-size:11px;font-weight:800;color:'+col+';margin-left:5px">'+(r!==null?r.toFixed(1):'—')+'</span>'; })()}
@@ -970,6 +971,17 @@ function _doEndMatch() {
     G.msgs.push('G' + ms.match.round + ': ' + G.myTeam.name + ' ' +
                 (mw ? 'VINCE' : md ? 'pareggia' : 'perde') + ' vs ' + ms.oppTeam.name +
                 ' (' + ms.myScore + '-' + ms.oppScore + ')' + (earned ? ' +' + formatMoney(earned) : ''));
+    // Giocatori infortunati: penalizza fitness e assegna durata infortunio (2-6 giornate)
+    if (ms.injuries && ms.injuries.length) {
+      ms.injuries.forEach(pi => {
+        const p = ms.myRoster[pi]; if (!p) return;
+        const penalty = 15 + Math.floor(Math.random() * 16);
+        p.fitness = Math.max(5, (p.fitness || 70) - penalty);
+        p.injured      = true;
+        p.injuryWeeks  = 2 + Math.floor(Math.random() * 5); // 2-6 giornate
+        G.msgs.push('🚑 ' + p.name + ' infortunato: forma ' + p.fitness + '% — out per ' + p.injuryWeeks + ' giornate.');
+      });
+    }
     // Salva voti finali nelle ultime 4 partite di ogni giocatore
     // null = non convocato / non ha giocato
     if (typeof calcPlayerRating === 'function') {
@@ -995,6 +1007,19 @@ function _doEndMatch() {
     }
     generateTransferOffers();
     if (typeof refreshMarketPool === 'function') refreshMarketPool();
+    // Decrementa infortuni preesistenti (non causati da questa partita)
+    (G.rosters[G.myId] || []).forEach(p => {
+      if (!p || !p.injured) return;
+      if (ms.injuries && ms.injuries.includes(
+        G.rosters[G.myId].indexOf(p)
+      )) return; // già gestiti sopra
+      p.injuryWeeks = (p.injuryWeeks || 1) - 1;
+      if (p.injuryWeeks <= 0) {
+        p.injured     = false;
+        p.injuryWeeks = 0;
+        G.msgs.push('✅ ' + p.name + ' è guarito — torna disponibile.');
+      }
+    });
     simulateRound(G.schedule, G.stand, G.teams, ms.match.round, G.myId, G.rosters);
     G.ms = null;
     showScreen('sc-game'); updateHeader(); showTab('dash');

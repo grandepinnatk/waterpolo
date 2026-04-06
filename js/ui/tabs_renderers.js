@@ -286,8 +286,14 @@ function renderDash() {
     h += `<div class="alert info">Fase finale in corso.</div>
           <button class="btn primary" onclick="showTab('playoff')">Vai ai Playoff →</button>`;
   } else {
-    h += `<div class="alert success">Stagione conclusa!</div>
-          <button class="btn primary" onclick="showTab('goals')">Vedi Obiettivi →</button>`;
+    const sNum = G.seasonNumber || 1;
+    h += `<div class="alert success" style="margin-bottom:10px">
+            🏆 Stagione ${sNum} conclusa! Budget: <strong>${formatMoney(G.budget)}</strong>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px">
+            <button class="btn primary" onclick="showTab('goals')">📋 Vedi Obiettivi</button>
+            <button class="btn success" onclick="_confirmNewSeason()">🏊 Nuova Stagione →</button>
+          </div>`;
   }
 
   // Ultime notizie: paginazione 15 per pagina, max 90 notizie
@@ -351,8 +357,14 @@ function renderRosa() {
           var col = r >= 7.5 ? 'var(--green)' : r >= 6.5 ? 'var(--gold)' : r >= 5.5 ? 'var(--muted)' : 'var(--red)';
           return '<span style="font-size:11px;font-weight:700;color:' + col + ';margin-right:3px">' + r.toFixed(1) + '</span>';
         }).join('<span style="color:var(--muted);font-size:9px">·</span>');
+    // Badge RIT (ritiro) e INF (infortunato)
+    const willRetire = p.retirementAge !== undefined && (p.age + 1) >= p.retirementAge;
+    const ritBadge   = willRetire ? ' <span style="font-size:10px;background:#c0392b;color:#fff;font-weight:700;padding:1px 5px;border-radius:4px;margin-left:4px" title="Si ritira a fine stagione">RIT</span>' : '';
+    const infWeeks   = p.injuryWeeks || '';
+    const infTitle   = p.injured ? 'Infortunato — out per ' + (p.injuryWeeks || '?') + ' giornate' : '';
+    const infBadge   = p.injured ? ' <span style="font-size:10px;background:#e74c3c;color:#fff;font-weight:700;padding:1px 5px;border-radius:4px;margin-left:4px" title="' + infTitle + '">INF+' + (infWeeks ? ' ' + infWeeks + 'G' : '') + '</span>' : '';
     h += '<tr class="trhov" onclick="showPlayerModal(' + i + ')" style="' + (onMarket ? 'background:rgba(240,192,64,.08)' : '') + '">'
-      + '<td style="font-weight:600">' + p.name + (onMarket ? ' <span style="font-size:10px;color:var(--gold);font-weight:600">VENDITA</span>' : '') + '</td>'
+      + '<td style="font-weight:600">' + p.name + ritBadge + infBadge + (onMarket ? ' <span style="font-size:10px;color:var(--gold);font-weight:600">VENDITA</span>' : '') + '</td>'
       + '<td><span class="badge ' + (p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C') + '">' + p.role + '</span></td>'
       + '<td><span class="badge ' + (p.hand==='AMB'?'C':p.hand==='L'?'L':'R') + '" title="' + (p.hand==='AMB'?'Ambidestro':p.hand==='L'?'Mancino':'Destro') + '">' + p.hand + '</span></td>'
       + '<td style="color:var(--muted);font-size:12px">' + p.nat + '</td>'
@@ -808,11 +820,20 @@ function renderGoals() {
   if (G.phase === 'done') {
     const totPts = G.objectives.filter(o => o.achieved).reduce((s, o) => s + o.points, 0);
     const totRew = G.objectives.filter(o => o.achieved).reduce((s, o) => s + o.reward, 0);
+    const sNum = G.seasonNumber || 1;
     h += `<div class="card" style="border:1px solid var(--green)">
-      <div style="font-weight:700;margin-bottom:8px;color:var(--green)">Riepilogo Stagione</div>
+      <div style="font-weight:700;margin-bottom:8px;color:var(--green)">Riepilogo Stagione ${sNum}</div>
       <div class="irow"><span class="ilbl">Posizione finale</span><span>${pos}°</span></div>
       <div class="irow"><span class="ilbl">Punti obiettivi</span><span style="font-weight:700">${totPts}</span></div>
       <div class="irow"><span class="ilbl">Premi incassati</span><span style="font-weight:700;color:var(--green)">${formatMoney(totRew)}</span></div>
+      <div style="margin-top:14px;padding-top:10px;border-top:1px solid var(--border)">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:10px">
+          Inizia la stagione successiva mantenendo rosa, budget, stelle e progressi.
+        </div>
+        <button class="btn success" onclick="_confirmNewSeason()" style="width:100%">
+          🏊 Inizia Stagione ${sNum + 1}
+        </button>
+      </div>
     </div>`;
   }
   document.getElementById('tab-goals').innerHTML = h;

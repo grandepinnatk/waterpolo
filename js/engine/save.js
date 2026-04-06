@@ -126,6 +126,29 @@ function _migratePayload(p) {
   // v2 → v3: aggiungi marketPool e savedAtMs
   if (!p.marketPool)  p.marketPool  = [];
   if (p.stars === undefined) p.stars = 5; // stelle: default 5 per salvataggi vecchi
+  // Aggiunge injProb a giocatori senza (salvataggi vecchi)
+  if (p.rosters) {
+    Object.values(p.rosters).forEach(function(roster) {
+      (roster || []).forEach(function(pl) {
+        if (pl && pl.injProb === undefined) {
+          var raw = -Math.log(1 - Math.random()) * 0.045;
+          pl.injProb = Math.round(Math.max(0.02, Math.min(0.15, raw)) * 1000) / 1000;
+        }
+      });
+    });
+  }
+  // Aggiunge retirementAge a giocatori senza (salvataggi vecchi)
+  if (p.rosters) {
+    Object.values(p.rosters).forEach(function(roster) {
+      (roster || []).forEach(function(pl) {
+        if (pl && pl.retirementAge === undefined) {
+          const u1 = Math.random(), u2 = Math.random();
+          const z  = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+          pl.retirementAge = Math.round(Math.max(32, Math.min(40, 35 + z * 2)));
+        }
+      });
+    });
+  }
   // Aggiunge res a tutti i giocatori di salvataggi vecchi
   if (p.rosters) {
     Object.values(p.rosters).forEach(function(roster) {

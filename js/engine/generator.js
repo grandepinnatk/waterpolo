@@ -78,6 +78,22 @@ function generatePlayer(teamStrength, role) {
     // Massimo di Tecnica raggiungibile con l'allenamento (attributo nascosto)
     // Range: overall - 5 ... min(99, overall + 15 + bonus giovani)
     maxTec: Math.min(99, cap(base + rnd(-5, 15) + (age < 24 ? rnd(0, 8) : 0))),
+    // Età massima di ritiro (attributo nascosto, non visibile al giocatore)
+    // Distribuzione normale approssimata: media 35, σ≈2, range 32-40
+    // Probabilità di infortunio per partita (attributo nascosto, 0.02-0.15)
+    // Distribuzione: la maggior parte dei giocatori ha bassa prob (~0.03-0.06),
+    // pochi hanno alta fragilità (~0.10-0.15). Usa distribuzione esponenziale troncata.
+    injProb: (function() {
+      // Valore base esponenziale: la maggioranza cade sotto 0.07
+      const raw = -Math.log(1 - Math.random()) * 0.045;
+      return Math.round(Math.max(0.02, Math.min(0.15, raw)) * 1000) / 1000;
+    })(),
+    retirementAge: (function() {
+      // Box-Muller semplificato per distribuzione normale
+      const u1 = Math.random(), u2 = Math.random();
+      const z  = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+      return Math.round(Math.max(32, Math.min(40, 35 + z * 2)));
+    })(),
   };
 }
 
