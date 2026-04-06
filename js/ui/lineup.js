@@ -216,7 +216,7 @@ function renderPlayerSelList() {
     nameCell.style.cssText = 'min-width:0';
     const infTag = p.injured ? ' <span style="font-size:9px;background:#c0392b;color:#fff;font-weight:700;padding:1px 4px;border-radius:3px;margin-left:3px" title="Giocatore infortunato — non disponibile">INF+</span>' : '';
     nameCell.innerHTML = `
-      <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:${p.injured?'.5':'1'}">${p.name}${infTag}</div>
+      <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:${p.injured?'.5':'1'}">${p.name}${_ritBadge(p)}${infTag}</div>
       <div style="font-size:10px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">
         ${_luRoleBadge(p.role)} ${_luHandBadge(p.hand)}
         <span style="color:var(--muted)">${p.age}a · OVR ${p.overall}</span>

@@ -3,7 +3,7 @@
 // Navigazione tra i tab del gioco principale
 // ─────────────────────────────────────────────
 
-const TAB_IDS = ['dash','rosa','train','goals','stand','cal','playoff','market','finance','credits'];
+const TAB_IDS = ['dash','rosa','train','goals','stand','cal','playoff','market','finance','history','credits'];
 
 // ── Mostra un tab e nasconde gli altri ────────
 function showTab(tab) {
@@ -33,7 +33,8 @@ function showTab(tab) {
     playoff: renderPlayoff,
     market:  renderMarket,
     finance: renderFinance,
-    credits: renderCredits,
+    credits:  renderCredits,
+    history:  renderHistory,
   };
   if (renderers[tab]) renderers[tab]();
 }

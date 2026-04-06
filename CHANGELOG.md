@@ -6,6 +6,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -17,6 +73,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -24,6 +136,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -51,6 +219,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -62,6 +286,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -69,6 +349,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -113,6 +449,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -124,6 +516,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -131,6 +579,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -158,6 +662,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -169,6 +729,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -176,6 +792,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -303,6 +975,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -314,6 +1042,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -321,6 +1105,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -348,6 +1188,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -359,6 +1255,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -366,6 +1318,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -410,6 +1418,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -421,6 +1485,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -428,6 +1548,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -455,6 +1631,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -466,6 +1698,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -473,6 +1761,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -665,6 +2009,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -676,6 +2076,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -683,6 +2139,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -710,6 +2222,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -721,6 +2289,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -728,6 +2352,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -772,6 +2452,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -783,6 +2519,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -790,6 +2582,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -817,6 +2665,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -828,6 +2732,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -835,6 +2795,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -962,6 +2978,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -973,6 +3045,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -980,6 +3108,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -1007,6 +3191,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -1018,6 +3258,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -1025,6 +3321,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -1069,6 +3421,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -1080,6 +3488,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -1087,6 +3551,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -1114,6 +3634,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -1125,6 +3701,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -1132,6 +3764,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -1394,6 +4082,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -1405,6 +4149,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -1412,6 +4212,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -1439,6 +4295,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -1450,6 +4362,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -1457,6 +4425,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -1501,6 +4525,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -1512,6 +4592,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -1519,6 +4655,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -1546,6 +4738,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -1557,6 +4805,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -1564,6 +4868,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -1691,6 +5051,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -1702,6 +5118,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -1709,6 +5181,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -1736,6 +5264,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -1747,6 +5331,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -1754,6 +5394,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -1798,6 +5494,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -1809,6 +5561,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -1816,6 +5624,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -1843,6 +5707,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -1854,6 +5774,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -1861,6 +5837,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -2053,6 +6085,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -2064,6 +6152,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -2071,6 +6215,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -2098,6 +6298,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -2109,6 +6365,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -2116,6 +6428,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -2160,6 +6528,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -2171,6 +6595,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -2178,6 +6658,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -2205,6 +6741,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -2216,6 +6808,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -2223,6 +6871,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -2350,6 +7054,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -2361,6 +7121,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -2368,6 +7184,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -2395,6 +7267,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -2406,6 +7334,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -2413,6 +7397,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -2457,6 +7497,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -2468,6 +7564,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -2475,6 +7627,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -2502,6 +7710,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -2513,6 +7777,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -2520,6 +7840,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -2788,6 +8164,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -2799,6 +8231,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -2806,6 +8294,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -2833,6 +8377,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -2844,6 +8444,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -2851,6 +8507,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -2895,6 +8607,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -2906,6 +8674,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -2913,6 +8737,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -2940,6 +8820,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -2951,6 +8887,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -2958,6 +8950,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -3085,6 +9133,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -3096,6 +9200,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -3103,6 +9263,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -3130,6 +9346,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -3141,6 +9413,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -3148,6 +9476,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -3192,6 +9576,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -3203,6 +9643,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -3210,6 +9706,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -3237,6 +9789,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -3248,6 +9856,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -3255,6 +9919,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -3447,6 +10167,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -3458,6 +10234,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -3465,6 +10297,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -3492,6 +10380,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -3503,6 +10447,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -3510,6 +10510,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -3554,6 +10610,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -3565,6 +10677,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -3572,6 +10740,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -3599,6 +10823,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -3610,6 +10890,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -3617,6 +10953,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -3744,6 +11136,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -3755,6 +11203,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -3762,6 +11266,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -3789,6 +11349,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -3800,6 +11416,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -3807,6 +11479,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -3851,6 +11579,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -3862,6 +11646,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -3869,6 +11709,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 
@@ -3896,6 +11792,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni
@@ -3907,6 +11859,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
+
+---
+
 ## [0.5.53-beta] — 2026-04-06
 
 ### Aggiunto — Sistema infortuni completo
@@ -3914,6 +11922,62 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 - **Formazione bloccata**: i giocatori infortunati non possono essere selezionati né convocati in `lineup.js` — click disabilitato, riga in rosso trasparente con `cursor:not-allowed`
 - **Simulazione bloccata**: `_simRoster` e `_assignSimulatedRatings` in `main.js` escludono i giocatori con `p.injured = true` dalla convocazione simulata
 - **Cambio bloccato**: nel pannello sostituzione in partita, i giocatori infortunati non possono essere selezionati come entranti
+
+---
+
+## [0.5.59-beta] — 2026-04-06
+
+### Aggiunto — Tab Storico
+- Nuovo tab **📜 STORICO** nella sidebar sinistra (dopo Finanza)
+- **Storico stagioni**: tabella con una riga per ogni stagione conclusa (in ordine inverso), con: numero stagione, posizione finale in regular season, punti, V/P/S, GF/GA, fase playoff/playout raggiunta (Campione / Finalista / Semifinale / Playoff / Playout / Retrocesso), miglior marcatore e assistman della stagione
+- **Record del Club**: sezione in cima con i giocatori attualmente in rosa con il maggior numero di gol, assist e stagioni cumulative (include sia la stagione corrente che le precedenti grazie a `careerGoals`, `careerAssists`, `careerApps`)
+- I dati vengono salvati in `G.seasonHistory` al momento di `closeSeason()`
+- Le statistiche di carriera (`careerGoals`, `careerAssists`, `careerSaves`, `careerApps`) si accumulano su ogni giocatore prima del reset stagionale
+
+---
+
+## [0.5.58-beta] — 2026-04-06
+
+### Aggiunto
+- **Badge RIT universale**: il badge rosso "RIT" (si ritira a fine stagione) appare accanto al nome del giocatore in ogni lista dell'interfaccia:
+  - Tab **Rosa** (già presente)
+  - Lista convocabili nella schermata **Formazione**
+  - Pannello cambi in partita (lista **"esce"** e lista **"entra"**)
+  - Scheda giocatore aperta durante la **partita**
+  - Lista giocatori disponibili nel tab **Mercato**
+  - Modal dettaglio giocatore (**Rosa → Dettagli**)
+
+---
+
+## [0.5.57-beta] — 2026-04-06
+
+### Aggiunto
+- **Notizie — offerta accettata**: il messaggio include ora un pulsante verde **"Acquista ora"** che porta direttamente al tab Mercato (sezione "Offerte da finalizzare")
+
+---
+
+## [0.5.56-beta] — 2026-04-06
+
+### Aggiunto — Offerte da finalizzare nel mercato
+- **`G.pendingPurchases`**: quando un giocatore con offerta accettata scade dal listone, viene salvato in questa lista separata invece di sparire
+- **Sezione "Offerte da finalizzare"** in cima al tab Mercato (con bordo verde): mostra i giocatori con offerta accettata non ancora conclusa — nome, squadra, ruolo, OVR, prezzo concordato, giornate rimanenti
+- La sezione è visibile solo quando ci sono offerte pendenti
+- Ogni offerta scade dopo **1 giornata**: se non viene finalizzata entro la giornata successiva, viene rimossa con un messaggio nelle notizie
+- Pulsante **"Conferma acquisto"** (verde) per concludere il trasferimento al prezzo già concordato
+
+---
+
+## [0.5.55-beta] — 2026-04-06
+
+### Corretto
+- **Portiere riserva (simulazione)**: riceve voto solo se stimato un cambio necessario. La probabilità di sostituzione cresce con i gol subiti dal titolare: 0% con 0 gol, ~12% con 3 gol, ~28% con 7 gol, max 40% con 9+ gol. Se non entra in campo riceve `null` (→ `-` nella colonna Voti).
+
+---
+
+## [0.5.54-beta] — 2026-04-06
+
+### Corretto
+- **Voti partita simulata**: il portiere riserva riceveva `null` invece di un voto, riducendo i voti numerici da 13 a 12. Ora riceve un voto neutro di presenza (6.0) — è convocato e in panchina, esattamente come i giocatori di campo non utilizzati ricevono comunque una valutazione.
 
 ---
 

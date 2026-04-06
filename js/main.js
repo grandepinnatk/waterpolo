@@ -153,10 +153,18 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
         if (goalsConceded === 0)     rating += 1.0;
         else if (goalsConceded <= 3) rating += 0.3;
       } else {
-        // Riserva: non ha giocato ma è convocato → null (non impiegato)
-        p.lastRatings.push(null);
-        if (p.lastRatings.length > 4) p.lastRatings.shift();
-        return;
+        // Portiere riserva: entra solo se il titolare ha una brutta partita
+        // Probabilità cambio: cresce con i gol subiti (0% con 0 gol, ~40% con 9+ gol)
+        const changeProbability = Math.min(0.40, goalsConceded * 0.04);
+        if (Math.random() < changeProbability) {
+          // Entra in campo nel finale → voto neutro con lieve varianza
+          rating = 6.0 + (Math.random() * 0.6 - 0.3);
+        } else {
+          // Rimane in panchina → null
+          p.lastRatings.push(null);
+          if (p.lastRatings.length > 4) p.lastRatings.shift();
+          return;
+        }
       }
       rating = Math.max(3.0, Math.min(10.0, rating));
       p.lastRatings.push(Math.round(rating * 2) / 2);
@@ -354,6 +362,50 @@ function closeSeason() {
   G.budget += reward;
   if (reward) addLedger('obiettivo', reward, 'Bonus obiettivi fine stagione', currentRound());
   G.msgs.push('Stagione conclusa! Budget finale: ' + formatMoney(G.budget));
+
+  // ── Salva record stagione nello storico ──
+  if (!G.seasonHistory) G.seasonHistory = [];
+  const pos       = typeof getTeamPosition === 'function' ? getTeamPosition(G.stand, G.myId) : '?';
+  const st        = G.stand[G.myId] || {};
+  const myRoster  = G.rosters[G.myId] || [];
+
+  // Fase playoff/playout raggiunta
+  function _playoffPhaseLabel() {
+    const pr = G.playoffResult;
+    if (pr === 'champion')  return '🏆 Campione';
+    if (pr === 'relegated') return '⬇️ Retrocesso';
+    if (pr === 'finalist')  return '🥈 Finalista';
+    if (pr === 'semifinal') return '🥉 Semifinale';
+    if (G.ploTeams && G.ploTeams.includes(G.myId)) {
+      if (pr === 'survived') return '✅ Playout: salvato';
+      return '⚠️ Playout';
+    }
+    if (G.poTeams && G.poTeams.includes(G.myId)) return '🏅 Playoff';
+    return '—';
+  }
+
+  // Miglior marcatore, assistman, presenza stagionale
+  let topScorer = null, topAssist = null, topSaves = null;
+  myRoster.forEach(p => {
+    if (!p) return;
+    if (!topScorer  || p.goals   > topScorer.goals)   topScorer  = p;
+    if (!topAssist  || p.assists > topAssist.assists)  topAssist  = p;
+    if (!topSaves   || p.saves   > topSaves.saves)     topSaves   = p;
+  });
+
+  G.seasonHistory.push({
+    season:       G.seasonNumber || 1,
+    pos:          pos,
+    pts:          st.pts || 0,
+    w: st.w || 0, d: st.d || 0, l: st.l || 0,
+    gf: st.gf || 0, ga: st.ga || 0,
+    playoffPhase: _playoffPhaseLabel(),
+    budget:       G.budget,
+    topScorer:    topScorer  ? { name: topScorer.name,  val: topScorer.goals }   : null,
+    topAssist:    topAssist  ? { name: topAssist.name,  val: topAssist.assists } : null,
+    topSaves:     topSaves   ? { name: topSaves.name,   val: topSaves.saves }    : null,
+  });
+
   updateHeader(); autoSave(); showTab('goals');
 }
 
@@ -422,11 +474,16 @@ function startNewSeason() {
     if (!roster) return;
     roster.forEach((p, i) => {
       if (!p) return;
+      // Accumula statistiche di carriera PRIMA del reset stagionale
+      p.careerGoals   = (p.careerGoals   || 0) + (p.goals   || 0);
+      p.careerAssists = (p.careerAssists || 0) + (p.assists || 0);
+      p.careerSaves   = (p.careerSaves   || 0) + (p.saves   || 0);
+      p.careerApps    = (p.careerApps    || 0) + 1; // +1 stagione con la squadra
       // Reset statistiche stagionali
       p.goals      = 0;
       p.assists    = 0;
       p.saves      = 0;
-      p.lastRatings = [];  // reset voti stagionali
+      p.lastRatings = [];
       // Aging: invecchia di 1 anno
       if (p.age !== undefined) p.age++;
       // Calo naturale over-30
@@ -671,11 +728,38 @@ function _fillMarketPool(targetSize) {
 function refreshMarketPool() {
   if (!G.marketPool) { initMarketPool(); return; }
 
-  // Decrementa durata e rimuove scaduti
+  // Decrementa durata; i giocatori con offerta accettata che scadono → pendingPurchases
+  if (!G.pendingPurchases) G.pendingPurchases = [];
+  const currentRnd = typeof currentRound === 'function' ? currentRound() : 0;
+
   G.marketPool = G.marketPool.filter(e => {
     e.daysLeft--;
-    return e.daysLeft > 0;
+    if (e.daysLeft <= 0) {
+      // Se aveva offerta accettata non ancora finalizzata, salvala per 1 giornata
+      if (e.offerResult === 'accepted' && e.offerResultAmount) {
+        // Evita duplicati
+        const already = G.pendingPurchases.find(pp => pp.player.name === e.player.name);
+        if (!already) {
+          G.pendingPurchases.push({
+            player:          e.player,
+            offerAmount:     e.offerResultAmount,
+            expiresAfterRound: currentRnd + 1,  // scade dopo la giornata successiva
+          });
+        }
+      }
+      return false; // rimuovi dal pool
+    }
+    return true;
   });
+
+  // Rimuovi offerte accettate scadute (non finalizzate entro la giornata)
+  if (G.pendingPurchases) {
+    const prevExpired = G.pendingPurchases.filter(pp => pp.expiresAfterRound < currentRnd);
+    prevExpired.forEach(pp => {
+      G.msgs.push('⌛ Offerta scaduta per ' + pp.player.name + ' — il trasferimento non è stato finalizzato in tempo.');
+    });
+    G.pendingPurchases = G.pendingPurchases.filter(pp => pp.expiresAfterRound >= currentRnd);
+  }
 
   // Rimpiazza con nuovi giocatori per mantenere ~16 disponibili
   _fillMarketPool(16);
@@ -713,7 +797,14 @@ function _processMarketOfferResponses() {
     entry.pendingOffer      = null; // sempre azzerata dopo la risposta
 
     if (accepted) {
-      G.msgs.push(`✅ Offerta accettata! ${p._tname} accetta ${formatMoney(offer)} per ${p.name}. Vai al Mercato per concludere l'acquisto.`);
+      // Trova l'indice nell'array pendingPurchases dopo che verrà aggiunto
+      // Il pulsante punta al tab Mercato dove appare la sezione "Offerte da finalizzare"
+      const _btnStyle = 'display:inline-block;margin-left:8px;padding:3px 12px;font-size:11px;font-weight:800;border-radius:6px;background:linear-gradient(135deg,#0a6a2a,#055020);border:1.5px solid #2ecc71;color:#fff;cursor:pointer;vertical-align:middle';
+      G.msgs.push(
+        '✅ Offerta accettata! <strong>' + p._tname + '</strong> accetta ' +
+        '<strong style="color:#2ecc71">' + formatMoney(offer) + '</strong> per <strong>' + p.name + '</strong>. ' +
+        '<button onclick="showTab(&quot;market&quot;)" style="' + _btnStyle + '">Acquista ora</button>'
+      );
     } else if (offer < minAcc) {
       G.msgs.push(`❌ Offerta rifiutata: ${p._tname} ha respinto ${formatMoney(offer)} per ${p.name} (troppo bassa).`);
     } else {

@@ -96,6 +96,15 @@ function _linkTeamNames(text) {
   return result;
 }
 
+
+// Badge RIT — visibile accanto al nome in tutte le liste
+function _ritBadge(p) {
+  if (!p || p.retirementAge === undefined) return '';
+  if ((p.age + 1) < p.retirementAge) return '';
+  return ' <span style="font-size:9px;background:#c0392b;color:#fff;font-weight:700;' +
+         'padding:1px 4px;border-radius:3px;margin-left:3px" title="Si ritira a fine stagione">RIT</span>';
+}
+
 // Restituisce il nome completo nel formato "Cognome I."
 function _shortPlayerName(p) {
   if (!p || !p.name) return "—";
@@ -357,9 +366,8 @@ function renderRosa() {
           var col = r >= 7.5 ? 'var(--green)' : r >= 6.5 ? 'var(--gold)' : r >= 5.5 ? 'var(--muted)' : 'var(--red)';
           return '<span style="font-size:11px;font-weight:700;color:' + col + ';margin-right:3px">' + r.toFixed(1) + '</span>';
         }).join('<span style="color:var(--muted);font-size:9px">·</span>');
-    // Badge RIT (ritiro) e INF (infortunato)
-    const willRetire = p.retirementAge !== undefined && (p.age + 1) >= p.retirementAge;
-    const ritBadge   = willRetire ? ' <span style="font-size:10px;background:#c0392b;color:#fff;font-weight:700;padding:1px 5px;border-radius:4px;margin-left:4px" title="Si ritira a fine stagione">RIT</span>' : '';
+    // Badge RIT e INF
+    const ritBadge = _ritBadge(p);
     const infWeeks   = p.injuryWeeks || '';
     const infTitle   = p.injured ? 'Infortunato — out per ' + (p.injuryWeeks || '?') + ' giornate' : '';
     const infBadge   = p.injured ? ' <span style="font-size:10px;background:#e74c3c;color:#fff;font-weight:700;padding:1px 5px;border-radius:4px;margin-left:4px" title="' + infTitle + '">INF+' + (infWeeks ? ' ' + infWeeks + 'G' : '') + '</span>' : '';
@@ -391,7 +399,7 @@ function showPlayerModal(i) {
     <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px;max-width:360px;width:90%;max-height:85vh;overflow-y:auto">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
         <div>
-          <div style="font-weight:700;font-size:15px;color:var(--blue)">${p.name}</div>
+          <div style="font-weight:700;font-size:15px;color:var(--blue)">${p.name}${_ritBadge(p)}</div>
           <div style="font-size:12px;color:var(--muted)">${rl[p.role] || p.role} · ${p.nat} · ${p.age} anni ·
             <strong>${p.hand === 'AMB' ? 'Ambidestro' : p.hand === 'L' ? 'Mancino' : 'Destro'}</strong>
           </div>
@@ -440,7 +448,7 @@ function showMarketPlayerModal(i) {
     <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px;max-width:360px;width:90%;max-height:85vh;overflow-y:auto">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
         <div>
-          <div style="font-weight:700;font-size:15px;color:var(--blue)">${p.name}</div>
+          <div style="font-weight:700;font-size:15px;color:var(--blue)">${p.name}${_ritBadge(p)}</div>
           <div style="font-size:12px;color:var(--muted)">${rl[p.role] || p.role} · ${p.nat} · ${p.age} anni · <strong>${hand}</strong></div>
           <div style="font-size:12px;color:var(--muted);margin-top:2px">📍 ${p._tname}</div>
         </div>
@@ -1155,10 +1163,47 @@ function renderMarket() {
     rosterIdx: entry.rosterIdx,
   })).filter(x => x.p);
 
+  // ── Sezione OFFERTE DA FINALIZZARE ──────────────────────────────
+  const pending = G.pendingPurchases || [];
+  const curRnd  = typeof currentRound === 'function' ? currentRound() : 0;
+
   let h = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
     <div style="font-weight:700;color:var(--blue);font-size:15px">Mercato Trasferimenti</div>
     <div style="font-size:12px;color:var(--muted)">Budget: <strong style="color:var(--blue)">${formatMoney(G.budget)}</strong></div>
   </div>`;
+
+  if (pending.length > 0) {
+    h += `<div class="card" style="margin-bottom:12px;border:2px solid var(--green)">
+      <div style="font-weight:700;color:var(--green);margin-bottom:8px;display:flex;align-items:center;gap:8px">
+        ✅ Offerte da finalizzare
+        <span style="font-size:11px;font-weight:400;color:var(--muted)">(scadono alla prossima giornata)</span>
+      </div>
+      <table><thead><tr>
+        <th>Giocatore</th><th>Da</th><th>Ruolo</th><th>OVR</th><th>Prezzo offerta</th><th>Scade</th><th></th>
+      </tr></thead><tbody>`;
+    pending.forEach((pp, i) => {
+      const p = pp.player;
+      const canBuy = G.budget >= pp.offerAmount;
+      const roundsLeft = pp.expiresAfterRound - curRnd;
+      const expLbl = roundsLeft <= 0 ? '⚠️ Scaduta' : roundsLeft === 1 ? '⚠️ Ultima G!' : roundsLeft + ' G';
+      const expCol = roundsLeft <= 1 ? 'var(--red)' : 'var(--gold)';
+      h += `<tr>
+        <td style="font-weight:600">${p.name} <span style="font-size:11px;color:var(--muted)">(${p.age}a)</span></td>
+        <td style="font-size:12px;color:var(--muted)">${p._tname}</td>
+        <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span></td>
+        <td style="font-weight:700">${p.overall}</td>
+        <td style="font-size:13px;font-weight:700;color:var(--green)">${formatMoney(pp.offerAmount)}</td>
+        <td style="font-size:11px;font-weight:700;color:${expCol}">${expLbl}</td>
+        <td>
+          ${canBuy
+            ? `<button class="btn sm success" onclick="buyFromPending(${i})">Conferma acquisto</button>`
+            : `<span style="font-size:11px;color:var(--red)">Budget insuff.</span>`
+          }
+        </td>
+      </tr>`;
+    });
+    h += `</tbody></table></div>`;
+  }
 
   // Sezione USCITE
   h += `<div class="card" style="margin-bottom:12px">
@@ -1229,7 +1274,7 @@ function renderMarket() {
 
     h += `<tr class="trhov" onclick="showMarketPlayerModal(${i})">
       <td style="font-weight:600;cursor:pointer">
-        ${p.name} <span style="font-size:11px;color:var(--muted)">(${p.age}a)</span>
+        ${p.name}${_ritBadge(p)} <span style="font-size:11px;color:var(--muted)">(${p.age}a)</span>
         ${offerBadge ? '<br>' + offerBadge : ''}
       </td>
       <td><span class="badge ${p.hand==='AMB'?'C':p.hand==='L'?'L':'R'}">${p.hand}</span></td>
@@ -1525,6 +1570,91 @@ function renderFinance() {
   </div>`;
 
   document.getElementById('tab-finance').innerHTML = h;
+}
+
+
+// ════════════════════════════════════════════
+// STORICO
+// ════════════════════════════════════════════
+function renderHistory() {
+  const history = G.seasonHistory || [];
+  const roster  = G.rosters[G.myId] || [];
+
+  // ── Record di carriera (da statistiche cumulative) ──────────────────
+  let topGoals = null, topAssists = null, topApps = null;
+  roster.forEach(p => {
+    if (!p) return;
+    const cg = (p.careerGoals   || 0) + (p.goals   || 0);
+    const ca = (p.careerAssists || 0) + (p.assists || 0);
+    const cp = (p.careerApps    || 0);
+    if (!topGoals   || cg > (topGoals.careerGoals   || 0) + (topGoals.goals   || 0))   topGoals   = p;
+    if (!topAssists || ca > (topAssists.careerAssists || 0) + (topAssists.assists || 0)) topAssists = p;
+    if (!topApps    || cp > (topApps.careerApps || 0))                                   topApps    = p;
+  });
+
+  function _statVal(p, careerKey, seasonKey) {
+    if (!p) return 0;
+    return (p[careerKey] || 0) + (p[seasonKey] || 0);
+  }
+
+  let h = '<div style="max-width:860px">';
+
+  // ── Record del club ─────────────────────────────────────────────────
+  h += `<div class="card" style="margin-bottom:14px">
+    <div class="slbl" style="margin-top:0">🏅 Record del Club</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">`;
+
+  function _recordCard(icon, label, p, val, suffix) {
+    if (!p) return '<div class="sc"><div class="sc-l">' + icon + ' ' + label + '</div><div class="sc-n" style="font-size:13px;color:var(--muted)">—</div></div>';
+    return '<div class="sc">' +
+      '<div class="sc-l">' + icon + ' ' + label + '</div>' +
+      '<div style="font-size:13px;font-weight:700;color:var(--blue);margin-top:4px">' + p.name + '</div>' +
+      '<div style="font-size:16px;font-weight:800;color:var(--gold)">' + val + ' <span style="font-size:11px;color:var(--muted)">' + suffix + '</span></div>' +
+      '</div>';
+  }
+
+  h += _recordCard('⚽', 'Miglior marcatore', topGoals,   _statVal(topGoals, 'careerGoals', 'goals'), 'gol');
+  h += _recordCard('🤝', 'Miglior assistman', topAssists, _statVal(topAssists, 'careerAssists', 'assists'), 'assist');
+  h += _recordCard('📅', 'Più stagioni in rosa', topApps, topApps ? (topApps.careerApps || 0) : 0, 'stagioni');
+
+  h += '</div></div>';
+
+  // ── Storico stagioni ────────────────────────────────────────────────
+  h += `<div class="card">
+    <div class="slbl" style="margin-top:0">📋 Storico Stagioni</div>`;
+
+  if (!history.length) {
+    h += '<div style="color:var(--muted);font-size:13px;padding:8px 0">Nessuna stagione completata — i dati appariranno dopo la prima stagione conclusa.</div>';
+  } else {
+    h += `<table><thead><tr>
+      <th>Stag.</th>
+      <th>Pos.</th>
+      <th>Punti</th>
+      <th>V/P/S</th>
+      <th>GF/GA</th>
+      <th>Playoff/Playout</th>
+      <th>Marcatore</th>
+      <th>Assistman</th>
+    </tr></thead><tbody>`;
+
+    history.slice().reverse().forEach(s => {
+      const posColor = s.pos <= 3 ? 'var(--gold)' : s.pos <= 8 ? 'var(--blue)' : 'var(--muted)';
+      h += `<tr>
+        <td style="font-weight:700;color:var(--muted)">S${s.season}</td>
+        <td style="font-weight:800;color:${posColor}">${s.pos}°</td>
+        <td style="font-weight:700">${s.pts}</td>
+        <td style="font-size:12px;color:var(--muted)">${s.w}/${s.d}/${s.l}</td>
+        <td style="font-size:12px;color:var(--muted)">${s.gf}/${s.ga}</td>
+        <td style="font-size:12px">${s.playoffPhase}</td>
+        <td style="font-size:12px">${s.topScorer ? s.topScorer.name + ' <span style="color:var(--gold);font-weight:700">(' + s.topScorer.val + '⚽)</span>' : '—'}</td>
+        <td style="font-size:12px">${s.topAssist ? s.topAssist.name + ' <span style="color:var(--blue);font-weight:700">(' + s.topAssist.val + '🤝)</span>' : '—'}</td>
+      </tr>`;
+    });
+
+    h += '</tbody></table>';
+  }
+  h += '</div></div>';
+  document.getElementById('tab-history').innerHTML = h;
 }
 
 // ════════════════════════════════════════════

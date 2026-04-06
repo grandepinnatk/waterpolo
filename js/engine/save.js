@@ -125,7 +125,9 @@ function _migratePayload(p) {
   if (!p) return null;
   // v2 → v3: aggiungi marketPool e savedAtMs
   if (!p.marketPool)  p.marketPool  = [];
-  if (p.stars === undefined) p.stars = 5; // stelle: default 5 per salvataggi vecchi
+  if (p.stars === undefined) p.stars = 5;
+  if (!p.pendingPurchases) p.pendingPurchases = [];
+  if (!p.seasonHistory)   p.seasonHistory   = []; // stelle: default 5 per salvataggi vecchi
   // Aggiunge injProb a giocatori senza (salvataggi vecchi)
   if (p.rosters) {
     Object.values(p.rosters).forEach(function(roster) {

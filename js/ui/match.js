@@ -344,6 +344,15 @@ function _simplePosLabel(pk) {
   return String(pk);  // '1','2','3','4','5','6'
 }
 
+
+// Badge RIT per la schermata partita
+function _ritBadge(p) {
+  if (!p || p.retirementAge === undefined) return '';
+  if ((p.age + 1) < p.retirementAge) return '';
+  return '<span style="font-size:9px;background:#c0392b;color:#fff;font-weight:700;' +
+         'padding:1px 4px;border-radius:3px;margin-left:3px" title="Si ritira a fine stagione">RIT</span>';
+}
+
 function renderFieldLists() {
   const ms = G.ms; if (!ms) return;
 
@@ -649,7 +658,7 @@ function _renderSubLists() {
         <div style="flex:1">
           <div style="font-size:13px;font-weight:600;display:flex;align-items:center;flex-wrap:wrap;gap:2px">
             <span style="color:var(--blue);margin-right:4px">#${shirt}</span>
-            ${p.name}
+            ${p.name}${_ritBadge(p)}
             ${expDots(pi)}
             ${staminaBadge(pi)}
             ${(function(){ const r = (typeof calcPlayerRating==='function') ? calcPlayerRating(pi,ms) : null; const col = r?(r>=7.5?'var(--green)':r>=6.5?'var(--gold)':r>=5.5?'var(--muted)':'var(--red)'):'var(--muted)'; return '<span style="font-size:11px;font-weight:800;color:'+col+';margin-left:5px">'+( r!==null ? r.toFixed(1) : '—')+'</span>'; })()}
@@ -681,7 +690,7 @@ function _renderSubLists() {
         <div style="flex:1">
           <div style="font-size:13px;font-weight:600;display:flex;align-items:center;flex-wrap:wrap;gap:2px">
             <span style="color:var(--muted);margin-right:4px">#${shirt}</span>
-            ${p.name}
+            ${p.name}${_ritBadge(p)}
             ${p.injured ? '<span style="font-size:9px;background:#c0392b;color:#fff;font-weight:700;padding:1px 4px;border-radius:3px;margin-left:4px">INF+</span>' : ''}
             ${expDots(pi)}
             ${staminaBadge(pi)}
@@ -720,7 +729,7 @@ function showMatchPlayerInfo(pi) {
     <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;max-width:320px;width:90%;max-height:80vh;overflow-y:auto">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
         <div>
-          <div style="font-weight:700;font-size:15px;color:var(--blue)">#${shirt} ${p.name}</div>
+          <div style="font-weight:700;font-size:15px;color:var(--blue)">#${shirt} ${p.name}${_ritBadge(p)}</div>
           <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;flex-wrap:wrap">${rl[p.role]||p.role} · ${p.nat} · ${p.age}a · ${_handBadge(p.hand)}</div>
         </div>
         <button onclick="this.closest('[style*=fixed]').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
