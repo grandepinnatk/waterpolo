@@ -89,6 +89,21 @@ function generatePlayer(teamStrength, role) {
       const raw = -Math.log(1 - Math.random()) * 0.045;
       return Math.round(Math.max(0.02, Math.min(0.15, raw)) * 1000) / 1000;
     })(),
+    // Ambizione (attributo nascosto 0-100):
+    // determina la volontà di restare in club di fascia inferiore alle aspettative
+    // Distribuzione: normale, media 50, sigma 20
+    ambition: (function() {
+      const u1 = Math.random(), u2 = Math.random();
+      const z  = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+      return Math.round(Math.max(0, Math.min(100, 50 + z * 20)));
+    })(),
+    // Ambizione (attributo nascosto 0-100): quanto il giocatore vuole giocare in un club di fascia alta
+    // Distribuzione normale: media 50, σ≈20, range 10-90
+    ambition: (function() {
+      const u1 = Math.random(), u2 = Math.random();
+      const z  = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+      return Math.round(Math.max(10, Math.min(90, 50 + z * 20)));
+    })(),
     retirementAge: (function() {
       // Box-Muller semplificato per distribuzione normale
       const u1 = Math.random(), u2 = Math.random();

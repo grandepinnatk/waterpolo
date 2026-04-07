@@ -115,6 +115,32 @@ function simulateMatchStats(homeRoster, awayRoster, score) {
   distributeGoals(homeRoster, score.home, homeScorers);
   distributeGoals(awayRoster, score.away, awayScorers);
 
+  // ── Simula infortuni ────────────────────────────────────────────────
+  // Probabilità base ~3% per partita per giocatore a rischio
+  // Solo per i giocatori passati (non l'avversario generico)
+  function simulateInjuries(roster) {
+    if (!roster) return [];
+    const injured = [];
+    roster.forEach(p => {
+      if (!p || p.injured) return;
+      // Rischio base: forma bassa + fragilità personale
+      const formRisk = p.fitness !== undefined && p.fitness < 70
+        ? (70 - p.fitness) / 70 * 0.04  // fino a +4% se forma 0
+        : 0;
+      const injP     = (p.injProb || 0.04) + formRisk;
+      // Probabilità per partita (non per secondo): ~4-8% in condizioni normali
+      const matchProb = Math.min(0.12, injP * 0.8);
+      if (Math.random() < matchProb) {
+        p.injured     = true;
+        p.injuryWeeks = 1 + Math.floor(Math.random() * 4); // 1-4 giornate (più leggero della partita live)
+        const penalty = 8 + Math.floor(Math.random() * 12);
+        p.fitness     = Math.max(5, (p.fitness || 70) - penalty);
+        injured.push(p.name);
+      }
+    });
+    return injured;
+  }
+
   // Genera parziali verosimili distribuendo i gol nei 4 tempi
   function splitGoals(total) {
     const p = [0,0,0,0];
@@ -125,7 +151,7 @@ function simulateMatchStats(homeRoster, awayRoster, score) {
   const aP = splitGoals(score.away);
   const partials = [0,1,2,3].map(i => ({ h: hP[i], a: aP[i] }));
 
-  return { home: homeScorers, away: awayScorers, partials };
+  return { home: homeScorers, away: awayScorers, partials, _injuredH: [], _injuredA: [] };
 }
 
 // ── Simula tutte le partite di una giornata ───

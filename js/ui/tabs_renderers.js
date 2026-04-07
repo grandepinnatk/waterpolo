@@ -101,6 +101,9 @@ function _linkTeamNames(text) {
 // Badge SCAD — contratto in scadenza a fine stagione (contractYears <= 1)
 function _scadBadge(p) {
   if (!p || (p.contractYears === undefined) || p.contractYears > 1) return '';
+  if (p._renewalPending)
+    return ' <span style="font-size:9px;background:#0a6a2a;color:#fff;font-weight:700;' +
+           'padding:1px 4px;border-radius:3px;margin-left:3px" title="Proposta di rinnovo inviata">📨</span>';
   return ' <span style="font-size:9px;background:#7b2fbe;color:#fff;font-weight:700;' +
          'padding:1px 4px;border-radius:3px;margin-left:3px" title="Contratto in scadenza a fine stagione">SCAD</span>';
 }
@@ -449,20 +452,29 @@ function showPlayerModal(i) {
       </div>
       <!-- Rinnovo contratto -->
       <div style="border-top:1px solid var(--border);padding-top:12px;margin-bottom:10px">
-        <div style="font-size:12px;font-weight:700;margin-bottom:6px">
+        <div style="font-size:12px;font-weight:700;margin-bottom:8px">
           🔄 Rinnovo contratto
-          <span style="font-size:11px;font-weight:400;color:var(--muted)"> — richiesta: <strong style="color:var(--gold)">${formatMoney(renewSalary)}/anno</strong></span>
+          <span style="font-size:11px;font-weight:400;color:var(--muted)"> — richiesta stimata: <strong style="color:var(--gold)">${formatMoney(renewSalary)}/anno</strong></span>
         </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">
-          ${[1,2,3,4,5].map(y =>
-            '<button onclick="renewContract(' + i + ',' + y + ',document.getElementById(\"player-modal-' + i + '\"))" style="' +
-            'padding:5px 10px;font-size:12px;font-weight:700;border-radius:6px;' +
-            'border:1.5px solid var(--blue);background:var(--panel2);color:var(--blue);cursor:pointer">' +
-            y + ' ann' + (y===1?'o':'i') + ' — ' + formatMoney(renewSalary*y) + '</button>'
-          ).join('')}
-        </div>
-        <div style="font-size:11px;color:var(--muted)">
-          ${isExpiring?'⚠️ Contratto in scadenza — se non rinnovato il giocatore andrà sul mercato a costo zero.':''}
+        ${p._renewalPending
+          ? '<div style="background:rgba(0,194,255,.08);border:1px solid rgba(0,194,255,.3);border-radius:8px;padding:10px;font-size:12px">' +
+            '<div style="color:var(--blue);font-weight:700;margin-bottom:4px">📨 Proposta inviata — in attesa di risposta</div>' +
+            '<div style="color:var(--muted)">' + p._renewalPending.years + ' ann' + (p._renewalPending.years===1?'o':'i') +
+            ' · ' + formatMoney(p._renewalPending.salary) + '/anno</div>' +
+            '<div style="font-size:11px;color:var(--muted);margin-top:4px">Il giocatore risponderà alla prossima giornata.</div>' +
+            '</div>'
+          : '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">' +
+            [1,2,3,4,5].map(function(y) {
+              const elId = 'player-modal-' + i;
+              return '<button onclick="renewContract(' + i + ',' + y + ',document.getElementById(&quot;' + elId + '&quot;))" style="' +
+                'padding:5px 10px;font-size:12px;font-weight:700;border-radius:6px;' +
+                'border:1.5px solid var(--blue);background:var(--panel2);color:var(--blue);cursor:pointer">' +
+                y + ' ann' + (y===1?'o':'i') + ' — ' + formatMoney(renewSalary*y) + '</button>';
+            }).join('') +
+            '</div>'
+        }
+        <div style="font-size:11px;color:${isExpiring?'#7b2fbe':'var(--muted)'};margin-top:6px">
+          ${isExpiring?'⚠️ Contratto in scadenza — se non rinnovato andrà sul mercato a costo zero.':''}
         </div>
       </div>
       <!-- Vendita / Rescissione -->
@@ -1469,8 +1481,10 @@ function openOfferPopup(i) {
   const existing = document.getElementById('offer-popup');
   if (existing) existing.remove();
 
-  const minOffer = Math.round(p.value * 0.50);  // minimo 50% del valore
-  const stepK    = Math.max(1000, Math.round(p.value / 20 / 1000) * 1000);
+  // Per svincolati (value=0) calcola il valore reale dall'OVR
+  const realValue = (p.value && p.value > 0) ? p.value : Math.round((p.overall || 70) * 6500);
+  const minOffer  = Math.round(realValue * 0.10);  // svincolati: minimo 10% (solo fee d'ingaggio)
+  const stepK     = Math.max(1000, Math.round(realValue / 20 / 1000) * 1000);
 
   const ov = document.createElement('div');
   ov.id = 'offer-popup';
@@ -1482,7 +1496,7 @@ function openOfferPopup(i) {
 
       <div class="irow" style="margin-bottom:8px">
         <span class="ilbl">Valore di mercato</span>
-        <span style="font-weight:700">${formatMoney(p.value)}</span>
+        <span style="font-weight:700">${p.value > 0 ? formatMoney(p.value) : formatMoney(realValue) + ' <span style=\"font-size:10px;color:#7b2fbe\">(svincolato)</span>'}</span>
       </div>
       <div class="irow" style="margin-bottom:16px">
         <span class="ilbl">Budget disponibile</span>
@@ -1520,7 +1534,7 @@ function _offerStep(dir, i) {
   const step  = Math.max(1000, Math.round(p.value / 20 / 1000) * 1000);
   const inp   = document.getElementById('offer-amount');
   if (!inp) return;
-  inp.value = Math.max(Math.round(p.value * 0.50), parseInt(inp.value) + dir * step);
+  inp.value = Math.max(minOffer, parseInt(inp.value) + dir * step);
   _updateOfferHint(i);
 }
 

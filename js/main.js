@@ -276,6 +276,18 @@ function simNextRound() {
       // Genera voti simulati per i giocatori della mia rosa
       const _sk = ih ? 'home' : 'away';
       _assignSimulatedRatings(G.rosters[G.myId], opScore, m.details, _sk);
+
+      // Simula infortuni per la nostra rosa
+      if (typeof simulateInjuries === 'function') {
+        const _simRosterForInjury = (G.rosters[G.myId] || []).filter(p => p && !p.injured);
+        const _injured = simulateInjuries(_simRosterForInjury);
+        if (_injured.length) {
+          _injured.forEach(name => {
+            const inj = (G.rosters[G.myId] || []).find(p => p && p.name === name);
+            if (inj) G.msgs.push('🚑 ' + inj.name + ' infortunato durante la partita simulata — out per ' + inj.injuryWeeks + ' giornate.');
+          });
+        }
+      }
     }
   });
 
@@ -289,6 +301,9 @@ function simNextRound() {
       if (_roster.length < 13) _replenishRoster(t.id);
     });
   }
+
+  // ── Processa risposte ai rinnovi contrattuali ──
+  _processRenewalResponses();
 
   // ── Aggiorna infortuni: decrementa settimane e riabilita guariti ──
   (G.rosters[G.myId] || []).forEach(p => {
@@ -949,8 +964,10 @@ function _processMarketOfferResponses() {
     if (!entry.pendingOffer) return;
     const p      = entry.player;
     const offer  = entry.pendingOffer.amount;
-    const minAcc = p.value * 0.75;   // soglia minima accettazione
-    const pct    = offer / p.value;  // rapporto offerta/valore
+    // Per svincolati (value=0) usa il valore reale basato sull'OVR
+    const realValue = (p.value && p.value > 0) ? p.value : Math.round((p.overall || 70) * rnd(5000, 8000));
+    const minAcc = realValue * 0.75;
+    const pct    = offer / realValue;
 
     let acceptProb;
     if (offer < minAcc) {
@@ -1141,17 +1158,97 @@ function _calcRenewalSalary(p) {
 // ═══════════════════════════════════════════════════════
 // RINNOVO CONTRATTO
 // ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// PROPOSTA DI RINNOVO (asincrona — risposta alla prossima giornata)
+// ═══════════════════════════════════════════════════════
 function renewContract(rosterIdx, years, popupEl) {
   const p = (G.rosters[G.myId] || [])[rosterIdx];
   if (!p) return;
+
+  if (p._renewalPending) {
+    G.msgs.push('⏳ Hai già inviato una proposta a ' + p.name + '. Attendi la risposta.');
+    if (popupEl) popupEl.remove();
+    renderRosa(); return;
+  }
+
   const newSalary = _calcRenewalSalary(p);
-  const totalCost = newSalary * years;
-  if (!confirm('Rinnova contratto di ' + p.name + ' per ' + years + ' anni a ' + formatMoney(newSalary) + '/anno. Totale ingaggio: ' + formatMoney(totalCost) + '. Confermi?')) return;
-  p.contractYears = years;
-  p.salary        = newSalary;
-  G.msgs.push('📋 Contratto rinnovato: ' + p.name + ' — ' + years + ' anni a ' + formatMoney(newSalary) + '/anno.');
+  // Segna proposta pendente — nessun confirm(), risposta alla giornata successiva
+  p._renewalPending = { years: years, salary: newSalary, round: typeof currentRound === 'function' ? currentRound() : 0 };
+  G.msgs.push('📨 Proposta di rinnovo inviata a ' + p.name + ' — ' +
+    years + ' ann' + (years===1?'o':'i') + ' · ' + formatMoney(newSalary) + '/anno. ' +
+    'Il giocatore risponderà alla prossima giornata.');
+
   if (popupEl) popupEl.remove();
   updateHeader(); autoSave(); renderRosa();
+}
+
+// ── Calcola probabilità che il giocatore accetti la proposta ──────────
+// Fattori: morale, presenze, ambizione vs tier club, storico nel club
+function _calcRenewalAcceptProb(p) {
+  let prob = 0.60; // base 60%
+
+  // Morale alto → più propenso a restare
+  const morale = p.morale || 70;
+  prob += (morale - 70) / 100 * 0.20; // +20% se morale=100, -14% se morale=0
+
+  // Presenze nel club (careerApps): fedeltà
+  const apps = p.careerApps || 0;
+  if (apps >= 3)      prob += 0.15; // veterano storico
+  else if (apps >= 2) prob += 0.08;
+
+  // Ambizione vs tier club: alta ambizione + club di fascia bassa → vuole andarsene
+  const ambition = p.ambition !== undefined ? p.ambition : 50;
+  const tier      = G.myTeam.tier || 'B';
+  const tierScore = { S: 100, A: 75, B: 45, C: 20 }[tier] || 50;
+  // Gap ambizione/tier: se ambizione > tier, il giocatore ambisce a più
+  const ambGap = (ambition - tierScore) / 100;
+  prob -= ambGap * 0.30; // fino a -30% se molto ambizioso in club basso
+
+  // Ultimi voti: se ha giocato poco (voti null) → frustrato
+  const ratings = (p.lastRatings || []).filter(r => r !== null);
+  if (ratings.length === 0) prob -= 0.10; // non ha giocato = vuole più spazio
+  else if (ratings.length >= 3) prob += 0.08; // usato spesso → felice
+
+  // Età: over 32 più propensi a restare (sicurezza)
+  if ((p.age || 25) >= 32) prob += 0.12;
+
+  // Forma molto bassa → più dipendente dal club
+  if ((p.fitness || 80) < 60) prob += 0.08;
+
+  return Math.max(0.05, Math.min(0.95, prob));
+}
+
+// ── Processa risposte ai rinnovi a inizio giornata ─────────────────
+function _processRenewalResponses() {
+  const roster = G.rosters[G.myId] || [];
+  roster.forEach((p, idx) => {
+    if (!p || !p._renewalPending) return;
+    const offer = p._renewalPending;
+
+    const prob     = _calcRenewalAcceptProb(p);
+    const accepted = Math.random() < prob;
+
+    if (accepted) {
+      p.contractYears    = offer.years;
+      p.salary           = offer.salary;
+      p._renewalPending  = null;
+      const tierLabels   = { S:'Elite', A:'Alta', B:'Media', C:'Bassa' };
+      G.msgs.push('✅ ' + p.name + ' ha accettato il rinnovo: ' +
+        offer.years + ' ann' + (offer.years===1?'o':'i') + ' a ' + formatMoney(offer.salary) + '/anno. Il giocatore è soddisfatto.');
+    } else {
+      p._renewalPending = null;
+      // Motivo principale del rifiuto
+      const ambition   = p.ambition !== undefined ? p.ambition : 50;
+      const tierScore  = { S: 100, A: 75, B: 45, C: 20 }[G.myTeam.tier || 'B'] || 50;
+      let reason = '';
+      if (ambition > tierScore + 20) reason = 'cerca un club di fascia superiore';
+      else if ((p.morale || 70) < 50) reason = 'morale troppo basso';
+      else if ((p.lastRatings||[]).filter(r=>r!==null).length === 0) reason = 'vuole più spazio in campo';
+      else reason = 'ha deciso di non rinnovare';
+      G.msgs.push('❌ ' + p.name + ' ha rifiutato il rinnovo — ' + reason + '. A fine stagione sarà svincolato.');
+      // Marca come non rinnovato (verrà liberato da _decrementContracts)
+    }
+  });
 }
 
 // ═══════════════════════════════════════════════════════

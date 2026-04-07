@@ -151,6 +151,11 @@ function _migratePayload(p) {
   if (p.rosters) {
     Object.values(p.rosters).forEach(function(roster) {
       (roster || []).forEach(function(pl) {
+        if (pl && pl.ambition === undefined) {
+          const u1 = Math.random(), u2 = Math.random();
+          const z  = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+          pl.ambition = Math.round(Math.max(10, Math.min(90, 50 + z * 20)));
+        }
         if (pl && pl.retirementAge === undefined) {
           const u1 = Math.random(), u2 = Math.random();
           const z  = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
@@ -163,6 +168,11 @@ function _migratePayload(p) {
   if (p.rosters) {
     Object.values(p.rosters).forEach(function(roster) {
       (roster || []).forEach(function(pl) {
+        if (pl && pl.ambition === undefined) {
+          const u1 = Math.random(), u2 = Math.random();
+          const z  = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+          pl.ambition = Math.round(Math.max(0, Math.min(100, 50 + z * 20)));
+        }
         if (pl && pl.stats && pl.stats.res === undefined) {
           pl.stats.res = Math.max(1, Math.min(99, Math.round(pl.overall + (Math.random()*16-8))));
         }
