@@ -62,6 +62,7 @@ function generatePlayer(teamStrength, role) {
     nat,
     value:     Math.round(base * rnd(5000, 9000)),
     salary:    Math.round(base * rnd(250, 550)),
+    contractYears: Math.floor(Math.random() * 4) + 1, // durata contratto 1-4 anni
     morale:    rnd(65, 100),
     fitness:   rnd(70, 100),
     // statistiche stagionali

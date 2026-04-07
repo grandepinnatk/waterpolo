@@ -185,6 +185,48 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
   });
 }
 
+// ── Simula acquisto di mercato per una squadra avversaria ────────────
+// La squadra usa il proprio budget simulato per acquistare giocatori
+// compatibili con il ruolo mancante. Budget avversari inizialmente stimato.
+function _replenishRoster(teamId) {
+  const MIN_ROSTER = 13;
+  if (teamId === G.myId) return;
+  const team   = G.teams.find(t => t.id === teamId);
+  if (!team) return;
+  const roster = G.rosters[teamId];
+  if (!roster) return;
+  const needed = MIN_ROSTER - roster.length;
+  if (needed <= 0) return;
+
+  // Budget simulato della squadra (se non esiste, stima da team.str)
+  if (team._budget === undefined) team._budget = team.str * 40000;
+
+  // Identifica ruoli carenti
+  const roleCounts = { POR:0, DIF:0, CEN:0, ATT:0, CB:0 };
+  roster.forEach(p => { if (p && p.role) roleCounts[p.role] = (roleCounts[p.role]||0) + 1; });
+  const rolesByNeed = Object.entries(roleCounts).sort((a,b) => a[1]-b[1]).map(e => e[0]);
+
+  for (let i = 0; i < needed; i++) {
+    const role = rolesByNeed[i % rolesByNeed.length];
+    // Forza del nuovo giocatore in base al budget disponibile
+    // Budget alto → giocatore più forte; budget basso → giovane economico
+    const budgetRatio = Math.min(1, (team._budget || 0) / (team.str * 20000));
+    const ovr = Math.round(team.str * (0.70 + budgetRatio * 0.30) + (Math.random() * 10 - 5));
+    const np  = typeof generatePlayer === 'function' ? generatePlayer(Math.max(50, Math.min(90, ovr)), role) : null;
+    if (!np) continue;
+    const cost = np.value;
+    if ((team._budget || 0) >= cost) {
+      team._budget -= cost;
+      roster.push(np);
+    } else if ((team._budget || 0) >= 0) {
+      // Budget esaurito → ingaggia giovane economico
+      const youngOvr = Math.max(50, team.str - 15 + Math.floor(Math.random() * 10));
+      const youngP   = typeof generatePlayer === 'function' ? generatePlayer(youngOvr, role) : null;
+      if (youngP) { youngP.age = 18 + Math.floor(Math.random() * 5); roster.push(youngP); }
+    }
+  }
+}
+
 function simNextRound() {
   const r = nextMyRound();
   if (!r) { G.msgs.push('Nessuna giornata rimanente.'); renderDash(); return; }
@@ -197,7 +239,7 @@ function simNextRound() {
   roundMatches.forEach(m => {
     const hT = G.teams.find(t => t.id === m.home);
     const aT = G.teams.find(t => t.id === m.away);
-    m.score  = simulateResult(hT, aT);
+    m.score  = simulateResult(hT, aT, 0, G.rosters);
     m.played = true;
     updateStandings(G.stand, m.home, m.away, m.score);
 
@@ -236,6 +278,17 @@ function simNextRound() {
       _assignSimulatedRatings(G.rosters[G.myId], opScore, m.details, _sk);
     }
   });
+
+  // ── Rimpiazzo giocatori avversari (simulazione mercato) ──
+  // Ogni 3 giornate le squadre avversarie valutano acquisti se sotto organico
+  const _curRnd = typeof currentRound === 'function' ? currentRound() : 0;
+  if (_curRnd % 3 === 0) {
+    G.teams.forEach(t => {
+      if (t.id === G.myId) return;
+      const _roster = G.rosters[t.id] || [];
+      if (_roster.length < 13) _replenishRoster(t.id);
+    });
+  }
 
   // ── Aggiorna infortuni: decrementa settimane e riabilita guariti ──
   (G.rosters[G.myId] || []).forEach(p => {
@@ -308,7 +361,7 @@ function simPOMatch(type, idx) {
   const m  = type === 'sf' ? pb.sf[idx] : pb.final;
   const hT = G.teams.find(t => t.id === m.home);
   const aT = G.teams.find(t => t.id === m.away);
-  const sc = simulateResult(hT, aT);
+  const sc = simulateResult(hT, aT, 0, G.rosters);
   m.scores.push(sc);
   m.winner = sc.home > sc.away ? m.home : sc.away > sc.home ? m.away : (Math.random() < 0.5 ? m.home : m.away);
   if (type === 'sf') {
@@ -328,7 +381,7 @@ function simPLMatch(key) {
   if (!m.home) m.home = plb.m1.winner;
   const hT   = G.teams.find(t => t.id === m.home);
   const aT   = G.teams.find(t => t.id === m.away);
-  const sc   = simulateResult(hT, aT);
+  const sc   = simulateResult(hT, aT, 0, G.rosters);
   const loser = sc.home > sc.away ? m.away : sc.away > sc.home ? m.home : (Math.random() < 0.5 ? m.away : m.home);
   m.winner   = loser === m.home ? m.away : m.home;
   if (key === 'm1') {
@@ -395,6 +448,7 @@ function closeSeason() {
 
   G.seasonHistory.push({
     season:       G.seasonNumber || 1,
+    tier:         G.myTeam.tier || 'B',
     pos:          pos,
     pts:          st.pts || 0,
     w: st.w || 0, d: st.d || 0, l: st.l || 0,
@@ -463,6 +517,77 @@ function _confirmNewSeason() {
 // ── Nuova stagione in continuità ──────────────
 // Preserva: roster (con progressi), budget, stelle, ledger storico, storico msgs
 // Resetta: calendario, classifica, statistiche stagionali, fase, playoff, obiettivi
+// ═══════════════════════════════════════════════════════
+// RICALCOLO TIER SQUADRE A INIZIO STAGIONE
+// Tiene conto di: piazzamento precedente, valore rosa, budget
+// ═══════════════════════════════════════════════════════
+function _recalcTiers() {
+  if (!G || !G.stand || !G.teams) return;
+
+  const sorted = getSortedStandings(G.stand); // classifica stagione appena terminata
+
+  G.teams.forEach(team => {
+    const tid     = team.id;
+    const roster  = G.rosters[tid] || [];
+
+    // ── 1. Piazzamento: posizione in classifica (1 = primo) ──
+    const posIdx  = sorted.findIndex(s => s.id === tid);
+    const pos     = posIdx >= 0 ? posIdx + 1 : 7; // default medio se non trovato
+    const numTeams = sorted.length || 14;
+
+    // ── 2. Forza rosa: media overall top-13 ──
+    const avail   = roster.filter(p => p && !p.injured).sort((a, b) => b.overall - a.overall).slice(0, 13);
+    const avgOvr  = avail.length ? avail.reduce((s, p) => s + (p.overall || 70), 0) / avail.length : 70;
+
+    // ── 3. Budget (solo per la squadra del manager) ──
+    const budget  = tid === G.myId ? (G.budget || 0) : (team._budget || team.budget || 0);
+
+    // ── Score composito (0–100) ──
+    // Piazzamento: peso 50% (pos 1 → 100, pos 14 → 0)
+    const posScore    = Math.round((1 - (pos - 1) / (numTeams - 1)) * 100);
+    // OVR rosa: peso 35% (OVR 50 → 0, OVR 99 → 100)
+    const ovrScore    = Math.round(Math.max(0, Math.min(100, (avgOvr - 50) / 49 * 100)));
+    // Budget: peso 15% (budget 0 → 0, budget ≥ 3M → 100)
+    const budgetScore = Math.round(Math.min(100, budget / 30000));
+
+    const composite = Math.round(posScore * 0.50 + ovrScore * 0.35 + budgetScore * 0.15);
+
+    // ── Assegna tier in base allo score ──
+    let newTier;
+    if      (composite >= 75) newTier = 'S';
+    else if (composite >= 50) newTier = 'A';
+    else if (composite >= 25) newTier = 'B';
+    else                       newTier = 'C';
+
+    // ── Smorzamento: non cambiare più di 1 livello alla volta ──
+    const tierOrder = ['C','B','A','S'];
+    const prevIdx   = tierOrder.indexOf(team.tier || 'B');
+    const newIdx    = tierOrder.indexOf(newTier);
+    const clampedIdx = Math.max(prevIdx - 1, Math.min(prevIdx + 1, newIdx));
+    newTier = tierOrder[clampedIdx];
+
+    // Aggiorna tier
+    const oldTier = team.tier;
+    team.tier = newTier;
+
+    // Aggiorna anche str della squadra avversaria sulla base dell'OVR reale
+    if (tid !== G.myId) {
+      team.str = Math.round(Math.max(50, Math.min(95, avgOvr)));
+    }
+
+    // Notifica cambiamento tier per la nostra squadra
+    if (tid === G.myId && newTier !== oldTier) {
+      const tierLabels = { S:'Elite (S)', A:'Alta (A)', B:'Media (B)', C:'Bassa (C)' };
+      const direction  = clampedIdx > prevIdx ? '⬆️ promosso' : '⬇️ declassato';
+      G.msgs.push('📊 ' + G.myTeam.name + ' ' + direction + ' in fascia ' + tierLabels[newTier] +
+        ' (pos. ' + pos + '°, OVR medio ' + Math.round(avgOvr) + ', budget ' + formatMoney(budget) + ')');
+    }
+  });
+
+  // Ricalcola obiettivi per la nostra squadra in base al nuovo tier
+  G.myTeam.tier = G.teams.find(t => t.id === G.myId)?.tier || G.myTeam.tier;
+}
+
 function startNewSeason() {
   if (!G) return;
 
@@ -517,9 +642,14 @@ function startNewSeason() {
   // ── Nuovo calendario e classifica ──
   G.schedule = generateSchedule(G.teams);
   G.stand    = initStandings(G.teams);
+  // Inizializza budget simulato delle squadre avversarie per il mercato
+  G.teams.forEach(t => { if (!t._budget || t.id === G.myId) t._budget = t.str * 40000; });
 
-  // ── Nuovi obiettivi ──
-  G.objectives = initObjectives(G.myTeam.tier || 1);
+  // ── Ricalcola tier in base a piazzamento/rosa/budget ──
+  _recalcTiers();
+
+  // ── Nuovi obiettivi basati sul tier aggiornato ──
+  G.objectives = initObjectives(G.myTeam.tier || 'B');
 
   // ── Reset stato stagione ──
   G.phase         = 'regular';
@@ -536,12 +666,20 @@ function startNewSeason() {
   G.savedLineup   = null;
 
   // ── Messaggio inizio stagione ──
+  // Decrementa contratti e attività CPU mercato
+  _decrementContracts();
+  _cpuMarketActivity();
+
   G.msgs.push('─────────────────────────────────');
   G.msgs.push('🏊 Stagione ' + seasonNum + ' — Benvenuto! Budget: ' + formatMoney(G.budget) + ' · Stelle: ' + (G.stars || 0));
 
   updateHeader();
   autoSave();
-  requestAnimationFrame(function() { showTab('dash'); });
+  // Mostra popup giovani prima della dashboard
+  requestAnimationFrame(function() {
+    showTab('dash');
+    setTimeout(_showYouthPopup, 400);
+  });
 }
 
 // ── Init ──────────────────────────────────────
@@ -929,3 +1067,215 @@ simNextRound = function() {
   refreshMarketPool();
   if (G.transferList && G.transferList.length) renderDash();
 };
+
+// ═══════════════════════════════════════════════════════
+// RESCISSIONE CONTRATTO
+// ═══════════════════════════════════════════════════════
+function rescindContract(rosterIdx) {
+  const roster = G.rosters[G.myId];
+  const p = roster[rosterIdx];
+  if (!p) return;
+  const contractLeft = Math.max(1, p.contractYears || 1);
+  const penalty      = Math.round((p.salary || 0) * contractLeft * 0.5);
+  if (G.budget < penalty) {
+    alert('Budget insufficiente per pagare la penale di ' + formatMoney(penalty));
+    return;
+  }
+  G.budget -= penalty;
+  addLedger('rescissione', -penalty, 'Rescissione ' + p.name, currentRound ? currentRound() : 0);
+  // Mette il giocatore sul mercato a costo zero
+  const fp = { ...p, value: 0, _fromRescission: true };
+  delete fp._tid; delete fp._tname;
+  if (!G.marketPool) G.marketPool = [];
+  G.marketPool.push({
+    player:       fp,
+    daysLeft:     4,
+    pendingOffer: null,
+    offerResult:  null,
+  });
+  // Rimuove dalla rosa
+  roster.splice(rosterIdx, 1);
+  G.msgs.push('✂️ Contratto di ' + p.name + ' rescisso. Penale: ' + formatMoney(penalty) + '. Giocatore disponibile sul mercato a costo zero.');
+  updateHeader(); autoSave();
+}
+
+// ═══════════════════════════════════════════════════════
+// DECREMENTO CONTRATTI A INIZIO STAGIONE
+// (chiamato in startNewSeason prima dei ritiri)
+// ═══════════════════════════════════════════════════════
+function _decrementContracts() {
+  (G.rosters[G.myId] || []).forEach(p => {
+    if (!p) return;
+    if (p.contractYears !== undefined && p.contractYears > 0) {
+      p.contractYears--;
+      if (p.contractYears === 0) {
+        G.msgs.push('📋 Contratto in scadenza: ' + p.name + ' è in scadenza. Rinnova o perderai il giocatore!');
+        p.contractYears = 1; // rinnovo automatico minimo, il manager può rinegoziare
+      }
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// ACQUISTI SIMULATI CPU (rose avversarie sotto-organico)
+// ═══════════════════════════════════════════════════════
+function _cpuMarketActivity() {
+  const MIN_ROSTER = 13;
+  G.teams.forEach(team => {
+    if (team.id === G.myId) return;
+    const roster = G.rosters[team.id];
+    if (!roster) return;
+    const avail   = roster.filter(p => p && !p.injured);
+    const needed  = MIN_ROSTER - avail.length;
+    if (needed <= 0) return;
+    // Budget CPU simulato: ogni squadra ha un budget implicito
+    // basato sulla tier. Genera direttamente senza spesa reale
+    const roleCounts = { POR:0, DIF:0, CEN:0, ATT:0, CB:0 };
+    avail.forEach(p => { if (p.role) roleCounts[p.role] = (roleCounts[p.role]||0) + 1; });
+    // Acquista i ruoli più carenti
+    const rolesByNeed = Object.entries(roleCounts).sort((a,b) => a[1]-b[1]).map(e => e[0]);
+    for (let i = 0; i < needed && i < 2; i++) { // max 2 acquisti per giornata
+      const role = rolesByNeed[i % rolesByNeed.length];
+      if (typeof generatePlayer === 'function') {
+        const np = generatePlayer(team.str, role);
+        roster.push(np);
+      }
+    }
+    if (needed > 0) G.msgs.push('🔄 ' + team.name + ' ha ingaggiato ' + Math.min(needed,2) + ' giocatori.');
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// POPUP GIOVANI DI CATEGORIA (chiamato in startNewSeason)
+// ═══════════════════════════════════════════════════════
+function _showYouthPopup() {
+  // Genera 4 giovani (18-22 anni) dalla categoria giovanile
+  const youth = [];
+  const roles  = ['POR','DIF','DIF','CEN','CEN','ATT','ATT','CB'];
+  for (let i = 0; i < 4; i++) {
+    const role   = roles[Math.floor(Math.random() * roles.length)];
+    const age    = 18 + Math.floor(Math.random() * 5);
+    const ovr    = 55 + Math.floor(Math.random() * 20); // 55-74
+    const p      = typeof generatePlayer === 'function' ? generatePlayer(ovr, role) : null;
+    if (!p) continue;
+    p.age     = age;
+    p.overall = ovr;
+    p.value   = Math.round(ovr * 6000); // valore di mercato
+    p.salary  = Math.round(ovr * 150);  // ingaggio ridotto giovani
+    p._fromYouth = true;
+    youth.push(p);
+  }
+  if (!youth.length) return;
+
+  const ov = document.createElement('div');
+  ov.id = 'youth-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;z-index:99999;backdrop-filter:blur(8px)';
+
+  function _youthCard(p, idx) {
+    const roleColors = { POR:'#cc2222', DIF:'#1a6a3a', CEN:'#8b4a00', ATT:'#8b0000', CB:'#1a3a8b' };
+    const rc = roleColors[p.role] || '#333';
+    const attrBar = (val, lbl) =>
+      '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">' +
+      '<span style="font-size:10px;color:var(--muted);width:28px">' + lbl + '</span>' +
+      '<div style="flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden">' +
+      '<div style="width:' + val + '%;height:100%;background:var(--blue);border-radius:2px"></div></div>' +
+      '<span style="font-size:10px;width:22px">' + val + '</span></div>';
+
+    return '<div id="yc-' + idx + '" style="background:var(--panel);border:2px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:border-color .15s" ' +
+      'onclick="toggleYouthSelect(' + idx + ')">' +
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">' +
+      '<span style="background:' + rc + ';color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px">' + p.role + '</span>' +
+      '<div>' +
+      '<div style="font-weight:700;font-size:13px">' + p.name + '</div>' +
+      '<div style="font-size:11px;color:var(--muted)">' + p.age + ' anni · ' + p.nat + ' · ' + (p.hand==='AMB'?'Ambidestro':p.hand==='L'?'Mancino':'Destro') + '</div>' +
+      '</div>' +
+      '<div style="margin-left:auto;text-align:right">' +
+      '<div style="font-size:18px;font-weight:800;color:var(--blue)">' + p.overall + '</div>' +
+      '<div style="font-size:10px;color:var(--muted)">OVR</div>' +
+      '</div></div>' +
+      attrBar(p.stats.att,'ATT') + attrBar(p.stats.def,'DIF') +
+      attrBar(p.stats.spe,'VEL') + attrBar(p.stats.str,'FOR') +
+      attrBar(p.stats.tec,'TEC') + attrBar(p.stats.res,'RES') +
+      '<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px">' +
+      '<span style="color:var(--muted)">Valore: <strong>' + formatMoney(p.value) + '</strong></span>' +
+      '<span style="color:var(--green)">Ingaggio: <strong>' + formatMoney(p.salary) + '/anno</strong></span>' +
+      '<span style="color:var(--gold);font-weight:700">Costo acquisto: GRATIS</span>' +
+      '</div>' +
+      '</div>';
+  }
+
+  const selected = new Set();
+  window._youthPlayers = youth;
+  window._youthSelected = selected;
+
+  window.toggleYouthSelect = function(idx) {
+    const el = document.getElementById('yc-' + idx);
+    if (selected.has(idx)) {
+      selected.delete(idx);
+      el.style.borderColor = 'var(--border)';
+    } else {
+      if (selected.size >= 2) { alert('Puoi selezionare al massimo 2 giovani.'); return; }
+      selected.add(idx);
+      el.style.borderColor = 'var(--green)';
+    }
+    document.getElementById('youth-confirm-btn').disabled = selected.size === 0;
+  };
+
+  window.confirmYouthSignings = function() {
+    selected.forEach(idx => {
+      const p = youth[idx];
+      const np = { ...p }; delete np._fromYouth;
+      G.rosters[G.myId].push(np);
+      addLedger('giovane', 0, 'Ingaggio giovane ' + np.name, 0);
+      G.msgs.push('🌟 ' + np.name + ' (' + np.role + ', ' + np.age + 'a, OVR ' + np.overall + ') entra in rosa dalla categoria giovanile. Ingaggio: ' + formatMoney(np.salary) + '/anno');
+    });
+    document.getElementById('youth-popup').remove();
+    delete window._youthPlayers; delete window._youthSelected; delete window.toggleYouthSelect; delete window.confirmYouthSignings;
+    autoSave(); renderDash();
+  };
+
+  ov.innerHTML =
+    '<div style="background:var(--panel);border:2px solid var(--blue);border-radius:16px;padding:22px;max-width:900px;width:96%;max-height:90vh;overflow-y:auto">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">' +
+    '<div style="font-size:17px;font-weight:800;color:var(--blue)">🌟 Scouting Giovanile — Scegli fino a 2 talenti</div>' +
+    '<button onclick="document.getElementById(\'youth-popup\').remove()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)">✕</button>' +
+    '</div>' +
+    '<div style="font-size:12px;color:var(--muted);margin-bottom:16px">Clicca per selezionare (max 2). Costo acquisto: <strong style="color:var(--gold)">ZERO</strong> — paghi solo l\'ingaggio.</div>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">' +
+    youth.map((p, i) => _youthCard(p, i)).join('') +
+    '</div>' +
+    // Lista rosa attuale
+    '<div style="border-top:1px solid var(--border);padding-top:14px;margin-bottom:14px">' +
+    '<div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">Rosa attuale (' + (G.rosters[G.myId]||[]).length + ' giocatori)</div>' +
+    '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;max-height:160px;overflow-y:auto">' +
+    (G.rosters[G.myId]||[]).map(function(p) {
+      if (!p) return '';
+      const rc = {POR:'#cc2222',DIF:'#1a6a3a',CEN:'#8b4a00',ATT:'#8b0000',CB:'#1a3a8b'}[p.role]||'#333';
+      const rit = (p.retirementAge !== undefined && (p.age+1) >= p.retirementAge)
+        ? '<span style="font-size:9px;background:#c0392b;color:#fff;padding:1px 3px;border-radius:3px;margin-left:3px">RIT</span>' : '';
+      return '<div style="display:flex;align-items:center;gap:6px;padding:4px 6px;background:var(--panel2);border-radius:6px;font-size:11px">' +
+        '<span style="background:'+rc+';color:#fff;font-size:9px;font-weight:700;padding:1px 4px;border-radius:3px">'+p.role+'</span>' +
+        '<span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+p.name+rit+'</span>' +
+        '<span style="color:var(--blue);font-weight:700">'+p.overall+'</span>' +
+        '<span style="color:var(--muted)">'+p.age+'a</span>' +
+        '</div>';
+    }).join('') +
+    '</div></div>' +
+    '<div style="display:flex;gap:10px;justify-content:flex-end">' +
+    '<button id="youth-confirm-btn" disabled onclick="confirmYouthSignings()" ' +
+    'style="padding:11px 28px;font-size:13px;font-weight:800;border-radius:8px;border:2px solid var(--green);background:linear-gradient(135deg,#0a6a2a,#055020);color:#fff;cursor:pointer;opacity:.5" ' +
+    'onmouseover="if(!this.disabled)this.style.opacity=\'1\'" onmouseout="if(!this.disabled)this.style.opacity=\'1\'">Conferma ingaggi</button>' +
+    '<button onclick="document.getElementById(\'youth-popup\').remove()" ' +
+    'style="padding:11px 18px;font-size:13px;font-weight:700;border-radius:8px;border:2px solid var(--border);background:var(--panel2);color:var(--muted);cursor:pointer">Salta</button>' +
+    '</div></div>';
+
+  // Abilita il pulsante quando si seleziona almeno 1
+  const origToggle = window.toggleYouthSelect;
+  window.toggleYouthSelect = function(idx) {
+    origToggle(idx);
+    const btn = document.getElementById('youth-confirm-btn');
+    if (btn) { btn.disabled = selected.size === 0; btn.style.opacity = selected.size > 0 ? '1' : '.5'; }
+  };
+
+  document.body.appendChild(ov);
+}

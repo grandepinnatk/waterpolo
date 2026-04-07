@@ -127,7 +127,15 @@ function _migratePayload(p) {
   if (!p.marketPool)  p.marketPool  = [];
   if (p.stars === undefined) p.stars = 5;
   if (!p.pendingPurchases) p.pendingPurchases = [];
-  if (!p.seasonHistory)   p.seasonHistory   = []; // stelle: default 5 per salvataggi vecchi
+  if (!p.seasonHistory)   p.seasonHistory   = [];
+  // contractYears migrazione vecchi giocatori
+  if (p.rosters) {
+    Object.values(p.rosters).forEach(function(roster) {
+      (roster || []).forEach(function(pl) {
+        if (pl && pl.contractYears === undefined) pl.contractYears = Math.floor(Math.random() * 3) + 1;
+      });
+    });
+  } // stelle: default 5 per salvataggi vecchi
   // Aggiunge injProb a giocatori senza (salvataggi vecchi)
   if (p.rosters) {
     Object.values(p.rosters).forEach(function(roster) {
@@ -257,6 +265,10 @@ function applyLoadedSave(payload) {
     marketPool:    payload.marketPool    || [],
     ledger:        payload.ledger        || [],
     prevPos:       payload.prevPos       || null,
+    stars:         payload.stars         !== undefined ? payload.stars : 5,
+    pendingPurchases: payload.pendingPurchases || [],
+    seasonHistory: payload.seasonHistory  || [],
+    seasonNumber:  payload.seasonNumber   || 1,
     _currentSlot:  null,
     tactic:        'balanced',
   };

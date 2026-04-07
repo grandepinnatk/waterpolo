@@ -517,6 +517,9 @@ function _buildSellSection(i) {
     return html;
   } else {
     // Non in vendita: mostra form per mettere in vendita
+    // Calcola penale rescissione: metà degli ingaggi rimanenti
+    const contractLeft = Math.max(1, p.contractYears || 1);
+    const rescPenalty  = Math.round((p.salary || 0) * contractLeft * 0.5);
     return `<div style="font-size:13px;font-weight:600;margin-bottom:8px">Metti in vendita</div>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
         <span style="font-size:12px;color:var(--muted)">Prezzo richiesto:</span>
@@ -531,7 +534,15 @@ function _buildSellSection(i) {
         putPlayerOnMarket(${i},pr);
         this.closest('[style*=fixed]').remove();
         renderRosa();
-      ">💰 Metti in vendita</button>`;
+      ">💰 Metti in vendita</button>
+      <div style="margin-top:12px;border-top:1px solid rgba(255,80,80,.2);padding-top:12px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px">
+          <strong>Rescissione contratto</strong> — penale: <strong style="color:var(--red)">${formatMoney(rescPenalty)}</strong>
+          (${contractLeft} ${contractLeft===1?'anno':'anni'} rimasto/i × ingaggio/2).
+          Il giocatore va sul mercato a costo zero.
+        </div>
+        <button class="btn danger sm" onclick="rescindContract(${i});this.closest('[style*=fixed]').remove();renderRosa();">✂️ Rescindi contratto</button>
+      </div>`;
   }
 }
 
@@ -1329,6 +1340,8 @@ function buyPlayerFromPool(i) {
   np.morale = Math.min(100, np.morale + rnd(8, 15));
   G.rosters[G.myId].push(np);
   G.rosters[p._tid] = (G.rosters[p._tid] || []).filter(pl => pl.name !== p.name);
+  // Se la rosa avversaria scende sotto 13, genera automaticamente un sostituto
+  _replenishRoster(p._tid);
   // Rimuovi dal pool
   G.marketPool.splice(i, 1);
   G.msgs.push('✅ Acquistato ' + p.name + ' da ' + p._tname + ' per ' + formatMoney(price) + '. Morale alto!');
@@ -1628,6 +1641,7 @@ function renderHistory() {
   } else {
     h += `<table><thead><tr>
       <th>Stag.</th>
+      <th>Fascia</th>
       <th>Pos.</th>
       <th>Punti</th>
       <th>V/P/S</th>
@@ -1641,6 +1655,7 @@ function renderHistory() {
       const posColor = s.pos <= 3 ? 'var(--gold)' : s.pos <= 8 ? 'var(--blue)' : 'var(--muted)';
       h += `<tr>
         <td style="font-weight:700;color:var(--muted)">S${s.season}</td>
+        <td style="font-weight:800;font-size:14px;color:${({'S':'#ffd700','A':'#00c2ff','B':'#2ecc71','C':'#e74c3c'}[s.tier]||'var(--muted)')}">${s.tier||'?'}</td>
         <td style="font-weight:800;color:${posColor}">${s.pos}°</td>
         <td style="font-weight:700">${s.pts}</td>
         <td style="font-size:12px;color:var(--muted)">${s.w}/${s.d}/${s.l}</td>

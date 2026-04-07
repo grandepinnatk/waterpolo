@@ -3,13 +3,34 @@
 // Classifica, aggiornamento risultati, simulazione partite
 // ─────────────────────────────────────────────
 
+// ── Calcola forza effettiva da rosa reale ─────
+// Usa la media overall dei migliori 13 giocatori disponibili (non infortunati).
+// Penalizza pesantemente rose sotto-organico (<7 giocatori).
+// Se la rosa è vuota o non esiste, usa il valore base team.str.
+function _effectiveStr(team, rosters) {
+  if (!rosters) return team.str;
+  const roster = rosters[team.id];
+  if (!roster || !roster.length) return team.str;
+  const avail = roster.filter(p => p && !p.injured).sort((a, b) => b.overall - a.overall);
+  if (!avail.length) return team.str * 0.4; // rosa completamente esaurita
+  // Prende i migliori 13 (o quanti ne ha)
+  const squad = avail.slice(0, 13);
+  const avgOvr = squad.reduce((s, p) => s + (p.overall || 70), 0) / squad.length;
+  // Penalità under-organico: ogni giocatore mancante sotto 7 costa -8 punti forza
+  const shortage = Math.max(0, 7 - squad.length);
+  return Math.max(10, avgOvr - shortage * 8);
+}
+
 // ── Simulazione risultato ─────────────────────
-// Usa forza delle squadre + varianza casuale.
+// Usa forza REALE della rosa (media overall top-13) + varianza casuale.
 // boost: modificatore tattico del coach (+/- punti forza)
-function simulateResult(homeTeam, awayTeam, boost = 0) {
-  const hStr = homeTeam.str + rnd(-8, 8) + 3 + boost; // +3 fattore campo
-  const aStr = awayTeam.str + rnd(-8, 8);
-  const tot  = hStr + aStr;
+// rosters: opzionale — se passato usa la forza reale, altrimenti usa team.str
+function simulateResult(homeTeam, awayTeam, boost = 0, rosters = null) {
+  const hBase = rosters ? _effectiveStr(homeTeam, rosters) : homeTeam.str;
+  const aBase = rosters ? _effectiveStr(awayTeam, rosters) : awayTeam.str;
+  const hStr = hBase + rnd(-8, 8) + 3 + boost; // +3 fattore campo
+  const aStr = aBase + rnd(-8, 8);
+  const tot  = Math.max(1, hStr + aStr);
   const home = Math.max(0, Math.round((hStr / tot) * rnd(6, 18) * rnd(8, 14) / 10));
   const away = Math.max(0, Math.round((aStr / tot) * rnd(6, 18) * rnd(8, 14) / 10));
   return { home, away };
@@ -109,7 +130,7 @@ function simulateMatchStats(homeRoster, awayRoster, score) {
 
 // ── Simula tutte le partite di una giornata ───
 // Salta le partite del giocatore (home o away = myId)
-function simulateRound(schedule, standings, teams, roundNum, myId, rosters) {
+function simulateRound(schedule, standings, teams, roundNum, myId, rosters) {  // rosters usato per forza effettiva
   const roundMatches = schedule.filter(m => m.round === roundNum && !m.played);
   roundMatches.forEach(m => {
     if (m.home === myId || m.away === myId) return; // partita del giocatore → skip
@@ -133,7 +154,7 @@ function simulateAllRemaining(schedule, standings, teams, myId, rosters) {
     .forEach(m => {
       const hT = teams.find(t => t.id === m.home);
       const aT = teams.find(t => t.id === m.away);
-      m.score  = simulateResult(hT, aT);
+      m.score  = simulateResult(hT, aT, 0, rosters);
       m.played = true;
       updateStandings(standings, m.home, m.away, m.score);
       if (rosters) { const det = simulateMatchStats(rosters[m.home], rosters[m.away], m.score); if (det) m.details = det; }
