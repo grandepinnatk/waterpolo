@@ -97,6 +97,14 @@ function _linkTeamNames(text) {
 }
 
 
+
+// Badge SCAD — contratto in scadenza a fine stagione (contractYears <= 1)
+function _scadBadge(p) {
+  if (!p || (p.contractYears === undefined) || p.contractYears > 1) return '';
+  return ' <span style="font-size:9px;background:#7b2fbe;color:#fff;font-weight:700;' +
+         'padding:1px 4px;border-radius:3px;margin-left:3px" title="Contratto in scadenza a fine stagione">SCAD</span>';
+}
+
 // Badge RIT — visibile accanto al nome in tutte le liste
 function _ritBadge(p) {
   if (!p || p.retirementAge === undefined) return '';
@@ -372,7 +380,7 @@ function renderRosa() {
     const infTitle   = p.injured ? 'Infortunato — out per ' + (p.injuryWeeks || '?') + ' giornate' : '';
     const infBadge   = p.injured ? ' <span style="font-size:10px;background:#e74c3c;color:#fff;font-weight:700;padding:1px 5px;border-radius:4px;margin-left:4px" title="' + infTitle + '">INF+' + (infWeeks ? ' ' + infWeeks + 'G' : '') + '</span>' : '';
     h += '<tr class="trhov" onclick="showPlayerModal(' + i + ')" style="' + (onMarket ? 'background:rgba(240,192,64,.08)' : '') + '">'
-      + '<td style="font-weight:600">' + p.name + ritBadge + infBadge + (onMarket ? ' <span style="font-size:10px;color:var(--gold);font-weight:600">VENDITA</span>' : '') + '</td>'
+      + '<td style="font-weight:600">' + p.name + ritBadge + _scadBadge(p) + infBadge + (onMarket ? ' <span style="font-size:10px;color:var(--gold);font-weight:600">VENDITA</span>' : '') + '</td>'
       + '<td><span class="badge ' + (p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C') + '">' + p.role + '</span></td>'
       + '<td><span class="badge ' + (p.hand==='AMB'?'C':p.hand==='L'?'L':'R') + '" title="' + (p.hand==='AMB'?'Ambidestro':p.hand==='L'?'Mancino':'Destro') + '">' + p.hand + '</span></td>'
       + '<td style="color:var(--muted);font-size:12px">' + p.nat + '</td>'
@@ -391,41 +399,74 @@ function renderRosa() {
 }
 
 function showPlayerModal(i) {
-  const p  = G.rosters[G.myId][i];
-  const rl = { POR:'Portiere', DIF:'Difensore', CEN:'Centromediano', ATT:'Attaccante', CB:'Centroboa' };
+  const p   = G.rosters[G.myId][i];
+  const rl  = { POR:'Portiere', DIF:'Difensore', CEN:'Centromediano', ATT:'Attaccante', CB:'Centroboa' };
+  const cy  = p.contractYears !== undefined ? p.contractYears : 1;
+  const isExpiring = cy <= 1;
+  // Calcola ingaggio richiesto per rinnovo
+  const renewSalary = _calcRenewalSalary(p);
+
   const ov = document.createElement('div');
+  ov.id = 'player-modal-' + i;
   ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(4px)';
   ov.innerHTML = `
-    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px;max-width:360px;width:90%;max-height:85vh;overflow-y:auto">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px 20px;max-width:380px;width:92%;max-height:92vh;overflow-y:auto">
+      <!-- Header -->
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
         <div>
-          <div style="font-weight:700;font-size:15px;color:var(--blue)">${p.name}${_ritBadge(p)}</div>
-          <div style="font-size:12px;color:var(--muted)">${rl[p.role] || p.role} · ${p.nat} · ${p.age} anni ·
-            <strong>${p.hand === 'AMB' ? 'Ambidestro' : p.hand === 'L' ? 'Mancino' : 'Destro'}</strong>
-          </div>
+          <div style="font-weight:700;font-size:15px;color:var(--blue)">${p.name}${_ritBadge(p)}${_scadBadge(p)}</div>
+          <div style="font-size:12px;color:var(--muted)">${rl[p.role]||p.role} · ${p.nat} · ${p.age} anni · <strong>${p.hand==='AMB'?'Ambidestro':p.hand==='L'?'Mancino':'Destro'}</strong></div>
         </div>
         <button onclick="this.closest('[style*=fixed]').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
       </div>
-      <div class="irow"><span class="ilbl">Overall</span>   <span style="font-size:18px;font-weight:700;color:var(--blue)">${p.overall}</span></div>
-      <div class="irow"><span class="ilbl">Potenziale</span><span>${p.potential}</span></div>
-      <div class="irow"><span class="ilbl">Valore</span>    <span>${formatMoney(p.value)}</span></div>
-      <div class="irow"><span class="ilbl">Stipendio</span> <span>${formatMoney(p.salary)}/anno</span></div>
-      <div class="irow"><span class="ilbl">Forma</span>   <span style="color:${p.fitness > 70 ? 'var(--green)' : 'var(--gold)'}">${p.fitness}%</span></div>
-      <div class="irow"><span class="ilbl">Morale</span>    <span>${p.morale}%</span></div>
-      <div class="irow"><span class="ilbl">Gol / Assist</span><span>${p.goals} / ${p.assists}</span></div>
-      ${p.role === 'POR' ? `<div class="irow"><span class="ilbl">Parate</span><span>${p.saves}</span></div>` : ''}
-      <div style="margin-top:10px">
-        <div class="slbl" style="margin-top:0">Attributi</div>
-        ${[['att','ATT'],['def','DIF'],['spe','VEL'],['str','FOR'],['tec','TEC'],['res','RES']].map(([a,lbl]) => `
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-            <div style="font-size:12px;color:var(--muted);width:28px">${lbl}</div>
-            <div style="flex:1;height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden">
-              <div style="width:${p.stats[a]}%;height:100%;background:var(--blue);border-radius:3px"></div>
-            </div>
-            <div style="font-size:12px;width:24px;font-weight:600">${p.stats[a]}</div>
-          </div>`).join('')}
+      <!-- Stats grid 2 colonne -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-bottom:12px">
+        <div class="irow" style="margin:0"><span class="ilbl">Overall</span><span style="font-size:16px;font-weight:700;color:var(--blue)">${p.overall}</span></div>
+        <div class="irow" style="margin:0"><span class="ilbl">Potenziale</span><span>${p.potential||'—'}</span></div>
+        <div class="irow" style="margin:0"><span class="ilbl">Valore</span><span style="font-size:12px">${formatMoney(p.value)}</span></div>
+        <div class="irow" style="margin:0"><span class="ilbl">Stipendio</span><span style="font-size:12px">${formatMoney(p.salary)}/a</span></div>
+        <div class="irow" style="margin:0"><span class="ilbl">Forma</span><span style="color:${p.fitness>70?'var(--green)':'var(--gold)'}">${p.fitness}%</span></div>
+        <div class="irow" style="margin:0"><span class="ilbl">Morale</span><span>${p.morale}%</span></div>
+        <div class="irow" style="margin:0"><span class="ilbl">Gol / Assist</span><span>${p.goals} / ${p.assists}</span></div>
+        <div class="irow" style="margin:0"><span class="ilbl">Contratto</span>
+          <span style="font-weight:700;color:${isExpiring?'#7b2fbe':'var(--text)'}">
+            ${cy} ${cy===1?'anno':'anni'}${isExpiring?' ⚠️':''}
+          </span>
+        </div>
       </div>
-      <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px" id="modal-sell-section-${i}">
+      <!-- Attributi compatti -->
+      <div style="margin-bottom:12px">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Attributi</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px">
+          ${[['att','ATT'],['def','DIF'],['spe','VEL'],['str','FOR'],['tec','TEC'],['res','RES']].map(([a,lbl]) =>
+            '<div style="display:flex;align-items:center;gap:5px">' +
+            '<span style="font-size:10px;color:var(--muted);width:24px">' + lbl + '</span>' +
+            '<div style="flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden">' +
+            '<div style="width:' + (p.stats[a]||0) + '%;height:100%;background:var(--blue)"></div></div>' +
+            '<span style="font-size:11px;width:20px;font-weight:600">' + (p.stats[a]||0) + '</span></div>'
+          ).join('')}
+        </div>
+      </div>
+      <!-- Rinnovo contratto -->
+      <div style="border-top:1px solid var(--border);padding-top:12px;margin-bottom:10px">
+        <div style="font-size:12px;font-weight:700;margin-bottom:6px">
+          🔄 Rinnovo contratto
+          <span style="font-size:11px;font-weight:400;color:var(--muted)"> — richiesta: <strong style="color:var(--gold)">${formatMoney(renewSalary)}/anno</strong></span>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">
+          ${[1,2,3,4,5].map(y =>
+            '<button onclick="renewContract(' + i + ',' + y + ',document.getElementById(\"player-modal-' + i + '\"))" style="' +
+            'padding:5px 10px;font-size:12px;font-weight:700;border-radius:6px;' +
+            'border:1.5px solid var(--blue);background:var(--panel2);color:var(--blue);cursor:pointer">' +
+            y + ' ann' + (y===1?'o':'i') + ' — ' + formatMoney(renewSalary*y) + '</button>'
+          ).join('')}
+        </div>
+        <div style="font-size:11px;color:var(--muted)">
+          ${isExpiring?'⚠️ Contratto in scadenza — se non rinnovato il giocatore andrà sul mercato a costo zero.':''}
+        </div>
+      </div>
+      <!-- Vendita / Rescissione -->
+      <div style="border-top:1px solid var(--border);padding-top:10px" id="modal-sell-section-${i}">
         ${_buildSellSection(i)}
       </div>
     </div>`;
@@ -1154,6 +1195,23 @@ function renderPlayoff() {
 // ════════════════════════════════════════════
 // MERCATO
 // ════════════════════════════════════════════
+// Stato ordinamento e paginazione mercato
+var _mktSort = { key: null, dir: 1 }; // dir: 1=asc, -1=desc
+var _mktPage = 0;
+var MKT_PER_PAGE = 15;
+
+function _mktSortClick(key) {
+  if (_mktSort.key === key) _mktSort.dir *= -1;
+  else { _mktSort.key = key; _mktSort.dir = 1; }
+  _mktPage = 0;
+  renderMarket();
+}
+
+function _sortArrow(key) {
+  if (_mktSort.key !== key) return '<span style="color:rgba(255,255,255,.2);font-size:9px">⇅</span>';
+  return _mktSort.dir === 1 ? '<span style="color:var(--blue);font-size:9px">▲</span>' : '<span style="color:var(--blue);font-size:9px">▼</span>';
+}
+
 function renderMarket() {
   // ── Giocatori IN ENTRATA (da altre squadre) ──
   const avail = [];
@@ -1265,10 +1323,44 @@ function renderMarket() {
       <div style="font-size:11px;color:var(--muted)">Lista aggiornata ogni giornata</div>
     </div>
     <table><thead><tr>
-      <th>Giocatore</th><th>Mano</th><th>Da</th><th>Ruolo</th><th>OVR</th><th>Valore</th><th>Scade</th><th></th>
+      <th onclick="_mktSortClick('name')"   style="cursor:pointer">Giocatore ${_sortArrow('name')}</th>
+      <th onclick="_mktSortClick('hand')"   style="cursor:pointer">Mano ${_sortArrow('hand')}</th>
+      <th>Da</th>
+      <th onclick="_mktSortClick('role')"   style="cursor:pointer">Ruolo ${_sortArrow('role')}</th>
+      <th onclick="_mktSortClick('ovr')"    style="cursor:pointer">OVR ${_sortArrow('ovr')}</th>
+      <th onclick="_mktSortClick('value')"  style="cursor:pointer">Valore ${_sortArrow('value')}</th>
+      <th onclick="_mktSortClick('salary')" style="cursor:pointer">Ingaggio ${_sortArrow('salary')}</th>
+      <th onclick="_mktSortClick('days')"   style="cursor:pointer">Scade ${_sortArrow('days')}</th>
+      <th></th>
     </tr></thead><tbody>`;
 
-  pool.forEach((entry, i) => {
+  // Applica sorting
+  let sortedPool = pool.slice();
+  if (_mktSort.key) {
+    sortedPool.sort((a, b) => {
+      const p1 = a.player, p2 = b.player;
+      let v1, v2;
+      if (_mktSort.key === 'name')        { v1 = p1.name;    v2 = p2.name; }
+      else if (_mktSort.key === 'ovr')    { v1 = p1.overall; v2 = p2.overall; }
+      else if (_mktSort.key === 'age')    { v1 = p1.age;     v2 = p2.age; }
+      else if (_mktSort.key === 'value')  { v1 = p1.value;   v2 = p2.value; }
+      else if (_mktSort.key === 'salary') { v1 = p1.salary;  v2 = p2.salary; }
+      else if (_mktSort.key === 'days')   { v1 = a.daysLeft; v2 = b.daysLeft; }
+      else if (_mktSort.key === 'role')   { v1 = p1.role;    v2 = p2.role; }
+      else if (_mktSort.key === 'hand')   { v1 = p1.hand;    v2 = p2.hand; }
+      if (v1 === undefined) return 0;
+      if (typeof v1 === 'string') return _mktSort.dir * v1.localeCompare(v2);
+      return _mktSort.dir * (v1 - v2);
+    });
+  }
+  // Paginazione
+  const mktTotalPages = Math.max(1, Math.ceil(sortedPool.length / MKT_PER_PAGE));
+  const mktSafePage   = Math.min(_mktPage, mktTotalPages - 1);
+  const mktPageItems  = sortedPool.slice(mktSafePage * MKT_PER_PAGE, (mktSafePage + 1) * MKT_PER_PAGE);
+
+  // Indici reali nel pool originale (per buyPlayerFromPool/openOfferPopup)
+  mktPageItems.forEach((entry) => {
+    const i = pool.indexOf(entry);
     const p   = entry.player;
     const ok  = G.budget >= p.value;
     const has = entry.pendingOffer !== null;
@@ -1289,10 +1381,14 @@ function renderMarket() {
         ${offerBadge ? '<br>' + offerBadge : ''}
       </td>
       <td><span class="badge ${p.hand==='AMB'?'C':p.hand==='L'?'L':'R'}">${p.hand}</span></td>
-      <td style="font-size:12px"><span onclick="showTeamRosterPopup('${p._tid}')" style="cursor:pointer;color:var(--muted);text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">${p._tname}</span></td>
+      <td style="font-size:12px">${p._fromRescission || p._fromExpiry || !p._tid
+        ? '<span style="color:#7b2fbe;font-weight:700;font-size:11px">Svincolato</span>'
+        : '<span onclick="showTeamRosterPopup(\''+p._tid+'\')" style="cursor:pointer;color:var(--muted);text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">'+p._tname+'</span>'
+      }</td>
       <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span></td>
       <td style="font-weight:700">${p.overall}</td>
       <td style="font-size:12px">${formatMoney(p.value)}</td>
+      <td style="font-size:11px;color:var(--muted)">${formatMoney(p.salary)}/a</td>
       <td style="font-size:11px;color:${dayColor};font-weight:600">${daysLbl}</td>
       <td onclick="event.stopPropagation()" style="display:flex;gap:4px;flex-wrap:wrap">
         ${res === 'accepted'
@@ -1310,10 +1406,25 @@ function renderMarket() {
   });
 
   if (!pool.length) {
-    h += `<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:16px">Nessun giocatore disponibile — gioca una partita per aggiornare il mercato</td></tr>`;
+    h += `<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:16px">Nessun giocatore disponibile — gioca una partita per aggiornare il mercato</td></tr>`;
   }
 
-  h += `</tbody></table></div>`;
+  h += `</tbody></table>`;
+
+  // Paginazione
+  if (mktTotalPages > 1) {
+    const prevDis = mktSafePage === 0 ? 'opacity:.35;pointer-events:none' : 'cursor:pointer';
+    const nextDis = mktSafePage >= mktTotalPages - 1 ? 'opacity:.35;pointer-events:none' : 'cursor:pointer';
+    h += `<div style="display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 0;border-top:1px solid var(--border);margin-top:4px">
+      <button onclick="_mktPage=Math.max(0,_mktPage-1);renderMarket()"
+              style="background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:3px 12px;color:var(--muted);font-size:13px;${prevDis}">‹</button>
+      <span style="font-size:12px;color:var(--muted)">Pag. ${mktSafePage + 1} / ${mktTotalPages} <span style="font-size:11px">(${sortedPool.length} giocatori)</span></span>
+      <button onclick="_mktPage=Math.min(${mktTotalPages-1},_mktPage+1);renderMarket()"
+              style="background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:3px 12px;color:var(--muted);font-size:13px;${nextDis}">›</button>
+    </div>`;
+  }
+
+  h += `</div>`;
   document.getElementById('tab-market').innerHTML = h;
 }
 

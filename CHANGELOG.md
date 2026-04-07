@@ -6,6 +6,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -61,6 +98,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -97,6 +171,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -231,6 +342,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -286,6 +434,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -322,6 +507,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -455,6 +677,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -510,6 +769,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -546,6 +842,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -693,6 +1026,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -748,6 +1118,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -784,6 +1191,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -918,6 +1362,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -973,6 +1454,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -1009,6 +1527,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -1142,6 +1697,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -1197,6 +1789,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -1233,6 +1862,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -1397,6 +2063,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -1452,6 +2155,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -1488,6 +2228,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -1622,6 +2399,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -1677,6 +2491,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -1713,6 +2564,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -1846,6 +2734,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -1901,6 +2826,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -1937,6 +2899,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -2084,6 +3083,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -2139,6 +3175,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -2175,6 +3248,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -2309,6 +3419,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -2364,6 +3511,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -2400,6 +3584,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -2533,6 +3754,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -2588,6 +3846,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -2624,6 +3919,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -2871,6 +4203,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -2926,6 +4295,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -2962,6 +4368,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -3096,6 +4539,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -3151,6 +4631,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -3187,6 +4704,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -3320,6 +4874,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -3375,6 +4966,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -3411,6 +5039,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -3558,6 +5223,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -3613,6 +5315,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -3649,6 +5388,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -3783,6 +5559,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -3838,6 +5651,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -3874,6 +5724,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -4007,6 +5894,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -4062,6 +5986,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -4098,6 +6059,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -4262,6 +6260,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -4317,6 +6352,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -4353,6 +6425,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -4487,6 +6596,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -4542,6 +6688,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -4578,6 +6761,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -4711,6 +6931,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -4766,6 +7023,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -4802,6 +7096,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -4949,6 +7280,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -5004,6 +7372,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -5040,6 +7445,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -5174,6 +7616,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -5229,6 +7708,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -5265,6 +7781,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -5398,6 +7951,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -5453,6 +8043,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -5489,6 +8116,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -5801,6 +8465,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -5856,6 +8557,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -5892,6 +8630,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -6026,6 +8801,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -6081,6 +8893,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -6117,6 +8966,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -6250,6 +9136,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -6305,6 +9228,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -6341,6 +9301,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -6488,6 +9485,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -6543,6 +9577,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -6579,6 +9650,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -6713,6 +9821,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -6768,6 +9913,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -6804,6 +9986,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -6937,6 +10156,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -6992,6 +10248,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -7028,6 +10321,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -7192,6 +10522,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -7247,6 +10614,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -7283,6 +10687,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -7417,6 +10858,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -7472,6 +10950,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -7508,6 +11023,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -7641,6 +11193,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -7696,6 +11285,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -7732,6 +11358,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -7879,6 +11542,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -7934,6 +11634,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -7970,6 +11707,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -8104,6 +11878,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -8159,6 +11970,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -8195,6 +12043,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -8328,6 +12213,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -8383,6 +12305,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -8419,6 +12378,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -8666,6 +12662,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -8721,6 +12754,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -8757,6 +12827,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -8891,6 +12998,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -8946,6 +13090,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -8982,6 +13163,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -9115,6 +13333,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -9170,6 +13425,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -9206,6 +13498,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -9353,6 +13682,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -9408,6 +13774,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -9444,6 +13847,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -9578,6 +14018,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -9633,6 +14110,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -9669,6 +14183,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -9802,6 +14353,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -9857,6 +14445,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -9893,6 +14518,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -10057,6 +14719,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -10112,6 +14811,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -10148,6 +14884,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -10282,6 +15055,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -10337,6 +15147,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -10373,6 +15220,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -10506,6 +15390,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -10561,6 +15482,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -10597,6 +15555,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -10744,6 +15739,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -10799,6 +15831,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -10835,6 +15904,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -10969,6 +16075,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -11024,6 +16167,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -11060,6 +16240,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -11193,6 +16410,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -11248,6 +16502,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -11284,6 +16575,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -11666,6 +16994,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -11721,6 +17086,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -11757,6 +17159,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -11891,6 +17330,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -11946,6 +17422,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -11982,6 +17495,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -12115,6 +17665,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -12170,6 +17757,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -12206,6 +17830,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -12353,6 +18014,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -12408,6 +18106,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -12444,6 +18179,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -12578,6 +18350,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -12633,6 +18442,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -12669,6 +18515,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -12802,6 +18685,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -12857,6 +18777,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -12893,6 +18850,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -13057,6 +19051,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -13112,6 +19143,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -13148,6 +19216,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -13282,6 +19387,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -13337,6 +19479,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -13373,6 +19552,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -13506,6 +19722,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -13561,6 +19814,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -13597,6 +19887,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -13744,6 +20071,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -13799,6 +20163,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -13835,6 +20236,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -13969,6 +20407,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -14024,6 +20499,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -14060,6 +20572,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -14193,6 +20742,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -14248,6 +20834,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -14284,6 +20907,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -14531,6 +21191,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -14586,6 +21283,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -14622,6 +21356,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -14756,6 +21527,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -14811,6 +21619,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -14847,6 +21692,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -14980,6 +21862,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -15035,6 +21954,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -15071,6 +22027,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -15218,6 +22211,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -15273,6 +22303,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -15309,6 +22376,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -15443,6 +22547,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -15498,6 +22639,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -15534,6 +22712,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -15667,6 +22882,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -15722,6 +22974,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -15758,6 +23047,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -15922,6 +23248,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -15977,6 +23340,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -16013,6 +23413,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -16147,6 +23584,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -16202,6 +23676,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -16238,6 +23749,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -16371,6 +23919,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -16426,6 +24011,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -16462,6 +24084,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -16609,6 +24268,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -16664,6 +24360,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -16700,6 +24433,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -16834,6 +24604,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -16889,6 +24696,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -16925,6 +24769,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -17058,6 +24939,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -17113,6 +25031,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -17149,6 +25104,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -17461,6 +25453,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -17516,6 +25545,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -17552,6 +25618,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -17686,6 +25789,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -17741,6 +25881,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -17777,6 +25954,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -17910,6 +26124,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -17965,6 +26216,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -18001,6 +26289,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -18148,6 +26473,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -18203,6 +26565,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -18239,6 +26638,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -18373,6 +26809,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -18428,6 +26901,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -18464,6 +26974,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -18597,6 +27144,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -18652,6 +27236,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -18688,6 +27309,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -18852,6 +27510,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -18907,6 +27602,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -18943,6 +27675,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -19077,6 +27846,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -19132,6 +27938,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -19168,6 +28011,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -19301,6 +28181,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -19356,6 +28273,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -19392,6 +28346,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -19539,6 +28530,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -19594,6 +28622,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -19630,6 +28695,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -19764,6 +28866,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -19819,6 +28958,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -19855,6 +29031,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -19988,6 +29201,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -20043,6 +29293,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -20079,6 +29366,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -20326,6 +29650,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -20381,6 +29742,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -20417,6 +29815,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -20551,6 +29986,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -20606,6 +30078,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -20642,6 +30151,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -20775,6 +30321,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -20830,6 +30413,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -20866,6 +30486,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -21013,6 +30670,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -21068,6 +30762,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -21104,6 +30835,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -21238,6 +31006,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -21293,6 +31098,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -21329,6 +31171,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -21462,6 +31341,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -21517,6 +31433,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -21553,6 +31506,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -21717,6 +31707,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -21772,6 +31799,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -21808,6 +31872,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -21942,6 +32043,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -21997,6 +32135,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -22033,6 +32208,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -22166,6 +32378,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -22221,6 +32470,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -22257,6 +32543,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -22404,6 +32727,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -22459,6 +32819,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -22495,6 +32892,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -22629,6 +33063,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -22684,6 +33155,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -22720,6 +33228,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -22853,6 +33398,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -22908,6 +33490,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -22944,6 +33563,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -23332,6 +33988,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -23387,6 +34080,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -23423,6 +34153,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -23557,6 +34324,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -23612,6 +34416,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -23648,6 +34489,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -23781,6 +34659,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -23836,6 +34751,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -23872,6 +34824,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -24019,6 +35008,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -24074,6 +35100,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -24110,6 +35173,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -24244,6 +35344,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -24299,6 +35436,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -24335,6 +35509,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -24468,6 +35679,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -24523,6 +35771,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -24559,6 +35844,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -24723,6 +36045,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -24778,6 +36137,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -24814,6 +36210,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -24948,6 +36381,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -25003,6 +36473,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -25039,6 +36546,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -25172,6 +36716,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -25227,6 +36808,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -25263,6 +36881,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -25410,6 +37065,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -25465,6 +37157,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -25501,6 +37230,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -25635,6 +37401,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -25690,6 +37493,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -25726,6 +37566,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -25859,6 +37736,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -25914,6 +37828,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -25950,6 +37901,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -26197,6 +38185,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -26252,6 +38277,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -26288,6 +38350,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -26422,6 +38521,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -26477,6 +38613,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -26513,6 +38686,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -26646,6 +38856,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -26701,6 +38948,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -26737,6 +39021,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -26884,6 +39205,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -26939,6 +39297,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -26975,6 +39370,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -27109,6 +39541,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -27164,6 +39633,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -27200,6 +39706,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -27333,6 +39876,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -27388,6 +39968,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -27424,6 +40041,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -27588,6 +40242,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -27643,6 +40334,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -27679,6 +40407,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -27813,6 +40578,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -27868,6 +40670,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -27904,6 +40743,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -28037,6 +40913,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -28092,6 +41005,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -28128,6 +41078,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -28275,6 +41262,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -28330,6 +41354,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -28366,6 +41427,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -28500,6 +41598,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -28555,6 +41690,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -28591,6 +41763,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -28724,6 +41933,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -28779,6 +42025,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -28815,6 +42098,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -29127,6 +42447,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -29182,6 +42539,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -29218,6 +42612,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -29352,6 +42783,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -29407,6 +42875,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -29443,6 +42948,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -29576,6 +43118,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -29631,6 +43210,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -29667,6 +43283,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -29814,6 +43467,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -29869,6 +43559,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -29905,6 +43632,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -30039,6 +43803,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -30094,6 +43895,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -30130,6 +43968,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -30263,6 +44138,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -30318,6 +44230,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -30354,6 +44303,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -30518,6 +44504,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -30573,6 +44596,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -30609,6 +44669,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -30743,6 +44840,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -30798,6 +44932,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -30834,6 +45005,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -30967,6 +45175,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -31022,6 +45267,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -31058,6 +45340,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -31205,6 +45524,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -31260,6 +45616,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -31296,6 +45689,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -31430,6 +45860,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -31485,6 +45952,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -31521,6 +46025,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -31654,6 +46195,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -31709,6 +46287,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -31745,6 +46360,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -31992,6 +46644,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -32047,6 +46736,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -32083,6 +46809,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -32217,6 +46980,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -32272,6 +47072,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -32308,6 +47145,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -32441,6 +47315,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -32496,6 +47407,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -32532,6 +47480,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -32679,6 +47664,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -32734,6 +47756,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -32770,6 +47829,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -32904,6 +48000,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -32959,6 +48092,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -32995,6 +48165,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -33128,6 +48335,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -33183,6 +48427,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -33219,6 +48500,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -33383,6 +48701,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -33438,6 +48793,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -33474,6 +48866,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -33608,6 +49037,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -33663,6 +49129,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -33699,6 +49202,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -33832,6 +49372,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -33887,6 +49464,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -33923,6 +49537,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -34070,6 +49721,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -34125,6 +49813,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -34161,6 +49886,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -34295,6 +50057,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -34350,6 +50149,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -34386,6 +50222,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 
@@ -34519,6 +50392,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -34574,6 +50484,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
+
+---
+
 ## [0.5.63-beta] — 2026-04-07
 
 ### Corretto
@@ -34610,6 +50557,43 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.65-beta] — 2026-04-07
+
+### Aggiunto / Modificato — Mercato
+
+- **Giocatori svincolati**: i giocatori provenienti da rescissione o contratto scaduto mostrano **"Svincolato"** in viola nella colonna Da, invece del nome della squadra (che non hanno più)
+- **Paginazione**: il listone mercato mostra 15 giocatori per pagina con controlli ‹ › e indicatore "Pag. X / Y (N giocatori)"
+- La pagina si resetta a 0 quando si cambia criterio di ordinamento
+
+---
+
+## [0.5.64-beta] — 2026-04-07
+
+### Aggiunto / Modificato
+
+#### Scheda giocatore
+- **Pagina singola**: layout compatto a 2 colonne per le statistiche, barre attributi su 2 colonne — tutto visibile senza scroll
+- **Anni contratto**: riga dedicata con evidenza viola se in scadenza (≤1 anno)
+- **Badge SCAD** viola accanto al nome in tutte le liste (Rosa, Formazione, Cambi in partita) per contratti in scadenza
+- **Sezione Rinnovo contratto**: 5 pulsanti (1-5 anni) con costo totale; l'ingaggio richiesto è calcolato dinamicamente
+
+#### Formula ingaggio rinnovo (`_calcRenewalSalary`)
+- Base: `OVR × 300€`
+- Moltiplicatore età: giovani (-25%) → picco 26-29 (+10%) → over 35 (-30%)
+- Bonus voti recenti: media ≥7.5 → +20%, <5.5 → -10%
+- Bonus gol+assist: ≥20 → +15%, ≥10 → +8%
+- Malus fragilità fisica (injProb alto): -8%
+- Bonus nazionale: +12%
+
+#### Contratti scaduti
+- I giocatori non rinnovati vanno automaticamente **sul mercato a costo zero** all'inizio della stagione successiva (acquistabili pagando solo l'ingaggio)
+
+#### Mercato — ordinamento colonne
+- Tutte le colonne della lista mercato sono ordinabili cliccando l'intestazione (▲ crescente / ▼ decrescente / ⇅ nessun ordine)
+- Colonne: Giocatore, Mano, Ruolo, OVR, Valore, **Ingaggio** (nuova), Scade
 
 ---
 

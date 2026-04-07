@@ -346,6 +346,14 @@ function _simplePosLabel(pk) {
 
 
 // Badge RIT per la schermata partita
+
+// Badge SCAD per contratto in scadenza
+function _scadBadge(p) {
+  if (!p || (p.contractYears === undefined) || p.contractYears > 1) return '';
+  return '<span style="font-size:9px;background:#7b2fbe;color:#fff;font-weight:700;' +
+         'padding:1px 4px;border-radius:3px;margin-left:3px" title="Contratto in scadenza">SCAD</span>';
+}
+
 function _ritBadge(p) {
   if (!p || p.retirementAge === undefined) return '';
   if ((p.age + 1) < p.retirementAge) return '';
@@ -658,7 +666,7 @@ function _renderSubLists() {
         <div style="flex:1">
           <div style="font-size:13px;font-weight:600;display:flex;align-items:center;flex-wrap:wrap;gap:2px">
             <span style="color:var(--blue);margin-right:4px">#${shirt}</span>
-            ${p.name}${_ritBadge(p)}
+            ${p.name}${_ritBadge(p)}${_scadBadge(p)}
             ${expDots(pi)}
             ${staminaBadge(pi)}
             ${(function(){ const r = (typeof calcPlayerRating==='function') ? calcPlayerRating(pi,ms) : null; const col = r?(r>=7.5?'var(--green)':r>=6.5?'var(--gold)':r>=5.5?'var(--muted)':'var(--red)'):'var(--muted)'; return '<span style="font-size:11px;font-weight:800;color:'+col+';margin-left:5px">'+( r!==null ? r.toFixed(1) : '—')+'</span>'; })()}

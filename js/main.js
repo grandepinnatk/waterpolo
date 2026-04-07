@@ -668,6 +668,8 @@ function startNewSeason() {
   // ── Messaggio inizio stagione ──
   // Decrementa contratti e attività CPU mercato
   _decrementContracts();
+  // Rimuovi giocatori con contratto scaduto (messi sul mercato da _decrementContracts)
+  G.rosters[G.myId] = (G.rosters[G.myId] || []).filter(p => p && !p._expired);
   _cpuMarketActivity();
 
   G.msgs.push('─────────────────────────────────');
@@ -1069,6 +1071,59 @@ simNextRound = function() {
 };
 
 // ═══════════════════════════════════════════════════════
+// CALCOLO INGAGGIO RINNOVO
+// ═══════════════════════════════════════════════════════
+// Formula: base OVR × 300 + bonus età + bonus prestazioni
+function _calcRenewalSalary(p) {
+  if (!p) return 0;
+  const ovr      = p.overall || 70;
+  // Base: proporzionale all'OVR
+  let base = ovr * 300;
+  // Età: picco 25-29, scende dopo 32
+  const age = p.age || 25;
+  if (age < 22)       base *= 0.75;  // giovane → meno esigente
+  else if (age < 26)  base *= 0.90;
+  else if (age < 30)  base *= 1.10;  // nel fiore
+  else if (age < 33)  base *= 1.00;
+  else if (age < 36)  base *= 0.85;  // calo age
+  else                base *= 0.70;
+  // Voti recenti: media delle ultime 4 partite
+  const ratings = p.lastRatings ? p.lastRatings.filter(r => r !== null) : [];
+  const avgRating = ratings.length ? ratings.reduce((s,r) => s+r, 0) / ratings.length : 6.0;
+  if (avgRating >= 7.5)      base *= 1.20;
+  else if (avgRating >= 7.0) base *= 1.10;
+  else if (avgRating >= 6.5) base *= 1.05;
+  else if (avgRating < 5.5)  base *= 0.90;
+  // Gol/assist stagionali
+  const goals   = p.goals   || 0;
+  const assists = p.assists || 0;
+  if (goals + assists >= 20) base *= 1.15;
+  else if (goals + assists >= 10) base *= 1.08;
+  // Infortuni: giocatore fragile → meno potere contrattuale
+  const injP = p.injProb || 0.04;
+  if (injP > 0.10) base *= 0.92;
+  // Internazionale (se marcato)
+  if (p._national) base *= 1.12;
+  return Math.round(Math.max(15000, base) / 1000) * 1000;
+}
+
+// ═══════════════════════════════════════════════════════
+// RINNOVO CONTRATTO
+// ═══════════════════════════════════════════════════════
+function renewContract(rosterIdx, years, popupEl) {
+  const p = (G.rosters[G.myId] || [])[rosterIdx];
+  if (!p) return;
+  const newSalary = _calcRenewalSalary(p);
+  const totalCost = newSalary * years;
+  if (!confirm('Rinnova contratto di ' + p.name + ' per ' + years + ' anni a ' + formatMoney(newSalary) + '/anno. Totale ingaggio: ' + formatMoney(totalCost) + '. Confermi?')) return;
+  p.contractYears = years;
+  p.salary        = newSalary;
+  G.msgs.push('📋 Contratto rinnovato: ' + p.name + ' — ' + years + ' anni a ' + formatMoney(newSalary) + '/anno.');
+  if (popupEl) popupEl.remove();
+  updateHeader(); autoSave(); renderRosa();
+}
+
+// ═══════════════════════════════════════════════════════
 // RESCISSIONE CONTRATTO
 // ═══════════════════════════════════════════════════════
 function rescindContract(rosterIdx) {
@@ -1109,8 +1164,14 @@ function _decrementContracts() {
     if (p.contractYears !== undefined && p.contractYears > 0) {
       p.contractYears--;
       if (p.contractYears === 0) {
-        G.msgs.push('📋 Contratto in scadenza: ' + p.name + ' è in scadenza. Rinnova o perderai il giocatore!');
-        p.contractYears = 1; // rinnovo automatico minimo, il manager può rinegoziare
+        G.msgs.push('📋 Contratto scaduto: ' + p.name + ' — non rinnovato, va sul mercato a costo zero.');
+        // Mette il giocatore sul mercato a costo zero
+        const fp = { ...p, value: 0, _fromExpiry: true };
+        delete fp._tid; delete fp._tname;
+        if (!G.marketPool) G.marketPool = [];
+        G.marketPool.push({ player: fp, daysLeft: 6, pendingOffer: null, offerResult: null });
+        // Rimuove dalla rosa (marca per pulizia)
+        p._expired = true;
       }
     }
   });
