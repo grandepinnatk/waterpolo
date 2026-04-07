@@ -700,6 +700,37 @@ function _setSpeedUI(v) {
   });
 }
 
+// ═══════════════════════════════════════════════════════
+// SISTEMA TEMI GRAFICI
+// ═══════════════════════════════════════════════════════
+var _themes = ['classic', 'light', 'dark'];
+var _themeLabels = { classic: 'Classic', light: 'Chiaro', dark: 'Scuro' };
+var _themeIcons  = { classic: '🎨', light: '☀️', dark: '🌙' };
+
+function cycleTheme() {
+  var cur  = localStorage.getItem('wp-theme') || 'classic';
+  var idx  = _themes.indexOf(cur);
+  var next = _themes[(idx + 1) % _themes.length];
+  applyTheme(next);
+}
+
+function applyTheme(name) {
+  document.body.classList.remove('theme-light', 'theme-dark');
+  if (name === 'light') document.body.classList.add('theme-light');
+  if (name === 'dark')  document.body.classList.add('theme-dark');
+  localStorage.setItem('wp-theme', name);
+  var icon = document.getElementById('theme-icon');
+  var lbl  = document.getElementById('theme-label');
+  if (icon) icon.textContent = _themeIcons[name]  || '🎨';
+  if (lbl)  lbl.textContent  = _themeLabels[name] || 'Classic';
+}
+
+// Applica il tema salvato all'avvio
+(function() {
+  var saved = localStorage.getItem('wp-theme') || 'classic';
+  applyTheme(saved);
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   buildWelcomeScreen();
 });

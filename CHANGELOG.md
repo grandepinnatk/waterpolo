@@ -6,6 +6,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -98,6 +109,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -171,6 +193,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -342,6 +375,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -434,6 +478,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -507,6 +562,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -677,6 +743,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -769,6 +846,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -842,6 +930,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -1026,6 +1125,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -1118,6 +1228,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -1191,6 +1312,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -1362,6 +1494,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -1454,6 +1597,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -1527,6 +1681,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -1697,6 +1862,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -1789,6 +1965,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -1862,6 +2049,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -2063,6 +2261,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -2155,6 +2364,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -2228,6 +2448,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -2399,6 +2630,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -2491,6 +2733,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -2564,6 +2817,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -2734,6 +2998,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -2826,6 +3101,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -2899,6 +3185,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -3083,6 +3380,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -3175,6 +3483,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -3248,6 +3567,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -3419,6 +3749,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -3511,6 +3852,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -3584,6 +3936,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -3754,6 +4117,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -3846,6 +4220,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -3919,6 +4304,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -4203,6 +4599,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -4295,6 +4702,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -4368,6 +4786,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -4539,6 +4968,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -4631,6 +5071,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -4704,6 +5155,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -4874,6 +5336,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -4966,6 +5439,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -5039,6 +5523,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -5223,6 +5718,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -5315,6 +5821,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -5388,6 +5905,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -5559,6 +6087,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -5651,6 +6190,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -5724,6 +6274,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -5894,6 +6455,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -5986,6 +6558,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -6059,6 +6642,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -6260,6 +6854,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -6352,6 +6957,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -6425,6 +7041,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -6596,6 +7223,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -6688,6 +7326,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -6761,6 +7410,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -6931,6 +7591,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -7023,6 +7694,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -7096,6 +7778,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -7280,6 +7973,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -7372,6 +8076,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -7445,6 +8160,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -7616,6 +8342,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -7708,6 +8445,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -7781,6 +8529,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -7951,6 +8710,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -8043,6 +8813,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -8116,6 +8897,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -8465,6 +9257,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -8557,6 +9360,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -8630,6 +9444,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -8801,6 +9626,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -8893,6 +9729,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -8966,6 +9813,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -9136,6 +9994,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -9228,6 +10097,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -9301,6 +10181,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -9485,6 +10376,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -9577,6 +10479,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -9650,6 +10563,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -9821,6 +10745,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -9913,6 +10848,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -9986,6 +10932,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -10156,6 +11113,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -10248,6 +11216,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -10321,6 +11300,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -10522,6 +11512,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -10614,6 +11615,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -10687,6 +11699,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -10858,6 +11881,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -10950,6 +11984,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -11023,6 +12068,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -11193,6 +12249,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -11285,6 +12352,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -11358,6 +12436,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -11542,6 +12631,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -11634,6 +12734,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -11707,6 +12818,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -11878,6 +13000,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -11970,6 +13103,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -12043,6 +13187,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -12213,6 +13368,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -12305,6 +13471,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -12378,6 +13555,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -12662,6 +13850,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -12754,6 +13953,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -12827,6 +14037,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -12998,6 +14219,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -13090,6 +14322,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -13163,6 +14406,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -13333,6 +14587,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -13425,6 +14690,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -13498,6 +14774,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -13682,6 +14969,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -13774,6 +15072,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -13847,6 +15156,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -14018,6 +15338,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -14110,6 +15441,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -14183,6 +15525,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -14353,6 +15706,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -14445,6 +15809,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -14518,6 +15893,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -14719,6 +16105,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -14811,6 +16208,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -14884,6 +16292,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -15055,6 +16474,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -15147,6 +16577,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -15220,6 +16661,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -15390,6 +16842,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -15482,6 +16945,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -15555,6 +17029,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -15739,6 +17224,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -15831,6 +17327,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -15904,6 +17411,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -16075,6 +17593,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -16167,6 +17696,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -16240,6 +17780,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -16410,6 +17961,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -16502,6 +18064,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -16575,6 +18148,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -16994,6 +18578,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -17086,6 +18681,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -17159,6 +18765,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -17330,6 +18947,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -17422,6 +19050,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -17495,6 +19134,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -17665,6 +19315,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -17757,6 +19418,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -17830,6 +19502,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -18014,6 +19697,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -18106,6 +19800,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -18179,6 +19884,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -18350,6 +20066,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -18442,6 +20169,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -18515,6 +20253,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -18685,6 +20434,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -18777,6 +20537,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -18850,6 +20621,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -19051,6 +20833,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -19143,6 +20936,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -19216,6 +21020,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -19387,6 +21202,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -19479,6 +21305,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -19552,6 +21389,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -19722,6 +21570,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -19814,6 +21673,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -19887,6 +21757,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -20071,6 +21952,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -20163,6 +22055,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -20236,6 +22139,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -20407,6 +22321,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -20499,6 +22424,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -20572,6 +22508,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -20742,6 +22689,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -20834,6 +22792,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -20907,6 +22876,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -21191,6 +23171,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -21283,6 +23274,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -21356,6 +23358,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -21527,6 +23540,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -21619,6 +23643,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -21692,6 +23727,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -21862,6 +23908,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -21954,6 +24011,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -22027,6 +24095,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -22211,6 +24290,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -22303,6 +24393,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -22376,6 +24477,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -22547,6 +24659,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -22639,6 +24762,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -22712,6 +24846,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -22882,6 +25027,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -22974,6 +25130,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -23047,6 +25214,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -23248,6 +25426,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -23340,6 +25529,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -23413,6 +25613,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -23584,6 +25795,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -23676,6 +25898,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -23749,6 +25982,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -23919,6 +26163,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -24011,6 +26266,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -24084,6 +26350,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -24268,6 +26545,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -24360,6 +26648,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -24433,6 +26732,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -24604,6 +26914,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -24696,6 +27017,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -24769,6 +27101,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -24939,6 +27282,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -25031,6 +27385,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -25104,6 +27469,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -25453,6 +27829,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -25545,6 +27932,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -25618,6 +28016,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -25789,6 +28198,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -25881,6 +28301,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -25954,6 +28385,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -26124,6 +28566,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -26216,6 +28669,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -26289,6 +28753,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -26473,6 +28948,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -26565,6 +29051,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -26638,6 +29135,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -26809,6 +29317,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -26901,6 +29420,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -26974,6 +29504,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -27144,6 +29685,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -27236,6 +29788,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -27309,6 +29872,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -27510,6 +30084,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -27602,6 +30187,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -27675,6 +30271,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -27846,6 +30453,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -27938,6 +30556,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -28011,6 +30640,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -28181,6 +30821,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -28273,6 +30924,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -28346,6 +31008,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -28530,6 +31203,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -28622,6 +31306,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -28695,6 +31390,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -28866,6 +31572,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -28958,6 +31675,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -29031,6 +31759,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -29201,6 +31940,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -29293,6 +32043,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -29366,6 +32127,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -29650,6 +32422,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -29742,6 +32525,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -29815,6 +32609,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -29986,6 +32791,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -30078,6 +32894,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -30151,6 +32978,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -30321,6 +33159,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -30413,6 +33262,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -30486,6 +33346,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -30670,6 +33541,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -30762,6 +33644,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -30835,6 +33728,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -31006,6 +33910,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -31098,6 +34013,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -31171,6 +34097,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -31341,6 +34278,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -31433,6 +34381,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -31506,6 +34465,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -31707,6 +34677,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -31799,6 +34780,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -31872,6 +34864,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -32043,6 +35046,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -32135,6 +35149,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -32208,6 +35233,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -32378,6 +35414,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -32470,6 +35517,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -32543,6 +35601,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -32727,6 +35796,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -32819,6 +35899,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -32892,6 +35983,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -33063,6 +36165,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -33155,6 +36268,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -33228,6 +36352,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -33398,6 +36533,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -33490,6 +36636,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -33563,6 +36720,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -33988,6 +37156,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -34080,6 +37259,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -34153,6 +37343,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -34324,6 +37525,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -34416,6 +37628,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -34489,6 +37712,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -34659,6 +37893,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -34751,6 +37996,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -34824,6 +38080,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -35008,6 +38275,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -35100,6 +38378,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -35173,6 +38462,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -35344,6 +38644,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -35436,6 +38747,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -35509,6 +38831,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -35679,6 +39012,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -35771,6 +39115,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -35844,6 +39199,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -36045,6 +39411,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -36137,6 +39514,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -36210,6 +39598,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -36381,6 +39780,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -36473,6 +39883,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -36546,6 +39967,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -36716,6 +40148,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -36808,6 +40251,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -36881,6 +40335,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -37065,6 +40530,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -37157,6 +40633,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -37230,6 +40717,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -37401,6 +40899,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -37493,6 +41002,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -37566,6 +41086,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -37736,6 +41267,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -37828,6 +41370,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -37901,6 +41454,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -38185,6 +41749,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -38277,6 +41852,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -38350,6 +41936,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -38521,6 +42118,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -38613,6 +42221,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -38686,6 +42305,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -38856,6 +42486,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -38948,6 +42589,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -39021,6 +42673,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -39205,6 +42868,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -39297,6 +42971,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -39370,6 +43055,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -39541,6 +43237,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -39633,6 +43340,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -39706,6 +43424,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -39876,6 +43605,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -39968,6 +43708,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -40041,6 +43792,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -40242,6 +44004,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -40334,6 +44107,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -40407,6 +44191,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -40578,6 +44373,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -40670,6 +44476,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -40743,6 +44560,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -40913,6 +44741,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -41005,6 +44844,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -41078,6 +44928,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -41262,6 +45123,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -41354,6 +45226,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -41427,6 +45310,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -41598,6 +45492,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -41690,6 +45595,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -41763,6 +45679,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -41933,6 +45860,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -42025,6 +45963,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -42098,6 +46047,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -42447,6 +46407,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -42539,6 +46510,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -42612,6 +46594,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -42783,6 +46776,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -42875,6 +46879,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -42948,6 +46963,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -43118,6 +47144,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -43210,6 +47247,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -43283,6 +47331,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -43467,6 +47526,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -43559,6 +47629,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -43632,6 +47713,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -43803,6 +47895,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -43895,6 +47998,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -43968,6 +48082,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -44138,6 +48263,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -44230,6 +48366,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -44303,6 +48450,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -44504,6 +48662,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -44596,6 +48765,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -44669,6 +48849,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -44840,6 +49031,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -44932,6 +49134,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -45005,6 +49218,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -45175,6 +49399,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -45267,6 +49502,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -45340,6 +49586,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -45524,6 +49781,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -45616,6 +49884,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -45689,6 +49968,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -45860,6 +50150,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -45952,6 +50253,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -46025,6 +50337,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -46195,6 +50518,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -46287,6 +50621,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -46360,6 +50705,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -46644,6 +51000,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -46736,6 +51103,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -46809,6 +51187,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -46980,6 +51369,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -47072,6 +51472,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -47145,6 +51556,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -47315,6 +51737,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -47407,6 +51840,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -47480,6 +51924,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -47664,6 +52119,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -47756,6 +52222,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -47829,6 +52306,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -48000,6 +52488,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -48092,6 +52591,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -48165,6 +52675,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -48335,6 +52856,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -48427,6 +52959,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -48500,6 +53043,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -48701,6 +53255,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -48793,6 +53358,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -48866,6 +53442,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -49037,6 +53624,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -49129,6 +53727,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -49202,6 +53811,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -49372,6 +53992,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -49464,6 +54095,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -49537,6 +54179,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -49721,6 +54374,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -49813,6 +54477,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -49886,6 +54561,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -50057,6 +54743,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -50149,6 +54846,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -50222,6 +54930,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
@@ -50392,6 +55111,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -50484,6 +55214,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ---
 
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
+
+---
+
 ## [0.5.65-beta] — 2026-04-07
 
 ### Aggiunto / Modificato — Mercato
@@ -50557,6 +55298,17 @@ Versioning: `MAJOR.MINOR.PATCH` — in beta il MAJOR è fisso a 0.
 
 ### Modificato
 - **Probabilità infortuni ×10**: divisore abbassato da 60 a 6 (`injP / 6`). Un giocatore con `injProb = 0.06` in condizioni critiche passa da ~0.1% a ~1% di probabilità per evento.
+
+---
+
+## [0.5.66-beta] — 2026-04-07
+
+### Aggiunto — Temi grafici
+- Pulsante **🎨** in topbar (tra Salva e Menu) per ciclare tra i tre temi
+- **Classic** (predefinito): tema attuale blu navy
+- **☀️ Chiaro**: sfondo azzurro cielo, sidebar blu, testo scuro, card bianche traslucide
+- **🌙 Scuro**: sfondo quasi nero, sidebar antracite, accent ciano
+- La scelta viene salvata in `localStorage` e ripristinata automaticamente ad ogni avvio
 
 ---
 
