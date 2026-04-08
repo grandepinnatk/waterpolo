@@ -58,7 +58,13 @@ function generatePlayer(teamStrength, role) {
     secondRole,   // null o ruolo secondario
     hand,         // 'R', 'L', 'AMB'
     overall:   base,
-    potential: Math.min(99, base + rnd(0, age < 23 ? 10 : 0)),
+    // Potenziale: sempre >= OVR attuale + margine per età
+    // Under 20: margine fino a +20 (talenti grezzi)
+    // 20-22: margine fino a +12
+    // 23-27: margine fino a +6 (ancora in crescita)
+    // 28-31: margine +2 (plateau)
+    // 32+:   uguale all'OVR (già al picco o in declino)
+    potential: Math.min(99, base + (age < 20 ? rnd(8, 20) : age < 23 ? rnd(4, 12) : age < 28 ? rnd(2, 6) : age < 32 ? rnd(0, 2) : 0)),
     nat,
     value:     Math.round(base * rnd(5000, 9000)),
     salary:    Math.round(base * rnd(250, 550)),

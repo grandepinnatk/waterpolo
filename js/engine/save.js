@@ -76,6 +76,13 @@ function _buildPayload(G) {
     marketPool:    G.marketPool    || [],
     ledger:        G.ledger        || [],
     prevPos:       G.prevPos       || null,
+    // Campi aggiunti progressivamente
+    stars:         G.stars         !== undefined ? G.stars : 5,
+    pendingPurchases: G.pendingPurchases || [],
+    seasonHistory: G.seasonHistory  || [],
+    seasonNumber:  G.seasonNumber   || 1,
+    tactic:        G.tactic         || 'balanced',
+    _newsPage:     G._newsPage      || 0,
   };
 }
 
@@ -279,8 +286,9 @@ function applyLoadedSave(payload) {
     pendingPurchases: payload.pendingPurchases || [],
     seasonHistory: payload.seasonHistory  || [],
     seasonNumber:  payload.seasonNumber   || 1,
+    tactic:        payload.tactic         || 'balanced',
+    _newsPage:     payload._newsPage      || 0,
     _currentSlot:  null,
-    tactic:        'balanced',
   };
 }
 

@@ -374,6 +374,42 @@ function initPostSeason() {
 }
 
 // ── Simula partita playoff (senza play live) ──
+
+// ═══════════════════════════════════════════════════════
+// SISTEMA RIGORI — supplementari + penalty shootout
+// ═══════════════════════════════════════════════════════
+function _penaltyProb(p, stamina) {
+  if (!p) return 0.50;
+  var tec       = (p.stats && p.stats.tec) || 50;
+  var str       = (p.stats && p.stats.str) || 50;
+  var base      = (tec * 0.55 + str * 0.45) / 100;
+  var roleBonus = ({ ATT:0.08, CEN:0.03, CB:0.00, DIF:-0.04, POR:-0.10 })[p.role] || 0;
+  var stamPct   = (stamina !== undefined ? stamina : (p.fitness || 70)) / 100;
+  var stamMalus = (1 - stamPct) * 0.20;
+  var formMalus = (p.fitness || 70) < 60 ? (60 - (p.fitness||70)) / 100 * 0.08 : 0;
+  return Math.max(0.25, Math.min(0.92, base + roleBonus - stamMalus - formMalus));
+}
+
+function _simPenaltyShootout(homeId, awayId) {
+  var homeR = (G.rosters[homeId] || []).filter(function(p){return p && !p.injured && p.role !== 'POR';})
+               .sort(function(a,b){return b.overall - a.overall;}).slice(0,5);
+  var awayR = (G.rosters[awayId] || []).filter(function(p){return p && !p.injured && p.role !== 'POR';})
+               .sort(function(a,b){return b.overall - a.overall;}).slice(0,5);
+  var hG = 0, aG = 0, sd = 0;
+  for (var i = 0; i < 5; i++) {
+    if (homeR[i] && Math.random() < _penaltyProb(homeR[i], homeR[i].fitness)) hG++;
+    if (awayR[i] && Math.random() < _penaltyProb(awayR[i], awayR[i].fitness)) aG++;
+  }
+  while (hG === aG && sd < 20) {
+    sd++;
+    var hSD = homeR[sd % homeR.length] || homeR[0];
+    var aSD = awayR[sd % awayR.length] || awayR[0];
+    if (hSD && Math.random() < _penaltyProb(hSD, hSD.fitness)) hG++;
+    if (aSD && Math.random() < _penaltyProb(aSD, aSD.fitness)) aG++;
+  }
+  return { winner: hG >= aG ? homeId : awayId, hG: hG, aG: aG };
+}
+
 function simPOMatch(type, idx) {
   const pb = G.poBracket;
   const m  = type === 'sf' ? pb.sf[idx] : pb.final;
@@ -381,7 +417,25 @@ function simPOMatch(type, idx) {
   const aT = G.teams.find(t => t.id === m.away);
   const sc = simulateResult(hT, aT, 0, G.rosters);
   m.scores.push(sc);
-  m.winner = sc.home > sc.away ? m.home : sc.away > sc.home ? m.away : (Math.random() < 0.5 ? m.home : m.away);
+  // Pareggio → supplementari → rigori
+  let poWinner;
+  if (sc.home > sc.away)      poWinner = m.home;
+  else if (sc.away > sc.home) poWinner = m.away;
+  else {
+    // Supplementari: 2 tempi extra con piccola varianza
+    const extH = sc.home + (Math.random() < 0.40 ? 1 : 0) + (Math.random() < 0.15 ? 1 : 0);
+    const extA = sc.away + (Math.random() < 0.40 ? 1 : 0) + (Math.random() < 0.15 ? 1 : 0);
+    if (extH !== extA) {
+      poWinner = extH > extA ? m.home : m.away;
+      G.msgs.push('⏱️ Supplementari: ' + (hT?.name||'?') + ' ' + extH + '-' + extA + ' ' + (aT?.name||'?'));
+    } else {
+      // Rigori
+      const ps = _simPenaltyShootout(m.home, m.away);
+      poWinner = ps.winner;
+      G.msgs.push('🎯 Rigori: ' + (hT?.name||'?') + ' ' + ps.hG + '-' + ps.aG + ' ' + (aT?.name||'?') + '. Avanza ' + (G.teams.find(t=>t.id===poWinner)?.name||'?') + '.');
+    }
+  }
+  m.winner = poWinner;
   if (type === 'sf') {
     if (pb.sf.every(s => s.winner)) { pb.final.home = pb.sf[0].winner; pb.final.away = pb.sf[1].winner; }
   } else {
@@ -399,14 +453,36 @@ function simPLMatch(key) {
   if (!m.home) m.home = plb.m1.winner;
   const hT   = G.teams.find(t => t.id === m.home);
   const aT   = G.teams.find(t => t.id === m.away);
-  const sc   = simulateResult(hT, aT, 0, G.rosters);
-  const loser = sc.home > sc.away ? m.away : sc.away > sc.home ? m.home : (Math.random() < 0.5 ? m.away : m.home);
-  m.winner   = loser === m.home ? m.away : m.home;
-  if (key === 'm1') {
-    plb.m2.home = plb.m1.winner;
+  const sc  = simulateResult(hT, aT, 0, G.rosters);
+  // Chi VINCE si salva, chi PERDE retrocede
+  let winner;
+  if (sc.home !== sc.away) {
+    winner = sc.home > sc.away ? m.home : m.away;
   } else {
+    // Pareggio → tempi supplementari
+    const extH = sc.home + (Math.random() < 0.45 ? 1 : 0);
+    const extA = sc.away + (Math.random() < 0.45 ? 1 : 0);
+    if (extH !== extA) {
+      winner = extH > extA ? m.home : m.away;
+      G.msgs.push('⏱️ Supplementari: ' + (hT?.name||'?') + ' ' + extH + '-' + extA + ' ' + (aT?.name||'?'));
+    } else {
+      // Ancora pari → rigori
+      const ps = _simPenaltyShootout(m.home, m.away);
+      winner = ps.winner;
+      const wName = G.teams.find(t => t.id === winner)?.name || '?';
+      G.msgs.push('🎯 Rigori playout: ' + (hT?.name||'?') + ' ' + ps.hGoals + '-' + ps.aGoals + ' ' + (aT?.name||'?') + '. Si salva ' + wName + '.');
+    }
+  }
+  const loser  = winner === m.home ? m.away : m.home;
+  m.winner     = winner;
+  if (key === 'm1') {
+    // Il vincitore della semifinale playout avanza alla finale
+    plb.m2.home = winner;
+  } else {
+    // Finale playout: il perdente retrocede
     plb.relegated = loser; plb.done = true;
     if (loser === G.myId) { G.playoffResult = 'relegated'; G.msgs.push('Sei retrocesso in Serie A2!'); }
+    else if (winner === G.myId) { G.playoffResult = 'survived'; G.msgs.push('Playout superato! Rimani in Serie A1.'); }
     else G.msgs.push(G.teams.find(t => t.id === loser)?.name + ' retrocede in Serie A2.');
   }
   autoSave(); renderPlayoff();
@@ -900,7 +976,7 @@ function _fillMarketPool(targetSize) {
   ];
 
   // Esclude chi è già nel pool
-  const existing = new Set(G.marketPool.map(e => e._pname + e._tid));
+  const existing = new Set(G.marketPool.map(e => (e.player ? e.player.name : '') + (e.player ? e.player._tid : '')));
   toAdd.forEach(p => {
     const key = p.name + p._tid;
     if (!existing.has(key)) {
@@ -1029,9 +1105,15 @@ function generateTransferOffers() {
     const buyers = G.teams.filter(t => t.id !== G.myId);
     const buyer  = pick(buyers);
 
-    // Salva l'offerta nell'entry
+    // Salva l'offerta nell'entry — sostituisce offerta precedente della stessa squadra
     if (!entry.offers) entry.offers = [];
-    entry.offers.push({ teamId: buyer.id, teamName: buyer.name, amount: offer, round: currentRound() });
+    const existingIdx = entry.offers.findIndex(o => o.teamId === buyer.id);
+    const offerObj = { teamId: buyer.id, teamName: buyer.name, amount: offer, round: currentRound() };
+    if (existingIdx >= 0) {
+      entry.offers[existingIdx] = offerObj; // aggiorna offerta esistente
+    } else {
+      entry.offers.push(offerObj);
+    }
 
     const pct = Math.round((offer / entry.askingPrice) * 100);
     const vs  = offer >= entry.askingPrice
@@ -1090,25 +1172,71 @@ function rejectOffer(rosterIdx, offerIdx) {
 // ── Morale: aggiornamenti post-partita ────────
 // Chiamata da endMatch() dopo ogni gara
 function updateMoraleAfterMatch(ms) {
-  const won  = ms.myScore > ms.oppScore;
-  const drew = ms.myScore === ms.oppScore;
-  const roster = G.rosters[G.myId];
+  const won      = ms.myScore > ms.oppScore;
+  const drew     = ms.myScore === ms.oppScore;
+  const diffGoal = ms.myScore - ms.oppScore; // positivo = vincendo
+  const roster   = G.rosters[G.myId];
+
+  // Calcola quanti gol ha segnato ogni giocatore in questa partita
+  const matchGoals   = ms.matchGoals   || {};
+  const matchAssists = ms.matchAssists || {};
 
   roster.forEach((p, i) => {
     let delta = 0;
-    if (won)       delta += rnd(3, 7);
-    else if (drew) delta += rnd(0, 2);
-    else           delta -= rnd(2, 5);
+    const wasOnField   = ms.onField && Object.values(ms.onField).includes(i);
+    const wasConvocato = ms.shirtNumbers && (i in ms.shirtNumbers);
 
-    // Gol segnati in questa partita: bonus morale al marcatore
-    if (p.goals > 0) delta += rnd(2, 4); // accumulati stagione, ma diamo comunque bonus
+    // ── Risultato della partita ──
+    if (won) {
+      delta += rnd(3, 6);
+      if (diffGoal >= 4) delta += 2; // vittoria larga: bonus extra
+    } else if (drew) {
+      delta += rnd(0, 2);
+    } else {
+      delta -= rnd(3, 6);
+      if (diffGoal <= -4) delta -= 2; // sconfitta pesante: malus extra
+    }
 
-    // Minimo garantito per chi è in campo
-    const wasOnField = ms.onField && Object.values(ms.onField).includes(i);
-    if (wasOnField) delta += 1;
+    // ── Contributo personale ──
+    const goalsThisMatch = matchGoals[i] || 0;
+    if (goalsThisMatch >= 3)      delta += rnd(5, 8);  // hat-trick
+    else if (goalsThisMatch >= 2) delta += rnd(3, 5);
+    else if (goalsThisMatch >= 1) delta += rnd(2, 3);
+
+    const assistsThisMatch = matchAssists[i] || 0;
+    if (assistsThisMatch >= 2) delta += rnd(2, 3);
+    else if (assistsThisMatch >= 1) delta += 1;
+
+    // ── Partecipazione ──
+    if (wasOnField) {
+      delta += 1; // in campo: bonus base
+    } else if (wasConvocato) {
+      delta -= 1; // in panchina: leggero malus (frustrazione)
+    } else {
+      delta -= rnd(2, 3); // non convocato: morale cala di più
+    }
+
+    // ── Infortunio ──
+    if (ms.injuries && ms.injuries.includes(i)) delta -= rnd(3, 6);
+
+    // ── Voto personale ──
+    const rating = (p.lastRatings && p.lastRatings.length)
+      ? p.lastRatings[p.lastRatings.length - 1] : null;
+    if (rating !== null && rating !== undefined) {
+      if (rating >= 8.0)      delta += 3;
+      else if (rating >= 7.0) delta += 1;
+      else if (rating <= 5.0) delta -= 2;
+      else if (rating <= 4.0) delta -= 4;
+    }
 
     p.morale = Math.min(100, Math.max(0, p.morale + delta));
   });
+
+  // ── Notifiche morale critico (<30) ──
+  const collassi = roster.filter(p => p && p.morale < 30 && !p.injured);
+  if (collassi.length > 0) {
+    G.msgs.push('⚠️ Morale critico: ' + collassi.map(p => p.name).join(', ') + ' — considera di migliorare il clima.');
+  }
 }
 
 // ── Hook: genera offerte dopo ogni giornata ───

@@ -272,22 +272,21 @@ function renderDash() {
   function vpsDoughnut(w, d, l) {
     var total = w + d + l || 1;
     var r = 22, circ = 2 * Math.PI * r;
-    var sw = (w / total * circ).toFixed(1);
-    var sd = (d / total * circ).toFixed(1);
-    var sl = (l / total * circ).toFixed(1);
-    var gapW = circ - sw, gapD = circ - sd, gapL = circ - sl;
-    var offD = (circ - sw).toFixed(1);
-    var offL = (circ - sw - sd).toFixed(1);
+    var sw = w / total * circ;
+    var sd = d / total * circ;
+    var sl = l / total * circ;
+    var offP = circ - sw;
+    var offS = circ - sw - sd;
     return '<svg width="52" height="52" style="flex-shrink:0">'
       + '<circle cx="26" cy="26" r="' + r + '" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="7"/>'
       + '<circle cx="26" cy="26" r="' + r + '" fill="none" stroke="#2ecc71" stroke-width="7"'
-      + '  stroke-dasharray="' + sw + ' ' + gapW + '" stroke-linecap="butt" transform="rotate(-90 26 26)"/>'
+      + ' stroke-dasharray="' + sw.toFixed(1) + ' ' + (circ-sw).toFixed(1) + '" stroke-linecap="butt" transform="rotate(-90 26 26)"/>'
       + '<circle cx="26" cy="26" r="' + r + '" fill="none" stroke="#f0c040" stroke-width="7"'
-      + '  stroke-dasharray="' + sd + ' ' + gapD + '" stroke-linecap="butt" transform="rotate(-90 26 26)"'
-      + '  stroke-dashoffset="-' + offD + '"/>'
+      + ' stroke-dasharray="' + sd.toFixed(1) + ' ' + (circ-sd).toFixed(1) + '" stroke-linecap="butt" transform="rotate(-90 26 26)"'
+      + ' stroke-dashoffset="-' + sw.toFixed(1) + '"/>'
       + '<circle cx="26" cy="26" r="' + r + '" fill="none" stroke="#e74c3c" stroke-width="7"'
-      + '  stroke-dasharray="' + sl + ' ' + gapL + '" stroke-linecap="butt" transform="rotate(-90 26 26)"'
-      + '  stroke-dashoffset="-' + offL + '"/>'
+      + ' stroke-dasharray="' + sl.toFixed(1) + ' ' + (circ-sl).toFixed(1) + '" stroke-linecap="butt" transform="rotate(-90 26 26)"'
+      + ' stroke-dashoffset="-' + (sw+sd).toFixed(1) + '"/>'
       + '<text x="26" y="30" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,.6)">'
       + w + '/' + d + '/' + l + '</text>'
       + '</svg>';
@@ -370,6 +369,31 @@ function renderDash() {
     + '</div></div>';
 
   h += '</div>';
+
+  // ═══════════════════════════════════════════
+  // ALERT CONTRATTI IN SCADENZA
+  // ═══════════════════════════════════════════
+  var expiringPlayers = (G.rosters[G.myId] || []).filter(function(p) {
+    return p && (p.contractYears === undefined || p.contractYears <= 1);
+  });
+  if (expiringPlayers.length > 0) {
+    h += '<div style="background:rgba(123,47,190,.1);border:1px solid rgba(123,47,190,.4);border-radius:12px;' +
+      'padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px">' +
+      '<span style="font-size:18px;flex-shrink:0">📋</span>' +
+      '<div style="flex:1;min-width:0">' +
+        '<div style="font-size:12px;font-weight:700;color:#ce93d8;margin-bottom:3px">' +
+          expiringPlayers.length + ' giocator' + (expiringPlayers.length === 1 ? 'e ha' : 'i hanno') +
+          ' il contratto in scadenza</div>' +
+        '<div style="font-size:11px;color:rgba(255,255,255,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' +
+          expiringPlayers.slice(0, 4).map(function(p) { return p.name; }).join(', ') +
+          (expiringPlayers.length > 4 ? ' +altri' : '') +
+        '</div>' +
+      '</div>' +
+      '<button onclick="showTab(&quot;rosa&quot;)" style="flex-shrink:0;padding:5px 12px;font-size:11px;font-weight:700;' +
+        'border-radius:6px;background:rgba(123,47,190,.3);border:1px solid rgba(123,47,190,.6);' +
+        'color:#ce93d8;cursor:pointer">Gestisci</button>' +
+      '</div>';
+  }
 
   // ═══════════════════════════════════════════
   // MATCHDAY HUB
@@ -713,13 +737,27 @@ function renderRosa() {
     + 'Clicca un giocatore per i dettagli &middot; <strong style="color:rgba(255,255,255,.45)">Vendi</strong> nel modale per il mercato</div>'
     + '</div></div>';
 
-  // ── Intestazioni ──
+  // ── Intestazioni con ordinamento ──
+  function _hdr(label, key, align) {
+    var base = 'cursor:pointer;user-select:none;display:flex;align-items:center;gap:2px;'
+      + (align === 'center' ? 'justify-content:center;' : '');
+    return '<div onclick="_rosaSortClick(\'' + key + '\')" style="' + base + '">'
+      + label + ' ' + _rosaSortArrow(key) + '</div>';
+  }
   h += '<div style="display:grid;grid-template-columns:1.8fr 62px 54px 40px 36px 50px 98px 64px 38px 38px 80px 96px;'
     + 'gap:0 6px;padding:0 10px 5px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.28)">'
-    + '<div>Giocatore</div><div>Ruolo</div><div>Mano</div><div>Naz</div><div>Età</div>'
-    + '<div style="text-align:center">OVR</div><div>Morale</div><div>Forma</div>'
-    + '<div style="text-align:center">Gol</div><div style="text-align:center">Ass</div>'
-    + '<div style="color:rgba(240,192,64,.5)">Voti</div><div>Valore</div>'
+    + '<div>Giocatore</div>'
+    + _hdr('Ruolo', 'role', '')
+    + _hdr('Mano', 'hand', '')
+    + '<div>Naz</div>'
+    + _hdr('Età', 'age', '')
+    + _hdr('OVR', 'overall', 'center')
+    + '<div>Morale</div>'
+    + _hdr('Forma', 'fitness', '')
+    + _hdr('Gol', 'goals', 'center')
+    + _hdr('Ass', 'assists', 'center')
+    + '<div style="color:rgba(240,192,64,.5)">Voti</div>'
+    + _hdr('Valore', 'value', '')
     + '</div>';
 
   // ── Righe giocatori ──
@@ -1305,9 +1343,11 @@ function doTrain(i) {
       const ceiling = p.maxTec !== undefined ? p.maxTec : 99;
       p.stats.tec   = Math.min(ceiling, cap(p.stats.tec + rnd(0, tr.eff.tec)));
     }
-    if (tr.eff.gk && p.role === 'POR') p.overall = Math.min(99, p.overall + 2);
+    // Il potenziale è il tetto massimo — l'OVR non può superarlo con l'allenamento
+    var potCap = (p.potential !== undefined && p.potential > 0) ? p.potential : 99;
+    if (tr.eff.gk && p.role === 'POR') p.overall = Math.min(potCap, p.overall + 2);
     p.fitness = cap(p.fitness - (tr.fatigue || 0) + rnd(-2, 2));
-    if (rnd(1, 100) <= 12) { p.overall = Math.min(99, p.overall + 1); improved++; }
+    if (rnd(1, 100) <= 12 && p.overall < potCap) { p.overall = Math.min(potCap, p.overall + 1); improved++; }
   });
 
   const effDesc = tr.eff ? Object.entries(tr.eff).map(([k, v]) => '+' + v + ' ' + k).join(', ') : '';
@@ -2000,10 +2040,16 @@ function _offerStep(dir, i) {
   const pool  = G.marketPool || [];
   const entry = pool[i]; if (!entry) return;
   const p     = entry.player;
-  const step  = Math.max(1000, Math.round(p.value / 20 / 1000) * 1000);
+  // Ricalcola minOffer con la stessa logica di openOfferPopup
+  const realValue = (p.value && p.value > 0) ? p.value : Math.round((p.overall || 70) * 6500);
+  const minOffer  = (p._fromRescission || p._fromExpiry || !p._tid)
+    ? Math.round(realValue * 0.10)
+    : Math.round(realValue * 0.50);
+  const step  = Math.max(1000, Math.round(realValue / 20 / 1000) * 1000);
   const inp   = document.getElementById('offer-amount');
   if (!inp) return;
-  inp.value = Math.max(minOffer, parseInt(inp.value) + dir * step);
+  const current = parseInt(inp.value) || minOffer;
+  inp.value = Math.max(minOffer, current + dir * step);
   _updateOfferHint(i);
 }
 
@@ -2199,6 +2245,20 @@ function renderHistory() {
     if (!topApps    || cp > (topApps.careerApps || 0))                                   topApps    = p;
   });
 
+  // ── Record storici del club ─────────────────────────────────────────
+  // Miglior stagione (più punti)
+  let bestSeason = null;
+  history.forEach(s => { if (!bestSeason || s.pts > bestSeason.pts) bestSeason = s; });
+  // Vittorie consecutive
+  let maxStreak = 0, curStreak = 0;
+  history.forEach(s => {
+    if (s.w > 0 && s.d === 0 && s.l === 0) { curStreak += s.w; maxStreak = Math.max(maxStreak, curStreak); }
+    else { curStreak = 0; }
+  });
+  // Posizione migliore
+  let bestPos = null;
+  history.forEach(s => { if (!bestPos || s.pos < bestPos.pos) bestPos = s; });
+
   function _statVal(p, careerKey, seasonKey) {
     if (!p) return 0;
     return (p[careerKey] || 0) + (p[seasonKey] || 0);
@@ -2225,6 +2285,34 @@ function renderHistory() {
   h += _recordCard('📅', 'Più presenze nel club', topApps, topApps ? (topApps.careerApps || 0) : 0, 'presenze');
 
   h += '</div></div>';
+
+  // ── Record Storici del Club ─────────────────────────────────────────
+  if (history.length > 0) {
+    h += '<div class="card" style="margin-bottom:14px"><div class="slbl" style="margin-top:0">🏅 Record Storici</div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">';
+
+    // Miglior stagione
+    if (bestSeason) {
+      h += '<div class="sc"><div class="sc-l">🏆 Miglior stagione</div>' +
+        '<div style="font-size:13px;font-weight:700;color:var(--gold);margin-top:4px">Stagione ' + bestSeason.season + '</div>' +
+        '<div style="font-size:16px;font-weight:800;color:var(--blue)">' + bestSeason.pts + ' <span style="font-size:11px;color:var(--muted)">punti</span></div>' +
+        '<div style="font-size:11px;color:var(--muted)">' + bestSeason.pos + '° posto · ' + bestSeason.w + 'V/' + bestSeason.d + 'P/' + bestSeason.l + 'S</div>' +
+        '</div>';
+    }
+    // Miglior piazzamento
+    if (bestPos) {
+      h += '<div class="sc"><div class="sc-l">📍 Miglior piazzamento</div>' +
+        '<div style="font-size:13px;font-weight:700;color:var(--green);margin-top:4px">Stagione ' + bestPos.season + '</div>' +
+        '<div style="font-size:22px;font-weight:900;color:var(--blue)">' + bestPos.pos + '° <span style="font-size:11px;color:var(--muted)">posto</span></div>' +
+        '</div>';
+    }
+    // Vittorie consecutive
+    h += '<div class="sc"><div class="sc-l">🔥 Max vittorie cons.</div>' +
+      '<div style="font-size:22px;font-weight:900;color:var(--green);margin-top:4px">' + maxStreak + '</div>' +
+      '</div>';
+
+    h += '</div></div>';
+  }
 
   // ── Storico stagioni ────────────────────────────────────────────────
   h += `<div class="card">

@@ -920,22 +920,37 @@ function _doEndMatch() {
   const ms = G.ms; if (!ms) return;
   const score = getFinalScore(ms);
 
+  // +4 stelle per giornata — assegnate per ogni tipo di partita (campionato e playoff)
+  if (window.G && G.stars !== undefined) {
+    G.stars = (G.stars || 0) + 4;
+    if (typeof _updateStarsBox === 'function') _updateStarsBox();
+  }
+
   if (ms.poMatch) {
     ms.poMatch.scores.push(score);
     const totHome = ms.poMatch.scores.reduce((s, x) => s + x.home, 0);
     const totAway = ms.poMatch.scores.reduce((s, x) => s + x.away, 0);
-    const winner  = totHome > totAway ? ms.poMatch.home
-                  : totAway > totHome ? ms.poMatch.away
-                  : (Math.random() < 0.5 ? ms.poMatch.home : ms.poMatch.away);
-    ms.poMatch.winner = winner;
-    _resolvePlayoffMatch(ms.poType, ms.poMatch, winner);
-    const earned = winner === G.myId ? 120000 : 40000;
-    G.budget += earned;
-    addLedger('playoff', earned, `Playoff: ${G.myTeam.name} vs ${ms.oppTeam.name} (${ms.myScore}-${ms.oppScore})`, currentRound());
-    G.msgs.push(G.myTeam.name + (winner === G.myId ? ' avanza' : ' eliminato') +
-                ' (' + ms.myScore + '-' + ms.oppScore + ') +' + formatMoney(earned));
-    G.ms = null;
-    showScreen('sc-game'); updateHeader(); showTab('playoff');
+
+    if (totHome !== totAway) {
+      // Vincitore chiaro — risolvi normalmente
+      const winner = totHome > totAway ? ms.poMatch.home : ms.poMatch.away;
+      ms.poMatch.winner = winner;
+      _resolvePlayoffMatch(ms.poType, ms.poMatch, winner);
+      const earned = winner === G.myId ? 120000 : 40000;
+      G.budget += earned;
+      addLedger('playoff', earned, 'Playoff: ' + G.myTeam.name + ' vs ' + ms.oppTeam.name + ' (' + ms.myScore + '-' + ms.oppScore + ')', currentRound());
+      G.msgs.push(G.myTeam.name + (winner === G.myId ? ' avanza' : ' eliminato') + ' (' + ms.myScore + '-' + ms.oppScore + ') +' + formatMoney(earned));
+      G.ms = null;
+      showScreen('sc-game'); updateHeader(); showTab('playoff');
+    } else if (!ms.extraTime) {
+      // Pareggio → 2 tempi supplementari
+      ms.extraTime = true;
+      ms.myScore  = totHome; ms.oppScore = totAway;
+      _showExtraTimePopup();
+    } else {
+      // Supplementari finiti ancora pari → rigori
+      _showPenaltyPopup();
+    }
   } else {
     // Salva posizione PRIMA di aggiornare la classifica
     G.prevPos = getTeamPosition(G.stand, G.myId);
@@ -1020,11 +1035,6 @@ function _doEndMatch() {
       });
     }
     updateMoraleAfterMatch(ms);
-    // +4 stelle per giornata
-    if (window.G && G.stars !== undefined) {
-      G.stars = (G.stars || 0) + 4;
-      if (typeof _updateStarsBox === 'function') _updateStarsBox();
-    }
     generateTransferOffers();
     if (typeof refreshMarketPool === 'function') refreshMarketPool();
     // Decrementa infortuni preesistenti (non causati da questa partita)
@@ -1063,4 +1073,253 @@ function _resolvePlayoffMatch(poType, poMatch, winner) {
       else G.msgs.push(G.teams.find(t => t.id === loser)?.name + ' retrocede in A2.');
     } else { plb.m2.home = winner; }
   }
+}
+
+
+// ── Supplementari: popup informativo ────────────────────────────────────
+function _showExtraTimePopup() {
+  const ms = G.ms;
+  const ov = document.createElement('div');
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(6px)';
+  const hN = ms.isHome ? G.myTeam.name : ms.oppTeam.name;
+  const aN = ms.isHome ? ms.oppTeam.name : G.myTeam.name;
+  const sc = ms.isHome ? ms.myScore + '-' + ms.oppScore : ms.oppScore + '-' + ms.myScore;
+  ov.id = 'penalty-et-popup';
+  ov.innerHTML = '<div style="background:var(--panel);border:2px solid #f0c040;border-radius:16px;padding:28px 24px;max-width:380px;width:92%;text-align:center">'  +
+    '<div style="font-size:36px;margin-bottom:8px">⏱️</div>' +
+    '<div style="font-size:18px;font-weight:800;color:#f0c040;margin-bottom:6px">TEMPI SUPPLEMENTARI</div>' +
+    '<div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:6px">' + hN + ' vs ' + aN + '</div>' +
+    '<div style="font-size:32px;font-weight:900;color:#fff;margin-bottom:12px">' + sc + '</div>' +
+    '<div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:20px">Parità al 90\'. Si giocano 2 tempi supplementari da 3 minuti.</div>' +
+    '<button onclick="document.getElementById(\'penalty-et-popup\').remove();continueMatchET()" style="width:100%;padding:12px;font-size:14px;font-weight:800;' +
+    'background:linear-gradient(135deg,#f0c040,#b8860b);border:none;border-radius:8px;color:#000;cursor:pointer">' +
+    '▶ Gioca i Supplementari</button>' +
+    '</div>';
+  document.body.appendChild(ov);
+}
+
+// Riprende la partita per i supplementari (resetta il timer, mantiene i giocatori)
+function continueMatchET() {
+  const ms = G.ms; if (!ms) return;
+  ms.periodScores = ms.periodScores || [];
+  ms._etDone = false;
+  // Riparte la simulazione con 2 periodi extra
+  G.ms._extraPeriods = 2;
+  G.ms._extraGoals   = { my: 0, opp: 0 };
+  // Simula 2 periodi supplementari rapidamente
+  for (let ep = 0; ep < 2; ep++) {
+    const myStr  = (ms.myRoster || []).filter(p => p && !p.injured).reduce((s, p) => s + p.overall, 0) / 7;
+    const oppStr = ms.oppTeam.str;
+    const tot    = myStr + oppStr;
+    const myG    = Math.random() < 0.3 ? (Math.random() < myStr/tot ? 1 : 0) : 0;
+    const oppG   = Math.random() < 0.3 ? (Math.random() < oppStr/tot ? 1 : 0) : 0;
+    ms._extraGoals.my   += myG;
+    ms._extraGoals.opp  += oppG;
+    ms.myScore  += myG;
+    ms.oppScore += oppG;
+  }
+  // Aggiorna scores per la risoluzione
+  const hS = ms.isHome ? ms.myScore : ms.oppScore;
+  const aS = ms.isHome ? ms.oppScore : ms.myScore;
+  ms.poMatch.scores[ms.poMatch.scores.length - 1] = { home: hS, away: aS };
+
+  G.msgs.push('⏱️ Supplementari: ' + (ms.isHome ? G.myTeam.name : ms.oppTeam.name) + ' ' + ms.myScore + '-' + ms.oppScore + ' ' + (ms.isHome ? ms.oppTeam.name : G.myTeam.name));
+
+  if (ms.myScore !== ms.oppScore) {
+    // Qualcuno ha segnato nei supplementari → fine
+    _doEndMatch();
+  } else {
+    // Ancora pari → rigori
+    _showPenaltyPopup();
+  }
+}
+
+// ── Popup rigori ────────────────────────────────────────────────────────
+function _showPenaltyPopup() {
+  const ms = G.ms; if (!ms) return;
+  const roster = (G.rosters[G.myId] || []).map((p, i) => ({ p, i }))
+                   .filter(({ p }) => p && !p.injured && p.role !== 'POR')
+                   .sort((a, b) => b.p.overall - a.p.overall);
+  const PENALTY_COUNT = 5;
+  const selected = [];
+
+  const ov = document.createElement('div');
+  ov.id = 'penalty-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(8px)';
+
+  function renderPopup() {
+    const hN = ms.isHome ? G.myTeam.name : ms.oppTeam.name;
+    const aN = ms.isHome ? ms.oppTeam.name : G.myTeam.name;
+    const sc = ms.isHome ? ms.myScore + '-' + ms.oppScore : ms.oppScore + '-' + ms.myScore;
+
+    let rows = roster.map(({ p, i }) => {
+      const idx    = selected.indexOf(i);
+      const order  = idx >= 0 ? idx + 1 : null;
+      const stamp  = Math.round(ms.stamina[i] ?? p.fitness);
+      const prob   = Math.round(_penaltyProb(p, stamp) * 100);
+      const probCol = prob >= 75 ? '#2ecc71' : prob >= 60 ? '#f0c040' : '#e74c3c';
+      const selBg  = order ? 'rgba(0,194,255,.15)' : 'transparent';
+      const selBdr = order ? 'rgba(0,194,255,.5)' : 'rgba(255,255,255,.1)';
+      return '<div onclick="window._penaltyToggle(' + i + ')" style="' +
+        'display:grid;grid-template-columns:24px 1fr 50px 50px 60px 50px;align-items:center;gap:8px;' +
+        'padding:8px 10px;border:1px solid ' + selBdr + ';border-radius:8px;margin-bottom:4px;' +
+        'background:' + selBg + ';cursor:pointer;transition:background .12s">' +
+        '<div style="font-size:14px;font-weight:900;color:' + (order ? '#00c2ff' : 'rgba(255,255,255,.2)') + ';text-align:center">' +
+          (order || '·') + '</div>' +
+        '<div>' +
+          '<div style="font-size:13px;font-weight:600;color:#fff">' + p.name + '</div>' +
+          '<div style="font-size:10px;color:rgba(255,255,255,.4)">' + p.role + ' · ' + p.age + 'a</div>' +
+        '</div>' +
+        '<div style="font-size:11px;color:rgba(255,255,255,.5);text-align:center">' +
+          '<div style="font-size:9px;color:rgba(255,255,255,.3)">TEC</div>' + (p.stats.tec||'—') + '</div>' +
+        '<div style="font-size:11px;color:rgba(255,255,255,.5);text-align:center">' +
+          '<div style="font-size:9px;color:rgba(255,255,255,.3)">FOR</div>' + (p.stats.str||'—') + '</div>' +
+        '<div style="font-size:11px;color:rgba(255,255,255,.5);text-align:center">' +
+          '<div style="font-size:9px;color:rgba(255,255,255,.3)">STAM</div>' + stamp + '%</div>' +
+        '<div style="font-size:12px;font-weight:800;color:' + probCol + ';text-align:right">' + prob + '%</div>' +
+        '</div>';
+    }).join('');
+
+    const canShoot = selected.length === PENALTY_COUNT;
+    ov.innerHTML = '<div style="background:var(--panel);border:2px solid rgba(0,194,255,.4);border-radius:16px;' +
+      'padding:20px;max-width:520px;width:95%;max-height:90vh;overflow-y:auto">' +
+      // Header
+      '<div style="text-align:center;margin-bottom:16px">' +
+        '<div style="font-size:30px;margin-bottom:6px">🎯</div>' +
+        '<div style="font-size:18px;font-weight:800;color:#00c2ff">RIGORI</div>' +
+        '<div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:4px">' + hN + ' vs ' + aN + ' · ' + sc + '</div>' +
+      '</div>' +
+      '<div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px">' +
+        'Seleziona <strong style="color:#00c2ff">5 rigoristi</strong> nell\'ordine di battuta (clicca per selezionare/deselezionare). ' +
+        'La % indica la probabilità di segnare.' +
+      '</div>' +
+      // Header colonne
+      '<div style="display:grid;grid-template-columns:24px 1fr 50px 50px 60px 50px;gap:8px;padding:0 10px 6px;' +
+        'font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.28)">' +
+        '<div>#</div><div>Giocatore</div><div style="text-align:center">TEC</div><div style="text-align:center">FOR</div>' +
+        '<div style="text-align:center">Stamina</div><div style="text-align:right">%</div>' +
+      '</div>' +
+      rows +
+      '<div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1);' +
+        'display:flex;align-items:center;justify-content:space-between">' +
+        '<div style="font-size:12px;color:rgba(255,255,255,.4)">Selezionati: <strong style="color:#00c2ff">' +
+          selected.length + '</strong> / 5</div>' +
+        '<button id="pen-shoot-btn" onclick="window._executePenalties()" style="padding:10px 24px;font-size:13px;font-weight:800;' +
+          'border-radius:8px;background:' + (canShoot ? 'linear-gradient(135deg,#00c2ff,#0066cc)' : 'rgba(255,255,255,.1)') + ';' +
+          'border:none;color:' + (canShoot ? '#000' : 'rgba(255,255,255,.3)') + ';cursor:' + (canShoot ? 'pointer' : 'not-allowed') + '">' +
+          '🎯 Batti i rigori</button>' +
+      '</div>' +
+      '</div>';
+  }
+
+  window._penaltySelected = selected;
+  window._penaltyRoster   = roster;
+
+  window._penaltyToggle = function(i) {
+    const idx = selected.indexOf(i);
+    if (idx >= 0) {
+      selected.splice(idx, 1);
+    } else if (selected.length < PENALTY_COUNT) {
+      selected.push(i);
+    }
+    renderPopup();
+  };
+
+  window._executePenalties = function() {
+    if (selected.length < PENALTY_COUNT) return;
+    const ms = G.ms;
+    // Nostri rigoristi nell'ordine scelto
+    const myShooters  = selected.map(i => ({ p: G.rosters[G.myId][i], stamina: Math.round(ms.stamina[i] ?? G.rosters[G.myId][i]?.fitness ?? 70) }));
+    // Rigoristi avversari: i top 5 per OVR
+    const oppRoster   = (G.rosters[ms.oppTeam.id] || []).filter(p => p && !p.injured && p.role !== 'POR')
+                          .sort((a,b) => b.overall - a.overall).slice(0,5);
+
+    let myG = 0, oppG = 0;
+    const log = [];
+    for (let k = 0; k < PENALTY_COUNT; k++) {
+      const mine = myShooters[k]; const oppP = oppRoster[k];
+      const myScore  = mine && Math.random() < _penaltyProb(mine.p, mine.stamina);
+      const oppScore = oppP && Math.random() < _penaltyProb(oppP, oppP.fitness);
+      if (myScore)  myG++;
+      if (oppScore) oppG++;
+      log.push({ myName: mine?.p?.name || '?', myScore, oppName: oppP?.name || '?', oppScore });
+    }
+    // Sudden death se pari dopo 5
+    let sd = 0;
+    while (myG === oppG && sd < 20) {
+      sd++;
+      const mine = myShooters[sd % PENALTY_COUNT]; const oppP = oppRoster[sd % PENALTY_COUNT];
+      const myScore  = mine && Math.random() < _penaltyProb(mine.p, mine.stamina);
+      const oppScore = oppP && Math.random() < _penaltyProb(oppP, oppP.fitness);
+      if (myScore) myG++; if (oppScore) oppG++;
+      log.push({ myName: mine?.p?.name || '?', myScore, oppName: oppP?.name || '?', oppScore, sd: true });
+    }
+
+    // Mostra risultato
+    ov.remove();
+    _showPenaltyResult(log, myG, oppG);
+  };
+
+  document.body.appendChild(ov);
+  renderPopup();
+}
+
+// Mostra il risultato dei rigori e poi chiude la partita
+function _showPenaltyResult(log, myG, oppG) {
+  const ms = G.ms;
+  const myWin = myG > oppG;
+  const hN = ms.isHome ? G.myTeam.name : ms.oppTeam.name;
+  const aN = ms.isHome ? ms.oppTeam.name : G.myTeam.name;
+  const myTeamLabel  = G.myTeam.name;
+  const oppTeamLabel = ms.oppTeam.name;
+
+  let rows = log.map((r, i) => {
+    const num = r.sd ? 'SD' : String(i + 1);
+    return '<tr style="border-bottom:1px solid rgba(255,255,255,.05)">' +
+      '<td style="padding:5px 8px;font-size:11px;color:rgba(255,255,255,.4);text-align:center">' + num + '</td>' +
+      '<td style="padding:5px 8px;font-size:12px;font-weight:' + (r.myScore ? '700' : '400') + ';color:' + (r.myScore ? '#2ecc71' : '#e74c3c') + '">' +
+        r.myName + ' ' + (r.myScore ? '✓' : '✗') + '</td>' +
+      '<td style="padding:5px 8px;font-size:12px;font-weight:' + (r.oppScore ? '700' : '400') + ';color:' + (r.oppScore ? '#2ecc71' : '#e74c3c') + ';text-align:right">' +
+        (r.oppScore ? '✓' : '✗') + ' ' + r.oppName + '</td>' +
+    '</tr>';
+  }).join('');
+
+  const res  = document.createElement('div');
+  res.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(8px)';
+  res.id = 'pen-result-popup';
+  res.innerHTML = '<div style="background:var(--panel);border:2px solid ' + (myWin ? '#2ecc71' : '#e74c3c') + ';border-radius:16px;padding:22px;max-width:460px;width:95%;max-height:85vh;overflow-y:auto">' +
+    '<div style="text-align:center;margin-bottom:14px">' +
+      '<div style="font-size:30px;margin-bottom:6px">' + (myWin ? '🎯✅' : '🎯❌') + '</div>' +
+      '<div style="font-size:18px;font-weight:800;color:' + (myWin ? '#2ecc71' : '#e74c3c') + '">' + (myWin ? 'AVANTI! RIGORI VINTI' : 'RIGORI PERSI') + '</div>' +
+      '<div style="font-size:28px;font-weight:900;color:#fff;margin:8px 0">' + myTeamLabel + ' ' + myG + ' - ' + oppG + ' ' + oppTeamLabel + '</div>' +
+    '</div>' +
+    '<table style="width:100%;margin-bottom:14px"><thead>' +
+      '<tr><th style="padding:4px 8px;font-size:10px;color:rgba(255,255,255,.3)">#</th>' +
+      '<th style="padding:4px 8px;font-size:10px;color:rgba(255,255,255,.3)">' + myTeamLabel + '</th>' +
+      '<th style="padding:4px 8px;font-size:10px;color:rgba(255,255,255,.3);text-align:right">' + oppTeamLabel + '</th></tr>' +
+    '</thead><tbody>' + rows + '</tbody></table>' +
+    '<button onclick="document.getElementById(\'pen-result-popup\').remove();_finalizePenaltyMatch(' + (myWin ? 'true' : 'false') + ')" style="width:100%;padding:12px;font-size:14px;font-weight:800;' +
+    'background:linear-gradient(135deg,#0a5ca8,#0844a0);border:none;border-radius:8px;color:#fff;cursor:pointer">' +
+    'Continua →</button>' +
+    '</div>';
+  document.body.appendChild(res);
+}
+
+// Finalizza la partita dopo i rigori
+function _finalizePenaltyMatch(myWin) {
+  const ms = G.ms; if (!ms) return;
+  // +4 stelle (partita playoff ai rigori)
+  if (window.G && G.stars !== undefined) {
+    G.stars = (G.stars || 0) + 4;
+    if (typeof _updateStarsBox === 'function') _updateStarsBox();
+  }
+  const winner = myWin ? G.myId : ms.oppTeam.id;
+  ms.poMatch.winner = winner;
+  G.msgs.push('🎯 Rigori: ' + G.myTeam.name + (myWin ? ' VINCE e avanza!' : ' eliminato ai rigori.'));
+  _resolvePlayoffMatch(ms.poType, ms.poMatch, winner);
+  const earned = winner === G.myId ? 120000 : 40000;
+  G.budget += earned;
+  addLedger('playoff', earned, 'Playoff rigori: ' + G.myTeam.name + ' vs ' + ms.oppTeam.name, currentRound ? currentRound() : 0);
+  G.ms = null;
+  showScreen('sc-game'); updateHeader(); showTab('playoff');
 }
