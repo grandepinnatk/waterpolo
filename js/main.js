@@ -178,7 +178,10 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
         + roleBase
         + (Math.random() * 0.6 - 0.3);
       rating = Math.max(3.0, Math.min(10.0, rating));
-      p.lastRatings.push(Math.round(rating * 2) / 2);
+      const _r = Math.round(rating * 2) / 2;
+      p.lastRatings.push(_r);
+      // Conta presenza: voto reale assegnato
+      p.careerApps = (p.careerApps || 0) + 1;
     }
 
     if (p.lastRatings.length > 4) p.lastRatings.shift();
@@ -618,7 +621,7 @@ function startNewSeason() {
       p.careerGoals   = (p.careerGoals   || 0) + (p.goals   || 0);
       p.careerAssists = (p.careerAssists || 0) + (p.assists || 0);
       p.careerSaves   = (p.careerSaves   || 0) + (p.saves   || 0);
-      p.careerApps    = (p.careerApps    || 0) + 1; // +1 stagione con la squadra
+      // careerApps = partite con voto (aggiornato dopo ogni partita, non per stagione)
       // Reset statistiche stagionali
       p.goals      = 0;
       p.assists    = 0;

@@ -761,8 +761,9 @@ function renderRosa() {
     h += '<div><span style="display:inline-block;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:800;'
       + 'background:' + rc + '33;color:' + rc + ';border:1px solid ' + rc + '66">' + p.role + '</span></div>';
 
-    // Mano
-    h += '<div><span style="font-size:11px;font-weight:700;color:' + hc + '">' + p.hand + '</span></div>';
+    // Mano — badge CSS come nel mercato
+    var handCls = p.hand === 'AMB' ? 'AMB' : p.hand === 'L' ? 'L' : 'R';
+    h += '<div><span class="badge ' + handCls + '">' + p.hand + '</span></div>';
 
     // Naz
     h += '<div style="font-size:11px;color:rgba(255,255,255,.38)">' + p.nat + '</div>';
@@ -780,12 +781,12 @@ function renderRosa() {
     h += '<div>' + formaBar(p.fitness) + '</div>';
 
     // Gol
-    var gc = p.goals > 0 ? '#4db6ff' : 'rgba(255,255,255,.25)';
-    h += '<div style="text-align:center;font-size:12px;font-weight:600;color:' + gc + '">' + (p.goals > 0 ? p.goals : '—') + '</div>';
+    var gc = p.goals > 0 ? '#1565c0' : 'rgba(128,128,128,.5)';
+    var gcDark = p.goals > 0 ? '#4db6ff' : 'rgba(255,255,255,.25)';
+    h += '<div style="text-align:center;font-size:12px;font-weight:700" class="stat-goals">' + (p.goals > 0 ? p.goals : '—') + '</div>';
 
     // Assist
-    var ac = p.assists > 0 ? '#69f0ae' : 'rgba(255,255,255,.25)';
-    h += '<div style="text-align:center;font-size:12px;font-weight:600;color:' + ac + '">' + (p.assists > 0 ? p.assists : '—') + '</div>';
+    h += '<div style="text-align:center;font-size:12px;font-weight:700" class="stat-assists">' + (p.assists > 0 ? p.assists : '—') + '</div>';
 
     // Sparkline voti
     h += '<div>' + sparkline(p.lastRatings) + '</div>';
@@ -1040,7 +1041,7 @@ function renderTrain() {
     + '</div>';
 
   h += '<div style="font-size:11px;color:rgba(255,255,255,.28);margin-bottom:14px;text-align:center">'
-    + 'Ogni giornata ricevi <strong style="color:rgba(255,215,0,.55)">+4 stelle</strong>. Spendile per allenare la rosa.'
+    + 'Ogni giornata ricevi <strong style="color:rgba(255,215,0,.55)" class="train-star-label">+4 stelle</strong>. Spendile per allenare la rosa.'
     + '</div>';
 
   // Griglia schede allenamento
@@ -1084,7 +1085,7 @@ function renderTrain() {
       + 'background:rgba(0,0,0,.22);border-radius:8px;padding:7px 10px;margin-bottom:10px">'
       + '<div style="display:flex;align-items:center;gap:5px">'
       + '<span style="font-size:14px">⭐</span>'
-      + '<span style="font-size:13px;font-weight:800;color:' + (!okStars ? '#e74c3c' : '#ffe566') + '">'
+      + '<span class="train-star-label" style="font-size:13px;font-weight:800;color:' + (!okStars ? '#e74c3c' : '#ffe566') + '">'
       + starCost + ' ' + (starCost === 1 ? 'stella' : 'stelle') + '</span>'
       + '</div>'
       + '<div style="font-size:12px;font-weight:600;color:' + (tr.cost === 0 ? '#69f0ae' : !okBudget ? '#e74c3c' : 'rgba(255,255,255,.48)') + '">'
@@ -2221,7 +2222,7 @@ function renderHistory() {
 
   h += _recordCard('⚽', 'Miglior marcatore', topGoals,   _statVal(topGoals, 'careerGoals', 'goals'), 'gol');
   h += _recordCard('🤝', 'Miglior assistman', topAssists, _statVal(topAssists, 'careerAssists', 'assists'), 'assist');
-  h += _recordCard('📅', 'Più stagioni in rosa', topApps, topApps ? (topApps.careerApps || 0) : 0, 'stagioni');
+  h += _recordCard('📅', 'Più presenze nel club', topApps, topApps ? (topApps.careerApps || 0) : 0, 'presenze');
 
   h += '</div></div>';
 

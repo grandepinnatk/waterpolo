@@ -1010,8 +1010,11 @@ function _doEndMatch() {
           // Non convocato → null
           p.lastRatings.push(null);
         } else {
-          // Convocato → voto calcolato (anche se è rimasto in panchina tutto il tempo)
-          p.lastRatings.push(calcPlayerRating(pi, ms));
+          // Convocato → voto calcolato
+          const _lr = calcPlayerRating(pi, ms);
+          p.lastRatings.push(_lr);
+          // Conta presenza se ha ricevuto un voto reale (non null)
+          if (_lr !== null) p.careerApps = (p.careerApps || 0) + 1;
         }
         if (p.lastRatings.length > 4) p.lastRatings.shift();
       });

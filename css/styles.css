@@ -197,6 +197,25 @@ body.theme-light .irow { color: #0d1a2a; }
 body.theme-light .irow .ilbl { color: #4a6a8a; }
 body.theme-light .slbl { color: #1565c0; }
 
+/* ── Rosa: gol, assist, voti ── */
+body.theme-light .stat-goals   { color: #1565c0; }
+body.theme-light .stat-assists { color: #2e7d32; }
+/* Sparkline labels: già usano colori fissi (verde/oro/rosso) — ok */
+
+/* ── Allenamento: stelle visibili su sfondo chiaro ── */
+body.theme-light #tab-train span[style*="color:#ffe566"],
+body.theme-light #tab-train span[style*="color:' + (!okStars ? '#e74c3c' : '#ffe566"]  { color: #b8860b !important; }
+/* Forza stelle a dorato scuro nel tema chiaro */
+body.theme-light #tab-train .train-star-label { color: #b8860b !important; }
+/* Testo stelle nelle card allenamento */
+body.theme-light #tab-train div[style*="#ffe566"] { color: #b8860b !important; }
+body.theme-light #tab-train span[style*="#ffe566"] { color: #b8860b !important; }
+
+/* Badge mano: contrasto su sfondo chiaro */
+body.theme-light .badge.R   { background: #fde0e0; color: #c62828; border: 1px solid #ef9a9a; }
+body.theme-light .badge.L   { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+body.theme-light .badge.AMB { background: #f3e5f5; color: #6a1b9a; border: 1px solid #ce93d8; }
+
 /* ── Tema SCURO ──────────────────────────────── */
 body.theme-dark {
   background: #0a0a0f;
@@ -321,9 +340,12 @@ body {
 .badge.A { background: #0c3820; color: #60d090; }
 .badge.B { background: #3a2800; color: #d0a030; }
 .badge.C { background: #3a0c0c; color: #d06060; }
-.badge.R { background: #3a0c0c; color: #ff8080; } /* Mancino */
+.badge.R { background: #3a0c0c; color: #ff8080; } /* Destro */
 .badge.L   { background: #0a2a3a; color: #80c0ff; } /* Mancino */
 .badge.AMB { background: #2a1a3a; color: #c080ff; } /* Ambidestro */
+/* Stat colori default (tema scuro) */
+.stat-goals   { color: #4db6ff; }
+.stat-assists { color: #69f0ae; }
 
 /* ── Header navigazione ────────────────────── */
 .hdr {
