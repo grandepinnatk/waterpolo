@@ -601,7 +601,7 @@ function renderDash() {
 function renderRosa() {
   const roster = G.rosters[G.myId];
   const tlSet  = new Set((G.transferList || []).map(function(e) { return e.rosterIdx; }));
-  const PER_PAGE = 10;
+  const PER_PAGE = 20;
   if (G._rosaPage === undefined) G._rosaPage = 0;
   const totalPages = Math.max(1, Math.ceil(roster.length / PER_PAGE));
   const safePage   = Math.min(G._rosaPage, totalPages - 1);
@@ -625,21 +625,58 @@ function renderRosa() {
 
   // Sparkline dai voti
   function sparkline(ratings) {
-    var pts = (ratings || []).filter(function(r) { return r !== null; });
-    if (pts.length < 2) return '<span style="color:rgba(255,255,255,.2);font-size:10px;letter-spacing:2px">· · · ·</span>';
-    var W = 54, H = 20, pad = 2;
-    var mn = Math.min.apply(null, pts), mx = Math.max.apply(null, pts), rng = mx - mn || 1;
-    var xs = pts.map(function(_, j) { return pad + j * (W - pad*2) / (pts.length - 1); });
-    var ys = pts.map(function(v)    { return H - pad - (v - mn) / rng * (H - pad*2); });
+    var all = ratings || [];
+    var pts = all.filter(function(r) { return r !== null; });
+    if (pts.length === 0) return '<span style="color:rgba(255,255,255,.2);font-size:10px;letter-spacing:2px">· · · ·</span>';
+
+    // Con un solo voto mostriamo solo il numero colorato
+    if (pts.length === 1) {
+      var v = pts[0];
+      var sc = v >= 7.5 ? '#2ecc71' : v >= 6.5 ? '#f0c040' : v >= 5.5 ? '#7a9bb5' : '#e74c3c';
+      return '<span style="font-size:12px;font-weight:800;color:' + sc + '">' + v.toFixed(1) + '</span>';
+    }
+
+    var W = 72, H = 28, padX = 4, padY = 6;
+    var mn = Math.min.apply(null, pts), mx = Math.max.apply(null, pts), rng = mx - mn || 0.1;
+    var xs = pts.map(function(_, j) { return padX + j * (W - padX*2) / (pts.length - 1); });
+    var ys = pts.map(function(v)    { return H - padY - (v - mn) / rng * (H - padY*2); });
     var poly = xs.map(function(x, j) { return x.toFixed(1) + ',' + ys[j].toFixed(1); }).join(' ');
     var last = pts[pts.length - 1];
     var col  = last >= 7.5 ? '#2ecc71' : last >= 6.5 ? '#f0c040' : last >= 5.5 ? '#7a9bb5' : '#e74c3c';
-    return '<svg width="' + W + '" height="' + H + '" style="overflow:visible;display:block">'
-      + '<polyline points="' + poly + '" fill="none" stroke="' + col + '" stroke-width="1.8"'
-      + ' stroke-linejoin="round" stroke-linecap="round"/>'
-      + '<circle cx="' + xs[xs.length-1].toFixed(1) + '" cy="' + ys[ys.length-1].toFixed(1) + '"'
-      + ' r="2.5" fill="' + col + '" style="filter:drop-shadow(0 0 3px ' + col + ')"/>'
-      + '</svg>';
+
+    var svg = '<svg width="' + W + '" height="' + H + '" style="overflow:visible;display:block;cursor:default">';
+
+    // Area fill sotto la linea
+    var areaD = 'M' + xs[0].toFixed(1) + ',' + ys[0].toFixed(1);
+    xs.forEach(function(x, j) { if (j > 0) areaD += ' L' + x.toFixed(1) + ',' + ys[j].toFixed(1); });
+    areaD += ' L' + xs[xs.length-1].toFixed(1) + ',' + (H-padY+2) + ' L' + xs[0].toFixed(1) + ',' + (H-padY+2) + ' Z';
+    svg += '<path d="' + areaD + '" fill="' + col + '" opacity=".12"/>';
+
+    // Linea
+    svg += '<polyline points="' + poly + '" fill="none" stroke="' + col + '" stroke-width="1.8"'
+      + ' stroke-linejoin="round" stroke-linecap="round"/>';
+
+    // Punto + etichetta per ogni voto
+    pts.forEach(function(v, j) {
+      var cx = xs[j].toFixed(1), cy = ys[j].toFixed(1);
+      var pc = v >= 7.5 ? '#2ecc71' : v >= 6.5 ? '#f0c040' : v >= 5.5 ? '#7a9bb5' : '#e74c3c';
+      var isLast = j === pts.length - 1;
+      var r = isLast ? 3 : 2;
+      // Etichetta: posizionata sopra/sotto il punto per non sovrapporsi alla linea
+      var labelY = ys[j] - 5; // default sopra
+      if (labelY < 2) labelY = ys[j] + 10; // se troppo in alto, metti sotto
+      svg += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + pc + '"'
+        + (isLast ? ' style="filter:drop-shadow(0 0 3px ' + pc + ')"' : '')
+        + '><title>Voto: ' + v.toFixed(1) + '</title></circle>';
+      // Etichetta testo sopra/sotto il punto
+      svg += '<text x="' + cx + '" y="' + labelY.toFixed(1) + '"'
+        + ' text-anchor="middle" font-size="7" font-weight="700" fill="' + pc + '"'
+        + ' style="pointer-events:none;text-shadow:0 0 3px rgba(0,0,0,.8)">'
+        + v.toFixed(1) + '</text>';
+    });
+
+    svg += '</svg>';
+    return svg;
   }
 
   // Morale emoji + barra

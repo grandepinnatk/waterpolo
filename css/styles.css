@@ -103,6 +103,100 @@ body.theme-light input, body.theme-light select {
   color: #1a2a3a;
 }
 
+/* ── Tema chiaro: testo nero nel contenuto principale ── */
+/* Forza colori scuri su tutti gli elementi inline nei tab */
+body.theme-light .bs-content { color: #0d1a2a; }
+
+/* Rosa: righe e header */
+body.theme-light .bs-content div[style*="rgba(255,255,255,.025)"],
+body.theme-light .bs-content div[style*="rgba(255,255,255,.03"] {
+  background: rgba(0,40,100,.04) !important;
+  border-color: rgba(0,40,100,.1) !important;
+}
+
+/* Forza testo scuro su tutte le celle nei tab (eccetto matchday hub) */
+body.theme-light #tab-rosa *:not([class*="badge"]) { color: #0d1a2a; }
+body.theme-light #tab-rosa .bs-content { color: #0d1a2a; }
+
+/* Dashboard: stat cards */
+body.theme-light #tab-dash > div > div[style*="rgba(255,255,255,.04)"] {
+  background: rgba(255,255,255,.85) !important;
+  border-color: rgba(0,60,160,.15) !important;
+}
+
+/* Testo generico su sfondo chiaro */
+body.theme-light #tab-dash { color: #0d1a2a; }
+body.theme-light #tab-rosa { color: #0d1a2a; }
+body.theme-light #tab-train { color: #0d1a2a; }
+body.theme-light #tab-stand { color: #0d1a2a; }
+body.theme-light #tab-goals { color: #0d1a2a; }
+body.theme-light #tab-finance { color: #0d1a2a; }
+body.theme-light #tab-history { color: #0d1a2a; }
+body.theme-light #tab-market { color: #0d1a2a; }
+body.theme-light #tab-cal { color: #0d1a2a; }
+
+/* Intestazioni colonne rosa */
+body.theme-light #tab-rosa div[style*="rgba(255,255,255,.28)"] { color: #4a6a8a !important; }
+body.theme-light #tab-rosa div[style*="rgba(255,255,255,.3"] { color: #4a6a8a !important; }
+body.theme-light #tab-rosa div[style*="rgba(255,255,255,.38)"] { color: #3a5a7a !important; }
+body.theme-light #tab-rosa div[style*="rgba(255,255,255,.45)"] { color: #2a4a6a !important; }
+body.theme-light #tab-rosa div[style*="rgba(255,255,255,.55)"] { color: #1a3a5a !important; }
+body.theme-light #tab-rosa span[style*="rgba(255,255,255,.4"] { color: #3a5a7a !important; }
+body.theme-light #tab-rosa div[style*="color:#fff"] { color: #0d1a2a !important; }
+body.theme-light #tab-rosa span[style*="color:#fff"] { color: #0d1a2a !important; }
+
+/* Righe rosa: sfondo su hover */
+body.theme-light #tab-rosa div[style*="rgba(255,255,255,.025)"] {
+  background: rgba(220,238,255,.6) !important;
+  border-color: rgba(0,80,180,.12) !important;
+}
+
+/* Notizie dashboard */
+body.theme-light #tab-dash div[style*="rgba(255,255,255,.72)"] { color: #0d1a2a !important; }
+body.theme-light #tab-dash div[style*="rgba(255,255,255,.5"] { color: #2a4a6a !important; }
+body.theme-light #tab-dash div[style*="rgba(255,255,255,.3"] { color: #4a6a8a !important; }
+body.theme-light #tab-dash div[style*="color:#fff"] { color: #0d1a2a !important; }
+body.theme-light #tab-dash span[style*="color:#fff"] { color: #0d1a2a !important; }
+
+/* Matchday Hub: mantieni testi bianchi */
+body.theme-light #tab-dash div[style*="background:linear-gradient(135deg,#0d2a4a"] *,
+body.theme-light #tab-dash div[style*="background:linear-gradient(135deg,#0d2a4a"] { color: #fff !important; }
+
+/* Focus player + top scorer card: testo scuro */
+body.theme-light #tab-dash div[style*="rgba(255,255,255,.03)"] {
+  background: rgba(255,255,255,.85) !important;
+  border-color: rgba(0,60,160,.15) !important;
+}
+body.theme-light #tab-dash div[style*="rgba(255,255,255,.35)"] { color: #4a6a8a !important; }
+body.theme-light #tab-dash div[style*="rgba(255,255,255,.4)"] { color: #3a5a7a !important; }
+
+/* Feed notizie: riga hover */
+body.theme-light #tab-dash div[style*="rgba(255,255,255,.03)"] { background: rgba(200,230,255,.5) !important; }
+
+/* Allenamento: card e testi */
+body.theme-light #tab-train div[style*="rgba(255,255,255,.04)"] {
+  background: rgba(255,255,255,.85) !important;
+  border-color: rgba(0,60,160,.15) !important;
+}
+body.theme-light #tab-train div[style*="rgba(255,255,255,.4"] { color: #3a5a7a !important; }
+body.theme-light #tab-train div[style*="rgba(255,255,255,.3"] { color: #4a6a8a !important; }
+body.theme-light #tab-train div[style*="color:#fff"] { color: #0d1a2a !important; }
+body.theme-light #tab-train div[style*="rgba(255,255,255,.42)"] { color: #2a4a6a !important; }
+body.theme-light #tab-train div[style*="rgba(255,255,255,.48)"] { color: #2a4a6a !important; }
+body.theme-light #tab-train div[style*="rgba(255,255,255,.025)"] {
+  background: rgba(220,238,255,.7) !important;
+  border-color: rgba(0,80,180,.1) !important;
+}
+body.theme-light #tab-train div[style*="rgba(0,0,0,.22)"] { background: rgba(0,60,160,.08) !important; }
+body.theme-light #tab-train div[style*="rgba(0,0,0,.2)"] { background: rgba(0,60,160,.08) !important; }
+
+/* Tabelle generali */
+body.theme-light table td { color: #0d1a2a; }
+body.theme-light table tr { border-color: rgba(0,60,160,.1); }
+body.theme-light .irow { color: #0d1a2a; }
+body.theme-light .irow .ilbl { color: #4a6a8a; }
+body.theme-light .slbl { color: #1565c0; }
+
 /* ── Tema SCURO ──────────────────────────────── */
 body.theme-dark {
   background: #0a0a0f;
