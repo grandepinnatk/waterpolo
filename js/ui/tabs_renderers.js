@@ -250,99 +250,347 @@ window.showMatchDetailPopup = showMatchDetailPopup;
 // DASHBOARD
 // ════════════════════════════════════════════
 function renderDash() {
-  const ms      = G.stand[G.myId];
-  const pos     = getTeamPosition(G.stand, G.myId);
-  // Usa nextMyMatch() per trovare la partita con il round minore non giocato
-  const nm      = (typeof nextMyMatch === 'function') ? nextMyMatch() : G.schedule.filter(m => (m.home === G.myId || m.away === G.myId) && !m.played).sort((a,b) => a.round - b.round)[0] || null;
-  const nextOpp = nm ? G.teams.find(t => t.id === (nm.home === G.myId ? nm.away : nm.home)) : null;
+  var ms      = G.stand[G.myId];
+  var pos     = getTeamPosition(G.stand, G.myId);
+  var nm      = (typeof nextMyMatch === 'function')
+    ? nextMyMatch()
+    : (G.schedule.filter(function(m) { return (m.home === G.myId || m.away === G.myId) && !m.played; })
+        .sort(function(a, b) { return a.round - b.round; })[0] || null);
+  var nextOpp = nm ? G.teams.find(function(t) { return t.id === (nm.home === G.myId ? nm.away : nm.home); }) : null;
+  var roster  = G.rosters[G.myId] || [];
 
-  let h = `<div class="g4" style="margin-bottom:12px">
-    <div class="sc"><div class="sc-l">Posizione</div><div class="sc-n" style="display:flex;align-items:center;justify-content:center;gap:6px">${pos}°${(function(){
-      const played = G.schedule ? G.schedule.filter(m => m.played && (m.home === G.myId || m.away === G.myId)).length : 0;
-      if (played <= 1) return ''; // nessuna variazione alla prima giornata
-      if (!G.prevPos || G.prevPos === pos) return '<span style="color:#f0a030;font-size:14px;line-height:1" title="Stabile">—</span>';
-      if (pos < G.prevPos) return '<span style="color:#2ecc71;font-size:16px;line-height:1" title="Salito di ' + (G.prevPos - pos) + ' posizioni">▲</span>';
-      return '<span style="color:#e74c3c;font-size:16px;line-height:1" title="Sceso di ' + (pos - G.prevPos) + ' posizioni">▼</span>';
-    })()}</div></div>
-    <div class="sc"><div class="sc-l">Punti</div><div class="sc-n">${ms.pts}</div></div>
-    <div class="sc"><div class="sc-l">V / P / S</div><div class="sc-n" style="font-size:15px">${ms.w}/${ms.d}/${ms.l}</div></div>
-    <div class="sc"><div class="sc-l">Budget</div><div class="sc-n" style="font-size:13px">${formatMoney(G.budget)}</div></div>
-  </div>`;
-
-  if (G.phase === 'regular') {
-    if (nm && nextOpp) {
-      const ih = nm.home === G.myId;
-      // Casa sempre prima: se siamo in trasferta, l'avversario è la squadra di casa
-      const homeTeamName = ih ? G.myTeam.name : nextOpp.name;
-      const awayTeamName = ih ? nextOpp.name   : G.myTeam.name;
-      const homeTeamId   = ih ? G.myId         : nextOpp.id;
-      const awayTeamId   = ih ? nextOpp.id      : G.myId;
-      const homeIsMine   = ih;
-      h += `<div class="card">
-        <div class="slbl" style="margin-top:0">Prossima Partita — Giornata ${nm.round}</div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-          <div style="font-size:14px">
-            <span onclick="showTeamRosterPopup('${homeTeamId}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;font-weight:${homeIsMine?700:400}">${homeTeamName}</span>
-            <span style="color:var(--muted)"> vs </span>
-            <span onclick="showTeamRosterPopup('${awayTeamId}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;font-weight:${homeIsMine?400:700}">${awayTeamName}</span>
-          </div>
-          <span style="font-size:12px;background:${ih ? 'rgba(0,194,255,.15)' : 'rgba(255,255,255,.1)'};
-                 color:${ih ? 'var(--blue)' : 'var(--muted)'};padding:3px 10px;border-radius:6px">
-            ${ih ? 'Casa' : 'Trasferta'}
-          </span>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn primary" onclick="openLineup(G.schedule.find(m=>(m.home===G.myId||m.away===G.myId)&&!m.played), G.schedule.find(m=>(m.home===G.myId||m.away===G.myId)&&!m.played)?.home===G.myId, G.teams.find(t=>t.id===(G.schedule.find(m=>(m.home===G.myId||m.away===G.myId)&&!m.played)?.home===G.myId?G.schedule.find(m=>(m.home===G.myId||m.away===G.myId)&&!m.played)?.away:G.schedule.find(m=>(m.home===G.myId||m.away===G.myId)&&!m.played)?.home)))">
-            📋 Convocazioni
-          </button>
-          <button class="btn" onclick="confirmSimNextRound()">⏩ Simula Giornata</button>
-        </div>
-      </div>`;
-    } else {
-      h += `<div class="alert success">Regular season conclusa! Vai su Playoff.</div>
-            <button class="btn primary" onclick="initPostSeason();showTab('playoff')">Playoff & Playout →</button>`;
-    }
-  } else if (G.phase === 'playoff' || G.phase === 'playout') {
-    h += `<div class="alert info">Fase finale in corso.</div>
-          <button class="btn primary" onclick="showTab('playoff')">Vai ai Playoff →</button>`;
-  } else {
-    const sNum = G.seasonNumber || 1;
-    h += `<div class="alert success" style="margin-bottom:10px">
-            🏆 Stagione ${sNum} conclusa! Budget: <strong>${formatMoney(G.budget)}</strong>
-          </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px">
-            <button class="btn primary" onclick="showTab('goals')">📋 Vedi Obiettivi</button>
-            <button class="btn success" onclick="_confirmNewSeason()">🏊 Nuova Stagione →</button>
-          </div>`;
+  // ── Trend posizione ──
+  var played = G.schedule ? G.schedule.filter(function(m) { return m.played && (m.home === G.myId || m.away === G.myId); }).length : 0;
+  var trendHtml = '';
+  if (played > 1) {
+    if (!G.prevPos || G.prevPos === pos) trendHtml = '<span style="color:#f0a030;font-size:13px">—</span>';
+    else if (pos < G.prevPos) trendHtml = '<span style="color:#2ecc71;font-size:13px">▲</span>';
+    else trendHtml = '<span style="color:#e74c3c;font-size:13px">▼</span>';
   }
 
-  // Ultime notizie: paginazione 15 per pagina, max 90 notizie
-  const NEWS_PER_PAGE = 15;
-  const NEWS_MAX      = 90;
-  const allMsgs = G.msgs.slice(-NEWS_MAX).reverse(); // ultime 90, più recenti prima
-  const newsPage = G._newsPage || 0;
-  const totalPages = Math.max(1, Math.ceil(allMsgs.length / NEWS_PER_PAGE));
-  const safePage   = Math.min(newsPage, totalPages - 1);
-  const pageItems  = allMsgs.slice(safePage * NEWS_PER_PAGE, (safePage + 1) * NEWS_PER_PAGE);
+  // ── V/P/S ciambella mini ──
+  function vpsDoughnut(w, d, l) {
+    var total = w + d + l || 1;
+    var r = 22, circ = 2 * Math.PI * r;
+    var sw = (w / total * circ).toFixed(1);
+    var sd = (d / total * circ).toFixed(1);
+    var sl = (l / total * circ).toFixed(1);
+    var gapW = circ - sw, gapD = circ - sd, gapL = circ - sl;
+    var offD = (circ - sw).toFixed(1);
+    var offL = (circ - sw - sd).toFixed(1);
+    return '<svg width="52" height="52" style="flex-shrink:0">'
+      + '<circle cx="26" cy="26" r="' + r + '" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="7"/>'
+      + '<circle cx="26" cy="26" r="' + r + '" fill="none" stroke="#2ecc71" stroke-width="7"'
+      + '  stroke-dasharray="' + sw + ' ' + gapW + '" stroke-linecap="butt" transform="rotate(-90 26 26)"/>'
+      + '<circle cx="26" cy="26" r="' + r + '" fill="none" stroke="#f0c040" stroke-width="7"'
+      + '  stroke-dasharray="' + sd + ' ' + gapD + '" stroke-linecap="butt" transform="rotate(-90 26 26)"'
+      + '  stroke-dashoffset="-' + offD + '"/>'
+      + '<circle cx="26" cy="26" r="' + r + '" fill="none" stroke="#e74c3c" stroke-width="7"'
+      + '  stroke-dasharray="' + sl + ' ' + gapL + '" stroke-linecap="butt" transform="rotate(-90 26 26)"'
+      + '  stroke-dashoffset="-' + offL + '"/>'
+      + '<text x="26" y="30" text-anchor="middle" font-size="9" font-weight="700" fill="rgba(255,255,255,.6)">'
+      + w + '/' + d + '/' + l + '</text>'
+      + '</svg>';
+  }
 
-  const prevDis = safePage === 0 ? 'opacity:.35;pointer-events:none' : 'cursor:pointer';
-  const nextDis = safePage >= totalPages - 1 ? 'opacity:.35;pointer-events:none' : 'cursor:pointer';
+  // ── Classifica tag ──
+  function posColor(p) {
+    if (p <= 4)  return '#2ecc71';
+    if (p <= 8)  return '#00c2ff';
+    if (p <= 10) return '#f0c040';
+    return '#e74c3c';
+  }
 
-  h += `<div class="card" style="margin-top:12px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-      <div class="slbl" style="margin-top:0;margin-bottom:0">Ultime notizie</div>
-      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)">
-        <span>Pag. ${safePage + 1} / ${totalPages}</span>
-        <button onclick="G._newsPage=Math.max(0,(G._newsPage||0)-1);renderDash()"
-                style="background:var(--panel2);border:1px solid var(--border);border-radius:5px;
-                       padding:2px 8px;color:var(--muted);font-size:12px;${prevDis}">‹</button>
-        <button onclick="G._newsPage=Math.min(${totalPages-1},(G._newsPage||0)+1);renderDash()"
-                style="background:var(--panel2);border:1px solid var(--border);border-radius:5px;
-                       padding:2px 8px;color:var(--muted);font-size:12px;${nextDis}">›</button>
-      </div>
-    </div>
-    ${pageItems.map(m => `<div style="font-size:13px;padding:4px 0;border-bottom:1px solid rgba(30,58,92,.4)">${_linkTeamNames(m)}</div>`).join('')}
-  </div>`;
+  // ── Categoria notizia ──
+  function msgTag(txt) {
+    if (/infortun|infortun/i.test(txt))              return ['INFORTUNI','#e74c3c'];
+    if (/contratto|rinnov|scadenz|resciss/i.test(txt)) return ['CONTRATTO','#9c27b0'];
+    if (/mercato|offerta|acquist|svinc|vend/i.test(txt)) return ['MERCATO','#ff8c42'];
+    if (/giornata|giocato|pareggi|vince|perde|gol|assist|parate/i.test(txt)) return ['RISULTATO','#1565c0'];
+    if (/ingaggi|budget|bonus|penale|finanz/i.test(txt)) return ['ECONOMIA','#2e7d32'];
+    if (/allenament|tactic|stella/i.test(txt))       return ['ALLENAMENTO','#00838f'];
+    if (/guarit|infortun.*torn/i.test(txt))          return ['RECUPERO','#2e7d32'];
+    if (/playoff|playout|retrocessione|scudetto/i.test(txt)) return ['PLAYOFF','#c62828'];
+    return ['NOTIZIA','#455a64'];
+  }
+
+  // ── Focus giocatore: miglior morale nella rosa ──
+  var focusPlayer = null;
+  var bestMorale = -1;
+  roster.forEach(function(p) {
+    if (p && !p.injured && (p.morale || 0) > bestMorale) { bestMorale = p.morale; focusPlayer = p; }
+  });
+
+  // Top scorer
+  var topScorer = null;
+  roster.forEach(function(p) { if (p && (!topScorer || (p.goals || 0) > (topScorer.goals || 0))) topScorer = p; });
+
+  var h = '';
+
+  // ═══════════════════════════════════════════
+  // STAT BAR in cima
+  // ═══════════════════════════════════════════
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:14px">';
+
+  // Posizione
+  var pc = posColor(pos);
+  h += '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px">'
+    + '<div style="font-size:22px;opacity:.7">🛡️</div>'
+    + '<div>'
+    + '<div style="font-size:10px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.5px">Posizione</div>'
+    + '<div style="font-size:22px;font-weight:800;color:' + pc + ';line-height:1.2">' + pos + '° ' + trendHtml + '</div>'
+    + '</div></div>';
+
+  // Punti
+  h += '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px">'
+    + '<div style="font-size:22px;opacity:.7">📍</div>'
+    + '<div>'
+    + '<div style="font-size:10px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.5px">Punti</div>'
+    + '<div style="font-size:26px;font-weight:900;color:#fff;line-height:1.1;font-variant-numeric:tabular-nums">' + ms.pts + '</div>'
+    + '</div></div>';
+
+  // V/P/S ciambella
+  h += '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:10px 16px;display:flex;align-items:center;gap:12px">'
+    + vpsDoughnut(ms.w, ms.d, ms.l)
+    + '<div>'
+    + '<div style="font-size:10px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.5px">V/P/S</div>'
+    + '<div style="display:flex;gap:6px;margin-top:2px">'
+    + '<span style="font-size:13px;font-weight:700;color:#2ecc71">' + ms.w + 'V</span>'
+    + '<span style="font-size:13px;font-weight:700;color:#f0c040">' + ms.d + 'P</span>'
+    + '<span style="font-size:13px;font-weight:700;color:#e74c3c">' + ms.l + 'S</span>'
+    + '</div></div></div>';
+
+  // Budget monospaced
+  h += '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px">'
+    + '<div style="font-size:22px;opacity:.7">🪙</div>'
+    + '<div style="min-width:0">'
+    + '<div style="font-size:10px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.5px">Budget</div>'
+    + '<div style="font-size:15px;font-weight:800;color:#f0c040;letter-spacing:-.5px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'
+    + formatMoney(G.budget) + '</div>'
+    + '</div></div>';
+
+  h += '</div>';
+
+  // ═══════════════════════════════════════════
+  // MATCHDAY HUB
+  // ═══════════════════════════════════════════
+  if (G.phase === 'regular') {
+    if (nm && nextOpp) {
+      var ih = nm.home === G.myId;
+      var homeTeamName = ih ? G.myTeam.name : nextOpp.name;
+      var awayTeamName = ih ? nextOpp.name   : G.myTeam.name;
+      var homeTeamId   = ih ? G.myId         : nextOpp.id;
+      var awayTeamId   = ih ? nextOpp.id      : G.myId;
+
+      h += '<div style="position:relative;border-radius:16px;overflow:hidden;margin-bottom:14px;'
+        + 'background:linear-gradient(135deg,#0d2a4a 0%,#0a1e38 40%,#0d2a4a 100%);'
+        + 'border:1px solid rgba(0,194,255,.2);min-height:140px">';
+
+      // Texture acqua di sfondo
+      h += '<div style="position:absolute;inset:0;opacity:.07;background:repeating-linear-gradient('
+        + '45deg,transparent,transparent 8px,rgba(0,194,255,.5) 8px,rgba(0,194,255,.5) 9px);pointer-events:none"></div>';
+
+      // Radial glow
+      h += '<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);'
+        + 'width:300px;height:200px;background:radial-gradient(ellipse,rgba(0,194,255,.12) 0%,transparent 70%);pointer-events:none"></div>';
+
+      h += '<div style="position:relative;padding:16px 20px">';
+
+      // Header hub
+      h += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">'
+        + '<div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:1.2px">Prossima Partita</div>'
+        + '<div style="font-size:10px;font-weight:700;color:#00c2ff;text-transform:uppercase;letter-spacing:1.2px">Matchday Hub</div>'
+        + '<div style="font-size:11px;color:rgba(255,255,255,.45);background:rgba(0,194,255,.1);'
+        + 'border:1px solid rgba(0,194,255,.2);border-radius:6px;padding:2px 8px">'
+        + (ih ? 'Casa' : 'Trasferta') + '</div>'
+        + '</div>';
+
+      // Squadre
+      h += '<div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px">';
+
+      // Team badge home
+      h += '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;cursor:pointer" onclick="showTeamRosterPopup(\'' + homeTeamId + '\')">'
+        + '<div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);'
+        + 'display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff">'
+        + (G.teams.find(function(t){return t.id===homeTeamId;}) || {abbr:'?'}).abbr
+        + '</div>'
+        + '<div style="font-size:12px;font-weight:700;color:#fff;text-align:center">' + homeTeamName + '</div>'
+        + '</div>';
+
+      // VS
+      h += '<div style="display:flex;flex-direction:column;align-items:center;gap:2px">'
+        + '<div style="font-size:22px;font-weight:900;color:rgba(255,255,255,.2)">vs</div>'
+        + '<div style="font-size:10px;color:rgba(255,255,255,.35)">Giornata ' + nm.round + '</div>'
+        + '</div>';
+
+      // Team badge away
+      h += '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;cursor:pointer;text-align:center" onclick="showTeamRosterPopup(\'' + awayTeamId + '\')">'
+        + '<div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);'
+        + 'display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff">'
+        + (G.teams.find(function(t){return t.id===awayTeamId;}) || {abbr:'?'}).abbr
+        + '</div>'
+        + '<div style="font-size:12px;font-weight:700;color:#fff">' + awayTeamName + '</div>'
+        + '</div>';
+
+      h += '</div>';
+
+      // Pulsanti
+      h += '<div style="display:flex;gap:8px;justify-content:center">';
+
+      // Ghost button - Convocazioni
+      var nm2 = nm;
+      h += '<button onclick="openLineup(G.schedule.find(function(m){return(m.home===G.myId||m.away===G.myId)&&!m.played;}),G.schedule.find(function(m){return(m.home===G.myId||m.away===G.myId)&&!m.played;})&&G.schedule.find(function(m){return(m.home===G.myId||m.away===G.myId)&&!m.played;}).home===G.myId,G.teams.find(function(t){var m=G.schedule.find(function(x){return(x.home===G.myId||x.away===G.myId)&&!x.played;});return t.id===(m?(m.home===G.myId?m.away:m.home):null);}))"'
+        + ' style="padding:9px 22px;font-size:12px;font-weight:700;border-radius:8px;'
+        + 'background:transparent;border:2px solid rgba(255,255,255,.4);color:#fff;cursor:pointer;letter-spacing:.3px;'
+        + 'transition:border-color .15s"'
+        + ' onmouseover="this.style.borderColor=\'rgba(255,255,255,.8)\'"'
+        + ' onmouseout="this.style.borderColor=\'rgba(255,255,255,.4)\'">'
+        + '📋 Convocazioni</button>';
+
+      // Primary button - Simula
+      h += '<button onclick="confirmSimNextRound()"'
+        + ' style="padding:9px 24px;font-size:12px;font-weight:800;border-radius:8px;letter-spacing:.3px;'
+        + 'background:linear-gradient(135deg,#ff8c42,#e65100);border:none;color:#fff;cursor:pointer;'
+        + 'box-shadow:0 3px 14px rgba(255,140,66,.4);transition:transform .15s,box-shadow .15s"'
+        + ' onmouseover="this.style.transform=\'translateY(-1px)\';this.style.boxShadow=\'0 5px 18px rgba(255,140,66,.55)\'"'
+        + ' onmouseout="this.style.transform=\'none\';this.style.boxShadow=\'0 3px 14px rgba(255,140,66,.4)\'">'
+        + '▶ Simula Giornata</button>';
+
+      h += '</div></div></div>';
+
+    } else {
+      h += '<div style="background:rgba(46,204,113,.08);border:1px solid rgba(46,204,113,.3);border-radius:12px;'
+        + 'padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px">'
+        + '<span style="font-size:20px">🏆</span>'
+        + '<div style="flex:1"><div style="font-weight:700;color:#2ecc71">Regular season conclusa!</div>'
+        + '<div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:2px">Passa alla fase finale.</div></div>'
+        + '<button onclick="initPostSeason();showTab(\'playoff\')" style="padding:8px 16px;font-size:12px;font-weight:700;'
+        + 'border-radius:8px;background:linear-gradient(135deg,#2e7d32,#1b5e20);border:none;color:#fff;cursor:pointer">'
+        + 'Playoff & Playout →</button>'
+        + '</div>';
+    }
+  } else if (G.phase === 'playoff' || G.phase === 'playout') {
+    h += '<div style="background:rgba(255,140,66,.08);border:1px solid rgba(255,140,66,.3);border-radius:12px;'
+      + 'padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px">'
+      + '<span style="font-size:20px">⚡</span>'
+      + '<div style="flex:1"><div style="font-weight:700;color:#ff8c42">Fase finale in corso.</div></div>'
+      + '<button onclick="showTab(\'playoff\')" style="padding:8px 16px;font-size:12px;font-weight:700;'
+      + 'border-radius:8px;background:linear-gradient(135deg,#ff8c42,#e65100);border:none;color:#fff;cursor:pointer">'
+      + 'Vai ai Playoff →</button>'
+      + '</div>';
+  } else {
+    h += '<div style="background:rgba(46,204,113,.08);border:1px solid rgba(46,204,113,.3);border-radius:12px;'
+      + 'padding:14px 16px;margin-bottom:14px">'
+      + '<div style="font-weight:700;color:#2ecc71;margin-bottom:8px">🏆 Stagione ' + (G.seasonNumber||1) + ' conclusa! Budget: ' + formatMoney(G.budget) + '</div>'
+      + '<div style="display:flex;gap:8px">'
+      + '<button onclick="showTab(\'goals\')" style="padding:8px 14px;font-size:12px;font-weight:700;border-radius:8px;'
+      + 'background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;cursor:pointer">📋 Obiettivi</button>'
+      + '<button onclick="_confirmNewSeason()" style="padding:8px 14px;font-size:12px;font-weight:700;border-radius:8px;'
+      + 'background:linear-gradient(135deg,#2e7d32,#1b5e20);border:none;color:#fff;cursor:pointer">🏊 Nuova Stagione →</button>'
+      + '</div></div>';
+  }
+
+  // ═══════════════════════════════════════════
+  // LAYOUT A 2 COLONNE: Notizie | Focus
+  // ═══════════════════════════════════════════
+  h += '<div style="display:grid;grid-template-columns:1fr 240px;gap:12px">';
+
+  // ── COLONNA SINISTRA: Notizie ──
+  var NEWS_PER_PAGE = 15, NEWS_MAX = 90;
+  var allMsgs   = G.msgs.slice(-NEWS_MAX).reverse();
+  var newsPage  = G._newsPage || 0;
+  var totalPgs  = Math.max(1, Math.ceil(allMsgs.length / NEWS_PER_PAGE));
+  var safePg    = Math.min(newsPage, totalPgs - 1);
+  var pageItems = allMsgs.slice(safePg * NEWS_PER_PAGE, (safePg + 1) * NEWS_PER_PAGE);
+
+  h += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden">';
+
+  // Header notizie
+  h += '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;'
+    + 'border-bottom:1px solid rgba(255,255,255,.06)">'
+    + '<div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.7px">Ultime Notizie</div>'
+    + '<div style="display:flex;align-items:center;gap:5px">'
+    + '<span style="font-size:11px;color:rgba(255,255,255,.3)">' + (safePg+1) + '/' + totalPgs + '</span>'
+    + '<button onclick="G._newsPage=Math.max(0,(G._newsPage||0)-1);renderDash()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:2px 8px;color:rgba(255,255,255,.5);font-size:12px;' + (safePg===0?'opacity:.3;pointer-events:none;':'cursor:pointer;') + '">‹</button>'
+    + '<button onclick="G._newsPage=Math.min(' + (totalPgs-1) + ',(G._newsPage||0)+1);renderDash()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:2px 8px;color:rgba(255,255,255,.5);font-size:12px;' + (safePg>=totalPgs-1?'opacity:.3;pointer-events:none;':'cursor:pointer;') + '">›</button>'
+    + '</div></div>';
+
+  // Feed notizie
+  h += '<div style="padding:6px 0">';
+  if (pageItems.length === 0) {
+    h += '<div style="padding:16px;font-size:12px;color:rgba(255,255,255,.3);text-align:center">Nessuna notizia ancora.</div>';
+  } else {
+    pageItems.forEach(function(m) {
+      var tag = msgTag(m);
+      h += '<div style="display:flex;align-items:flex-start;gap:8px;padding:7px 14px;'
+        + 'border-bottom:1px solid rgba(255,255,255,.04);cursor:default;transition:background .12s"'
+        + ' onmouseover="this.style.background=\'rgba(255,255,255,.03)\'"'
+        + ' onmouseout="this.style.background=\'transparent\'">'
+        + '<span style="flex-shrink:0;margin-top:1px;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;'
+        + 'background:' + tag[1] + '33;color:' + tag[1] + ';border:1px solid ' + tag[1] + '55;letter-spacing:.3px;white-space:nowrap">'
+        + tag[0] + '</span>'
+        + '<span style="font-size:12px;color:rgba(255,255,255,.72);line-height:1.45">' + _linkTeamNames(m) + '</span>'
+        + '</div>';
+    });
+  }
+  h += '</div></div>';
+
+  // ── COLONNA DESTRA: Focus giocatore + Top Scorer ──
+  h += '<div style="display:flex;flex-direction:column;gap:10px">';
+
+  // Focus giocatore
+  if (focusPlayer) {
+    var fp = focusPlayer;
+    var mc = fp.morale > 70 ? '#2ecc71' : fp.morale > 40 ? '#f0c040' : '#e74c3c';
+    var ratings = (fp.lastRatings || []).filter(function(r) { return r !== null; });
+    var avgR = ratings.length ? (ratings.reduce(function(s,r){return s+r;},0)/ratings.length).toFixed(1) : null;
+    h += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px">'
+      + '<div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Focus Giocatore</div>'
+      + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'
+      + '<div style="width:44px;height:44px;border-radius:10px;background:rgba(0,194,255,.1);border:1px solid rgba(0,194,255,.2);'
+      + 'display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🏊</div>'
+      + '<div>'
+      + '<div style="font-size:14px;font-weight:700;color:#fff">' + fp.name + '</div>'
+      + '<div style="font-size:11px;color:rgba(255,255,255,.4)">' + fp.role + ' · ' + fp.age + 'a · OVR ' + fp.overall + '</div>'
+      + '</div></div>'
+      + '<div style="margin-bottom:8px">'
+      + '<div style="display:flex;justify-content:space-between;margin-bottom:3px">'
+      + '<span style="font-size:10px;color:rgba(255,255,255,.4)">MORALE</span>'
+      + '<span style="font-size:10px;font-weight:700;color:' + mc + '">' + fp.morale + '%</span>'
+      + '</div>'
+      + '<div style="height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden">'
+      + '<div style="width:' + fp.morale + '%;height:100%;background:' + mc + ';box-shadow:0 0 6px ' + mc + '"></div></div>'
+      + '</div>'
+      + '<div style="display:flex;justify-content:space-between;font-size:11px">'
+      + '<span style="color:rgba(255,255,255,.4)">Voti medi</span>'
+      + '<span style="font-weight:700;color:' + (avgR >= 7.5 ? '#2ecc71' : avgR >= 6.5 ? '#f0c040' : '#e74c3c') + '">' + (avgR || '—') + '</span>'
+      + '</div>'
+      + (fp.goals > 0 ? '<div style="display:flex;justify-content:space-between;font-size:11px;margin-top:3px">'
+        + '<span style="color:rgba(255,255,255,.4)">Gol stagione</span>'
+        + '<span style="font-weight:700;color:#4db6ff">' + fp.goals + ' ⚽</span></div>' : '')
+      + '</div>';
+  }
+
+  // Top Scorer
+  if (topScorer && (topScorer.goals || 0) > 0) {
+    var ts = topScorer;
+    h += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px">'
+      + '<div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Top Scorer</div>'
+      + '<div style="display:flex;align-items:center;gap:10px">'
+      + '<div style="width:38px;height:38px;border-radius:8px;background:rgba(240,192,64,.1);border:1px solid rgba(240,192,64,.25);'
+      + 'display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">⚽</div>'
+      + '<div style="flex:1;min-width:0">'
+      + '<div style="font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + ts.name + '</div>'
+      + '<div style="font-size:11px;color:rgba(255,255,255,.4)">' + ts.role + ' · ' + ts.age + 'a</div>'
+      + '</div>'
+      + '<div style="text-align:right;flex-shrink:0">'
+      + '<div style="font-size:22px;font-weight:900;color:#f0c040;line-height:1">' + ts.goals + '</div>'
+      + '<div style="font-size:9px;color:rgba(255,255,255,.3)">GOL</div>'
+      + '</div></div></div>';
+  }
+
+  h += '</div>'; // fine colonna destra
+  h += '</div>'; // fine griglia 2 colonne
 
   document.getElementById('tab-dash').innerHTML = h;
 }
@@ -352,52 +600,178 @@ function renderDash() {
 // ════════════════════════════════════════════
 function renderRosa() {
   const roster = G.rosters[G.myId];
-  const tlSet  = new Set((G.transferList || []).map(e => e.rosterIdx));
-  let h = `<div class="card">
-    <div style="font-weight:700;color:var(--blue);margin-bottom:10px">${G.myTeam.name} — Rosa (${roster.length})</div>
-    <div style="font-size:11px;color:var(--muted);margin-bottom:8px">Clicca su un giocatore per il dettaglio · Pulsante <strong>Vendi</strong> nel modale per metterlo sul mercato</div>
-    <table><thead><tr>
-      <th>Giocatore</th><th>Ruolo</th><th>Mano</th><th>Naz</th>
-      <th>Età</th><th>OVR</th><th>Morale</th><th>Forma</th><th>GOL</th><th>ASS</th>
-      <th title="Ultimi 4 voti" style="color:var(--gold)">Voti</th>
-      <th>Valore</th>
-    </tr></thead><tbody>`;
+  const tlSet  = new Set((G.transferList || []).map(function(e) { return e.rosterIdx; }));
+  const PER_PAGE = 10;
+  if (G._rosaPage === undefined) G._rosaPage = 0;
+  const totalPages = Math.max(1, Math.ceil(roster.length / PER_PAGE));
+  const safePage   = Math.min(G._rosaPage, totalPages - 1);
+  const pageItems  = roster.map(function(p, i) { return { p: p, i: i }; })
+                           .slice(safePage * PER_PAGE, (safePage + 1) * PER_PAGE);
 
-  roster.forEach((p, i) => {
-    const c   = p.overall >= 80 ? 'var(--blue)' : p.overall >= 65 ? 'var(--green)' : 'var(--gold)';
-    const mc  = p.morale > 70 ? 'var(--green)' : p.morale > 40 ? 'var(--gold)' : 'var(--red)';
-    const onMarket = tlSet.has(i);
-    // Voti ultime 4 partite (null = non ha giocato, assente dal rating)
-    const ratings = p.lastRatings || [];
-    const ratingsHtml = ratings.length === 0
-      ? '<span style="color:var(--muted);font-size:11px">—</span>'
-      : ratings.map(function(r) {
-          if (r === null)
-            return '<span style="font-size:11px;font-weight:600;color:var(--muted);margin-right:3px" title="Non ha giocato">-</span>';
-          var col = r >= 7.5 ? 'var(--green)' : r >= 6.5 ? 'var(--gold)' : r >= 5.5 ? 'var(--muted)' : 'var(--red)';
-          return '<span style="font-size:11px;font-weight:700;color:' + col + ';margin-right:3px">' + r.toFixed(1) + '</span>';
-        }).join('<span style="color:var(--muted);font-size:9px">·</span>');
-    // Badge RIT e INF
-    const ritBadge = _ritBadge(p);
-    const infWeeks   = p.injuryWeeks || '';
-    const infTitle   = p.injured ? 'Infortunato — out per ' + (p.injuryWeeks || '?') + ' giornate' : '';
-    const infBadge   = p.injured ? ' <span style="font-size:10px;background:#e74c3c;color:#fff;font-weight:700;padding:1px 5px;border-radius:4px;margin-left:4px" title="' + infTitle + '">INF+' + (infWeeks ? ' ' + infWeeks + 'G' : '') + '</span>' : '';
-    h += '<tr class="trhov" onclick="showPlayerModal(' + i + ')" style="' + (onMarket ? 'background:rgba(240,192,64,.08)' : '') + '">'
-      + '<td style="font-weight:600">' + p.name + ritBadge + _scadBadge(p) + infBadge + (onMarket ? ' <span style="font-size:10px;color:var(--gold);font-weight:600">VENDITA</span>' : '') + '</td>'
-      + '<td><span class="badge ' + (p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C') + '">' + p.role + '</span></td>'
-      + '<td><span class="badge ' + (p.hand==='AMB'?'C':p.hand==='L'?'L':'R') + '" title="' + (p.hand==='AMB'?'Ambidestro':p.hand==='L'?'Mancino':'Destro') + '">' + p.hand + '</span></td>'
-      + '<td style="color:var(--muted);font-size:12px">' + p.nat + '</td>'
-      + '<td>' + p.age + '</td>'
-      + '<td style="font-weight:700;color:' + c + '">' + p.overall + '</td>'
-      + '<td><span style="font-size:12px;font-weight:600;color:' + mc + '">' + p.morale + '%</span></td>'
-      + '<td><div class="prog-w" style="width:44px"><div class="prog-f" style="width:' + p.fitness + '%;background:' + (p.fitness>70?'var(--green)':'var(--gold)') + '"></div></div></td>'
-      + '<td>' + p.goals + '</td><td>' + p.assists + '</td>'
-      + '<td style="white-space:nowrap">' + ratingsHtml + '</td>'
-      + '<td style="font-size:12px;color:var(--muted)">' + formatMoney(p.value) + '</td>'
-      + '</tr>';
+  // OVR circle SVG
+  function ovrCircle(ovr) {
+    var col = ovr >= 80 ? '#00c2ff' : ovr >= 65 ? '#2ecc71' : ovr >= 50 ? '#f0c040' : '#e74c3c';
+    var r = 15, circ = 2 * Math.PI * r;
+    var dash = (circ * ovr / 99).toFixed(1);
+    var gap  = (circ - dash).toFixed(1);
+    return '<svg width="40" height="40" style="flex-shrink:0;display:block">'
+      + '<circle cx="20" cy="20" r="' + r + '" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3"/>'
+      + '<circle cx="20" cy="20" r="' + r + '" fill="none" stroke="' + col + '" stroke-width="3"'
+      + ' stroke-dasharray="' + dash + ' ' + gap + '" stroke-linecap="round"'
+      + ' transform="rotate(-90 20 20)" style="filter:drop-shadow(0 0 5px ' + col + ')"/>'
+      + '<text x="20" y="25" text-anchor="middle" font-size="11" font-weight="800" fill="' + col + '">' + ovr + '</text>'
+      + '</svg>';
+  }
+
+  // Sparkline dai voti
+  function sparkline(ratings) {
+    var pts = (ratings || []).filter(function(r) { return r !== null; });
+    if (pts.length < 2) return '<span style="color:rgba(255,255,255,.2);font-size:10px;letter-spacing:2px">· · · ·</span>';
+    var W = 54, H = 20, pad = 2;
+    var mn = Math.min.apply(null, pts), mx = Math.max.apply(null, pts), rng = mx - mn || 1;
+    var xs = pts.map(function(_, j) { return pad + j * (W - pad*2) / (pts.length - 1); });
+    var ys = pts.map(function(v)    { return H - pad - (v - mn) / rng * (H - pad*2); });
+    var poly = xs.map(function(x, j) { return x.toFixed(1) + ',' + ys[j].toFixed(1); }).join(' ');
+    var last = pts[pts.length - 1];
+    var col  = last >= 7.5 ? '#2ecc71' : last >= 6.5 ? '#f0c040' : last >= 5.5 ? '#7a9bb5' : '#e74c3c';
+    return '<svg width="' + W + '" height="' + H + '" style="overflow:visible;display:block">'
+      + '<polyline points="' + poly + '" fill="none" stroke="' + col + '" stroke-width="1.8"'
+      + ' stroke-linejoin="round" stroke-linecap="round"/>'
+      + '<circle cx="' + xs[xs.length-1].toFixed(1) + '" cy="' + ys[ys.length-1].toFixed(1) + '"'
+      + ' r="2.5" fill="' + col + '" style="filter:drop-shadow(0 0 3px ' + col + ')"/>'
+      + '</svg>';
+  }
+
+  // Morale emoji + barra
+  function moraleBar(m) {
+    var em  = m >= 80 ? '😄' : m >= 60 ? '🙂' : m >= 40 ? '😐' : '😟';
+    var col = m >= 70 ? '#2ecc71' : m >= 40 ? '#f0c040' : '#e74c3c';
+    return '<div style="display:flex;align-items:center;gap:4px">'
+      + '<span style="font-size:12px">' + em + '</span>'
+      + '<div style="width:34px;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden">'
+      + '<div style="width:' + m + '%;height:100%;background:' + col + ';border-radius:2px;box-shadow:0 0 5px ' + col + '"></div></div>'
+      + '<span style="font-size:10px;color:' + col + ';font-weight:700">' + m + '%</span>'
+      + '</div>';
+  }
+
+  // Forma barra neon
+  function formaBar(f) {
+    var col = f > 70 ? '#2ecc71' : f > 45 ? '#f0c040' : '#e74c3c';
+    return '<div style="width:46px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden">'
+      + '<div style="width:' + f + '%;height:100%;background:' + col + ';box-shadow:0 0 4px ' + col + '"></div></div>';
+  }
+
+  var h = '';
+
+  // ── Header ──
+  h += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(0,194,255,.12)">'
+    + '<div style="width:38px;height:38px;border-radius:10px;background:rgba(0,194,255,.1);border:1px solid rgba(0,194,255,.25);'
+    + 'display:flex;align-items:center;justify-content:center;font-size:18px">🏊</div>'
+    + '<div>'
+    + '<div style="font-size:17px;font-weight:800;color:#fff;letter-spacing:-.3px">'
+    + G.myTeam.name
+    + ' <span style="color:rgba(0,194,255,.6);font-weight:400">— Rosa</span>'
+    + ' <span style="font-size:12px;font-weight:500;color:rgba(255,255,255,.3)">(' + roster.length + ')</span></div>'
+    + '<div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:1px">'
+    + 'Clicca un giocatore per i dettagli &middot; <strong style="color:rgba(255,255,255,.45)">Vendi</strong> nel modale per il mercato</div>'
+    + '</div></div>';
+
+  // ── Intestazioni ──
+  h += '<div style="display:grid;grid-template-columns:1.8fr 62px 54px 40px 36px 50px 98px 64px 38px 38px 80px 96px;'
+    + 'gap:0 6px;padding:0 10px 5px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.28)">'
+    + '<div>Giocatore</div><div>Ruolo</div><div>Mano</div><div>Naz</div><div>Età</div>'
+    + '<div style="text-align:center">OVR</div><div>Morale</div><div>Forma</div>'
+    + '<div style="text-align:center">Gol</div><div style="text-align:center">Ass</div>'
+    + '<div style="color:rgba(240,192,64,.5)">Voti</div><div>Valore</div>'
+    + '</div>';
+
+  // ── Righe giocatori ──
+  var ROLE_COL = { POR:'#e53935', DIF:'#2e7d32', CEN:'#e65100', ATT:'#7b1fa2', CB:'#1565c0' };
+
+  pageItems.forEach(function(item) {
+    var p = item.p, i = item.i;
+    var onMarket = tlSet.has(i);
+    var ritB  = _ritBadge(p);
+    var scadB = _scadBadge(p);
+    var infW  = p.injuryWeeks || '';
+    var infB  = p.injured
+      ? '<span style="font-size:9px;background:#e74c3c;color:#fff;font-weight:700;padding:1px 4px;border-radius:3px;margin-left:3px">INF+' + (infW ? infW + 'G' : '') + '</span>'
+      : '';
+    var mkB = onMarket
+      ? '<span style="font-size:9px;background:rgba(240,192,64,.18);color:#f0c040;font-weight:700;padding:1px 5px;border-radius:3px;border:1px solid rgba(240,192,64,.3);margin-left:3px">VENDITA</span>'
+      : '';
+    var rc  = ROLE_COL[p.role] || '#555';
+    var hc  = p.hand === 'L' ? '#4db6ff' : p.hand === 'AMB' ? '#69f0ae' : 'rgba(255,255,255,.38)';
+    var bg  = onMarket ? 'rgba(240,192,64,.05)' : p.injured ? 'rgba(229,57,53,.04)' : 'rgba(255,255,255,.025)';
+
+    h += '<div onclick="showPlayerModal(' + i + ')" style="'
+      + 'display:grid;grid-template-columns:1.8fr 62px 54px 40px 36px 50px 98px 64px 38px 38px 80px 96px;'
+      + 'gap:0 6px;align-items:center;padding:7px 10px;margin-bottom:2px;'
+      + 'background:' + bg + ';border:1px solid rgba(255,255,255,.05);'
+      + 'border-radius:8px;cursor:pointer;transition:outline .12s;"'
+      + ' onmouseover="this.style.outline=\'1.5px solid rgba(0,194,255,.35)\'"'
+      + ' onmouseout="this.style.outline=\'none\'"'
+      + '>';
+
+    // Nome
+    h += '<div style="min-width:0">'
+      + '<div style="font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'
+      + p.name + '</div>'
+      + '<div style="display:flex;gap:2px;margin-top:2px;flex-wrap:wrap">' + ritB + scadB + infB + mkB + '</div>'
+      + '</div>';
+
+    // Ruolo badge
+    h += '<div><span style="display:inline-block;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:800;'
+      + 'background:' + rc + '33;color:' + rc + ';border:1px solid ' + rc + '66">' + p.role + '</span></div>';
+
+    // Mano
+    h += '<div><span style="font-size:11px;font-weight:700;color:' + hc + '">' + p.hand + '</span></div>';
+
+    // Naz
+    h += '<div style="font-size:11px;color:rgba(255,255,255,.38)">' + p.nat + '</div>';
+
+    // Età
+    h += '<div style="font-size:12px;color:rgba(255,255,255,.55)">' + p.age + '</div>';
+
+    // OVR cerchio
+    h += '<div style="display:flex;justify-content:center">' + ovrCircle(p.overall) + '</div>';
+
+    // Morale
+    h += '<div>' + moraleBar(p.morale) + '</div>';
+
+    // Forma
+    h += '<div>' + formaBar(p.fitness) + '</div>';
+
+    // Gol
+    var gc = p.goals > 0 ? '#4db6ff' : 'rgba(255,255,255,.25)';
+    h += '<div style="text-align:center;font-size:12px;font-weight:600;color:' + gc + '">' + (p.goals > 0 ? p.goals : '—') + '</div>';
+
+    // Assist
+    var ac = p.assists > 0 ? '#69f0ae' : 'rgba(255,255,255,.25)';
+    h += '<div style="text-align:center;font-size:12px;font-weight:600;color:' + ac + '">' + (p.assists > 0 ? p.assists : '—') + '</div>';
+
+    // Sparkline voti
+    h += '<div>' + sparkline(p.lastRatings) + '</div>';
+
+    // Valore
+    h += '<div style="font-size:11px;color:rgba(255,255,255,.45);font-variant-numeric:tabular-nums;white-space:nowrap">'
+      + '<span style="color:#f0c040">🪙</span> ' + formatMoney(p.value) + '</div>';
+
+    h += '</div>';
   });
 
-  h += `</tbody></table></div>`;
+  // ── Paginazione ──
+  if (totalPages > 1) {
+    var prevD = safePage === 0 ? 'opacity:.3;pointer-events:none;' : 'cursor:pointer;';
+    var nextD = safePage >= totalPages - 1 ? 'opacity:.3;pointer-events:none;' : 'cursor:pointer;';
+    h += '<div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:10px;'
+      + 'padding-top:8px;border-top:1px solid rgba(255,255,255,.06)">'
+      + '<span style="font-size:11px;color:rgba(255,255,255,.3)">PAGINA ' + (safePage+1) + '/' + totalPages + '</span>'
+      + '<button onclick="G._rosaPage=Math.max(0,(G._rosaPage||0)-1);renderRosa()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:3px 10px;color:rgba(255,255,255,.6);font-size:13px;' + prevD + '">&#8249;</button>'
+      + '<button onclick="G._rosaPage=Math.min(' + (totalPages-1) + ',(G._rosaPage||0)+1);renderRosa()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:3px 10px;color:rgba(255,255,255,.6);font-size:13px;' + nextD + '">&#8250;</button>'
+      + '</div>';
+  }
+
   document.getElementById('tab-rosa').innerHTML = h;
 }
 
@@ -602,63 +976,120 @@ function _buildSellSection(i) {
 // ════════════════════════════════════════════
 // ALLENAMENTO
 // ════════════════════════════════════════════
+
 function renderTrain() {
-  const roster = G.rosters[G.myId];
-  const avgFit = Math.round(roster.reduce((s, p) => s + p.fitness, 0) / roster.length);
-  const avgOvr = Math.round(roster.reduce((s, p) => s + p.overall, 0) / roster.length);
-  const stars  = G.stars || 0;
+  var roster = G.rosters[G.myId];
+  var avgFit = Math.round(roster.reduce(function(s, p) { return s + p.fitness; }, 0) / roster.length);
+  var avgOvr = Math.round(roster.reduce(function(s, p) { return s + p.overall; }, 0) / roster.length);
+  var stars  = G.stars || 0;
 
-  let h = `<div class="g4" style="margin-bottom:12px">
-    <div class="sc"><div class="sc-l">Sessioni</div><div class="sc-n">${G.trainWeeks}</div></div>
-    <div class="sc"><div class="sc-l">Forma media</div><div class="sc-n">${avgFit}%</div></div>
-    <div class="sc"><div class="sc-l">OVR media</div><div class="sc-n">${avgOvr}</div></div>
-    <div class="sc"><div class="sc-l">⭐ Stelle</div><div class="sc-n" style="color:var(--gold)">${stars}</div></div>
-  </div>
-  <div style="font-size:12px;color:var(--muted);margin-bottom:10px">
-    Ogni giornata ricevi <strong>+4 stelle</strong>. Le stelle si spendono selezionando un tipo di allenamento.
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">`;
+  function statBox(icon, label, value, accent) {
+    return '<div style="flex:1;min-width:80px;background:rgba(255,255,255,.04);'
+      + 'border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 10px;text-align:center">'
+      + '<div style="font-size:22px;margin-bottom:4px;line-height:1">' + icon + '</div>'
+      + '<div style="font-size:20px;font-weight:800;color:' + accent + ';text-shadow:0 0 10px ' + accent + '40">' + value + '</div>'
+      + '<div style="font-size:9px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.6px;margin-top:3px">' + label + '</div>'
+      + '</div>';
+  }
 
-  TRAINING_TYPES.forEach((tr, i) => {
-    const starCost = tr.stars || 1;
-    const canAffordBudget = G.budget >= tr.cost;
-    const canAffordStars  = stars >= starCost;
-    const ok  = canAffordBudget && canAffordStars;
-    h += `<div class="card" style="cursor:${ok ? 'pointer' : 'not-allowed'};opacity:${ok ? 1 : 0.5};
-               border:1px solid var(--border);transition:border-color .15s"
-               onmouseover="if(${ok}) this.style.borderColor='var(--gold)'"
-               onmouseout="this.style.borderColor='var(--border)'"
-               onclick="${ok ? 'openTrainPopup(' + i + ')' : 'showTrainBlockedMsg(' + canAffordStars + ',' + canAffordBudget + ')'}">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
-        <span style="font-size:20px">${tr.icon}</span>
-        <div style="font-size:13px;font-weight:600">${tr.name}</div>
-      </div>
-      <div style="font-size:11px;color:var(--muted);margin-bottom:8px">${tr.desc}</div>
-      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-        <span style="font-size:12px;color:var(--gold);font-weight:700">
-          ${'⭐'.repeat(starCost)} ${starCost} ${starCost===1?'stella':'stelle'}
-        </span>
-        <span style="font-size:12px;color:${tr.cost ? (canAffordBudget?'var(--muted)':'var(--red)') : 'var(--green)'}">
-          ${tr.cost ? formatMoney(tr.cost) : 'Gratuito'}
-        </span>
-        ${!canAffordStars ? '<span style="font-size:10px;color:var(--red)">Stelle insufficienti</span>' : ''}
-        ${!canAffordBudget ? '<span style="font-size:10px;color:var(--red)">Budget insufficiente</span>' : ''}
-      </div>
-    </div>`;
+  var h = '';
+
+  // Status bar
+  h += '<div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap">'
+    + statBox('🔁', 'Sessioni', G.trainWeeks, '#7cb9ff')
+    + statBox('💪', 'Forma media', avgFit + '%', avgFit > 70 ? '#69f0ae' : '#f0c040')
+    + statBox('📊', 'OVR media', avgOvr, avgOvr >= 75 ? '#00c2ff' : avgOvr >= 60 ? '#69f0ae' : '#f0c040')
+    + statBox('⭐', 'Stelle', stars, '#ffe566')
+    + '</div>';
+
+  h += '<div style="font-size:11px;color:rgba(255,255,255,.28);margin-bottom:14px;text-align:center">'
+    + 'Ogni giornata ricevi <strong style="color:rgba(255,215,0,.55)">+4 stelle</strong>. Spendile per allenare la rosa.'
+    + '</div>';
+
+  // Griglia schede allenamento
+  h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:10px;margin-bottom:18px">';
+
+  TRAINING_TYPES.forEach(function(tr, idx) {
+    var starCost = tr.stars || 1;
+    var okBudget = G.budget >= tr.cost;
+    var okStars  = stars >= starCost;
+    var ok       = okBudget && okStars;
+    var brd      = ok ? 'rgba(255,140,66,.28)' : 'rgba(255,255,255,.07)';
+
+    h += '<div style="background:linear-gradient(135deg,rgba(255,255,255,.05) 0%,rgba(255,255,255,.02) 100%);'
+      + 'border:1px solid ' + brd + ';border-radius:14px;padding:15px;'
+      + 'cursor:' + (ok ? 'pointer' : 'not-allowed') + ';'
+      + 'opacity:' + (ok ? '1' : '0.52') + ';'
+      + 'transition:transform .18s,box-shadow .18s;'
+      + 'position:relative;overflow:hidden"'
+      + (ok
+          ? ' onmouseover="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 6px 20px rgba(255,140,66,.2)\'"'
+            + ' onmouseout="this.style.transform=\'none\';this.style.boxShadow=\'none\'"'
+          : '')
+      + ' onclick="' + (ok ? 'openTrainPopup(' + idx + ')' : 'showTrainBlockedMsg(' + okStars + ',' + okBudget + ')') + '"'
+      + '>';
+
+    if (ok) {
+      h += '<div style="position:absolute;top:-18px;right:-18px;width:70px;height:70px;'
+        + 'background:radial-gradient(circle,rgba(255,140,66,.18) 0%,transparent 70%);pointer-events:none"></div>';
+    }
+
+    // Icona + titolo
+    h += '<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">'
+      + '<div style="font-size:26px;line-height:1;flex-shrink:0">' + tr.icon + '</div>'
+      + '<div style="flex:1;min-width:0">'
+      + '<div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:3px">' + tr.name + '</div>'
+      + '<div style="font-size:11px;color:rgba(255,255,255,.42);line-height:1.45">' + tr.desc + '</div>'
+      + '</div></div>';
+
+    // Costi
+    h += '<div style="display:flex;align-items:center;justify-content:space-between;'
+      + 'background:rgba(0,0,0,.22);border-radius:8px;padding:7px 10px;margin-bottom:10px">'
+      + '<div style="display:flex;align-items:center;gap:5px">'
+      + '<span style="font-size:14px">⭐</span>'
+      + '<span style="font-size:13px;font-weight:800;color:' + (!okStars ? '#e74c3c' : '#ffe566') + '">'
+      + starCost + ' ' + (starCost === 1 ? 'stella' : 'stelle') + '</span>'
+      + '</div>'
+      + '<div style="font-size:12px;font-weight:600;color:' + (tr.cost === 0 ? '#69f0ae' : !okBudget ? '#e74c3c' : 'rgba(255,255,255,.48)') + '">'
+      + (tr.cost ? formatMoney(tr.cost) : '🆓 Gratuito') + '</div>'
+      + '</div>';
+
+    // Pulsante
+    var btnBg  = ok ? 'linear-gradient(135deg,#ff8c42,#e65100)' : 'rgba(255,255,255,.06)';
+    var btnCol = ok ? '#fff' : 'rgba(255,255,255,.22)';
+    var btnLbl = ok ? '&#9654; Applica Allenamento' : (!okStars ? '&#11088; Stelle insufficienti' : '&#128184; Budget insufficiente');
+    h += '<button style="width:100%;padding:9px;font-size:12px;font-weight:800;border-radius:8px;'
+      + 'background:' + btnBg + ';border:none;color:' + btnCol + ';'
+      + 'cursor:' + (ok ? 'pointer' : 'not-allowed') + ';'
+      + 'box-shadow:' + (ok ? '0 2px 10px rgba(255,140,66,.3)' : 'none') + ';'
+      + 'letter-spacing:.3px">'
+      + btnLbl + '</button>';
+
+    h += '</div>';
   });
 
-  h += `</div>`;
+  h += '</div>';
 
+  // Storico
   if (G.trainHistory && G.trainHistory.length) {
-    h += `<div class="card">
-      <div class="slbl" style="margin-top:0">Storico Allenamenti</div>
-      <table><thead><tr><th>#</th><th>Tipo</th><th>Effetti</th><th>Costo</th></tr></thead><tbody>`;
-    G.trainHistory.slice(-6).reverse().forEach(t => {
-      h += `<tr><td style="color:var(--muted)">${t.n}</td><td>${t.name}</td>
-             <td style="color:var(--muted)">${t.eff}</td><td>${formatMoney(t.cost)}</td></tr>`;
+    h += '<div style="background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px">'
+      + '<div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;'
+      + 'letter-spacing:.7px;margin-bottom:10px">&#128203; Storico Allenamenti</div>'
+      + '<div style="display:flex;flex-direction:column;gap:3px">';
+
+    G.trainHistory.slice(-8).reverse().forEach(function(t) {
+      h += '<div style="display:grid;grid-template-columns:28px 1fr 1fr auto;gap:8px;align-items:center;'
+        + 'padding:6px 10px;background:rgba(255,255,255,.025);border-radius:6px;font-size:11px">'
+        + '<div style="font-weight:700;color:rgba(255,255,255,.28)">#' + t.n + '</div>'
+        + '<div style="color:rgba(255,255,255,.7);font-weight:600">' + t.name + '</div>'
+        + '<div style="color:rgba(0,194,255,.65)">' + t.eff + '</div>'
+        + '<div style="color:rgba(240,192,64,.65);text-align:right">' + (t.cost ? formatMoney(t.cost) : '—') + '</div>'
+        + '</div>';
     });
-    h += `</tbody></table></div>`;
+
+    h += '</div></div>';
   }
+
   document.getElementById('tab-train').innerHTML = h;
 }
 
