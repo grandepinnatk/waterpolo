@@ -751,17 +751,23 @@ function renderRosa() {
     var col = m >= 70 ? '#2ecc71' : m >= 40 ? '#f0c040' : '#e74c3c';
     return '<div style="display:flex;align-items:center;gap:4px">'
       + '<span style="font-size:12px">' + em + '</span>'
-      + '<div style="width:34px;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden">'
-      + '<div style="width:' + m + '%;height:100%;background:' + col + ';border-radius:2px;box-shadow:0 0 5px ' + col + '"></div></div>'
       + '<span style="font-size:10px;color:' + col + ';font-weight:700">' + m + '%</span>'
       + '</div>';
   }
 
-  // Forma barra neon
+  // Forma: cerchio SVG come OVR
   function formaBar(f) {
     var col = f > 70 ? '#2ecc71' : f > 45 ? '#f0c040' : '#e74c3c';
-    return '<div style="width:46px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden">'
-      + '<div style="width:' + f + '%;height:100%;background:' + col + ';box-shadow:0 0 4px ' + col + '"></div></div>';
+    var r = 15, circ = 2 * Math.PI * r;
+    var dash = (circ * f / 100).toFixed(1);
+    var gap  = (circ - dash).toFixed(1);
+    return '<svg width="40" height="40" style="flex-shrink:0;display:block">'
+      + '<circle cx="20" cy="20" r="' + r + '" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3"/>'
+      + '<circle cx="20" cy="20" r="' + r + '" fill="none" stroke="' + col + '" stroke-width="3"'
+      + ' stroke-dasharray="' + dash + ' ' + gap + '" stroke-linecap="round"'
+      + ' transform="rotate(-90 20 20)" style="filter:drop-shadow(0 0 4px ' + col + ')"/>'
+      + '<text x="20" y="24" text-anchor="middle" font-size="10" font-weight="800" fill="' + col + '">' + f + '</text>'
+      + '</svg>';
   }
 
   var h = '';
