@@ -231,21 +231,32 @@ function poolSyncTokens(ms) {
   poolSetSpeeds(ms);
 }
 
-// Aggiorna velocità token da spe + stamina attuale (chiamata dopo sync)
+/**
+ * Calcola la velocità fisica di ogni giocatore.
+ * Riferimento: 100 Speed/Stamina/Forma = 10 secondi per coprire il campo (distanza ~0.8)
+ */
 function poolSetSpeeds(ms) {
-  if (!ms) return;
-  Object.entries(ms.onField).forEach(function(entry) {
-    var pk = entry[0], pi = entry[1];
-    var p       = ms.myRoster[pi]; if (!p) return;
-    var spe     = (p.stats && p.stats.spe) ? p.stats.spe : 50;
-    var stamina = (ms.stamina && ms.stamina[pi] !== undefined) ? ms.stamina[pi] : (p.fitness || 50);
-    var speFact  = spe / 100;
-    var stamFact = 0.40 + (stamina / 100) * 0.60;
-    _tokenSpeeds['my_' + pk] = 2.4 * speFact * stamFact;
-  });
-  // Avversari: velocità media fissa (npc)
-  ['GK','1','2','3','4','5','6'].forEach(function(pk) {
-    _tokenSpeeds['opp_' + pk] = 2.4 * 0.75;
+  if (!ms || !_tokens) return;
+
+  // Distanza porta-porta nel sistema di coordinate (0.90 - 0.10 = 0.80)
+  // Per fare 0.80 in 10 secondi, servono 0.08 unità al secondo.
+  const CALIBRATION_BASE = 0.08; 
+
+  Object.keys(_tokens).forEach(key => {
+    const tok = _tokens[key];
+    const pi = tok.playerIdx;
+    
+    // Recupero statistiche (0-100)
+    const speedStat = ms.speed[pi] || 50;
+    const stamina   = ms.stamina[pi] || 100;
+    const forma     = ms.forma[pi] || 100; // Se disponibile nello stato
+
+    // Velocità reale = Base * media delle componenti (o prodotto per maggior realismo)
+    // Usiamo il prodotto per penalizzare significativamente i giocatori stanchi
+    let realSpeed = CALIBRATION_BASE * (speedStat / 100) * (stamina / 100) * (forma / 100);
+
+    // Velocità minima di galleggiamento (es. 20% della base) per non bloccare il gioco
+    tok.maxSpeed = Math.max(realSpeed, CALIBRATION_BASE * 0.2);
   });
 }
 
@@ -403,63 +414,41 @@ function _microMovements(dt) {
   });
 }
 
-// ── Step animazione ───────────────────────────
+/**
+ * Aggiorna la posizione dei segnalini in modo fluido e realistico
+ * @param {number} dt Delta time in secondi reali
+ */
 function poolAnimStep(dt) {
-  var f = Math.min(dt, 0.1);
+  if (!_tokens) return;
 
-  // ── Controlla se la palla è entrata nella rete (goal pendente) ──
-  if (_pendingGoal) {
-    var bx = _ball.x, by = _ball.y;
-    var inMyNet  = bx >= PLAY.myNetX0  && bx <= PLAY.myNetX1  && by >= PLAY.myNetY0  && by <= PLAY.myNetY1;
-    var inOppNet = bx >= PLAY.oppNetX0 && bx <= PLAY.oppNetX1 && by >= PLAY.oppNetY0 && by <= PLAY.oppNetY1;
-    if (inOppNet || inMyNet) {
-      poolShowGoal(_pendingGoal.scorer, _pendingGoal.team);
-    }
-  }
+  // Aggiornamento palla (mantiene lerp per fluidità estrema o può essere reso lineare)
+  const b = _ball;
+  b.x += (b.tx - b.x) * 0.12;
+  b.y += (b.ty - b.y) * 0.12;
 
-  if (_phase === 'idle') {
-    // Fermi sui bordi — nessun aggiornamento
-  } else if (_phase === 'sprint') {
-    _sprintT += dt;
-    // Durata sprint proporzionale alla velocità del pos 3 (scattista)
-    // spe=100, stamina=100 → lerp=2.4 → durata=_SPRINT_DUR (5s)
-    // spe=50, stamina=80  → lerp≈1.1 → durata≈11s
-    var sprintLerp = _tokenSpeeds['my_3'] || 2.4;
-    var sprintDur  = _SPRINT_DUR * (2.4 / Math.max(sprintLerp, 0.3));
-    if (_sprintT >= sprintDur) {
-      _sprintDone = true;
-      _phase = 'play';
-      var my3 = _tokens['my_3'], opp3 = _tokens['opp_3'];
-      // Chi ha preso la palla: il più vicino al centro
-      var my3dist  = my3  ? Math.abs(my3.x  - PLAY.cx) + Math.abs(my3.y  - PLAY.cy) : 999;
-      var opp3dist = opp3 ? Math.abs(opp3.x - PLAY.cx) + Math.abs(opp3.y - PLAY.cy) : 999;
-      _attack = (my3dist <= opp3dist) ? 'my' : 'opp';
-      _triggerTactical();
-    }
-  } else if (_phase === 'goal') {
-    // Durante l'animazione GOAL i giocatori sono in PAUSA (non si muovono)
-    if (_goalAnim) {
-      _goalAnim.timer += dt;
-      if (_goalAnim.timer >= _goalAnim.total) _goalAnim = null;
-    }
-    // Interpola solo palla (entra in porta), token fermi
-    _ball.x += (_ball.tx - _ball.x) * Math.min(f * 5.0, 1);
-    _ball.y += (_ball.ty - _ball.y) * Math.min(f * 5.0, 1);
-    return;   // <-- esce prima dell'interpolazione generale dei token
-  } else { // 'play'
-    _updateKeepers();
-    _microMovements(dt);
-  }
+  // Aggiornamento segnalini giocatori
+  Object.values(_tokens).forEach(tok => {
+    if (tok.x === tok.tx && tok.y === tok.ty) return;
 
-  // Interpolazione token con velocità individuale (spe + stamina)
-  // Durante lo sprint il pos 3 usa velocità piena, gli altri la loro normale
-  Object.values(_tokens).forEach(function(tok) {
-    var spd = _tokenSpeeds[tok.team + '_' + tok.pk] || 2.4;
-    tok.x += (tok.tx - tok.x) * Math.min(f * spd, 1);
-    tok.y += (tok.ty - tok.y) * Math.min(f * spd, 1);
+    const dx = tok.tx - tok.x;
+    const dy = tok.ty - tok.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance > 0) {
+      // Lo spostamento massimo in questo frame basato sulla velocità fisica del giocatore
+      // Moltiplichiamo per ms.speed se vogliamo che l'animazione acceleri con la velocità di simulazione
+      const simulationSpeed = (G.ms && G.ms.speed) ? G.ms.speed : 1;
+      const step = tok.maxSpeed * dt * simulationSpeed;
+
+      if (distance <= step) {
+        tok.x = tok.tx;
+        tok.y = tok.ty;
+      } else {
+        tok.x += (dx / distance) * step;
+        tok.y += (dy / distance) * step;
+      }
+    }
   });
-  _ball.x += (_ball.tx - _ball.x) * Math.min(f * 4.5, 1);
-  _ball.y += (_ball.ty - _ball.y) * Math.min(f * 4.5, 1);
 }
 
 // ── Disegno ──────────────────────────────────
