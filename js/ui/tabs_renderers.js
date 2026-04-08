@@ -389,7 +389,7 @@ function renderDash() {
           (expiringPlayers.length > 4 ? ' +altri' : '') +
         '</div>' +
       '</div>' +
-      '<button onclick="showTab(&quot;rosa&quot;)" style="flex-shrink:0;padding:5px 12px;font-size:11px;font-weight:700;' +
+      '<button onclick="showTab(\'rosa\')\" style="flex-shrink:0;padding:5px 12px;font-size:11px;font-weight:700;' +
         'border-radius:6px;background:rgba(123,47,190,.3);border:1px solid rgba(123,47,190,.6);' +
         'color:#ce93d8;cursor:pointer">Gestisci</button>' +
       '</div>';
@@ -619,6 +619,24 @@ function renderDash() {
   document.getElementById('tab-dash').innerHTML = h;
 }
 
+
+// ── Ordinamento Rosa ──────────────────────────
+function _rosaSortClick(key) {
+  if (!G._rosaSort) G._rosaSort = { key: null, dir: 1 };
+  if (G._rosaSort.key === key) G._rosaSort.dir *= -1;
+  else { G._rosaSort.key = key; G._rosaSort.dir = 1; }
+  G._rosaPage = 0;
+  renderRosa();
+}
+
+function _rosaSortArrow(key) {
+  if (!G._rosaSort || G._rosaSort.key !== key)
+    return '<span style="color:rgba(255,255,255,.18);font-size:8px">⇅</span>';
+  return G._rosaSort.dir === 1
+    ? '<span style="color:#00c2ff;font-size:8px">▲</span>'
+    : '<span style="color:#00c2ff;font-size:8px">▼</span>';
+}
+
 // ════════════════════════════════════════════
 // ROSA
 // ════════════════════════════════════════════
@@ -627,10 +645,34 @@ function renderRosa() {
   const tlSet  = new Set((G.transferList || []).map(function(e) { return e.rosterIdx; }));
   const PER_PAGE = 20;
   if (G._rosaPage === undefined) G._rosaPage = 0;
-  const totalPages = Math.max(1, Math.ceil(roster.length / PER_PAGE));
+  if (!G._rosaSort) G._rosaSort = { key: null, dir: 1 };
+
+  // Ordine fisso ruoli e mano per sort
+  var ROLE_ORDER = { POR: 0, CEN: 1, DIF: 2, ATT: 3, CB: 4 };
+  var HAND_ORDER = { R: 0, L: 1, AMB: 2 };
+
+  // Costruisce array con indici originali e applica ordinamento
+  var indexed = roster.map(function(p, i) { return { p: p, i: i }; });
+  if (G._rosaSort.key) {
+    indexed.sort(function(a, b) {
+      var pa = a.p, pb = b.p, d = G._rosaSort.dir;
+      switch (G._rosaSort.key) {
+        case 'role':    return d * ((ROLE_ORDER[pa.role] ?? 9) - (ROLE_ORDER[pb.role] ?? 9));
+        case 'age':     return d * ((pa.age || 0) - (pb.age || 0));
+        case 'hand':    return d * ((HAND_ORDER[pa.hand] ?? 9) - (HAND_ORDER[pb.hand] ?? 9));
+        case 'fitness': return d * ((pa.fitness || 0) - (pb.fitness || 0));
+        case 'overall': return d * ((pa.overall || 0) - (pb.overall || 0));
+        case 'goals':   return d * ((pa.goals || 0) - (pb.goals || 0));
+        case 'assists': return d * ((pa.assists || 0) - (pb.assists || 0));
+        case 'value':   return d * ((pa.value || 0) - (pb.value || 0));
+        default: return 0;
+      }
+    });
+  }
+
+  const totalPages = Math.max(1, Math.ceil(indexed.length / PER_PAGE));
   const safePage   = Math.min(G._rosaPage, totalPages - 1);
-  const pageItems  = roster.map(function(p, i) { return { p: p, i: i }; })
-                           .slice(safePage * PER_PAGE, (safePage + 1) * PER_PAGE);
+  const pageItems  = indexed.slice(safePage * PER_PAGE, (safePage + 1) * PER_PAGE);
 
   // OVR circle SVG
   function ovrCircle(ovr) {
