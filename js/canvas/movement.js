@@ -35,30 +35,24 @@ var MovementController = (function() {
   }
 
   // Chiamata ogni frame con dt in secondi (già moltiplicato per speed se necessario)
-function update(dt) {
-  if (!_active || !_ms || !_ms.running) return;
+  function update(dt) {
+    if (!_active || !_ms || !_ms.running) return;
 
-  // Ad ogni frame, rinfreschiamo le velocità calcolate in pool.js
-  // in modo che il calo di stamina sia visibile immediatamente nel movimento
-  if (typeof poolSetSpeeds === 'function') {
-    poolSetSpeeds(_ms);
+    _ticker    += dt;
+    _microTick += dt;
+
+    // ── Micro-movimenti ──────────────────────
+    if (_microTick >= MICRO_INTERVAL) {
+      _microTick = 0;
+      _applyMicroMovements();
+    }
+
+    // ── Riposizionamento tattico ─────────────
+    if (_ticker >= TACTICAL_INTERVAL) {
+      _ticker = 0;
+      _applyTacticalPosition();
+    }
   }
-
-  _ticker    += dt;
-  _microTick += dt;
-
-  // Micro-movimenti casuali (nuoto sul posto)
-  if (_microTick >= MICRO_INTERVAL) {
-    _microTick = 0;
-    _applyMicroMovements();
-  }
-
-  // Riposizionamento tattico (compatibile con la cronaca)
-  if (_ticker >= TACTICAL_INTERVAL) {
-    _ticker = 0;
-    _applyTacticalPosition();
-  }
-}
 
   // Chiamata quando c'è un cambio di possesso esplicito
   function onPossessChange(team) {
