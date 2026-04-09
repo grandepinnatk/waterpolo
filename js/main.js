@@ -711,14 +711,38 @@ function setTicketPrice(val) {
   autoSave(); renderStadium();
 }
 
+
+// ── Distribuisce gol su 4 tempi ────────────────────────────────────
+function _splitIntoPeriods(totalHome, totalAway) {
+  var periods = [{home:0,away:0},{home:0,away:0},{home:0,away:0},{home:0,away:0}];
+  // Distribuisce randomicamente i gol nei 4 periodi
+  for (var i = 0; i < totalHome; i++) {
+    var p = Math.floor(Math.random() * 4);
+    periods[p].home++;
+  }
+  for (var i = 0; i < totalAway; i++) {
+    var p = Math.floor(Math.random() * 4);
+    periods[p].away++;
+  }
+  return periods;
+}
+
 function simPOMatch(type, idx) {
   const pb = G.poBracket;
   const m  = type === 'sf' ? pb.sf[idx] : pb.final;
   const hT = G.teams.find(t => t.id === m.home);
   const aT = G.teams.find(t => t.id === m.away);
   const sc = simulateResult(hT, aT, 0, G.rosters);
+  // Parziali per 4 tempi
   if (!m.scores) m.scores = [];
-  m.scores.push(sc);
+  const periods = _splitIntoPeriods(sc.home, sc.away);
+  m.scores = periods;
+  // Genera marcatori/assist
+  const homeRoster = G.rosters[m.home] || [];
+  const awayRoster = G.rosters[m.away] || [];
+  if (typeof simulateMatchStats === 'function') {
+    m.details = simulateMatchStats(homeRoster, awayRoster, sc);
+  }
   // Pareggio → supplementari → rigori
   let poWinner;
   if (sc.home > sc.away)      poWinner = m.home;
@@ -729,12 +753,15 @@ function simPOMatch(type, idx) {
     const extA = sc.away + (Math.random() < 0.40 ? 1 : 0) + (Math.random() < 0.15 ? 1 : 0);
     if (extH !== extA) {
       poWinner = extH > extA ? m.home : m.away;
-      m.scores.push({ home: extH - sc.home, away: extA - sc.away });
+      // Aggiunge periodo supplementari (gol extra distribuiti su 1 periodo)
+      m.scores.push({ home: extH - sc.home, away: extA - sc.away, label: 'Sup.' });
       G.msgs.push('⏱️ Supplementari: ' + (hT?.name||'?') + ' ' + extH + '-' + extA + ' ' + (aT?.name||'?'));
     } else {
       // Rigori
       const ps = _simPenaltyShootout(m.home, m.away);
       poWinner = ps.winner;
+      m.scores.push({ home: ps.hG, away: ps.aG, label: 'Rig.' });
+      m._extraInfo = '🎯 Rigori: ' + ps.hG + '-' + ps.aG;
       G.msgs.push('🎯 Rigori: ' + (hT?.name||'?') + ' ' + ps.hG + '-' + ps.aG + ' ' + (aT?.name||'?') + '. Avanza ' + (G.teams.find(t=>t.id===poWinner)?.name||'?') + '.');
     }
   }
@@ -757,8 +784,16 @@ function simPLMatch(key) {
   const hT   = G.teams.find(t => t.id === m.home);
   const aT   = G.teams.find(t => t.id === m.away);
   const sc  = simulateResult(hT, aT, 0, G.rosters);
+  // Parziali per 4 tempi
   if (!m.scores) m.scores = [];
-  m.scores.push(sc);
+  const plPeriods = _splitIntoPeriods(sc.home, sc.away);
+  m.scores = plPeriods;
+  // Genera marcatori/assist
+  const plHomeRoster = G.rosters[m.home] || [];
+  const plAwayRoster = G.rosters[m.away] || [];
+  if (typeof simulateMatchStats === 'function') {
+    m.details = simulateMatchStats(plHomeRoster, plAwayRoster, sc);
+  }
   // Chi VINCE si salva, chi PERDE retrocede
   let winner;
   if (sc.home !== sc.away) {
@@ -769,7 +804,7 @@ function simPLMatch(key) {
     const extA = sc.away + (Math.random() < 0.45 ? 1 : 0);
     if (extH !== extA) {
       winner = extH > extA ? m.home : m.away;
-      m.scores.push({ home: extH - sc.home, away: extA - sc.away });
+      m.scores.push({ home: extH - sc.home, away: extA - sc.away, label: 'Sup.' });
       G.msgs.push('⏱️ Supplementari: ' + (hT?.name||'?') + ' ' + extH + '-' + extA + ' ' + (aT?.name||'?'));
     } else {
       // Ancora pari → rigori

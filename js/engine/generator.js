@@ -67,7 +67,7 @@ function generatePlayer(teamStrength, role) {
     // 23-27: margine fino a +6 (ancora in crescita)
     // 28-31: margine +2 (plateau)
     // 32+:   uguale all'OVR (già al picco o in declino)
-    potential: Math.min(99, base + (age < 20 ? rnd(8, 20) : age < 23 ? rnd(4, 12) : age < 28 ? rnd(2, 6) : age < 32 ? rnd(0, 2) : 0)),
+    potential: Math.max(base, Math.min(99, base + (age < 20 ? rnd(8, 20) : age < 23 ? rnd(4, 12) : age < 28 ? rnd(2, 6) : age < 32 ? rnd(1, 3) : 0))),
     nat,
     value:     Math.round(base * rnd(5000, 9000)),
     salary:    Math.round(base * rnd(250, 550)),

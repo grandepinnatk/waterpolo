@@ -1795,7 +1795,32 @@ function renderPlayoff() {
   const tname = function(id) { return (G.teams.find(function(t){return t.id===id;})||{name:'TBD'}).name; };
 
   // ── Popup dettaglio partita playoff ──
-  window.showPOMatchDetail = function(scores, homeId, awayId, label, extraInfo) {
+
+function _buildPOScorers(details, homeId, awayId) {
+  if (!details) return '';
+  var hT = G.teams.find(function(t){return t.id===homeId;}) || {abbr:'?'};
+  var aT = G.teams.find(function(t){return t.id===awayId;}) || {abbr:'?'};
+  var homeIsMe = homeId === G.myId, awayIsMe = awayId === G.myId;
+  function scorerList(list) {
+    var filtered = (list || []).filter(function(s){ return s.goals > 0 || s.assists > 0; });
+    if (!filtered.length) return '<div style="color:var(--muted);font-size:12px;padding:2px 0">—</div>';
+    return filtered.sort(function(a,b){ return (b.goals||0)-(a.goals||0)||(b.assists||0)-(a.assists||0); })
+      .map(function(s) {
+        return '<div style="display:flex;justify-content:space-between;align-items:center;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px">'
+          + '<span>' + s.name + '</span><span style="display:flex;gap:6px">'
+          + (s.goals   > 0 ? '<span style="color:var(--blue);font-weight:700">⚽' + s.goals + '</span>' : '')
+          + (s.assists > 0 ? '<span style="color:var(--green);font-size:11px">🤝' + s.assists + '</span>' : '')
+          + '</span></div>';
+      }).join('');
+  }
+  return '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">'
+    + '<div><div style="font-size:11px;font-weight:700;color:' + (homeIsMe?'var(--blue)':'var(--muted)') + ';text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">' + hT.abbr + '</div>'
+    + scorerList(details.home) + '</div>'
+    + '<div><div style="font-size:11px;font-weight:700;color:' + (awayIsMe?'var(--blue)':'var(--muted)') + ';text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">' + aT.abbr + '</div>'
+    + scorerList(details.away) + '</div></div>';
+}
+
+  window.showPOMatchDetail = function(scores, homeId, awayId, label, extraInfo, matchDetails) {
     var hT = G.teams.find(function(t){return t.id===homeId;}) || {name:'?',abbr:'?'};
     var aT = G.teams.find(function(t){return t.id===awayId;}) || {name:'?',abbr:'?'};
     var existing = document.getElementById('po-detail-popup');
@@ -1806,10 +1831,14 @@ function renderPlayoff() {
     var homeIsMe = homeId === G.myId, awayIsMe = awayId === G.myId;
 
     // Parziali
+    var _regCount = 0;
     var partialsRows = scores.map(function(sc, i) {
-      var lbl = i === 0 ? '1° T' : i === 1 ? '2° T' : i === 2 ? '3° T' : i === 3 ? '4° T' : i === 4 ? 'Sup.' : 'Rig.';
-      return '<tr style="border-bottom:1px solid rgba(255,255,255,.04)">'
-        + '<td style="text-align:center;color:var(--muted);padding:4px">' + lbl + '</td>'
+      var lbl;
+      if (sc.label) { lbl = sc.label; }
+      else { _regCount++; lbl = _regCount + '° T'; }
+      var isExtra = !!sc.label;
+      return '<tr style="border-bottom:1px solid rgba(255,255,255,.04)' + (isExtra ? ';background:rgba(255,255,255,.03)' : '') + '">'
+        + '<td style="text-align:center;color:' + (isExtra ? 'var(--gold)' : 'var(--muted)') + ';padding:4px;font-weight:' + (isExtra ? '700' : '400') + '">' + lbl + '</td>'
         + '<td style="text-align:center;font-weight:600;padding:4px">' + sc.home + '</td>'
         + '<td style="text-align:center;font-weight:600;padding:4px">' + sc.away + '</td>'
         + '</tr>';
@@ -1848,7 +1877,7 @@ function renderPlayoff() {
       + '<td style="text-align:center;color:var(--blue);padding:5px">' + totalH + '</td>'
       + '<td style="text-align:center;color:var(--blue);padding:5px">' + totalA + '</td>'
       + '</tr></tbody></table></div>'
-      + '<div style="font-size:12px;color:var(--muted);text-align:center;padding:8px 0">Statistiche dettagliate disponibili solo per partite giocate manualmente.</div>'
+      + (matchDetails ? _buildPOScorers(matchDetails, homeId, awayId) : '<div style="font-size:12px;color:var(--muted);text-align:center;padding:8px 0">Marcatori non disponibili.</div>')
       + '</div>';
     ov.onclick = function(e) { if (e.target === ov) ov.remove(); };
     document.body.appendChild(ov);
@@ -1865,7 +1894,7 @@ function renderPlayoff() {
     var _poKey = (m.home||'') + '_' + (m.away||'') + '_' + (m.label||'').replace(/[^a-zA-Z0-9]/g,'');
     window._poMatchData[_poKey] = { scores: m.scores||[m.score]||[], home: m.home, away: m.away, label: m.label||'', extra: m._extraInfo||'' };
     var scoreHtml = (totalH !== null && totalA !== null)
-      ? '<span style="background:var(--panel);border-radius:6px;padding:2px 10px;font-size:14px;font-weight:700;cursor:pointer" onclick="(function(){var d=window._poMatchData[\''+_poKey+'\'];d&&showPOMatchDetail(d.scores,d.home,d.away,d.label,d.extra);})()">'
+      ? '<span style="background:var(--panel);border-radius:6px;padding:2px 10px;font-size:14px;font-weight:700;cursor:pointer" onclick="(function(){var d=window._poMatchData[\''+_poKey+'\'];d&&showPOMatchDetail(d.scores,d.home,d.away,d.label,d.extra,d.details);})()">'
         + totalH + ' - ' + totalA + '</span>'
       : '<span style="color:var(--muted);font-size:12px">vs</span>';
 
