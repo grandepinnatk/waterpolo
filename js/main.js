@@ -354,7 +354,7 @@ function simNextRound() {
       // Decadimento forma +15% rispetto alla baseline
       const decay = age < 24 ? 1.15 : age < 29 ? 2.30 : age < 33 ? 3.45 : 4.60;
       const variance = Math.floor(Math.random() * 3) - 1; // -1, 0, +1
-      p.fitness = Math.max(20, (p.fitness || 70) - decay + variance);
+      p.fitness = Math.round(Math.max(20, (p.fitness || 70) - decay + variance));
     });
   }
 

@@ -196,7 +196,7 @@ function simulateMatchStats(homeRoster, awayRoster, score) {
         p.injured     = true;
         p.injuryWeeks = 1 + Math.floor(Math.random() * 4); // 1-4 giornate (più leggero della partita live)
         const penalty = 8 + Math.floor(Math.random() * 12);
-        p.fitness     = Math.max(5, (p.fitness || 70) - penalty);
+        p.fitness     = Math.round(Math.max(5, (p.fitness || 70) - penalty));
         injured.push(p.name);
       }
     });

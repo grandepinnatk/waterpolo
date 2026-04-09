@@ -1493,7 +1493,7 @@ function doTrain(i) {
     // Il potenziale è il tetto massimo — l'OVR non può superarlo con l'allenamento
     var potCap = (p.potential !== undefined && p.potential > 0) ? p.potential : 99;
     if (tr.eff.gk && p.role === 'POR') p.overall = Math.min(potCap, p.overall + 2);
-    p.fitness = cap(p.fitness - (tr.fatigue || 0) + rnd(-2, 2));
+    p.fitness = Math.round(cap(p.fitness - (tr.fatigue || 0) + rnd(-2, 2)));
     if (rnd(1, 100) <= 12 && p.overall < potCap) { p.overall = Math.min(potCap, p.overall + 1); improved++; }
   });
 
