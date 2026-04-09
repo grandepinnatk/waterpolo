@@ -132,6 +132,9 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
     squad13 = [...calledGK, ...calledFld];
   }
   const convocati = new Set(squad13.map(p => p.name));
+  // Portieri convocati in ordine (titolare = primo per score)
+  const calledGK = squad13.filter(p => p.role === 'POR')
+                           .sort((a, b) => b.overall - a.overall);
 
   // ── Mappa nome → { goals, assists } dai details ────────────────────────
   const matchMap = {};
@@ -572,7 +575,7 @@ function _updateStadiumConstruction() {
   Object.entries(G.stadium.sections).forEach(function(kv) {
     var key = kv[0], sec = kv[1];
     if (!sec.construction) return;
-    sec.construction.daysLeft--;
+    sec.construction.daysLeft = (parseInt(sec.construction.daysLeft) || 1) - 1;
     if (sec.construction.daysLeft <= 0) {
       var t = sec.construction.type;
       if (t === 'level')  sec.level = (sec.level || 0) + 1;
