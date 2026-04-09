@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [0.6.02] — 2026-04-09
+AMB nell'auto-formazione riceve +5 come la mano preferita (non +2): può giocare a destra e sinistra senza malus, equivalente al giocatore con la mano giusta per quella posizione.
+
+[0.6.01] — 2026-04-09
+Posizioni in vasca corrette: P/1-6 con ruoli e mano preferita ufficiali. Auto-formazione considera ruolo (+10) e mano preferita (+5, AMB +2) per ogni slot.
+
+
 Formato: `MAJOR.MINOR.PATCH` — beta fisso a 0.
 
 ---

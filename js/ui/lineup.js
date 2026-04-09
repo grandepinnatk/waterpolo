@@ -372,11 +372,22 @@ function autoFillLineup() {
     .sort((a, b) => b.p.overall - a.p.overall)[0];
   if (por) { luState.formation['GK'] = por.i; used.add(por.i); luState.convocati.add(por.i); }
 
-  ['5','6','1','4','2','3'].forEach(pk => {
-    const pref  = POS_ROLE_AFFINITY[pk];
+  ['1','2','3','4','5','6'].forEach(pk => {
+    const posInfo  = POSITIONS[pk];
+    const prefRole = POS_ROLE_AFFINITY[pk];
+    const prefHand = posInfo && posInfo.prefHand;  // 'R', 'L' o undefined
     const cands = roster.map((p, i) => ({ p, i }))
       .filter(x => !used.has(x.i) && x.p.role !== 'POR')
-      .sort((a, b) => ((b.p.role===pref?10:0)+b.p.overall) - ((a.p.role===pref?10:0)+a.p.overall));
+      .sort((a, b) => {
+        // Score: ruolo corretto +10, mano preferita +5, AMB equivale alla mano preferita (+5), overall come base
+        const scoreA = (a.p.role === prefRole ? 10 : 0)
+                     + (prefHand ? (a.p.hand === prefHand || a.p.hand === 'AMB' ? 5 : 0) : 0)
+                     + a.p.overall;
+        const scoreB = (b.p.role === prefRole ? 10 : 0)
+                     + (prefHand ? (b.p.hand === prefHand || b.p.hand === 'AMB' ? 5 : 0) : 0)
+                     + b.p.overall;
+        return scoreB - scoreA;
+      });
     if (cands.length) { luState.formation[pk]=cands[0].i; used.add(cands[0].i); luState.convocati.add(cands[0].i); }
   });
 
