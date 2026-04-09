@@ -218,7 +218,7 @@ function renderPlayerSelList() {
     nameCell.innerHTML = `
       <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:${p.injured?'.5':'1'}">${p.name}${_ritBadge(p)}${_scadBadge(p)}${infTag}</div>
       <div style="font-size:10px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">
-        ${_luRoleBadge(p.role)} ${_luHandBadge(p.hand)}
+        ${_luRoleBadge(p.role)}${p.secondRole ? ' ' + _luRoleBadge(p.secondRole) : ''} ${_luHandBadge(p.hand)}
         <span style="color:var(--muted)">${p.age}a · OVR ${p.overall}</span>
       </div>`;
     row.appendChild(nameCell);
@@ -231,7 +231,7 @@ function renderPlayerSelList() {
     // Cella forma
     const fc = p.fitness > 70 ? '#2ecc71' : p.fitness > 45 ? '#f0c040' : '#e74c3c';
     const fitCell = document.createElement('div');
-    fitCell.innerHTML = `<span style="font-size:11px;color:${fc}">${p.fitness}%</span>`;
+    fitCell.innerHTML = `<span style="font-size:11px;color:${fc}">${Math.round(Math.min(100, p.fitness || 0))}%</span>`;
     row.appendChild(fitCell);
 
     // Cella icona ⓘ — apre scheda giocatore

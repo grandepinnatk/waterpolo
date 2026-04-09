@@ -1,6 +1,15 @@
 # CHANGELOG
 
-## [0.6.03] — 2026-04-09
+## [0.6.06] — 2026-04-09
+Fix: pulsante 'Conferma acquisto' nelle offerte da finalizzare non funzionava perché la funzione `buyFromPending` non era mai stata definita. Aggiunta in `main.js` con la stessa logica di `buyPlayerFromPool`: detrae il budget, aggiunge il giocatore alla rosa, rimuove dalla rosa avversaria, pulisce pool e pendingPurchases.
+
+[0.6.05] — 2026-04-09
+Dashboard: widget 'Ultima Gara' (1/3) affiancato al Matchday Hub (2/3) con risultato, squadra avversaria, giornata e pulsante 'Visualizza Dettaglio'. Notizie con badge RISULTATO diventano cliccabili e aprono il popup dettaglio partita.
+
+[0.6.04] — 2026-04-09
+Rosa: forma mostra N% senza decimali. Badge ruolo più piccoli (9px, padding ridotto) per contenere due ruoli sulla stessa riga. Convocazioni: secondo ruolo visibile affianco al primo; forma con Math.round senza decimali.
+
+[0.6.03] — 2026-04-09
 Fix: cerchio Forma nella Rosa mostra valori sballati se fitness supera 100. Aggiunto clamp 0–100 in `formaBar` e `gap` non può essere negativo.
 
 [0.6.02] — 2026-04-09

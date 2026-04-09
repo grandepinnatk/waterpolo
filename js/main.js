@@ -1386,6 +1386,57 @@ function _processMarketOfferResponses() {
   });
 }
 
+
+// ── Acquisto da offerta accettata (pendingPurchases) ────────────────
+function cancelPending(i) {
+  if (!G.pendingPurchases || !G.pendingPurchases[i]) return;
+  var p = G.pendingPurchases[i].player;
+  G.msgs.push('❌ Offerta annullata per ' + (p ? p.name : '?') + '.');
+  G.pendingPurchases.splice(i, 1);
+  autoSave();
+  if (typeof renderMarket === 'function') renderMarket();
+}
+
+function buyFromPending(i) {
+  if (!G.pendingPurchases || !G.pendingPurchases[i]) {
+    G.msgs.push('❌ Offerta non più disponibile.'); renderMarket(); return;
+  }
+  const pp    = G.pendingPurchases[i];
+  const p     = pp.player;
+  const price = pp.offerAmount;
+
+  if (G.budget < price) {
+    G.msgs.push('❌ Budget insufficiente per acquistare ' + p.name + ' (' + formatMoney(price) + ').');
+    renderMarket(); return;
+  }
+
+  G.budget -= price;
+  addLedger('acquisto', -price, 'Acquistato ' + p.name + ' da ' + p._tname, currentRound ? currentRound() : 0);
+
+  // Aggiungi alla nostra rosa
+  const np = { ...p };
+  delete np._tid; delete np._tname;
+  np.morale = Math.min(100, (np.morale || 70) + rnd(8, 15));
+  G.rosters[G.myId].push(np);
+
+  // Rimuovi dalla rosa avversaria
+  if (p._tid && G.rosters[p._tid]) {
+    G.rosters[p._tid] = G.rosters[p._tid].filter(pl => pl && pl.name !== p.name);
+    _replenishRoster(p._tid);
+  }
+
+  // Rimuovi dal marketPool se presente
+  if (G.marketPool) {
+    G.marketPool = G.marketPool.filter(e => !e.player || e.player.name !== p.name);
+  }
+
+  // Rimuovi da pendingPurchases
+  G.pendingPurchases.splice(i, 1);
+
+  G.msgs.push('✅ Acquistato ' + p.name + ' da ' + (p._tname || '?') + ' per ' + formatMoney(price) + '. Morale alto!');
+  updateHeader(); autoSave();
+  if (typeof renderMarket === 'function') renderMarket();
+}
 function generateTransferOffers() {
   if (!G.transferList || !G.transferList.length) return;
 

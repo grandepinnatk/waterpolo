@@ -400,8 +400,73 @@ function renderDash() {
   }
 
   // ═══════════════════════════════════════════
-  // MATCHDAY HUB
+  // ULTIMA GARA + MATCHDAY HUB (1/3 + 2/3)
   // ═══════════════════════════════════════════
+
+  // Trova l'ultima partita giocata dalla mia squadra
+  var lastMatch = null;
+  if (G.schedule) {
+    var playedMy = G.schedule.filter(function(m) {
+      return m.played && m.score && (m.home === G.myId || m.away === G.myId);
+    });
+    if (playedMy.length) lastMatch = playedMy[playedMy.length - 1];
+  }
+
+  // Wrapper 1/3 + 2/3
+  h += '<div style="display:grid;grid-template-columns:1fr 2fr;gap:10px;margin-bottom:14px">';
+
+  // ── Widget Ultima Gara (1/3) ──
+  h += '<div style="position:relative;border-radius:16px;overflow:hidden;'
+    + 'background:linear-gradient(135deg,#1a0d2e 0%,#12091e 40%,#1a0d2e 100%);'
+    + 'border:1px solid rgba(120,80,200,.25);min-height:140px">';
+  h += '<div style="position:absolute;inset:0;opacity:.06;background:repeating-linear-gradient('
+    + '135deg,transparent,transparent 8px,rgba(120,80,200,.5) 8px,rgba(120,80,200,.5) 9px);pointer-events:none"></div>';
+  h += '<div style="position:relative;padding:14px 16px">';
+  h += '<div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;'
+    + 'letter-spacing:1.2px;margin-bottom:10px">Ultima Gara</div>';
+
+  if (lastMatch) {
+    var lih    = lastMatch.home === G.myId;
+    var lOppId = lih ? lastMatch.away : lastMatch.home;
+    var lOpp   = G.teams.find(function(t){return t.id===lOppId;}) || {name:'?',abbr:'?'};
+    var lMyS   = lih ? lastMatch.score.home : lastMatch.score.away;
+    var lOppS  = lih ? lastMatch.score.away : lastMatch.score.home;
+    var lWon   = lMyS > lOppS, lDrew = lMyS === lOppS;
+    var lCol   = lWon ? '#2ecc71' : lDrew ? '#f0c040' : '#e74c3c';
+    var lRes   = lWon ? 'V' : lDrew ? 'P' : 'S';
+    var lMIdx  = G.schedule.indexOf(lastMatch);
+    // Badge risultato
+    h += '<div style="display:flex;justify-content:center;margin-bottom:8px">';
+    h += '<span style="font-size:13px;font-weight:900;color:' + lCol + ';background:' + lCol + '22;'
+      + 'border:1px solid ' + lCol + '55;border-radius:8px;padding:2px 12px;letter-spacing:1px">' + lRes + '</span>';
+    h += '</div>';
+    // Squadre e punteggio
+    h += '<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px">';
+    h += '<div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.8);text-align:right;flex:1;'
+      + 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + G.myTeam.name + '</div>';
+    h += '<div style="font-size:18px;font-weight:900;color:#fff;flex-shrink:0;background:rgba(0,0,0,.3);'
+      + 'border-radius:8px;padding:3px 10px;letter-spacing:1px">' + lMyS + '–' + lOppS + '</div>';
+    h += '<div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-align:left;flex:1;'
+      + 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + lOpp.name + '</div>';
+    h += '</div>';
+    // Giornata e casa/trasferta
+    h += '<div style="text-align:center;font-size:10px;color:rgba(255,255,255,.35);margin-bottom:10px">'
+      + 'G' + lastMatch.round + ' · ' + (lih ? 'Casa' : 'Trasferta') + '</div>';
+    // Pulsante
+    h += '<button onclick="showMatchDetailPopup(' + lMIdx + ')"'
+      + ' style="width:100%;padding:7px 0;font-size:11px;font-weight:700;border-radius:8px;'
+      + 'background:transparent;border:1.5px solid rgba(120,80,200,.5);color:rgba(180,140,255,.9);'
+      + 'cursor:pointer;transition:border-color .15s;letter-spacing:.3px"'
+      + ' onmouseover="this.style.borderColor=\'rgba(180,140,255,.8)\'"'
+      + ' onmouseout="this.style.borderColor=\'rgba(120,80,200,.5)\'">🔍 Visualizza Dettaglio</button>';
+  } else {
+    h += '<div style="text-align:center;font-size:12px;color:rgba(255,255,255,.25);padding:20px 0">Nessuna partita ancora giocata.</div>';
+  }
+  h += '</div></div>';
+
+  // ── Matchday Hub (2/3) ──
+  h += '<div>';
+
   if (G.phase === 'regular') {
     if (nm && nextOpp) {
       var ih = nm.home === G.myId;
@@ -518,6 +583,9 @@ function renderDash() {
       + '</div></div>';
   }
 
+  // Chiudi wrapper 2/3 e grid 1/3+2/3
+  h += '</div></div>';
+
   // ═══════════════════════════════════════════
   // LAYOUT A 2 COLONNE: Notizie | Focus
   // ═══════════════════════════════════════════
@@ -550,8 +618,26 @@ function renderDash() {
   } else {
     pageItems.forEach(function(m) {
       var tag = msgTag(m);
+      var isResult = tag[0] === 'RISULTATO';
+      // Cerca l'indice della partita corrispondente per le notizie risultato
+      var mIdx = -1;
+      if (isResult && G.schedule) {
+        var rnd = null;
+        var rndMatch = m.match(/G(\d+):/);
+        if (rndMatch) rnd = parseInt(rndMatch[1]);
+        if (rnd !== null) {
+          var found = G.schedule.findIndex(function(s) {
+            return s.round === rnd && s.played && (s.home === G.myId || s.away === G.myId);
+          });
+          if (found >= 0) mIdx = found;
+        }
+      }
+      var rowClick = (isResult && mIdx >= 0)
+        ? ' onclick="showMatchDetailPopup(' + mIdx + ')" style="cursor:pointer"'
+        : ' style="cursor:default"';
       h += '<div style="display:flex;align-items:flex-start;gap:8px;padding:7px 14px;'
-        + 'border-bottom:1px solid rgba(255,255,255,.04);cursor:default;transition:background .12s"'
+        + 'border-bottom:1px solid rgba(255,255,255,.04);transition:background .12s"'
+        + rowClick
         + ' onmouseover="this.style.background=\'rgba(255,255,255,.03)\'"'
         + ' onmouseout="this.style.background=\'transparent\'">'
         + '<span style="flex-shrink:0;margin-top:1px;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;'
@@ -771,7 +857,7 @@ function renderRosa() {
       + '<circle cx="20" cy="20" r="' + r + '" fill="none" stroke="' + col + '" stroke-width="3"'
       + ' stroke-dasharray="' + dash + ' ' + gap + '" stroke-linecap="round"'
       + ' transform="rotate(-90 20 20)" style="filter:drop-shadow(0 0 4px ' + col + ')"/>'
-      + '<text x="20" y="24" text-anchor="middle" font-size="10" font-weight="800" fill="' + col + '">' + fv + '</text>'
+      + '<text x="20" y="24" text-anchor="middle" font-size="9" font-weight="800" fill="' + col + '">' + fv + '%</text>'
       + '</svg>';
   }
 
@@ -850,12 +936,12 @@ function renderRosa() {
 
     // Ruolo badge (con secondRole affianco)
     var rc2 = p.secondRole ? (ROLE_COL[p.secondRole] || '#555') : null;
-    h += '<div style="display:flex;flex-direction:row;align-items:center;gap:3px;flex-wrap:wrap">'
-      + '<span style="display:inline-block;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:800;'
+    h += '<div style="display:flex;flex-direction:row;align-items:center;gap:2px;flex-wrap:wrap">'
+      + '<span style="display:inline-block;padding:1px 4px;border-radius:4px;font-size:9px;font-weight:800;'
       + 'background:' + rc + '33;color:' + rc + ';border:1px solid ' + rc + '66">' + p.role + '</span>'
       + (p.secondRole && rc2
           ? '<span style="display:inline-block;padding:1px 4px;border-radius:4px;font-size:9px;font-weight:700;'
-            + 'background:' + rc2 + '22;color:' + rc2 + ';border:1px solid ' + rc2 + '44;opacity:.8">' + p.secondRole + '</span>'
+            + 'background:' + rc2 + '22;color:' + rc2 + ';border:1px solid ' + rc2 + '44;opacity:.75">' + p.secondRole + '</span>'
           : '')
       + '</div>';
 
@@ -1929,8 +2015,8 @@ function renderMarket() {
         <td style="font-size:11px;font-weight:700;color:${expCol}">${expLbl}</td>
         <td>
           ${canBuy
-            ? `<button class="btn sm success" onclick="buyFromPending(${i})">Conferma acquisto</button>`
-            : `<span style="font-size:11px;color:var(--red)">Budget insuff.</span>`
+            ? `<div style="display:flex;gap:4px"><button class="btn sm success" onclick="buyFromPending(${i})">Conferma acquisto</button><button class="btn sm danger" onclick="cancelPending(${i})">Annulla offerta</button></div>`
+            : `<div style="display:flex;gap:4px"><span style="font-size:11px;color:var(--red)">Budget insuff.</span><button class="btn sm" onclick="cancelPending(${i})">Annulla offerta</button></div>`
           }
         </td>
       </tr>`;
