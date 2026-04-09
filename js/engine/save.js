@@ -1,3 +1,21 @@
+
+// ── Normalizza potential >= overall per tutti i giocatori ────────────
+// Chiamata dopo il caricamento di un salvataggio per correggere
+// giocatori con potential mancante o inferiore all'overall
+function _normalizeRosters(G) {
+  if (!G || !G.rosters) return;
+  Object.values(G.rosters).forEach(function(roster) {
+    if (!roster) return;
+    roster.forEach(function(p) {
+      if (!p) return;
+      // Se potential è mancante o inferiore all'overall, correggilo
+      if (!p.potential || p.potential < p.overall) {
+        p.potential = p.overall;
+      }
+    });
+  });
+}
+
 // ─────────────────────────────────────────────
 // engine/save.js  —  sistema salvataggio a 3 slot
 // ─────────────────────────────────────────────

@@ -131,6 +131,7 @@ function loadSlot(slotIndex) {
     return;
   }
   G = applyLoadedSave(payload);
+  if (typeof _normalizeRosters === 'function') _normalizeRosters(G);
   G._currentSlot = slotIndex;
   showScreen('sc-game');
   updateHeader();

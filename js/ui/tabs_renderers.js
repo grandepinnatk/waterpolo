@@ -440,14 +440,19 @@ function renderDash() {
     h += '<span style="font-size:13px;font-weight:900;color:' + lCol + ';background:' + lCol + '22;'
       + 'border:1px solid ' + lCol + '55;border-radius:8px;padding:2px 12px;letter-spacing:1px">' + lRes + '</span>';
     h += '</div>';
-    // Squadre e punteggio
+    // Squadre e punteggio — casa a sinistra, ospite a destra
+    var lHomeName = lih ? G.myTeam.name : lOpp.name;
+    var lAwayName = lih ? lOpp.name : G.myTeam.name;
+    var lHomeScore = lastMatch.score.home;
+    var lAwayScore = lastMatch.score.away;
+    var lHomeIsMe  = lih;
     h += '<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px">';
-    h += '<div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.8);text-align:right;flex:1;'
-      + 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + G.myTeam.name + '</div>';
+    h += '<div style="font-size:11px;font-weight:' + (lHomeIsMe ? 700 : 500) + ';color:' + (lHomeIsMe ? 'rgba(255,255,255,.9)' : 'rgba(255,255,255,.5)') + ';text-align:right;flex:1;'
+      + 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + lHomeName + '</div>';
     h += '<div style="font-size:18px;font-weight:900;color:#fff;flex-shrink:0;background:rgba(0,0,0,.3);'
-      + 'border-radius:8px;padding:3px 10px;letter-spacing:1px">' + lMyS + '–' + lOppS + '</div>';
-    h += '<div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-align:left;flex:1;'
-      + 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + lOpp.name + '</div>';
+      + 'border-radius:8px;padding:3px 10px;letter-spacing:1px">' + lHomeScore + '–' + lAwayScore + '</div>';
+    h += '<div style="font-size:11px;font-weight:' + (!lHomeIsMe ? 700 : 500) + ';color:' + (!lHomeIsMe ? 'rgba(255,255,255,.9)' : 'rgba(255,255,255,.5)') + ';text-align:left;flex:1;'
+      + 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + lAwayName + '</div>';
     h += '</div>';
     // Giornata e casa/trasferta
     h += '<div style="text-align:center;font-size:10px;color:rgba(255,255,255,.35);margin-bottom:10px">'
@@ -1479,6 +1484,7 @@ function doTrain(i) {
   let improved = 0;
 
   roster.forEach(p => {
+    if (!p || p.injured) return;  // infortunati: nessun effetto allenamento
     if (tr.eff.fitness) p.fitness = cap(p.fitness + rnd(1, tr.eff.fitness));
     if (tr.eff.morale)  p.morale  = cap(p.morale  + rnd(1, tr.eff.morale));
     if (tr.eff.att)     p.stats.att = cap(p.stats.att + rnd(0, tr.eff.att));
@@ -1495,6 +1501,8 @@ function doTrain(i) {
     if (tr.eff.gk && p.role === 'POR') p.overall = Math.min(potCap, p.overall + 2);
     p.fitness = Math.round(cap(p.fitness - (tr.fatigue || 0) + rnd(-2, 2)));
     if (rnd(1, 100) <= 12 && p.overall < potCap) { p.overall = Math.min(potCap, p.overall + 1); improved++; }
+    // Sanity check: overall non può mai superare potential
+    if (p.potential && p.overall > p.potential) p.overall = p.potential;
   });
 
   const effDesc = tr.eff ? Object.entries(tr.eff).map(([k, v]) => '+' + v + ' ' + k).join(', ') : '';
