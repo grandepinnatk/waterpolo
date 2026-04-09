@@ -526,7 +526,7 @@ function stadiumMatchRevenue() {
     if (sec.bar)  rev += paying * price * STADIUM_BAR_BONUS;
     if (sec.shop) rev += paying * price * STADIUM_SHOP_BONUS;
   });
-  return { paying: paying, revenue: Math.round(rev) };
+  return { paying: paying, revenue: Math.round(rev), activeCap: activeCap };
 }
 
 // Avvia costruzione / upgrade

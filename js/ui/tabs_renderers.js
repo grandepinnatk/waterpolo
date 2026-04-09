@@ -2534,7 +2534,20 @@ function renderStadium() {
       + '<div style="font-size:28px;margin-left:auto">' + icon + '</div>'
       + '</div>';
   }
-  h += statCard('🏟️', 'Capienza', cap.toLocaleString('it-IT'), '#00c2ff');
+  var activeCap  = rev.activeCap !== undefined ? rev.activeCap : cap;
+  var usablePct  = cap > 0 ? Math.round(activeCap / cap * 100) : 100;
+  var capCardHtml = '<div style="background:linear-gradient(135deg,rgba(255,255,255,.06) 0%,rgba(255,255,255,.02) 100%);'
+    + 'border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 12px;position:relative;overflow:hidden">'
+    + '<div style="font-size:22px;font-weight:900;color:#00c2ff;line-height:1">' + cap.toLocaleString('it-IT') + '</div>'
+    + '<div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.6px;margin-top:3px">Capienza TOT</div>'
+    + '<div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.07)">'
+    + '<div style="font-size:18px;font-weight:800;color:' + (usablePct < 100 ? '#f0c040' : '#69f0ae') + ';line-height:1">'
+    + activeCap.toLocaleString('it-IT') + ' <span style="font-size:12px;font-weight:600">(' + usablePct + '%)</span></div>'
+    + '<div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.6px;margin-top:3px">Capienza utilizzabile</div>'
+    + '</div>'
+    + '<div style="position:absolute;right:10px;top:10px;font-size:28px;opacity:.15">🏟️</div>'
+    + '</div>';
+  h += capCardHtml;
   h += statCard('👥', 'Stima spettatori', rev.paying.toLocaleString('it-IT'), '#69f0ae');
   h += statCard('🎫', 'Biglietto', rev.revenue > 0 ? (G.stadium.ticketPrice || 15) + '€' : (G.stadium.ticketPrice || 15) + '€', '#f0c040');
   h += statCard('💰', 'Incasso stimato', formatMoney(rev.revenue), '#ff8c42');
