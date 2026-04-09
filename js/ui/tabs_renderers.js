@@ -257,13 +257,33 @@ function renderDash() {
   // Rileva tema corrente
   var _isDark    = document.body.classList.contains('theme-dark');
   var _isLight   = document.body.classList.contains('theme-light');
-  var _isClassic = !_isDark && !_isLight;
-  // Sfondo e colori per i widget notizie/focus/top scorer
-  var _wBg    = _isClassic ? '#12243A' : _isDark ? '#141418' : '#E5E8F1';
-  var _wText  = _isLight   ? '#1a1a2e' : '#fff';
-  var _wMuted = _isLight   ? '#555'    : 'rgba(255,255,255,.6)';
-  var _wLabel = _isLight   ? '#222'    : 'rgba(255,255,255,.7)';
-  var _wTitle = _isLight   ? '#444'    : 'rgba(255,255,255,.5)';
+  // Colori widget coerenti con il tema CSS
+  var _wBg, _wText, _wMuted, _wLabel, _wTitle, _wBorder;
+  if (_isLight) {
+    // Chiaro — usa --panel light: rgba(255,255,255,.82), testo scuro
+    _wBg     = 'rgba(255,255,255,0.88)';
+    _wText   = '#1a2a3a';
+    _wMuted  = '#4a6a8a';
+    _wLabel  = '#1a2a3a';
+    _wTitle  = '#4a6a8a';
+    _wBorder = 'rgba(0,60,160,.12)';
+  } else if (_isDark) {
+    // Scuro — usa --panel dark: #141820
+    _wBg     = '#141820';
+    _wText   = '#d0d8e8';
+    _wMuted  = '#607080';
+    _wLabel  = '#a0b0c8';
+    _wTitle  = '#607080';
+    _wBorder = 'rgba(42,48,64,.8)';
+  } else {
+    // Classic — usa --panel: #12243a
+    _wBg     = '#12243a';
+    _wText   = '#e8edf5';
+    _wMuted  = '#7a9bb5';
+    _wLabel  = '#c0d0e0';
+    _wTitle  = '#7a9bb5';
+    _wBorder = 'rgba(30,58,92,.8)';
+  }
 
   var ms      = G.stand[G.myId];
   var pos     = getTeamPosition(G.stand, G.myId);
@@ -615,7 +635,7 @@ function renderDash() {
   var safePg    = Math.min(newsPage, totalPgs - 1);
   var pageItems = allMsgs.slice(safePg * NEWS_PER_PAGE, (safePg + 1) * NEWS_PER_PAGE);
 
-  h += '<div style="background:' + _wBg + ';border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden">';
+  h += '<div style="background:' + _wBg + ';border:1px solid ' + _wBorder + ';border-radius:14px;overflow:hidden">';
 
   // Header notizie
   h += '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;'
@@ -674,7 +694,7 @@ function renderDash() {
     var mc = fp.morale > 70 ? '#2ecc71' : fp.morale > 40 ? '#f0c040' : '#e74c3c';
     var ratings = (fp.lastRatings || []).filter(function(r) { return r !== null; });
     var avgR = ratings.length ? (ratings.reduce(function(s,r){return s+r;},0)/ratings.length).toFixed(1) : null;
-    h += '<div style="background:' + _wBg + ';border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:14px">'
+    h += '<div style="background:' + _wBg + ';border:1px solid ' + _wBorder + ';border-radius:14px;padding:14px">'
       + '<div style="font-size:10px;font-weight:700;color:' + _wTitle + ';text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Focus Giocatore</div>'
       + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'
       + '<div style="width:44px;height:44px;border-radius:10px;background:rgba(0,194,255,.1);border:1px solid rgba(0,194,255,.2);'
@@ -704,7 +724,7 @@ function renderDash() {
   // Top Scorer
   if (topScorer && (topScorer.goals || 0) > 0) {
     var ts = topScorer;
-    h += '<div style="background:' + _wBg + ';border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:14px">'
+    h += '<div style="background:' + _wBg + ';border:1px solid ' + _wBorder + ';border-radius:14px;padding:14px">'
       + '<div style="font-size:10px;font-weight:700;color:' + _wTitle + ';text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Top Scorer</div>'
       + '<div style="display:flex;align-items:center;gap:10px">'
       + '<div style="width:38px;height:38px;border-radius:8px;background:rgba(240,192,64,.1);border:1px solid rgba(240,192,64,.25);'
