@@ -711,13 +711,7 @@ function renderDash() {
   h += '</div>'; // fine colonna destra
   h += '</div>'; // fine griglia 2 colonne
 
-  // Wrappa tutto in un contenitore con sfondo immagine sfocata
-  var wrapper = '<div style="position:relative;min-height:100%;border-radius:12px;overflow:hidden">'
-    + '<div style="position:absolute;inset:0;background:url(bg-waterpolo.webp) center/cover no-repeat;'
-    + 'filter:blur(8px) brightness(.45);transform:scale(1.05);pointer-events:none;z-index:0"></div>'
-    + '<div style="position:relative;z-index:1">' + h + '</div>'
-    + '</div>';
-  document.getElementById('tab-dash').innerHTML = wrapper;
+  document.getElementById('tab-dash').innerHTML = h;
 }
 
 
