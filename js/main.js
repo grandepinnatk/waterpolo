@@ -252,7 +252,19 @@ function simNextRound() {
   roundMatches.forEach(m => {
     const hT = G.teams.find(t => t.id === m.home);
     const aT = G.teams.find(t => t.id === m.away);
-    m.score  = simulateResult(hT, aT, 0, G.rosters);
+    // Calcola spettatori per la partita (solo se c'è lo stadio)
+    var _isHomeGame = m.home === G.myId;
+    var _homeBoost  = 0;
+    if (_isHomeGame && G.stadium) {
+      var _rev = stadiumMatchRevenue();
+      m.attendance = _rev.paying;
+      m.capacity   = _rev.activeCap;
+      // Bonus fino al 5% sulla forza casa proporzionale al riempimento
+      _homeBoost = Math.round((_rev.fill || stadiumFillRate()) * 5);
+    } else if (!_isHomeGame && m.home === G.myId) {
+      // partita fuori casa: nessun bonus stadio
+    }
+    m.score  = simulateResult(hT, aT, _homeBoost, G.rosters);
     m.played = true;
     updateStandings(G.stand, m.home, m.away, m.score);
 
@@ -483,7 +495,7 @@ function _initStadium() {
 // Capienza totale stadio
 function stadiumCapacity() {
   _initStadium();
-  var base = 2000;
+  var base = 500;
   var extra = 0;
   Object.entries(G.stadium.sections).forEach(function(kv) {
     var key = kv[0], sec = kv[1];
@@ -492,23 +504,80 @@ function stadiumCapacity() {
   return base + extra;
 }
 
-// Percentuale riempimento (0-1) basata sulle performance
-function stadiumFillRate() {
+// ── Tipo di evento corrente ────────────────────────────────────────
+// 'regular' | 'playoff' | 'final'
+function _currentMatchType() {
+  if (!G) return 'regular';
+  if (G.phase !== 'playoff') return 'regular';
+  var pb = G.poBracket, plb = G.plBracket;
+  if (!pb || !plb) return 'playoff';
+  // Finale scudetto o finale playout
+  var sfDone = pb.sf && pb.sf.every(function(s){ return !!s.winner; });
+  var m1Done = plb.m1 && !!plb.m1.winner;
+  if (sfDone || m1Done) return 'final';
+  return 'playoff';
+}
+
+// Fascia di prezzo ottimale per tipo di partita
+function _ticketPriceRange(matchType) {
+  if (matchType === 'final')   return { min: 15, max: 50 };
+  if (matchType === 'playoff') return { min: 10, max: 50 };
+  // Regular: range dinamico in base a posizione e serie di vittorie
+  var st     = (G && G.stand && G.stand[G.myId]) || {};
+  var pos    = (typeof getTeamPosition === 'function') ? getTeamPosition(G.stand, G.myId) : 7;
+  var wins   = st.w || 0;
+  var losses = st.l || 0;
+  var tot    = wins + (st.d || 0) + losses;
+  // Serie: ultime 5 partite dal calendario
+  var streak = 0;
+  if (G && G.schedule) {
+    var myMatches = G.schedule
+      .filter(function(m){ return m.played && (m.home === G.myId || m.away === G.myId); })
+      .slice(-5);
+    myMatches.forEach(function(m) {
+      var ih = m.home === G.myId;
+      var mw = ih ? m.score.home > m.score.away : m.score.away > m.score.home;
+      var ml = ih ? m.score.home < m.score.away : m.score.away < m.score.home;
+      streak += mw ? 1 : ml ? -1 : 0;
+    });
+  }
+  // Più sei in alto e in forma → puoi alzare il prezzo
+  var posBonus  = Math.max(0, (14 - pos) / 13);  // 0 (14°) → 1 (1°)
+  var streakMod = streak / 5;                     // -1 → +1
+  var maxPrice  = Math.round(10 + posBonus * 8 + streakMod * 2); // 10–20€
+  var minPrice  = Math.max(1, Math.round(maxPrice * 0.4));
+  return { min: minPrice, max: Math.min(20, maxPrice) };
+}
+
+// Percentuale riempimento (0-1) basata su performance, tipo evento e prezzo biglietto
+function stadiumFillRate(matchType, ticketPrice) {
   if (!G || !G.stand) return 0.30;
+  matchType   = matchType   || _currentMatchType();
+  ticketPrice = ticketPrice || (G.stadium && G.stadium.ticketPrice) || 15;
   var st   = G.stand[G.myId] || {};
   var tot  = (st.w || 0) + (st.d || 0) + (st.l || 0);
-  if (tot === 0) return 0.30;
-  var wr   = (st.w || 0) / tot;                    // win rate
+  var wr   = tot > 0 ? (st.w || 0) / tot : 0.40;
   var tier = { S:1.0, A:0.85, B:0.65, C:0.45 }[G.myTeam.tier || 'B'] || 0.65;
-  var base = 0.25 + wr * 0.50 + tier * 0.15;
-  return Math.min(0.98, Math.max(0.10, base));
+  // Base riempimento da performance
+  var base = 0.25 + wr * 0.45 + tier * 0.12;
+  // Bonus evento: playoff +10%, finale +20%
+  var eventBonus = matchType === 'final' ? 0.20 : matchType === 'playoff' ? 0.10 : 0;
+  base += eventBonus;
+  // Malus prezzo: se il biglietto supera il range ottimale, gli spettatori calano
+  var range = _ticketPriceRange(matchType);
+  var priceMalus = 0;
+  if (ticketPrice > range.max) {
+    // Malus proporzionale: ogni euro sopra il max → -1.5% di fill
+    priceMalus = Math.min(0.60, (ticketPrice - range.max) * 0.015);
+  }
+  return Math.min(0.98, Math.max(0.05, base - priceMalus));
 }
 
 // Entrate match day
 function stadiumMatchRevenue() {
   _initStadium();
   // Capienza effettiva: esclude le sezioni con lavori in corso
-  var base = 2000;
+  var base = 500;
   var activeCap = base;
   Object.entries(G.stadium.sections).forEach(function(kv) {
     var key = kv[0], sec = kv[1];
@@ -516,9 +585,10 @@ function stadiumMatchRevenue() {
       activeCap += sec.level * STADIUM_SECTIONS[key].capPerLevel;
     }
   });
-  var fill   = stadiumFillRate();
-  var paying = Math.round(activeCap * fill);
-  var price  = G.stadium.ticketPrice || 15;
+  var price     = G.stadium.ticketPrice || 15;
+  var matchType = _currentMatchType();
+  var fill      = stadiumFillRate(matchType, price);
+  var paying    = Math.round(activeCap * fill);
   var rev    = paying * price;
   // Bonus bar/shop — solo per sezioni NON in costruzione
   Object.values(G.stadium.sections).forEach(function(sec) {
@@ -526,7 +596,9 @@ function stadiumMatchRevenue() {
     if (sec.bar)  rev += paying * price * STADIUM_BAR_BONUS;
     if (sec.shop) rev += paying * price * STADIUM_SHOP_BONUS;
   });
-  return { paying: paying, revenue: Math.round(rev), activeCap: activeCap };
+  var ticketRange = _ticketPriceRange(matchType);
+  return { paying: paying, revenue: Math.round(rev), activeCap: activeCap,
+           matchType: matchType, ticketRange: ticketRange, fill: fill };
 }
 
 // Avvia costruzione / upgrade

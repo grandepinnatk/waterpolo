@@ -222,6 +222,10 @@ function showMatchDetailPopup(matchIdx) {
             <span onclick="showTeamRosterPopup('${m.away}')" style="font-size:15px;font-weight:${awayIsMe?700:500};cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;color:${awayIsMe?'var(--blue)':'var(--text)'}">${aT?aT.name:'?'}</span>
           </div>
         </div>
+        ${m.attendance > 0 ? `<div style="font-size:11px;color:var(--muted);margin-top:6px">
+          👥 Spettatori: <strong style="color:rgba(255,255,255,.7)">${m.attendance.toLocaleString('it-IT')}</strong>
+          — ${Math.round(m.attendance / (m.capacity||500) * 100)}% sul totale di ${(m.capacity||500).toLocaleString('it-IT')}
+        </div>` : ''}
       </div>
 
       <!-- Parziali -->
@@ -1623,6 +1627,11 @@ function renderCal(activeTab) {
         var md = m.score.home === m.score.away;
         var vc = mw ? 'var(--green)' : md ? 'var(--gold)' : 'var(--red)';
         badge = '<span style="font-size:11px;font-weight:700;color:' + vc + ';margin-left:2px">' + (mw?'V':md?'P':'S') + '</span>';
+        // Spettatori sotto il risultato (solo partite in casa)
+        if (ih && m.attendance > 0) {
+          var _attPct2 = Math.round(m.attendance / (m.capacity || 500) * 100);
+          badge += '<div style="font-size:10px;color:var(--muted);margin-top:2px;text-align:center;white-space:nowrap">'            + '👥 ' + m.attendance.toLocaleString('it-IT') + ' · ' + _attPct2 + '% di ' + (m.capacity||500).toLocaleString('it-IT')            + '</div>';
+        }
       }
     } else {
       scoreHtml = '<span style="color:var(--muted);font-size:13px;padding:0 10px">vs</span>';
@@ -2548,25 +2557,44 @@ function renderStadium() {
     + '<div style="position:absolute;right:10px;top:10px;font-size:28px;opacity:.15">🏟️</div>'
     + '</div>';
   h += capCardHtml;
-  h += statCard('👥', 'Stima spettatori', rev.paying.toLocaleString('it-IT'), '#69f0ae');
+  var fillPct = Math.round((rev.fill || 0) * 100);
+  h += statCard('👥', 'Stima spettatori · ' + fillPct + '% pieni', rev.paying.toLocaleString('it-IT'), '#69f0ae');
   h += statCard('🎫', 'Biglietto', rev.revenue > 0 ? (G.stadium.ticketPrice || 15) + '€' : (G.stadium.ticketPrice || 15) + '€', '#f0c040');
   h += statCard('💰', 'Incasso stimato', formatMoney(rev.revenue), '#ff8c42');
   h += '</div>';
 
   // ── Prezzo biglietto ──
+  var tRange    = rev.ticketRange || { min: 1, max: 20 };
+  var tPrice    = G.stadium.ticketPrice || 15;
+  var tMtype    = rev.matchType || 'regular';
+  var mtLabel   = tMtype === 'final' ? '🏆 Finale' : tMtype === 'playoff' ? '⚡ Playoff/Playout' : '⚽ Campionato';
+  var tooHigh   = tPrice > tRange.max;
+  var tooLow    = tPrice < tRange.min;
+  var priceWarn = tooHigh
+    ? '⚠️ Prezzo troppo alto: gli spettatori calano (-' + Math.round(Math.min(60, (tPrice - tRange.max) * 1.5)) + '% riempimento)'
+    : tooLow ? '💡 Puoi alzare il prezzo senza perdere spettatori' : '✅ Prezzo ottimale per questo evento';
+  var warnCol   = tooHigh ? '#f0c040' : tooLow ? '#69f0ae' : '#69f0ae';
   h += '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);'
-    + 'border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px">'
+    + 'border-radius:10px;padding:12px 16px;margin-bottom:16px">'
+    + '<div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">'
     + '<span style="font-size:16px">🎫</span>'
     + '<span style="font-size:13px;color:rgba(255,255,255,.6);font-weight:600">Prezzo biglietto:</span>'
-    + '<input type="number" id="ticket-price-inp" min="5" max="150" value="' + (G.stadium.ticketPrice || 15) + '"'
+    + '<input type="number" id="ticket-price-inp" min="1" max="150" value="' + tPrice + '"'
     + ' onchange="setTicketPrice(this.value)"'
     + ' style="width:75px;height:32px;border-radius:8px;border:1.5px solid rgba(0,194,255,.4);'
     + 'background:rgba(0,194,255,.08);color:#00c2ff;font-size:15px;font-weight:800;text-align:center;padding:0 8px">'
-    + '<span style="font-size:12px;color:rgba(255,255,255,.35)">€ (min 5€ / max 150€)</span>'
     + '<button onclick="setTicketPrice(document.getElementById(&quot;ticket-price-inp&quot;).value)"'
     + ' style="padding:7px 18px;font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;'
     + 'border-radius:8px;background:linear-gradient(135deg,#00838f,#005f69);border:none;color:#fff;cursor:pointer">'
     + 'Imposta</button>'
+    + '<span style="font-size:11px;color:rgba(255,255,255,.3)">' + mtLabel + '</span>'
+    + '</div>'
+    + '<div style="display:flex;align-items:center;justify-content:space-between">'
+    + '<div style="font-size:11px;color:rgba(255,255,255,.4)">'
+    + 'Range ottimale per questo evento: <strong style="color:rgba(255,255,255,.7)">' + tRange.min + '€ – ' + tRange.max + '€</strong>'
+    + '</div>'
+    + '<div style="font-size:11px;font-weight:600;color:' + warnCol + '">' + priceWarn + '</div>'
+    + '</div>'
     + '</div>';
 
   // ── Pianta SVG ──

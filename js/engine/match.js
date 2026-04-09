@@ -371,6 +371,12 @@ function generateMatchEvent(ms) {
   });
   myEffective = (myEffective / 7) + tacticBoost;
 
+  // Bonus spettatori in casa: fino al +5% sulla forza (proporzionale al riempimento)
+  if (ms.isHome && ms.attendance > 0 && ms.capacity > 0) {
+    var _fillBonus = Math.min(0.05, (ms.attendance / ms.capacity) * 0.05);
+    myEffective *= (1 + _fillBonus);
+  }
+
   const oppStr = ms.oppTeam.str;
   const tot    = myEffective + oppStr;
   const myCh   = myEffective / tot;

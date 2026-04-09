@@ -193,11 +193,19 @@ function refreshMatchUI() {
           hDefPct + '%', aDefPct + '%', hDefBar);
 
   // ── Stats numeriche — riga singola compatta ──
+  const _att    = ms.attendance || 0;
+  const _cap    = ms.capacity   || (G.stadium ? stadiumCapacity() : 500);
+  const _attPct = _cap > 0 ? Math.round(_att / _cap * 100) : 0;
+  const _attRow = ms.isHome && _att > 0
+    ? `<span style="color:var(--muted)">Spettatori</span><span style="font-weight:700">${_att.toLocaleString('it-IT')}</span>
+       <span style="color:var(--muted);font-size:9px">${_attPct}% di ${_cap.toLocaleString('it-IT')}</span><span></span>`
+    : '';
   document.getElementById('m-stats').innerHTML = `
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 6px;font-size:10px">
       <span style="color:var(--muted)">Tiri</span>      <span style="font-weight:700">${ms.myShots} — ${ms.oppShots}</span>
       <span style="color:var(--muted)">Parate</span>    <span style="font-weight:700">${ms.mySaves}</span>
       <span style="color:var(--muted)">Falli/Esp.</span><span style="font-weight:700">${ms.myFouls}</span>
+      ${_attRow}
     </div>`;
 
   // ── Parziali per tempo ──
