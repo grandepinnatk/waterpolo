@@ -422,7 +422,7 @@ function renderDash() {
   h += '<div style="position:absolute;inset:0;opacity:.06;background:repeating-linear-gradient('
     + '135deg,transparent,transparent 8px,rgba(120,80,200,.5) 8px,rgba(120,80,200,.5) 9px);pointer-events:none"></div>';
   h += '<div style="position:relative;padding:14px 16px">';
-  h += '<div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;'
+  h += '<div style="font-size:10px;font-weight:700;color:#fff;text-transform:uppercase;'
     + 'letter-spacing:1.2px;margin-bottom:10px">Ultima Gara</div>';
 
   if (lastMatch) {
@@ -447,15 +447,15 @@ function renderDash() {
     var lAwayScore = lastMatch.score.away;
     var lHomeIsMe  = lih;
     h += '<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px">';
-    h += '<div style="font-size:11px;font-weight:' + (lHomeIsMe ? 700 : 500) + ';color:' + (lHomeIsMe ? 'rgba(255,255,255,.9)' : 'rgba(255,255,255,.5)') + ';text-align:right;flex:1;'
+    h += '<div style="font-size:11px;font-weight:' + (lHomeIsMe ? 700 : 500) + ';color:#fff;text-align:right;flex:1;'
       + 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + lHomeName + '</div>';
     h += '<div style="font-size:18px;font-weight:900;color:#fff;flex-shrink:0;background:rgba(0,0,0,.3);'
       + 'border-radius:8px;padding:3px 10px;letter-spacing:1px">' + lHomeScore + '–' + lAwayScore + '</div>';
-    h += '<div style="font-size:11px;font-weight:' + (!lHomeIsMe ? 700 : 500) + ';color:' + (!lHomeIsMe ? 'rgba(255,255,255,.9)' : 'rgba(255,255,255,.5)') + ';text-align:left;flex:1;'
+    h += '<div style="font-size:11px;font-weight:' + (!lHomeIsMe ? 700 : 500) + ';color:#fff;text-align:left;flex:1;'
       + 'white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + lAwayName + '</div>';
     h += '</div>';
     // Giornata e casa/trasferta
-    h += '<div style="text-align:center;font-size:10px;color:rgba(255,255,255,.35);margin-bottom:10px">'
+    h += '<div style="text-align:center;font-size:10px;color:#fff;opacity:.85;margin-bottom:10px">'
       + 'G' + lastMatch.round + ' · ' + (lih ? 'Casa' : 'Trasferta') + '</div>';
     // Pulsante
     h += '<button onclick="showMatchDetailPopup(' + lMIdx + ')"'
@@ -604,14 +604,14 @@ function renderDash() {
   var safePg    = Math.min(newsPage, totalPgs - 1);
   var pageItems = allMsgs.slice(safePg * NEWS_PER_PAGE, (safePg + 1) * NEWS_PER_PAGE);
 
-  h += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden">';
+  h += '<div style="background:#E5E8F1;border:1px solid rgba(0,0,0,.08);border-radius:14px;overflow:hidden">';
 
   // Header notizie
   h += '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;'
     + 'border-bottom:1px solid rgba(255,255,255,.06)">'
-    + '<div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.7px">Ultime Notizie</div>'
+    + '<div style="font-size:11px;font-weight:700;color:#1a1a2e;text-transform:uppercase;letter-spacing:.7px">Ultime Notizie</div>'
     + '<div style="display:flex;align-items:center;gap:5px">'
-    + '<span style="font-size:11px;color:rgba(255,255,255,.3)">' + (safePg+1) + '/' + totalPgs + '</span>'
+    + '<span style="font-size:11px;color:#333">' + (safePg+1) + '/' + totalPgs + '</span>'
     + '<button onclick="G._newsPage=Math.max(0,(G._newsPage||0)-1);renderDash()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:2px 8px;color:rgba(255,255,255,.5);font-size:12px;' + (safePg===0?'opacity:.3;pointer-events:none;':'cursor:pointer;') + '">‹</button>'
     + '<button onclick="G._newsPage=Math.min(' + (totalPgs-1) + ',(G._newsPage||0)+1);renderDash()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:2px 8px;color:rgba(255,255,255,.5);font-size:12px;' + (safePg>=totalPgs-1?'opacity:.3;pointer-events:none;':'cursor:pointer;') + '">›</button>'
     + '</div></div>';
@@ -619,7 +619,7 @@ function renderDash() {
   // Feed notizie
   h += '<div style="padding:6px 0">';
   if (pageItems.length === 0) {
-    h += '<div style="padding:16px;font-size:12px;color:rgba(255,255,255,.3);text-align:center">Nessuna notizia ancora.</div>';
+    h += '<div style="padding:16px;font-size:12px;color:#666;text-align:center">Nessuna notizia ancora.</div>';
   } else {
     pageItems.forEach(function(m) {
       var tag = msgTag(m);
@@ -648,7 +648,7 @@ function renderDash() {
         + '<span style="flex-shrink:0;margin-top:1px;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;'
         + 'background:' + tag[1] + '33;color:' + tag[1] + ';border:1px solid ' + tag[1] + '55;letter-spacing:.3px;white-space:nowrap">'
         + tag[0] + '</span>'
-        + '<span style="font-size:12px;color:rgba(255,255,255,.72);line-height:1.45">' + _linkTeamNames(m) + '</span>'
+        + '<span style="font-size:12px;color:#1a1a2e;line-height:1.45">' + _linkTeamNames(m) + '</span>'
         + '</div>';
     });
   }
@@ -663,29 +663,29 @@ function renderDash() {
     var mc = fp.morale > 70 ? '#2ecc71' : fp.morale > 40 ? '#f0c040' : '#e74c3c';
     var ratings = (fp.lastRatings || []).filter(function(r) { return r !== null; });
     var avgR = ratings.length ? (ratings.reduce(function(s,r){return s+r;},0)/ratings.length).toFixed(1) : null;
-    h += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px">'
-      + '<div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Focus Giocatore</div>'
+    h += '<div style="background:#E5E8F1;border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:14px">'
+      + '<div style="font-size:10px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Focus Giocatore</div>'
       + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'
       + '<div style="width:44px;height:44px;border-radius:10px;background:rgba(0,194,255,.1);border:1px solid rgba(0,194,255,.2);'
       + 'display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🏊</div>'
       + '<div>'
-      + '<div style="font-size:14px;font-weight:700;color:#fff">' + fp.name + '</div>'
-      + '<div style="font-size:11px;color:rgba(255,255,255,.4)">' + fp.role + ' · ' + fp.age + 'a · OVR ' + fp.overall + '</div>'
+      + '<div style="font-size:14px;font-weight:700;color:#1a1a2e">' + fp.name + '</div>'
+      + '<div style="font-size:11px;color:#555">' + fp.role + ' · ' + fp.age + 'a · OVR ' + fp.overall + '</div>'
       + '</div></div>'
       + '<div style="margin-bottom:8px">'
       + '<div style="display:flex;justify-content:space-between;margin-bottom:3px">'
-      + '<span style="font-size:10px;color:rgba(255,255,255,.4)">MORALE</span>'
+      + '<span style="font-size:10px;color:#222;font-weight:600">MORALE</span>'
       + '<span style="font-size:10px;font-weight:700;color:' + mc + '">' + fp.morale + '%</span>'
       + '</div>'
       + '<div style="height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden">'
       + '<div style="width:' + fp.morale + '%;height:100%;background:' + mc + ';box-shadow:0 0 6px ' + mc + '"></div></div>'
       + '</div>'
       + '<div style="display:flex;justify-content:space-between;font-size:11px">'
-      + '<span style="color:rgba(255,255,255,.4)">Voti medi</span>'
+      + '<span style="color:#222;font-weight:600">Voti medi</span>'
       + '<span style="font-weight:700;color:' + (avgR >= 7.5 ? '#2ecc71' : avgR >= 6.5 ? '#f0c040' : '#e74c3c') + '">' + (avgR || '—') + '</span>'
       + '</div>'
       + (fp.goals > 0 ? '<div style="display:flex;justify-content:space-between;font-size:11px;margin-top:3px">'
-        + '<span style="color:rgba(255,255,255,.4)">Gol stagione</span>'
+        + '<span style="color:#222;font-weight:600">Gol stagione</span>'
         + '<span style="font-weight:700;color:#4db6ff">' + fp.goals + ' ⚽</span></div>' : '')
       + '</div>';
   }
@@ -693,25 +693,31 @@ function renderDash() {
   // Top Scorer
   if (topScorer && (topScorer.goals || 0) > 0) {
     var ts = topScorer;
-    h += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:14px">'
-      + '<div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Top Scorer</div>'
+    h += '<div style="background:#E5E8F1;border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:14px">'
+      + '<div style="font-size:10px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Top Scorer</div>'
       + '<div style="display:flex;align-items:center;gap:10px">'
       + '<div style="width:38px;height:38px;border-radius:8px;background:rgba(240,192,64,.1);border:1px solid rgba(240,192,64,.25);'
       + 'display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">⚽</div>'
       + '<div style="flex:1;min-width:0">'
-      + '<div style="font-size:13px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + ts.name + '</div>'
-      + '<div style="font-size:11px;color:rgba(255,255,255,.4)">' + ts.role + ' · ' + ts.age + 'a</div>'
+      + '<div style="font-size:13px;font-weight:700;color:#1a1a2e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + ts.name + '</div>'
+      + '<div style="font-size:11px;color:#555">' + ts.role + ' · ' + ts.age + 'a</div>'
       + '</div>'
       + '<div style="text-align:right;flex-shrink:0">'
       + '<div style="font-size:22px;font-weight:900;color:#f0c040;line-height:1">' + ts.goals + '</div>'
-      + '<div style="font-size:9px;color:rgba(255,255,255,.3)">GOL</div>'
+      + '<div style="font-size:9px;color:#555;font-weight:600">GOL</div>'
       + '</div></div></div>';
   }
 
   h += '</div>'; // fine colonna destra
   h += '</div>'; // fine griglia 2 colonne
 
-  document.getElementById('tab-dash').innerHTML = h;
+  // Wrappa tutto in un contenitore con sfondo immagine sfocata
+  var wrapper = '<div style="position:relative;min-height:100%;border-radius:12px;overflow:hidden">'
+    + '<div style="position:absolute;inset:0;background:url(bg-waterpolo.webp) center/cover no-repeat;'
+    + 'filter:blur(8px) brightness(.45);transform:scale(1.05);pointer-events:none;z-index:0"></div>'
+    + '<div style="position:relative;z-index:1">' + h + '</div>'
+    + '</div>';
+  document.getElementById('tab-dash').innerHTML = wrapper;
 }
 
 
