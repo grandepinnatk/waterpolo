@@ -843,9 +843,16 @@ function renderRosa() {
       + '<div style="display:flex;gap:2px;margin-top:2px;flex-wrap:wrap">' + ritB + scadB + infB + mkB + '</div>'
       + '</div>';
 
-    // Ruolo badge
-    h += '<div><span style="display:inline-block;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:800;'
-      + 'background:' + rc + '33;color:' + rc + ';border:1px solid ' + rc + '66">' + p.role + '</span></div>';
+    // Ruolo badge (con secondRole affianco)
+    var rc2 = p.secondRole ? (ROLE_COL[p.secondRole] || '#555') : null;
+    h += '<div style="display:flex;flex-direction:row;align-items:center;gap:3px;flex-wrap:wrap">'
+      + '<span style="display:inline-block;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:800;'
+      + 'background:' + rc + '33;color:' + rc + ';border:1px solid ' + rc + '66">' + p.role + '</span>'
+      + (p.secondRole && rc2
+          ? '<span style="display:inline-block;padding:1px 4px;border-radius:4px;font-size:9px;font-weight:700;'
+            + 'background:' + rc2 + '22;color:' + rc2 + ';border:1px solid ' + rc2 + '44;opacity:.8">' + p.secondRole + '</span>'
+          : '')
+      + '</div>';
 
     // Mano — badge CSS come nel mercato
     var handCls = p.hand === 'AMB' ? 'AMB' : p.hand === 'L' ? 'L' : 'R';
@@ -1000,7 +1007,7 @@ function showMarketPlayerModal(i) {
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
         <div>
           <div style="font-weight:700;font-size:15px;color:var(--blue)">${p.name}${_ritBadge(p)}</div>
-          <div style="font-size:12px;color:var(--muted)">${rl[p.role] || p.role} · ${p.nat} · ${p.age} anni · <strong>${hand}</strong></div>
+          <div style="font-size:12px;color:var(--muted)">${rl[p.role] || p.role}${p.secondRole ? ' / ' + (rl[p.secondRole] || p.secondRole) : ''} · ${p.nat} · ${p.age} anni · <strong>${hand}</strong></div>
           <div style="font-size:12px;color:var(--muted);margin-top:2px">📍 ${p._tname}</div>
         </div>
         <button onclick="this.closest('[style*=fixed]').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
@@ -1131,7 +1138,7 @@ function renderTrain() {
     + '</div>';
 
   // Griglia schede allenamento
-  h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:10px;margin-bottom:18px">';
+  h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px">';
 
   TRAINING_TYPES.forEach(function(tr, idx) {
     var starCost = tr.stars || 1;
@@ -1677,88 +1684,169 @@ function _showCalTab(tab) {
 // ════════════════════════════════════════════
 function renderPlayoff() {
   if (G.phase === 'regular') {
-    document.getElementById('tab-playoff').innerHTML = `<div class="alert info">La fase playoff inizierà al termine della regular season.</div>`;
+    document.getElementById('tab-playoff').innerHTML = '<div class="alert info">La fase playoff inizierà al termine della regular season.</div>';
     return;
   }
   if (G.phase === 'done') {
-    document.getElementById('tab-playoff').innerHTML = `<div class="alert success">Stagione conclusa! Vai su Obiettivi.</div>`;
+    document.getElementById('tab-playoff').innerHTML = '<div class="alert success">Stagione conclusa! Vai su Obiettivi.</div>';
     return;
   }
   const pb = G.poBracket, plb = G.plBracket;
-  const tname = id => G.teams.find(t => t.id === id)?.name || 'TBD';
+  const tname = function(id) { return (G.teams.find(function(t){return t.id===id;})||{name:'TBD'}).name; };
 
-  const renderBracketMatch = (m, accentColor = 'var(--border)') => {
-    const isme = m.home === G.myId || m.away === G.myId;
-    return `<div style="background:var(--panel2);border:1px solid ${isme ? accentColor : 'var(--border)'};border-radius:8px;padding:10px;margin-bottom:6px">
-      <div style="font-size:11px;color:var(--muted)">${m.label || ''}</div>
-      <div style="display:flex;justify-content:space-between;font-size:13px;margin-top:4px">
-        <span style="font-weight:${m.home === G.myId ? 700 : 400}">${tname(m.home)}</span>
-        <span style="color:var(--muted)">vs</span>
-        <span style="font-weight:${m.away === G.myId ? 700 : 400}">${tname(m.away)}</span>
-      </div>
-      ${m.winner ? `<div style="color:var(--green);font-size:12px;margin-top:4px">Passa: ${tname(m.winner)}</div>` : ''}
-    </div>`;
+  // ── Popup dettaglio partita playoff ──
+  window.showPOMatchDetail = function(scores, homeId, awayId, label, extraInfo) {
+    var hT = G.teams.find(function(t){return t.id===homeId;}) || {name:'?',abbr:'?'};
+    var aT = G.teams.find(function(t){return t.id===awayId;}) || {name:'?',abbr:'?'};
+    var existing = document.getElementById('po-detail-popup');
+    if (existing) existing.remove();
+
+    var totalH = scores.reduce(function(s,x){return s+x.home;},0);
+    var totalA = scores.reduce(function(s,x){return s+x.away;},0);
+    var homeIsMe = homeId === G.myId, awayIsMe = awayId === G.myId;
+
+    // Parziali
+    var partialsRows = scores.map(function(sc, i) {
+      var lbl = i === 0 ? '1° T' : i === 1 ? '2° T' : i === 2 ? '3° T' : i === 3 ? '4° T' : i === 4 ? 'Sup.' : 'Rig.';
+      return '<tr style="border-bottom:1px solid rgba(255,255,255,.04)">'
+        + '<td style="text-align:center;color:var(--muted);padding:4px">' + lbl + '</td>'
+        + '<td style="text-align:center;font-weight:600;padding:4px">' + sc.home + '</td>'
+        + '<td style="text-align:center;font-weight:600;padding:4px">' + sc.away + '</td>'
+        + '</tr>';
+    }).join('');
+
+    var ov = document.createElement('div');
+    ov.id = 'po-detail-popup';
+    ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;z-index:600;backdrop-filter:blur(6px);padding:20px';
+    ov.innerHTML = '<div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px;max-width:500px;width:95%;max-height:85vh;overflow-y:auto">'
+      // Header
+      + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">'
+      + '<div style="font-size:12px;color:var(--muted);font-weight:600">' + label + '</div>'
+      + '<button onclick="document.getElementById(&quot;po-detail-popup&quot;).remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>'
+      + '</div>'
+      // Tabellone
+      + '<div style="text-align:center;margin-bottom:16px">'
+      + '<div style="display:flex;align-items:center;justify-content:center;gap:16px">'
+      + '<div style="flex:1;text-align:right;font-size:15px;font-weight:' + (homeIsMe?700:500) + ';color:' + (homeIsMe?'var(--blue)':'var(--text)') + '">' + hT.name + '</div>'
+      + '<div style="background:var(--panel2);border-radius:10px;padding:8px 20px;font-size:26px;font-weight:700;flex-shrink:0">' + totalH + ' - ' + totalA + '</div>'
+      + '<div style="flex:1;text-align:left;font-size:15px;font-weight:' + (awayIsMe?700:500) + ';color:' + (awayIsMe?'var(--blue)':'var(--text)') + '">' + aT.name + '</div>'
+      + '</div>'
+      + (extraInfo ? '<div style="margin-top:8px;font-size:12px;color:var(--gold)">' + extraInfo + '</div>' : '')
+      + '</div>'
+      // Parziali
+      + '<div style="margin-bottom:14px">'
+      + '<div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Parziali</div>'
+      + '<table style="width:100%;border-collapse:collapse;font-size:12px"><thead>'
+      + '<tr style="border-bottom:1px solid var(--border)">'
+      + '<th style="text-align:center;padding:3px 6px;color:var(--muted);font-size:10px">Tempo</th>'
+      + '<th style="text-align:center;padding:3px 8px;color:' + (homeIsMe?'var(--blue)':'var(--muted)') + ';font-size:11px">' + hT.abbr + '</th>'
+      + '<th style="text-align:center;padding:3px 8px;color:' + (awayIsMe?'var(--blue)':'var(--muted)') + ';font-size:11px">' + aT.abbr + '</th>'
+      + '</tr></thead><tbody>'
+      + partialsRows
+      + '<tr style="border-top:1px solid var(--border);font-weight:700">'
+      + '<td style="text-align:center;color:var(--muted);padding:5px">Tot.</td>'
+      + '<td style="text-align:center;color:var(--blue);padding:5px">' + totalH + '</td>'
+      + '<td style="text-align:center;color:var(--blue);padding:5px">' + totalA + '</td>'
+      + '</tr></tbody></table></div>'
+      + '<div style="font-size:12px;color:var(--muted);text-align:center;padding:8px 0">Statistiche dettagliate disponibili solo per partite giocate manualmente.</div>'
+      + '</div>';
+    ov.onclick = function(e) { if (e.target === ov) ov.remove(); };
+    document.body.appendChild(ov);
   };
 
-  let h = `<div style="font-size:15px;font-weight:700;color:var(--blue);margin-bottom:12px">Fase Finale</div>`;
+  // ── Render singolo match bracket ──
+  function renderBracketMatch(m, accentColor, isPlayout) {
+    var isme = m.home === G.myId || m.away === G.myId;
+    var hasResult = m.winner && m.scores && m.scores.length > 0;
+    var totalH = m.scores ? m.scores.reduce(function(s,x){return s+x.home;},0) : (m.score?m.score.home:null);
+    var totalA = m.scores ? m.scores.reduce(function(s,x){return s+x.away;},0) : (m.score?m.score.away:null);
+    // Store match data globally for popup access
+    if (!window._poMatchData) window._poMatchData = {};
+    var _poKey = (m.home||'') + '_' + (m.away||'') + '_' + (m.label||'').replace(/[^a-zA-Z0-9]/g,'');
+    window._poMatchData[_poKey] = { scores: m.scores||[m.score]||[], home: m.home, away: m.away, label: m.label||'', extra: m._extraInfo||'' };
+    var scoreHtml = (totalH !== null && totalA !== null)
+      ? '<span style="background:var(--panel);border-radius:6px;padding:2px 10px;font-size:14px;font-weight:700;cursor:pointer" onclick="(function(){var d=window._poMatchData[\''+_poKey+'\'];d&&showPOMatchDetail(d.scores,d.home,d.away,d.label,d.extra);})()">'
+        + totalH + ' - ' + totalA + '</span>'
+      : '<span style="color:var(--muted);font-size:12px">vs</span>';
 
-  // Playoff bracket
-  h += `<div class="card"><div style="font-weight:700;margin-bottom:10px;color:var(--blue)">Playoff Scudetto</div>`;
-  pb.sf.forEach(sf => { h += renderBracketMatch(sf, 'var(--blue)'); });
-  if (pb.final.home) {
-    h += renderBracketMatch({ ...pb.final, label: 'Finale Scudetto' }, 'var(--gold)');
-    if (pb.final.winner) h += `<div style="color:var(--gold);font-size:14px;margin-top:6px">🏆 Campione: ${tname(pb.final.winner)}</div>`;
+    // Etichetta esito: playoff → "Avanza:", playout → "Si salva:"
+    var winnerLabel = isPlayout ? 'Si salva:' : 'Avanza:';
+    var winnerColor = isPlayout ? '#2ecc71' : 'var(--green)';
+
+    return '<div style="background:var(--panel2);border:1px solid ' + (isme ? accentColor : 'var(--border)') + ';border-radius:8px;padding:12px;margin-bottom:6px">'
+      + '<div style="font-size:11px;color:var(--muted);margin-bottom:6px">' + (m.label||'') + '</div>'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;font-size:13px">'
+      + '<span style="font-weight:' + (m.home===G.myId?700:400) + ';flex:1">' + tname(m.home) + '</span>'
+      + '<span style="margin:0 12px;flex-shrink:0">' + scoreHtml + '</span>'
+      + '<span style="font-weight:' + (m.away===G.myId?700:400) + ';flex:1;text-align:right">' + tname(m.away) + '</span>'
+      + '</div>'
+      + (m.winner ? '<div style="color:' + winnerColor + ';font-size:12px;margin-top:6px">✔ ' + winnerLabel + ' <strong>' + tname(m.winner) + '</strong></div>' : '')
+      + '</div>';
   }
-  h += `</div>`;
 
-  // Playout
-  h += `<div class="card"><div style="font-weight:700;margin-bottom:10px;color:var(--red)">Play-out Retrocessione</div>`;
-  [plb.m1, plb.m2].forEach(m => {
+  var h = '<div style="font-size:15px;font-weight:700;color:var(--blue);margin-bottom:12px">Fase Finale</div>';
+
+  // ── Playoff Scudetto ──
+  h += '<div class="card"><div style="font-weight:700;margin-bottom:10px;color:var(--blue)">Playoff Scudetto</div>';
+  pb.sf.forEach(function(sf) { h += renderBracketMatch(sf, 'var(--blue)', false); });
+  if (pb.final.home) {
+    h += renderBracketMatch(Object.assign({label:'Finale Scudetto'}, pb.final), 'var(--gold)', false);
+    if (pb.final.winner) h += '<div style="color:var(--gold);font-size:14px;margin-top:8px">🏆 Campione: <strong>' + tname(pb.final.winner) + '</strong></div>';
+  }
+  h += '</div>';
+
+  // ── Play-out Retrocessione ──
+  h += '<div class="card"><div style="font-weight:700;margin-bottom:10px;color:var(--red)">Play-out Retrocessione</div>';
+  [plb.m1, plb.m2].forEach(function(m) {
     if (!m.home && !m.away) return;
-    h += renderBracketMatch(m, 'var(--red)');
+    h += renderBracketMatch(m, 'var(--red)', true);
   });
-  if (plb.relegated) h += `<div class="alert danger">Retrocede: ${tname(plb.relegated)}</div>`;
-  if (G.relegated)   h += `<div class="alert danger">Retrocessione diretta: ${tname(G.relegated)}</div>`;
-  h += `</div>`;
+  // Retrocessa dai playout
+  if (plb.relegated) {
+    var savedId = plb.m2.winner;
+    if (savedId && savedId !== plb.relegated)
+      h += '<div style="background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.3);border-radius:6px;padding:8px 12px;margin-top:6px;color:#2ecc71;font-size:13px;font-weight:700">✅ Si salva: ' + tname(savedId) + '</div>';
+    h += '<div class="alert danger" style="margin-top:6px">Retrocede: ' + tname(plb.relegated) + '</div>';
+  }
+  // Retrocessione diretta
+  if (G.relegated) h += '<div class="alert danger" style="margin-top:6px">Retrocessione diretta: ' + tname(G.relegated) + '</div>';
+  h += '</div>';
 
-  // Azioni
-  h += `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">`;
-  const sfDone  = pb.sf.every(s => s.winner);
-  const finDone = pb.final.winner;
+  // ── Azioni ──
+  h += '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">';
+  var sfDone  = pb.sf.every(function(s){return !!s.winner;});
+  var finDone = !!pb.final.winner;
 
   if (!sfDone) {
-    pb.sf.forEach((sf, i) => {
+    pb.sf.forEach(function(sf, i) {
       if (sf.winner) return;
-      if (sf.home === G.myId || sf.away === G.myId) {
-        h += `<button class="btn primary" onclick="startPOMatch('sf',${i})">Gioca ${sf.label}</button>`;
-      } else {
-        h += `<button class="btn" onclick="simPOMatch('sf',${i})">Simula ${sf.label}</button>`;
-      }
+      if (sf.home === G.myId || sf.away === G.myId)
+        h += '<button class="btn primary" onclick="startPOMatch(\'sf\',' + i + ')">▶ Gioca ' + sf.label + '</button>';
+      else
+        h += '<button class="btn" onclick="simPOMatch(\'sf\',' + i + ')">Simula ' + sf.label + '</button>';
     });
   } else if (!finDone) {
-    if (pb.final.home === G.myId || pb.final.away === G.myId) {
-      h += `<button class="btn primary" onclick="startPOMatch('final',0)">Gioca Finale Scudetto</button>`;
-    } else {
-      h += `<button class="btn" onclick="simPOMatch('final',0)">Simula Finale</button>`;
-    }
+    if (pb.final.home === G.myId || pb.final.away === G.myId)
+      h += '<button class="btn primary" onclick="startPOMatch(\'final\',0)">▶ Gioca Finale Scudetto</button>';
+    else
+      h += '<button class="btn" onclick="simPOMatch(\'final\',0)">Simula Finale</button>';
   }
 
   if (!plb.m1.winner && plb.m1.home) {
-    if (plb.m1.home === G.myId || plb.m1.away === G.myId) {
-      h += `<button class="btn danger" onclick="startPOMatch('pl','m1')">Gioca Play-out 1</button>`;
-    } else {
-      h += `<button class="btn" onclick="simPLMatch('m1')">Simula PL1</button>`;
-    }
+    if (plb.m1.home === G.myId || plb.m1.away === G.myId)
+      h += '<button class="btn danger" onclick="startPOMatch(\'pl\',\'m1\')">▶ Gioca Play-out 1</button>';
+    else
+      h += '<button class="btn" onclick="simPLMatch(\'m1\')">Simula PL1</button>';
   } else if (plb.m1.winner && !plb.m2.winner) {
     if (!plb.m2.home) plb.m2.home = plb.m1.winner;
-    if (plb.m2.home === G.myId || plb.m2.away === G.myId) {
-      h += `<button class="btn danger" onclick="startPOMatch('pl','m2')">Gioca Play-out Finale</button>`;
-    } else {
-      h += `<button class="btn" onclick="simPLMatch('m2')">Simula PL Finale</button>`;
-    }
+    if (plb.m2.home === G.myId || plb.m2.away === G.myId)
+      h += '<button class="btn danger" onclick="startPOMatch(\'pl\',\'m2\')">▶ Gioca Play-out Finale</button>';
+    else
+      h += '<button class="btn" onclick="simPLMatch(\'m2\')">Simula PL Finale</button>';
   }
-  if (finDone && plb.done) h += `<button class="btn success" onclick="closeSeason()">Chiudi Stagione</button>`;
-  h += `</div>`;
+  if (finDone && plb.done)
+    h += '<button class="btn success" onclick="closeSeason()">Chiudi Stagione</button>';
+  h += '</div>';
   document.getElementById('tab-playoff').innerHTML = h;
 }
 
@@ -2371,7 +2459,7 @@ function renderHistory() {
     h += '<div style="color:var(--muted);font-size:13px;padding:8px 0">Nessuna stagione completata — i dati appariranno dopo la prima stagione conclusa.</div>';
   } else {
     h += `<table><thead><tr>
-      <th>Stagione</th>
+      <th style="text-align:center">N.</th>
       <th>Fascia</th>
       <th>Pos.</th>
       <th>Punti</th>
@@ -2385,7 +2473,7 @@ function renderHistory() {
     history.slice().reverse().forEach(s => {
       const posColor = s.pos <= 3 ? 'var(--gold)' : s.pos <= 8 ? 'var(--blue)' : 'var(--muted)';
       h += `<tr>
-        <td style="font-weight:700;color:var(--muted)">S${s.season}</td>
+        <td style="font-weight:700;color:var(--muted)">${s.season}</td>
         <td style="font-weight:800;font-size:14px;color:${({'S':'#ffd700','A':'#00c2ff','B':'#2ecc71','C':'#e74c3c'}[s.tier]||'var(--muted)')}">${s.tier||'?'}</td>
         <td style="font-weight:800;color:${posColor}">${s.pos}°</td>
         <td style="font-weight:700">${s.pts}</td>
@@ -2541,8 +2629,8 @@ function _renderStadiumMap() {
   if (!tn.construction && tn.level < 4) {
     var cost = formatMoney(STADIUM_LEVEL_COST[tn.level+1]);
     svg += '<g onclick="stadiumBuild(&quot;nord&quot;,&quot;level&quot;)" style="cursor:pointer">'
-      + '<rect x="330" y="' + (tnH+3) + '" width="100" height="20" rx="10" fill="rgba(0,194,255,.25)" stroke="rgba(0,194,255,.5)" stroke-width="1"/>'
-      + '<text x="380" y="' + (tnH+16) + '" text-anchor="middle" font-size="10" font-weight="800" fill="#00c2ff" font-family="system-ui">⬆ Liv.' + (tn.level+1) + ' — ' + cost + '</text>'
+      + '<rect x="310" y="14" width="140" height="22" rx="11" fill="rgba(0,194,255,.3)" stroke="rgba(0,194,255,.6)" stroke-width="1.5"/>'
+      + '<text x="380" y="29" text-anchor="middle" font-size="10" font-weight="800" fill="#00c2ff" font-family="system-ui">⬆ Liv.' + (tn.level+1) + ' — ' + cost + '</text>'
       + '</g>';
   }
 
@@ -2562,8 +2650,8 @@ function _renderStadiumMap() {
   if (!ts.construction && ts.level < 4) {
     var cost = formatMoney(STADIUM_LEVEL_COST[ts.level+1]);
     svg += '<g onclick="stadiumBuild(&quot;sud&quot;,&quot;level&quot;)" style="cursor:pointer">'
-      + '<rect x="330" y="' + (tsY-22) + '" width="100" height="20" rx="10" fill="rgba(0,194,255,.25)" stroke="rgba(0,194,255,.5)" stroke-width="1"/>'
-      + '<text x="380" y="' + (tsY-9) + '" text-anchor="middle" font-size="10" font-weight="800" fill="#00c2ff" font-family="system-ui">⬆ Liv.' + (ts.level+1) + ' — ' + cost + '</text>'
+      + '<rect x="310" y="' + (tsY+tsH-32) + '" width="140" height="22" rx="11" fill="rgba(0,194,255,.3)" stroke="rgba(0,194,255,.6)" stroke-width="1.5"/>'
+      + '<text x="380" y="' + (tsY+tsH-17) + '" text-anchor="middle" font-size="10" font-weight="800" fill="#00c2ff" font-family="system-ui">⬆ Liv.' + (ts.level+1) + ' — ' + cost + '</text>'
       + '</g>';
   }
 
@@ -2586,8 +2674,8 @@ function _renderStadiumMap() {
   if (!co.construction && co.level < 4) {
     var cost = formatMoney(STADIUM_LEVEL_COST[co.level+1]);
     svg += '<g onclick="stadiumBuild(&quot;ovest&quot;,&quot;level&quot;)" style="cursor:pointer">'
-      + '<rect x="' + (coW+3) + '" y="' + (coMidY-10) + '" width="90" height="20" rx="10" fill="rgba(0,194,255,.25)" stroke="rgba(0,194,255,.5)" stroke-width="1"/>'
-      + '<text x="' + (coW+48) + '" y="' + (coMidY+3) + '" text-anchor="middle" font-size="9" font-weight="800" fill="#00c2ff" font-family="system-ui">⬆ Liv.' + (co.level+1) + ' ' + cost + '</text>'
+      + '<rect x="14" y="' + (coMidY-11) + '" width="' + (coW-20) + '" height="22" rx="11" fill="rgba(0,194,255,.3)" stroke="rgba(0,194,255,.6)" stroke-width="1.5"/>'
+      + '<text x="' + (10+coW/2-10) + '" y="' + (coMidY+4) + '" text-anchor="middle" font-size="9" font-weight="800" fill="#00c2ff" font-family="system-ui">⬆ Liv.' + (co.level+1) + ' ' + cost + '</text>'
       + '</g>';
   }
 
@@ -2609,8 +2697,8 @@ function _renderStadiumMap() {
   if (!ce.construction && ce.level < 4) {
     var cost = formatMoney(STADIUM_LEVEL_COST[ce.level+1]);
     svg += '<g onclick="stadiumBuild(&quot;est&quot;,&quot;level&quot;)" style="cursor:pointer">'
-      + '<rect x="' + (ceX-93) + '" y="' + (ceMidY-10) + '" width="90" height="20" rx="10" fill="rgba(0,194,255,.25)" stroke="rgba(0,194,255,.5)" stroke-width="1"/>'
-      + '<text x="' + (ceX-48) + '" y="' + (ceMidY+3) + '" text-anchor="middle" font-size="9" font-weight="800" fill="#00c2ff" font-family="system-ui">⬆ Liv.' + (ce.level+1) + ' ' + cost + '</text>'
+      + '<rect x="' + (ceX+12) + '" y="' + (ceMidY-11) + '" width="' + (ceW-20) + '" height="22" rx="11" fill="rgba(0,194,255,.3)" stroke="rgba(0,194,255,.6)" stroke-width="1.5"/>'
+      + '<text x="' + (ceX+12+ceW/2-10) + '" y="' + (ceMidY+4) + '" text-anchor="middle" font-size="9" font-weight="800" fill="#00c2ff" font-family="system-ui">⬆ Liv.' + (ce.level+1) + ' ' + cost + '</text>'
       + '</g>';
   }
 

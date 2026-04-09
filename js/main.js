@@ -122,9 +122,16 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
   const field    = roster.filter(p => p && p.role !== 'POR' && !p.injured)
                          .sort((a, b) => b.overall - a.overall);
 
-  const calledGK  = goalies.slice(0, 2);    // max 2 portieri
-  const calledFld = field.slice(0, 11);     // 11 di campo → totale 13
-  const convocati = new Set([...calledGK, ...calledFld].map(p => p.name));
+  // Usa _buildSimSquad se disponibile per la selezione convocati
+  let squad13;
+  if (typeof _buildSimSquad === 'function') {
+    squad13 = _buildSimSquad(roster.filter(p => p && !p.injured));
+  } else {
+    const calledGK  = goalies.slice(0, 2);
+    const calledFld = field.slice(0, 11);
+    squad13 = [...calledGK, ...calledFld];
+  }
+  const convocati = new Set(squad13.map(p => p.name));
 
   // ── Mappa nome → { goals, assists } dai details ────────────────────────
   const matchMap = {};
@@ -249,11 +256,13 @@ function simNextRound() {
     // Distribuisce gol/assist ai giocatori e salva i dettagli del match.
     // Per la squadra del manager usa i 13 convocati simulati; per le altre l'intera rosa.
     const _simRoster = (roster) => {
-      // Esclude infortunati dalla convocazione simulata
+      // Usa _buildSimSquad se disponibile (ruoli minimi + score composito)
+      if (typeof _buildSimSquad === 'function') return _buildSimSquad(roster);
+      // Fallback: POR + migliori per OVR
       const available = roster.filter(p => p && !p.injured);
       const gk  = available.filter(p => p.role === 'POR').sort((a,b) => b.overall - a.overall).slice(0, 2);
       const fld = available.filter(p => p.role !== 'POR').sort((a,b) => b.overall - a.overall).slice(0, 11);
-      return [...gk, ...fld]; // max 13 giocatori (meno se ci sono molti infortunati)
+      return [...gk, ...fld];
     };
     const homeRoster = (m.home === G.myId) ? _simRoster(G.rosters[m.home]) : G.rosters[m.home];
     const awayRoster = (m.away === G.myId) ? _simRoster(G.rosters[m.away]) : G.rosters[m.away];
@@ -327,7 +336,8 @@ function simNextRound() {
     (G.rosters[G.myId] || []).forEach(p => {
       if (!p || p.injured) return;
       const age = p.age || 25;
-      const decay = age < 24 ? 1 : age < 29 ? 2 : age < 33 ? 3 : 4;
+      // Decadimento forma +15% rispetto alla baseline
+      const decay = age < 24 ? 1.15 : age < 29 ? 2.30 : age < 33 ? 3.45 : 4.60;
       const variance = Math.floor(Math.random() * 3) - 1; // -1, 0, +1
       p.fitness = Math.max(20, (p.fitness || 70) - decay + variance);
     });
@@ -345,9 +355,9 @@ function simNextRound() {
 
   // ── Aggiorna costruzioni stadio ──
   _updateStadiumConstruction();
-  // ── Incasso match day (solo partite in casa) ──
+  // ── Incasso match day e usura (solo partite in casa) ──
   const _isHomeMatch = roundMatches.some(function(m) { return m.home === G.myId; });
-  if (_isHomeMatch) _collectStadiumRevenue();
+  if (_isHomeMatch) { _collectStadiumRevenue(); _stadiumWear(); }
   // +4 stelle per giornata
   if (G.stars !== undefined) G.stars = (G.stars || 0) + 4;
   refreshMarketPool();
@@ -565,6 +575,39 @@ function _updateStadiumConstruction() {
   });
 }
 
+
+// ── Usura stadio (chiamato ogni giornata in casa) ──────────────────
+function _stadiumWear() {
+  if (!G.stadium) return;
+  var rev  = stadiumMatchRevenue();
+  var cap  = stadiumCapacity();
+  var fill = rev.paying / Math.max(1, cap); // 0-1
+
+  // Usura solo se riempimento > 50%
+  if (fill <= 0.50) return;
+
+  // Probabilità usura per sezione: proporzionale al riempimento oltre il 50%
+  // fill=0.50 → 0%, fill=0.75 → 5%, fill=1.00 → 10%
+  var wearProb = (fill - 0.50) * 0.20;
+
+  Object.entries(G.stadium.sections).forEach(function(kv) {
+    var key = kv[0], sec = kv[1];
+    if (sec.level === 0 || sec.construction) return; // niente da usurarsi
+    if (Math.random() > wearProb) return;
+
+    var sname = { nord:'Tribuna Nord', sud:'Tribuna Sud', ovest:'Curva Ovest', est:'Curva Est' }[key] || key;
+
+    // Prima chiudi bar e shop se presenti (prima di scendere al livello 0)
+    if (sec.level === 1) {
+      if (sec.shop) { sec.shop = false; G.msgs.push('⚠️ Usura stadio: lo shop della ' + sname + ' è stato chiuso per danni strutturali.'); return; }
+      if (sec.bar)  { sec.bar  = false; G.msgs.push('⚠️ Usura stadio: il bar della '  + sname + ' è stato chiuso per danni strutturali.'); return; }
+    }
+    // Scendi di livello
+    sec.level = Math.max(0, sec.level - 1);
+    G.msgs.push('🏚️ Lo stadio cade a pezzi! La zona ' + sname + ' è scesa al livello ' + sec.level + '.');
+  });
+}
+
 // Incasso match day (chiamato in simNextRound dopo ogni partita giocata/simulata)
 function _collectStadiumRevenue() {
   if (!G.stadium) return;
@@ -590,6 +633,7 @@ function simPOMatch(type, idx) {
   const hT = G.teams.find(t => t.id === m.home);
   const aT = G.teams.find(t => t.id === m.away);
   const sc = simulateResult(hT, aT, 0, G.rosters);
+  if (!m.scores) m.scores = [];
   m.scores.push(sc);
   // Pareggio → supplementari → rigori
   let poWinner;
@@ -601,6 +645,7 @@ function simPOMatch(type, idx) {
     const extA = sc.away + (Math.random() < 0.40 ? 1 : 0) + (Math.random() < 0.15 ? 1 : 0);
     if (extH !== extA) {
       poWinner = extH > extA ? m.home : m.away;
+      m.scores.push({ home: extH - sc.home, away: extA - sc.away });
       G.msgs.push('⏱️ Supplementari: ' + (hT?.name||'?') + ' ' + extH + '-' + extA + ' ' + (aT?.name||'?'));
     } else {
       // Rigori
@@ -628,6 +673,8 @@ function simPLMatch(key) {
   const hT   = G.teams.find(t => t.id === m.home);
   const aT   = G.teams.find(t => t.id === m.away);
   const sc  = simulateResult(hT, aT, 0, G.rosters);
+  if (!m.scores) m.scores = [];
+  m.scores.push(sc);
   // Chi VINCE si salva, chi PERDE retrocede
   let winner;
   if (sc.home !== sc.away) {
@@ -638,6 +685,7 @@ function simPLMatch(key) {
     const extA = sc.away + (Math.random() < 0.45 ? 1 : 0);
     if (extH !== extA) {
       winner = extH > extA ? m.home : m.away;
+      m.scores.push({ home: extH - sc.home, away: extA - sc.away });
       G.msgs.push('⏱️ Supplementari: ' + (hT?.name||'?') + ' ' + extH + '-' + extA + ' ' + (aT?.name||'?'));
     } else {
       // Ancora pari → rigori

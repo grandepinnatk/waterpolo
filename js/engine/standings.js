@@ -7,18 +7,80 @@
 // Usa la media overall dei migliori 13 giocatori disponibili (non infortunati).
 // Penalizza pesantemente rose sotto-organico (<7 giocatori).
 // Se la rosa è vuota o non esiste, usa il valore base team.str.
+// ── Score individuale per selezione convocati ──────────────────────
+// Considera OVR, forma, morale, e affinità ruolo
+function _playerScore(p) {
+  const ovr    = p.overall || 70;
+  const forma  = (p.fitness || 70) / 100;     // 0-1
+  const morale = (p.morale  || 70) / 100;     // 0-1
+  // Il contributo effettivo è modulato da forma e morale
+  return ovr * (0.70 + forma * 0.20 + morale * 0.10);
+}
+
+// ── Costruisce la rosa di 13 simulata con ruoli minimi obbligatori ──
+// Regola: almeno 1 POR, 2 DIF, 2 ATT, 1 CB obbligatori.
+// I restanti slot (max 13 totali) vengono riempiti dai migliori disponibili per score.
+function _buildSimSquad(roster) {
+  if (!roster || !roster.length) return [];
+  const avail = roster.filter(p => p && !p.injured);
+  if (!avail.length) return [];
+
+  // Raggruppa per ruolo primario, con fallback secondRole
+  // Un giocatore bi-ruolo viene considerato anche per lo slot del ruolo secondario
+  const byRole = { POR:[], DIF:[], ATT:[], CB:[], CEN:[] };
+  avail.forEach(p => {
+    if (byRole[p.role]) byRole[p.role].push(p);
+    // Aggiunge anche al secondRole (con penalità score del 10%)
+    if (p.secondRole && byRole[p.secondRole]) {
+      byRole[p.secondRole].push({ ...p, _asSecond: true });
+    }
+  });
+  Object.values(byRole).forEach(g => g.sort((a, b) => {
+    const sa = _playerScore(a) * (a._asSecond ? 0.90 : 1.0);
+    const sb = _playerScore(b) * (b._asSecond ? 0.90 : 1.0);
+    return sb - sa;
+  }));
+
+  const selected = new Set();  // usa nome come chiave univoca
+  const selectedNames = new Set();
+  const pick = (role, n) => {
+    byRole[role]
+      .filter(p => !selectedNames.has(p.name))
+      .slice(0, n)
+      .forEach(p => {
+        // Aggiungi il giocatore originale (non la copia _asSecond)
+        const orig = avail.find(x => x.name === p.name) || p;
+        selected.add(orig);
+        selectedNames.add(p.name);
+      });
+  };
+
+  // Slot obbligatori (secondRole usato se mancano titolari del ruolo)
+  pick('POR', 1);
+  pick('DIF', 2);
+  pick('ATT', 2);
+  pick('CB',  1);
+
+  // Riempi fino a 13 con i migliori rimasti per score (qualsiasi ruolo)
+  avail
+    .filter(p => !selectedNames.has(p.name))
+    .sort((a, b) => _playerScore(b) - _playerScore(a))
+    .forEach(p => { if (selected.size < 13) { selected.add(p); selectedNames.add(p.name); } });
+
+  return Array.from(selected);
+}
+
 function _effectiveStr(team, rosters) {
   if (!rosters) return team.str;
   const roster = rosters[team.id];
   if (!roster || !roster.length) return team.str;
-  const avail = roster.filter(p => p && !p.injured).sort((a, b) => b.overall - a.overall);
-  if (!avail.length) return team.str * 0.4; // rosa completamente esaurita
-  // Prende i migliori 13 (o quanti ne ha)
-  const squad = avail.slice(0, 13);
+  const squad = _buildSimSquad(roster);
+  if (!squad.length) return team.str * 0.4;
   const avgOvr = squad.reduce((s, p) => s + (p.overall || 70), 0) / squad.length;
-  // Penalità under-organico: ogni giocatore mancante sotto 7 costa -8 punti forza
+  // Applica anche il contributo medio di forma e morale
+  const avgScore = squad.reduce((s, p) => s + _playerScore(p), 0) / squad.length;
   const shortage = Math.max(0, 7 - squad.length);
-  return Math.max(10, avgOvr - shortage * 8);
+  return Math.max(10, avgScore - shortage * 8);
 }
 
 // ── Simulazione risultato ─────────────────────

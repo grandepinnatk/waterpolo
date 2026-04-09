@@ -24,7 +24,10 @@ const SECONDARY_ROLE_MAP = {
 
 function _pickSecondaryRole(primaryRole) {
   const options = SECONDARY_ROLE_MAP[primaryRole] || [];
-  if (!options.length || Math.random() > 0.10) return null; // 10% chance bi-ruolo
+  if (!options.length) return null;
+  // 20-30% chance bi-ruolo (varia per ruolo: CEN più versatile)
+  var threshold = primaryRole === 'CEN' ? 0.30 : primaryRole === 'POR' ? 0.0 : 0.22;
+  if (Math.random() > threshold) return null;
   return pick(options);
 }
 
