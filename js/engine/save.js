@@ -39,17 +39,18 @@ function _buildPayload(G) {
     savedAtMs: Date.now(),
     // Metadati leggibili senza caricare tutto il gioco
     meta: {
-      teamName:  G.myTeam.name,
-      teamAbbr:  G.myTeam.abbr,
-      teamCol:   G.myTeam.col,
-      teamTier:  G.myTeam.tier,
-      phase:     G.phase,
-      round:     _roundFromSchedule(G.schedule),
-      position:  _posFromStand(G.stand, G.myId),
-      points:    G.stand[G.myId]?.pts ?? 0,
-      wins:      G.stand[G.myId]?.w   ?? 0,
-      budget:    G.budget,
-      savedAtMs: Date.now(),  // timestamp ms per confronto cloud affidabile
+      teamName:     G.myTeam.name,
+      teamAbbr:     G.myTeam.abbr,
+      teamCol:      G.myTeam.col,
+      teamTier:     G.myTeam.tier,
+      phase:        G.phase,
+      round:        _roundFromSchedule(G.schedule),   // 0 = nessuna partita ancora
+      seasonNumber: G.seasonNumber || 1,
+      position:     _posFromStand(G.stand, G.myId),
+      points:       G.stand[G.myId]?.pts ?? 0,
+      wins:         G.stand[G.myId]?.w   ?? 0,
+      budget:       G.budget,
+      savedAtMs:    Date.now(),
     },
     // Stato completo
     myId:          G.myId,
@@ -83,6 +84,7 @@ function _buildPayload(G) {
     seasonNumber:  G.seasonNumber   || 1,
     tactic:        G.tactic         || 'balanced',
     _newsPage:     G._newsPage      || 0,
+    stadium:       G.stadium          || null,
   };
 }
 
@@ -288,6 +290,7 @@ function applyLoadedSave(payload) {
     seasonNumber:  payload.seasonNumber   || 1,
     tactic:        payload.tactic         || 'balanced',
     _newsPage:     payload._newsPage      || 0,
+    stadium:       payload.stadium          || null,
     _currentSlot:  null,
   };
 }

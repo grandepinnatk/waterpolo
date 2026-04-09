@@ -340,7 +340,7 @@ function generateMatchEvent(ms) {
     const injP = p.injProb !== undefined ? p.injProb : 0.04;
     // La probabilità viene scalata per il dt dell'evento (~10s su ~10min)
     // → divide per ~60 per avere una prob per-evento realistica
-    if (Math.random() < injP / 6) {
+    if (Math.random() < injP / 3) {  // raddoppiato: era /6
       const shirt = ms.shirtNumbers[pi] || '?';
       ms.expelled.add(pi);
       if (!ms.injuries) ms.injuries = [];

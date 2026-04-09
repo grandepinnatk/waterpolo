@@ -319,6 +319,20 @@ function simNextRound() {
     }
   });
 
+  // ── Decadimento forma se non allenato ─────────────────────────────
+  // Ogni giornata senza allenamento la forma cala in base all'età:
+  // Under 24: -1, 24-28: -2, 29-32: -3, Over 32: -4 (±1 varianza)
+  const trainedThisRound = G._lastTrainRound === r;
+  if (!trainedThisRound) {
+    (G.rosters[G.myId] || []).forEach(p => {
+      if (!p || p.injured) return;
+      const age = p.age || 25;
+      const decay = age < 24 ? 1 : age < 29 ? 2 : age < 33 ? 3 : 4;
+      const variance = Math.floor(Math.random() * 3) - 1; // -1, 0, +1
+      p.fitness = Math.max(20, (p.fitness || 70) - decay + variance);
+    });
+  }
+
   // ── Deduzione monte ingaggi (solo regular season) ──
   if (G.phase === 'regular') {
     const wage = calcWageBill();
@@ -329,6 +343,10 @@ function simNextRound() {
     }
   }
 
+  // ── Aggiorna costruzioni stadio ──
+  _updateStadiumConstruction();
+  // ── Incasso match day ──
+  _collectStadiumRevenue();
   // +4 stelle per giornata
   if (G.stars !== undefined) G.stars = (G.stars || 0) + 4;
   refreshMarketPool();
@@ -408,6 +426,161 @@ function _simPenaltyShootout(homeId, awayId) {
     if (aSD && Math.random() < _penaltyProb(aSD, aSD.fitness)) aG++;
   }
   return { winner: hG >= aG ? homeId : awayId, hG: hG, aG: aG };
+}
+
+
+// ═══════════════════════════════════════════════════════
+// SISTEMA STADIO
+// ═══════════════════════════════════════════════════════
+
+// Configurazione sezioni stadio
+var STADIUM_SECTIONS = {
+  nord:  { label: 'Tribuna Nord',  type: 'tribuna', capPerLevel: 2000 },
+  sud:   { label: 'Tribuna Sud',   type: 'tribuna', capPerLevel: 2000 },
+  ovest: { label: 'Curva Ovest',   type: 'curva',   capPerLevel: 1000 },
+  est:   { label: 'Curva Est',     type: 'curva',   capPerLevel: 1000 },
+};
+
+// Costi e tempi di costruzione per livello
+var STADIUM_LEVEL_COST    = [0, 150000, 280000, 450000, 700000]; // indice = livello target
+var STADIUM_LEVEL_DAYS    = [0, 3, 4, 5, 6];  // giornate di lavori
+var STADIUM_BAR_COST      = 50000;
+var STADIUM_SHOP_COST     = 80000;
+var STADIUM_BAR_DAYS      = 2;
+var STADIUM_SHOP_DAYS     = 2;
+var STADIUM_BAR_BONUS     = 0.08;   // +8% incasso per biglietti venduti
+var STADIUM_SHOP_BONUS    = 0.12;   // +12% incasso
+
+// Inizializza struttura stadio su G
+function _initStadium() {
+  if (!G.stadium) {
+    G.stadium = {
+      ticketPrice: 15,  // prezzo biglietto default
+      sections: {
+        nord:  { level: 0, bar: false, shop: false, construction: null },
+        sud:   { level: 0, bar: false, shop: false, construction: null },
+        ovest: { level: 0, bar: false, shop: false, construction: null },
+        est:   { level: 0, bar: false, shop: false, construction: null },
+      },
+    };
+  }
+}
+
+// Capienza totale stadio
+function stadiumCapacity() {
+  _initStadium();
+  var base = 2000;
+  var extra = 0;
+  Object.entries(G.stadium.sections).forEach(function(kv) {
+    var key = kv[0], sec = kv[1];
+    extra += sec.level * STADIUM_SECTIONS[key].capPerLevel;
+  });
+  return base + extra;
+}
+
+// Percentuale riempimento (0-1) basata sulle performance
+function stadiumFillRate() {
+  if (!G || !G.stand) return 0.30;
+  var st   = G.stand[G.myId] || {};
+  var tot  = (st.w || 0) + (st.d || 0) + (st.l || 0);
+  if (tot === 0) return 0.30;
+  var wr   = (st.w || 0) / tot;                    // win rate
+  var tier = { S:1.0, A:0.85, B:0.65, C:0.45 }[G.myTeam.tier || 'B'] || 0.65;
+  var base = 0.25 + wr * 0.50 + tier * 0.15;
+  return Math.min(0.98, Math.max(0.10, base));
+}
+
+// Entrate match day
+function stadiumMatchRevenue() {
+  _initStadium();
+  var cap    = stadiumCapacity();
+  var fill   = stadiumFillRate();
+  var paying = Math.round(cap * fill);
+  var price  = G.stadium.ticketPrice || 15;
+  var rev    = paying * price;
+  // Bonus bar/shop
+  Object.values(G.stadium.sections).forEach(function(sec) {
+    if (sec.bar)  rev += paying * price * STADIUM_BAR_BONUS;
+    if (sec.shop) rev += paying * price * STADIUM_SHOP_BONUS;
+  });
+  return { paying: paying, revenue: Math.round(rev) };
+}
+
+// Avvia costruzione / upgrade
+function stadiumBuild(sectionKey, type) {  // type: 'level'|'bar'|'shop'
+  _initStadium();
+  var sec  = G.stadium.sections[sectionKey];
+  var cost, days, label;
+
+  if (type === 'level') {
+    var nextLv = (sec.level || 0) + 1;
+    if (nextLv > 4) { G.msgs.push('⚠️ ' + STADIUM_SECTIONS[sectionKey].label + ' è già al livello massimo.'); return; }
+    if (sec.construction) { G.msgs.push('⚠️ Lavori già in corso nella ' + STADIUM_SECTIONS[sectionKey].label + '.'); return; }
+    cost  = STADIUM_LEVEL_COST[nextLv];
+    days  = STADIUM_LEVEL_DAYS[nextLv];
+    label = STADIUM_SECTIONS[sectionKey].label + ' → Livello ' + nextLv;
+  } else if (type === 'bar') {
+    if (sec.bar) { G.msgs.push('⚠️ Bar già presente.'); return; }
+    if (sec.level === 0) { G.msgs.push('⚠️ Devi prima costruire la tribuna.'); return; }
+    if (sec.construction) { G.msgs.push('⚠️ Lavori già in corso.'); return; }
+    cost  = STADIUM_BAR_COST;
+    days  = STADIUM_BAR_DAYS;
+    label = 'Bar — ' + STADIUM_SECTIONS[sectionKey].label;
+  } else if (type === 'shop') {
+    if (sec.shop) { G.msgs.push('⚠️ Shop già presente.'); return; }
+    if (sec.level === 0) { G.msgs.push('⚠️ Devi prima costruire la tribuna.'); return; }
+    if (sec.construction) { G.msgs.push('⚠️ Lavori già in corso.'); return; }
+    cost  = STADIUM_SHOP_COST;
+    days  = STADIUM_SHOP_DAYS;
+    label = 'Shop — ' + STADIUM_SECTIONS[sectionKey].label;
+  } else return;
+
+  if (G.budget < cost) {
+    G.msgs.push('❌ Budget insufficiente per ' + label + ' (' + formatMoney(cost) + ').');
+    renderStadium(); return;
+  }
+  G.budget -= cost;
+  addLedger('stadio', -cost, 'Lavori: ' + label, typeof currentRound === 'function' ? currentRound() : 0);
+  sec.construction = { type: type, daysLeft: days, label: label };
+  G.msgs.push('🏗️ Lavori avviati: ' + label + ' — completamento tra ' + days + ' giornate. Costo: ' + formatMoney(cost) + '.');
+  updateHeader(); autoSave(); renderStadium();
+}
+
+// Aggiorna costruzioni (chiamato ogni giornata in simNextRound)
+function _updateStadiumConstruction() {
+  if (!G.stadium) return;
+  Object.entries(G.stadium.sections).forEach(function(kv) {
+    var key = kv[0], sec = kv[1];
+    if (!sec.construction) return;
+    sec.construction.daysLeft--;
+    if (sec.construction.daysLeft <= 0) {
+      var t = sec.construction.type;
+      if (t === 'level')  sec.level = (sec.level || 0) + 1;
+      else if (t === 'bar')  sec.bar  = true;
+      else if (t === 'shop') sec.shop = true;
+      G.msgs.push('✅ Lavori completati: ' + sec.construction.label + '! Nuova capienza: ' + stadiumCapacity().toLocaleString('it-IT') + ' posti.');
+      sec.construction = null;
+    }
+  });
+}
+
+// Incasso match day (chiamato in simNextRound dopo ogni partita giocata/simulata)
+function _collectStadiumRevenue() {
+  if (!G.stadium) return;
+  var r = stadiumMatchRevenue();
+  if (r.revenue > 0) {
+    G.budget += r.revenue;
+    addLedger('stadio', r.revenue, 'Incasso stadio (' + r.paying.toLocaleString('it-IT') + ' spettatori)', typeof currentRound === 'function' ? currentRound() : 0);
+    G.msgs.push('🏟️ Stadio: ' + r.paying.toLocaleString('it-IT') + ' spettatori · +' + formatMoney(r.revenue) + '.');
+  }
+}
+
+// Aggiorna prezzo biglietto
+function setTicketPrice(val) {
+  _initStadium();
+  var price = parseInt(val) || 15;
+  G.stadium.ticketPrice = Math.max(5, Math.min(150, price));
+  autoSave(); renderStadium();
 }
 
 function simPOMatch(type, idx) {

@@ -66,12 +66,14 @@ function _buildSlotsPanel() {
 
     if (meta) {
       // ── Slot occupato ──
+      const stagione = 'Stagione ' + (meta.seasonNumber || 1);
+      const giornata = 'Giornata ' + Math.max(1, (meta.round || 0) + 1);
       const phaseLabel = {
-        regular: 'Regular Season · G' + meta.round,
-        playoff: 'Playoff',
-        playout: 'Play-out',
-        done:    'Stagione conclusa',
-      }[meta.phase] || meta.phase;
+        regular: stagione + ' · ' + giornata,
+        playoff: stagione + ' · Playoff',
+        playout: stagione + ' · Play-out',
+        done:    stagione + ' · Conclusa',
+      }[meta.phase] || (stagione + ' · ' + meta.phase);
 
       const savedDate = new Date(meta.savedAt).toLocaleString('it-IT', {
         day: '2-digit', month: '2-digit', year: '2-digit',

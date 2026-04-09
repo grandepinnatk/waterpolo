@@ -1376,6 +1376,7 @@ function doTrain(i) {
   if (typeof _updateStarsBox === 'function') _updateStarsBox();
   addLedger('allenamento', -tr.cost, `Sessione: ${tr.name}`, currentRound());
   G.trainWeeks++;
+  G._lastTrainRound = (typeof currentRound === 'function') ? currentRound() : 0;
   const roster = G.rosters[G.myId];
   let improved = 0;
 
@@ -2370,7 +2371,7 @@ function renderHistory() {
     h += '<div style="color:var(--muted);font-size:13px;padding:8px 0">Nessuna stagione completata — i dati appariranno dopo la prima stagione conclusa.</div>';
   } else {
     h += `<table><thead><tr>
-      <th>Stag.</th>
+      <th>Stagione</th>
       <th>Fascia</th>
       <th>Pos.</th>
       <th>Punti</th>
@@ -2400,6 +2401,275 @@ function renderHistory() {
   }
   h += '</div></div>';
   document.getElementById('tab-history').innerHTML = h;
+}
+
+
+// ════════════════════════════════════════════
+// STADIO
+// ════════════════════════════════════════════
+function renderStadium() {
+  _initStadium();
+  var sec   = G.stadium.sections;
+  var cap   = stadiumCapacity();
+  var fill  = stadiumFillRate();
+  var rev   = stadiumMatchRevenue();
+
+  // Controlla lavori in corso
+  var inProgress = [];
+  Object.entries(sec).forEach(function(kv) {
+    var key = kv[0], s = kv[1];
+    if (s.construction) inProgress.push(s.construction.label + ' (' + s.construction.daysLeft + ' gg)');
+  });
+
+  var h = '';
+
+  // ── Banner lavori in corso ──
+  if (inProgress.length > 0) {
+    h += '<div style="background:rgba(240,192,64,.12);border:1px solid rgba(240,192,64,.4);border-radius:10px;'
+      + 'padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px">'
+      + '<span style="font-size:20px;flex-shrink:0">🏗️</span>'
+      + '<div>'
+      + '<div style="font-size:12px;font-weight:700;color:#f0c040;margin-bottom:2px">Lavori in corso</div>'
+      + '<div style="font-size:11px;color:rgba(255,255,255,.6)">' + inProgress.join(' · ') + '</div>'
+      + '</div></div>';
+  }
+
+  // ── Stats bar ──
+  h += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px">';
+  function statCard(icon, label, val, col) {
+    return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;'
+      + 'padding:10px;text-align:center">'
+      + '<div style="font-size:18px;margin-bottom:3px">' + icon + '</div>'
+      + '<div style="font-size:15px;font-weight:800;color:' + col + '">' + val + '</div>'
+      + '<div style="font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.4px">' + label + '</div>'
+      + '</div>';
+  }
+  h += statCard('🏟️', 'Capienza', cap.toLocaleString('it-IT'), '#00c2ff');
+  h += statCard('👥', 'Stima spettatori', rev.paying.toLocaleString('it-IT'), '#69f0ae');
+  h += statCard('🎫', 'Biglietto', formatMoney(G.stadium.ticketPrice), '#f0c040');
+  h += statCard('💰', 'Incasso stimato', formatMoney(rev.revenue), '#ff8c42');
+  h += '</div>';
+
+  // ── Prezzo biglietto ──
+  h += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;'
+    + 'background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 14px">'
+    + '<span style="font-size:14px">🎫</span>'
+    + '<span style="font-size:12px;font-weight:600;color:rgba(255,255,255,.7)">Prezzo biglietto:</span>'
+    + '<input type="number" id="ticket-price-inp" min="5" max="150" value="' + (G.stadium.ticketPrice || 15) + '"'
+    + ' style="width:70px;height:28px;border-radius:6px;border:1px solid rgba(0,194,255,.3);background:rgba(0,194,255,.08);'
+    + 'color:#00c2ff;font-size:13px;font-weight:700;text-align:center;padding:0 6px">'
+    + '<span style="font-size:11px;color:rgba(255,255,255,.4)">€ (min 5€ / max 150€)</span>'
+    + '<button onclick="setTicketPrice(document.getElementById(\'ticket-price-inp\').value)"'
+    + ' style="padding:5px 14px;font-size:12px;font-weight:700;border-radius:6px;'
+    + 'background:rgba(0,194,255,.15);border:1px solid rgba(0,194,255,.3);color:#00c2ff;cursor:pointer">Imposta</button>'
+    + '</div>';
+
+  // ── Pianta stadio SVG ──
+  h += _renderStadiumMap();
+
+  // ── Lista sezioni dettaglio ──
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px">';
+  ['nord','sud','ovest','est'].forEach(function(key) {
+    h += _sectionCard(key);
+  });
+  h += '</div>';
+
+  document.getElementById('tab-stadium').innerHTML = h;
+}
+
+function _renderStadiumMap() {
+  var sec = G.stadium.sections;
+
+  function sectionColor(key) {
+    var s = sec[key];
+    if (s.construction) return '#f0c040';
+    if (s.level === 0)  return 'rgba(255,255,255,.06)';
+    var cols = ['','#1a4a2a','#1e6e35','#239b45','#27c755'];
+    return cols[s.level] || '#27c755';
+  }
+  function sectionLabel(key) {
+    var s = sec[key];
+    if (s.construction) return '🏗️ ' + s.construction.daysLeft + 'gg';
+    return 'Liv.' + s.level + '/4';
+  }
+  function sectionBtnFill(key) {
+    var s = sec[key];
+    if (s.construction) return 'rgba(240,192,64,.3)';
+    if (s.level >= 4)   return 'rgba(255,255,255,.1)';
+    return 'rgba(0,194,255,.25)';
+  }
+
+  // SVG pianta 2D dall'alto
+  var W = 760, H = 480;
+  var svg = '<div style="margin:0 auto;max-width:760px">'
+    + '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;height:auto;display:block;border-radius:12px;overflow:visible">';
+
+  // Sfondo
+  svg += '<rect width="' + W + '" height="' + H + '" fill="#0a1628" rx="10"/>';
+  // Griglia
+  for (var gx = 0; gx < W; gx += 40)
+    svg += '<line x1="' + gx + '" y1="0" x2="' + gx + '" y2="' + H + '" stroke="rgba(255,255,255,.03)" stroke-width="1"/>';
+  for (var gy = 0; gy < H; gy += 40)
+    svg += '<line x1="0" y1="' + gy + '" x2="' + W + '" y2="' + gy + '" stroke="rgba(255,255,255,.03)" stroke-width="1"/>';
+
+  // ── PISCINA ──
+  var px = 200, py = 110, pw = 360, ph = 260;
+  // Acqua
+  svg += '<rect x="' + px + '" y="' + py + '" width="' + pw + '" height="' + ph + '" fill="#0a4a7a" rx="4"/>';
+  svg += '<rect x="' + px + '" y="' + py + '" width="' + pw + '" height="' + ph + '" fill="none" stroke="#1a8adc" stroke-width="2" rx="4"/>';
+  // Corsie (6 corsie)
+  for (var lane = 1; lane < 6; lane++) {
+    var lx = px + lane * (pw / 6);
+    svg += '<line x1="' + lx + '" y1="' + (py+8) + '" x2="' + lx + '" y2="' + (py+ph-8) + '" stroke="rgba(100,200,255,.3)" stroke-width="1" stroke-dasharray="6,4"/>';
+  }
+  // Porte
+  svg += '<rect x="' + (px-12) + '" y="' + (py+ph/2-22) + '" width="12" height="44" fill="none" stroke="#fff" stroke-width="2" rx="2"/>';
+  svg += '<rect x="' + (px+pw) + '" y="' + (py+ph/2-22) + '" width="12" height="44" fill="none" stroke="#fff" stroke-width="2" rx="2"/>';
+  // Linea metà campo
+  svg += '<line x1="' + (px+pw/2) + '" y1="' + (py+10) + '" x2="' + (px+pw/2) + '" y2="' + (py+ph-10) + '" stroke="rgba(255,255,255,.25)" stroke-width="1.5" stroke-dasharray="8,5"/>';
+  // Label piscina
+  svg += '<text x="' + (px+pw/2) + '" y="' + (py+ph/2+5) + '" text-anchor="middle" font-size="12" font-weight="600" fill="rgba(255,255,255,.3)" font-family="system-ui">CAMPO DI GIOCO</text>';
+
+  // ── TRIBUNA NORD ──
+  var tnFill = sectionColor('nord'), tnLbl = sectionLabel('nord');
+  var tnNextCost = sec.nord.level < 4 ? formatMoney(STADIUM_LEVEL_COST[sec.nord.level+1]) : 'Max';
+  svg += '<rect x="200" y="20" width="360" height="76" fill="' + tnFill + '" rx="6" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>';
+  // Posti stilizzati
+  for (var r = 0; r < 3; r++) for (var col = 0; col < 18; col++)
+    svg += '<rect x="' + (210 + col*18) + '" y="' + (28 + r*18) + '" width="14" height="12" rx="2" fill="rgba(255,255,255,' + (sec.nord.level > 0 ? '.15' : '.05') + ')"/>';
+  svg += '<text x="380" y="72" text-anchor="middle" font-size="11" font-weight="800" fill="rgba(255,255,255,.7)" font-family="system-ui">TRIBUNA NORD · ' + tnLbl + '</text>';
+  // Bottone upgrade
+  if (sec.nord.level < 4 && !sec.nord.construction) {
+    svg += '<g onclick="stadiumBuild(\'nord\',\'level\')" style="cursor:pointer">'
+      + '<rect x="350" y="78" width="60" height="18" rx="9" fill="rgba(0,194,255,.3)" stroke="rgba(0,194,255,.5)" stroke-width="1"/>'
+      + '<text x="380" y="91" text-anchor="middle" font-size="9" font-weight="800" fill="#00c2ff" font-family="system-ui">+ ' + tnNextCost + '</text>'
+      + '</g>';
+  }
+
+  // ── TRIBUNA SUD ──
+  var tsFill = sectionColor('sud'), tsLbl = sectionLabel('sud');
+  var tsNextCost = sec.sud.level < 4 ? formatMoney(STADIUM_LEVEL_COST[sec.sud.level+1]) : 'Max';
+  svg += '<rect x="200" y="384" width="360" height="76" fill="' + tsFill + '" rx="6" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>';
+  for (var r = 0; r < 3; r++) for (var col = 0; col < 18; col++)
+    svg += '<rect x="' + (210 + col*18) + '" y="' + (394 + r*18) + '" width="14" height="12" rx="2" fill="rgba(255,255,255,' + (sec.sud.level > 0 ? '.15' : '.05') + ')"/>';
+  svg += '<text x="380" y="448" text-anchor="middle" font-size="11" font-weight="800" fill="rgba(255,255,255,.7)" font-family="system-ui">TRIBUNA SUD · ' + tsLbl + '</text>';
+  if (sec.sud.level < 4 && !sec.sud.construction) {
+    svg += '<g onclick="stadiumBuild(\'sud\',\'level\')" style="cursor:pointer">'
+      + '<rect x="350" y="390" width="60" height="18" rx="9" fill="rgba(0,194,255,.3)" stroke="rgba(0,194,255,.5)" stroke-width="1"/>'
+      + '<text x="380" y="403" text-anchor="middle" font-size="9" font-weight="800" fill="#00c2ff" font-family="system-ui">+ ' + tsNextCost + '</text>'
+      + '</g>';
+  }
+
+  // ── CURVA OVEST ──
+  var coFill = sectionColor('ovest'), coLbl = sectionLabel('ovest');
+  var coNextCost = sec.ovest.level < 4 ? formatMoney(STADIUM_LEVEL_COST[sec.ovest.level+1]) : 'Max';
+  svg += '<rect x="20" y="110" width="166" height="260" fill="' + coFill + '" rx="6" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>';
+  for (var r = 0; r < 6; r++) for (var col = 0; col < 6; col++)
+    svg += '<rect x="' + (30 + col*22) + '" y="' + (120 + r*22) + '" width="18" height="16" rx="2" fill="rgba(255,255,255,' + (sec.ovest.level > 0 ? '.15' : '.05') + ')"/>';
+  svg += '<text x="103" y="266" text-anchor="middle" font-size="11" font-weight="800" fill="rgba(255,255,255,.7)" font-family="system-ui" transform="rotate(0,103,266)">CURVA OVEST · ' + coLbl + '</text>';
+  if (sec.ovest.level < 4 && !sec.ovest.construction) {
+    svg += '<g onclick="stadiumBuild(\'ovest\',\'level\')" style="cursor:pointer">'
+      + '<rect x="68" y="284" width="70" height="18" rx="9" fill="rgba(0,194,255,.3)" stroke="rgba(0,194,255,.5)" stroke-width="1"/>'
+      + '<text x="103" y="297" text-anchor="middle" font-size="9" font-weight="800" fill="#00c2ff" font-family="system-ui">+ ' + coNextCost + '</text>'
+      + '</g>';
+  }
+
+  // ── CURVA EST ──
+  var ceFill = sectionColor('est'), ceLbl = sectionLabel('est');
+  var ceNextCost = sec.est.level < 4 ? formatMoney(STADIUM_LEVEL_COST[sec.est.level+1]) : 'Max';
+  svg += '<rect x="574" y="110" width="166" height="260" fill="' + ceFill + '" rx="6" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>';
+  for (var r = 0; r < 6; r++) for (var col = 0; col < 6; col++)
+    svg += '<rect x="' + (584 + col*22) + '" y="' + (120 + r*22) + '" width="18" height="16" rx="2" fill="rgba(255,255,255,' + (sec.est.level > 0 ? '.15' : '.05') + ')"/>';
+  svg += '<text x="657" y="266" text-anchor="middle" font-size="11" font-weight="800" fill="rgba(255,255,255,.7)" font-family="system-ui">CURVA EST · ' + ceLbl + '</text>';
+  if (sec.est.level < 4 && !sec.est.construction) {
+    svg += '<g onclick="stadiumBuild(\'est\',\'level\')" style="cursor:pointer">'
+      + '<rect x="622" y="284" width="70" height="18" rx="9" fill="rgba(0,194,255,.3)" stroke="rgba(0,194,255,.5)" stroke-width="1"/>'
+      + '<text x="657" y="297" text-anchor="middle" font-size="9" font-weight="800" fill="#00c2ff" font-family="system-ui">+ ' + ceNextCost + '</text>'
+      + '</g>';
+  }
+
+  svg += '</svg></div>';
+  return svg;
+}
+
+function _sectionCard(key) {
+  var sec  = G.stadium.sections[key];
+  var info = STADIUM_SECTIONS[key];
+  var nextLv = sec.level + 1;
+  var inCons = !!sec.construction;
+  var atMax  = sec.level >= 4;
+  var capThis = sec.level * info.capPerLevel;
+
+  var h = '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px">';
+
+  // Header sezione
+  h += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'
+    + '<div style="font-size:13px;font-weight:700;color:#fff">' + info.label + '</div>'
+    + '<div style="font-size:11px;font-weight:800;color:' + (sec.level > 0 ? '#69f0ae' : 'rgba(255,255,255,.3)') + '">'
+    + 'Liv. ' + sec.level + '/4</div>'
+    + '</div>';
+
+  // Barra livelli
+  h += '<div style="display:flex;gap:4px;margin-bottom:10px">';
+  for (var i = 1; i <= 4; i++) {
+    var dot = i <= sec.level ? '#69f0ae' : (inCons && i === nextLv ? '#f0c040' : 'rgba(255,255,255,.12)');
+    h += '<div style="flex:1;height:6px;border-radius:3px;background:' + dot + ';'
+      + (i <= sec.level ? 'box-shadow:0 0 5px ' + dot + ';' : '') + '"></div>';
+  }
+  h += '</div>';
+
+  // Info capienza
+  h += '<div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:10px">'
+    + '📐 Capienza aggiuntiva: <strong style="color:rgba(255,255,255,.7)">'
+    + (capThis > 0 ? '+' + capThis.toLocaleString('it-IT') : '—') + '</strong> posti'
+    + '</div>';
+
+  // Bottone upgrade livello
+  if (inCons) {
+    h += '<div style="font-size:11px;color:#f0c040;background:rgba(240,192,64,.1);border-radius:6px;padding:6px 10px;margin-bottom:8px">'
+      + '🏗️ In costruzione: ' + sec.construction.label + ' — ' + sec.construction.daysLeft + ' giornate rimanenti'
+      + '</div>';
+  } else if (!atMax) {
+    h += '<button onclick="stadiumBuild(\'' + key + '\',\'level\')" style="width:100%;padding:7px;font-size:11px;font-weight:700;'
+      + 'border-radius:7px;background:rgba(0,194,255,.15);border:1px solid rgba(0,194,255,.3);color:#00c2ff;cursor:pointer;margin-bottom:8px">'
+      + '⬆️ Potenzia a Liv.' + nextLv + ' — ' + formatMoney(STADIUM_LEVEL_COST[nextLv])
+      + ' · ' + STADIUM_LEVEL_DAYS[nextLv] + ' gg'
+      + '</button>';
+  } else {
+    h += '<div style="font-size:11px;color:#f0c040;text-align:center;padding:5px;margin-bottom:8px">✨ Livello massimo raggiunto</div>';
+  }
+
+  // Bar e Shop (solo se livello > 0)
+  if (sec.level > 0) {
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
+
+    // Bar
+    if (sec.bar) {
+      h += '<div style="font-size:11px;color:#69f0ae;background:rgba(46,204,113,.1);border-radius:6px;padding:5px 8px;text-align:center">🍺 Bar +' + (STADIUM_BAR_BONUS*100) + '%</div>';
+    } else if (!inCons) {
+      h += '<button onclick="stadiumBuild(\'' + key + '\',\'bar\')" style="font-size:10px;font-weight:700;padding:5px 6px;'
+        + 'border-radius:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);cursor:pointer">'
+        + '🍺 Bar ' + formatMoney(STADIUM_BAR_COST) + '</button>';
+    } else {
+      h += '<div style="font-size:10px;color:rgba(255,255,255,.3);padding:5px;text-align:center">🍺 —</div>';
+    }
+
+    // Shop
+    if (sec.shop) {
+      h += '<div style="font-size:11px;color:#69f0ae;background:rgba(46,204,113,.1);border-radius:6px;padding:5px 8px;text-align:center">🛍️ Shop +' + (STADIUM_SHOP_BONUS*100) + '%</div>';
+    } else if (!inCons) {
+      h += '<button onclick="stadiumBuild(\'' + key + '\',\'shop\')" style="font-size:10px;font-weight:700;padding:5px 6px;'
+        + 'border-radius:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);cursor:pointer">'
+        + '🛍️ Shop ' + formatMoney(STADIUM_SHOP_COST) + '</button>';
+    } else {
+      h += '<div style="font-size:10px;color:rgba(255,255,255,.3);padding:5px;text-align:center">🛍️ —</div>';
+    }
+
+    h += '</div>';
+  }
+
+  h += '</div>';
+  return h;
 }
 
 // ════════════════════════════════════════════
