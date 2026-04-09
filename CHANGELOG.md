@@ -1,6 +1,9 @@
 # CHANGELOG
 
-## [0.6.02] — 2026-04-09
+## [0.6.03] — 2026-04-09
+Fix: cerchio Forma nella Rosa mostra valori sballati se fitness supera 100. Aggiunto clamp 0–100 in `formaBar` e `gap` non può essere negativo.
+
+[0.6.02] — 2026-04-09
 AMB nell'auto-formazione riceve +5 come la mano preferita (non +2): può giocare a destra e sinistra senza malus, equivalente al giocatore con la mano giusta per quella posizione.
 
 [0.6.01] — 2026-04-09

@@ -761,16 +761,17 @@ function renderRosa() {
 
   // Forma: cerchio SVG come OVR
   function formaBar(f) {
-    var col = f > 70 ? '#2ecc71' : f > 45 ? '#f0c040' : '#e74c3c';
+    var fv  = Math.min(100, Math.max(0, f || 0));  // clamp 0-100
+    var col = fv > 70 ? '#2ecc71' : fv > 45 ? '#f0c040' : '#e74c3c';
     var r = 15, circ = 2 * Math.PI * r;
-    var dash = (circ * f / 100).toFixed(1);
-    var gap  = (circ - dash).toFixed(1);
+    var dash = (circ * fv / 100).toFixed(1);
+    var gap  = Math.max(0, circ - parseFloat(dash)).toFixed(1);
     return '<svg width="40" height="40" style="flex-shrink:0;display:block">'
       + '<circle cx="20" cy="20" r="' + r + '" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3"/>'
       + '<circle cx="20" cy="20" r="' + r + '" fill="none" stroke="' + col + '" stroke-width="3"'
       + ' stroke-dasharray="' + dash + ' ' + gap + '" stroke-linecap="round"'
       + ' transform="rotate(-90 20 20)" style="filter:drop-shadow(0 0 4px ' + col + ')"/>'
-      + '<text x="20" y="24" text-anchor="middle" font-size="10" font-weight="800" fill="' + col + '">' + f + '</text>'
+      + '<text x="20" y="24" text-anchor="middle" font-size="10" font-weight="800" fill="' + col + '">' + fv + '</text>'
       + '</svg>';
   }
 
@@ -1627,11 +1628,7 @@ function renderCal(activeTab) {
         var md = m.score.home === m.score.away;
         var vc = mw ? 'var(--green)' : md ? 'var(--gold)' : 'var(--red)';
         badge = '<span style="font-size:11px;font-weight:700;color:' + vc + ';margin-left:2px">' + (mw?'V':md?'P':'S') + '</span>';
-        // Spettatori sotto il risultato (solo partite in casa)
-        if (ih && m.attendance > 0) {
-          var _attPct2 = Math.round(m.attendance / (m.capacity || 500) * 100);
-          badge += '<div style="font-size:10px;color:var(--muted);margin-top:2px;text-align:center;white-space:nowrap">'            + '👥 ' + m.attendance.toLocaleString('it-IT') + ' · ' + _attPct2 + '% di ' + (m.capacity||500).toLocaleString('it-IT')            + '</div>';
-        }
+
       }
     } else {
       scoreHtml = '<span style="color:var(--muted);font-size:13px;padding:0 10px">vs</span>';
