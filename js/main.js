@@ -504,13 +504,22 @@ function stadiumFillRate() {
 // Entrate match day
 function stadiumMatchRevenue() {
   _initStadium();
-  var cap    = stadiumCapacity();
+  // Capienza effettiva: esclude le sezioni con lavori in corso
+  var base = 2000;
+  var activeCap = base;
+  Object.entries(G.stadium.sections).forEach(function(kv) {
+    var key = kv[0], sec = kv[1];
+    if (!sec.construction) {
+      activeCap += sec.level * STADIUM_SECTIONS[key].capPerLevel;
+    }
+  });
   var fill   = stadiumFillRate();
-  var paying = Math.round(cap * fill);
+  var paying = Math.round(activeCap * fill);
   var price  = G.stadium.ticketPrice || 15;
   var rev    = paying * price;
-  // Bonus bar/shop
+  // Bonus bar/shop — solo per sezioni NON in costruzione
   Object.values(G.stadium.sections).forEach(function(sec) {
+    if (sec.construction) return;  // lavori in corso: niente incassi
     if (sec.bar)  rev += paying * price * STADIUM_BAR_BONUS;
     if (sec.shop) rev += paying * price * STADIUM_SHOP_BONUS;
   });
