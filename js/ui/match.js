@@ -1035,6 +1035,8 @@ function _doEndMatch() {
       });
     }
     updateMoraleAfterMatch(ms);
+    // Incasso stadio solo in casa (partite di campionato)
+    if (ms.isHome && typeof _collectStadiumRevenue === 'function') _collectStadiumRevenue();
     generateTransferOffers();
     if (typeof refreshMarketPool === 'function') refreshMarketPool();
     // Decrementa infortuni preesistenti (non causati da questa partita)

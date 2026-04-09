@@ -345,8 +345,9 @@ function simNextRound() {
 
   // ── Aggiorna costruzioni stadio ──
   _updateStadiumConstruction();
-  // ── Incasso match day ──
-  _collectStadiumRevenue();
+  // ── Incasso match day (solo partite in casa) ──
+  const _isHomeMatch = roundMatches.some(function(m) { return m.home === G.myId; });
+  if (_isHomeMatch) _collectStadiumRevenue();
   // +4 stelle per giornata
   if (G.stars !== undefined) G.stars = (G.stars || 0) + 4;
   refreshMarketPool();
