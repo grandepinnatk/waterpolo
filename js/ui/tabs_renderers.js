@@ -254,6 +254,17 @@ window.showMatchDetailPopup = showMatchDetailPopup;
 // DASHBOARD
 // ════════════════════════════════════════════
 function renderDash() {
+  // Rileva tema corrente
+  var _isDark    = document.body.classList.contains('theme-dark');
+  var _isLight   = document.body.classList.contains('theme-light');
+  var _isClassic = !_isDark && !_isLight;
+  // Sfondo e colori per i widget notizie/focus/top scorer
+  var _wBg    = _isClassic ? '#12243A' : _isDark ? '#141418' : '#E5E8F1';
+  var _wText  = _isLight   ? '#1a1a2e' : '#fff';
+  var _wMuted = _isLight   ? '#555'    : 'rgba(255,255,255,.6)';
+  var _wLabel = _isLight   ? '#222'    : 'rgba(255,255,255,.7)';
+  var _wTitle = _isLight   ? '#444'    : 'rgba(255,255,255,.5)';
+
   var ms      = G.stand[G.myId];
   var pos     = getTeamPosition(G.stand, G.myId);
   var nm      = (typeof nextMyMatch === 'function')
@@ -604,14 +615,14 @@ function renderDash() {
   var safePg    = Math.min(newsPage, totalPgs - 1);
   var pageItems = allMsgs.slice(safePg * NEWS_PER_PAGE, (safePg + 1) * NEWS_PER_PAGE);
 
-  h += '<div style="background:#E5E8F1;border:1px solid rgba(0,0,0,.08);border-radius:14px;overflow:hidden">';
+  h += '<div style="background:' + _wBg + ';border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden">';
 
   // Header notizie
   h += '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;'
     + 'border-bottom:1px solid rgba(255,255,255,.06)">'
-    + '<div style="font-size:11px;font-weight:700;color:#1a1a2e;text-transform:uppercase;letter-spacing:.7px">Ultime Notizie</div>'
+    + '<div style="font-size:11px;font-weight:700;color:' + _wText + ';text-transform:uppercase;letter-spacing:.7px">Ultime Notizie</div>'
     + '<div style="display:flex;align-items:center;gap:5px">'
-    + '<span style="font-size:11px;color:#333">' + (safePg+1) + '/' + totalPgs + '</span>'
+    + '<span style="font-size:11px;color:' + _wMuted + '">' + (safePg+1) + '/' + totalPgs + '</span>'
     + '<button onclick="G._newsPage=Math.max(0,(G._newsPage||0)-1);renderDash()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:2px 8px;color:rgba(255,255,255,.5);font-size:12px;' + (safePg===0?'opacity:.3;pointer-events:none;':'cursor:pointer;') + '">‹</button>'
     + '<button onclick="G._newsPage=Math.min(' + (totalPgs-1) + ',(G._newsPage||0)+1);renderDash()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:2px 8px;color:rgba(255,255,255,.5);font-size:12px;' + (safePg>=totalPgs-1?'opacity:.3;pointer-events:none;':'cursor:pointer;') + '">›</button>'
     + '</div></div>';
@@ -619,7 +630,7 @@ function renderDash() {
   // Feed notizie
   h += '<div style="padding:6px 0">';
   if (pageItems.length === 0) {
-    h += '<div style="padding:16px;font-size:12px;color:#666;text-align:center">Nessuna notizia ancora.</div>';
+    h += '<div style="padding:16px;font-size:12px;color:' + _wMuted + ';text-align:center">Nessuna notizia ancora.</div>';
   } else {
     pageItems.forEach(function(m) {
       var tag = msgTag(m);
@@ -648,7 +659,7 @@ function renderDash() {
         + '<span style="flex-shrink:0;margin-top:1px;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;'
         + 'background:' + tag[1] + '33;color:' + tag[1] + ';border:1px solid ' + tag[1] + '55;letter-spacing:.3px;white-space:nowrap">'
         + tag[0] + '</span>'
-        + '<span style="font-size:12px;color:#1a1a2e;line-height:1.45">' + _linkTeamNames(m) + '</span>'
+        + '<span style="font-size:12px;color:' + _wText + ';line-height:1.45">' + _linkTeamNames(m) + '</span>'
         + '</div>';
     });
   }
@@ -663,29 +674,29 @@ function renderDash() {
     var mc = fp.morale > 70 ? '#2ecc71' : fp.morale > 40 ? '#f0c040' : '#e74c3c';
     var ratings = (fp.lastRatings || []).filter(function(r) { return r !== null; });
     var avgR = ratings.length ? (ratings.reduce(function(s,r){return s+r;},0)/ratings.length).toFixed(1) : null;
-    h += '<div style="background:#E5E8F1;border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:14px">'
-      + '<div style="font-size:10px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Focus Giocatore</div>'
+    h += '<div style="background:' + _wBg + ';border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:14px">'
+      + '<div style="font-size:10px;font-weight:700;color:' + _wTitle + ';text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Focus Giocatore</div>'
       + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'
       + '<div style="width:44px;height:44px;border-radius:10px;background:rgba(0,194,255,.1);border:1px solid rgba(0,194,255,.2);'
       + 'display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🏊</div>'
       + '<div>'
-      + '<div style="font-size:14px;font-weight:700;color:#1a1a2e">' + fp.name + '</div>'
-      + '<div style="font-size:11px;color:#555">' + fp.role + ' · ' + fp.age + 'a · OVR ' + fp.overall + '</div>'
+      + '<div style="font-size:14px;font-weight:700;color:' + _wText + '">' + fp.name + '</div>'
+      + '<div style="font-size:11px;color:' + _wMuted + '">' + fp.role + ' · ' + fp.age + 'a · OVR ' + fp.overall + '</div>'
       + '</div></div>'
       + '<div style="margin-bottom:8px">'
       + '<div style="display:flex;justify-content:space-between;margin-bottom:3px">'
-      + '<span style="font-size:10px;color:#222;font-weight:600">MORALE</span>'
+      + '<span style="font-size:10px;color:' + _wLabel + ';font-weight:600">MORALE</span>'
       + '<span style="font-size:10px;font-weight:700;color:' + mc + '">' + fp.morale + '%</span>'
       + '</div>'
       + '<div style="height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden">'
       + '<div style="width:' + fp.morale + '%;height:100%;background:' + mc + ';box-shadow:0 0 6px ' + mc + '"></div></div>'
       + '</div>'
       + '<div style="display:flex;justify-content:space-between;font-size:11px">'
-      + '<span style="color:#222;font-weight:600">Voti medi</span>'
+      + '<span style="color:' + _wLabel + ';font-weight:600">Voti medi</span>'
       + '<span style="font-weight:700;color:' + (avgR >= 7.5 ? '#2ecc71' : avgR >= 6.5 ? '#f0c040' : '#e74c3c') + '">' + (avgR || '—') + '</span>'
       + '</div>'
       + (fp.goals > 0 ? '<div style="display:flex;justify-content:space-between;font-size:11px;margin-top:3px">'
-        + '<span style="color:#222;font-weight:600">Gol stagione</span>'
+        + '<span style="color:' + _wLabel + ';font-weight:600">Gol stagione</span>'
         + '<span style="font-weight:700;color:#4db6ff">' + fp.goals + ' ⚽</span></div>' : '')
       + '</div>';
   }
@@ -693,18 +704,18 @@ function renderDash() {
   // Top Scorer
   if (topScorer && (topScorer.goals || 0) > 0) {
     var ts = topScorer;
-    h += '<div style="background:#E5E8F1;border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:14px">'
-      + '<div style="font-size:10px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Top Scorer</div>'
+    h += '<div style="background:' + _wBg + ';border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:14px">'
+      + '<div style="font-size:10px;font-weight:700;color:' + _wTitle + ';text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Top Scorer</div>'
       + '<div style="display:flex;align-items:center;gap:10px">'
       + '<div style="width:38px;height:38px;border-radius:8px;background:rgba(240,192,64,.1);border:1px solid rgba(240,192,64,.25);'
       + 'display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">⚽</div>'
       + '<div style="flex:1;min-width:0">'
-      + '<div style="font-size:13px;font-weight:700;color:#1a1a2e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + ts.name + '</div>'
-      + '<div style="font-size:11px;color:#555">' + ts.role + ' · ' + ts.age + 'a</div>'
+      + '<div style="font-size:13px;font-weight:700;color:' + _wText + ';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + ts.name + '</div>'
+      + '<div style="font-size:11px;color:' + _wMuted + '">' + ts.role + ' · ' + ts.age + 'a</div>'
       + '</div>'
       + '<div style="text-align:right;flex-shrink:0">'
       + '<div style="font-size:22px;font-weight:900;color:#f0c040;line-height:1">' + ts.goals + '</div>'
-      + '<div style="font-size:9px;color:#555;font-weight:600">GOL</div>'
+      + '<div style="font-size:9px;color:' + _wMuted + ';font-weight:600">GOL</div>'
       + '</div></div></div>';
   }
 
