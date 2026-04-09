@@ -57,6 +57,7 @@ function _buildPayload(G) {
     savedAtMs: Date.now(),
     // Metadati leggibili senza caricare tutto il gioco
     meta: {
+      teamId:       G.myId,
       teamName:     G.myTeam.name,
       teamAbbr:     G.myTeam.abbr,
       teamCol:      G.myTeam.col,

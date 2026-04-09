@@ -537,11 +537,14 @@ function renderDash() {
       // Squadre
       h += '<div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px">';
 
-      // Team badge home
+      // Team badge home con logo
+      var _homeTeam = G.teams.find(function(t){return t.id===homeTeamId;}) || {abbr:'?'};
       h += '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;cursor:pointer" onclick="showTeamRosterPopup(\'' + homeTeamId + '\')">'
-        + '<div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);'
-        + 'display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff">'
-        + (G.teams.find(function(t){return t.id===homeTeamId;}) || {abbr:'?'}).abbr
+        + '<div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.25);'
+        + 'display:flex;align-items:center;justify-content:center;overflow:hidden">'
+        + (_homeTeam.logo
+            ? '<img src="' + _homeTeam.logo + '" style="width:52px;height:52px;object-fit:contain;border-radius:50%" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'" /><span style="display:none;font-size:11px;font-weight:800;color:#fff">' + _homeTeam.abbr + '</span>'
+            : '<span style="font-size:11px;font-weight:800;color:#fff">' + _homeTeam.abbr + '</span>')
         + '</div>'
         + '<div style="font-size:12px;font-weight:700;color:#fff;text-align:center">' + homeTeamName + '</div>'
         + '</div>';
@@ -552,11 +555,14 @@ function renderDash() {
         + '<div style="font-size:10px;color:rgba(255,255,255,.35)">Giornata ' + nm.round + '</div>'
         + '</div>';
 
-      // Team badge away
+      // Team badge away con logo
+      var _awayTeam = G.teams.find(function(t){return t.id===awayTeamId;}) || {abbr:'?'};
       h += '<div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;cursor:pointer;text-align:center" onclick="showTeamRosterPopup(\'' + awayTeamId + '\')">'
-        + '<div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);'
-        + 'display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff">'
-        + (G.teams.find(function(t){return t.id===awayTeamId;}) || {abbr:'?'}).abbr
+        + '<div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.25);'
+        + 'display:flex;align-items:center;justify-content:center;overflow:hidden">'
+        + (_awayTeam.logo
+            ? '<img src="' + _awayTeam.logo + '" style="width:52px;height:52px;object-fit:contain;border-radius:50%" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'" /><span style="display:none;font-size:11px;font-weight:800;color:#fff">' + _awayTeam.abbr + '</span>'
+            : '<span style="font-size:11px;font-weight:800;color:#fff">' + _awayTeam.abbr + '</span>')
         + '</div>'
         + '<div style="font-size:12px;font-weight:700;color:#fff">' + awayTeamName + '</div>'
         + '</div>';

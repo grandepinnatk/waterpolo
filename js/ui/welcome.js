@@ -26,7 +26,11 @@ function _buildTeamList() {
     div.id = 'tsl-' + t.id;
     div.style.cssText = 'display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;cursor:pointer;border:1.5px solid transparent;margin-bottom:3px;transition:all .15s';
     div.innerHTML = `
-      <div style="width:34px;height:34px;border-radius:50%;background:${t.col};display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;flex-shrink:0">${t.abbr}</div>
+      <div style="width:38px;height:38px;border-radius:50%;background:${t.col};display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0">
+        ${t.logo
+          ? `<img src="${t.logo}" style="width:38px;height:38px;object-fit:contain;border-radius:50%" onerror="this.style.display='none';this.nextSibling.style.display='flex'" /><span style="display:none;color:#fff;font-size:10px;font-weight:700">${t.abbr}</span>`
+          : `<span style="color:#fff;font-size:10px;font-weight:700">${t.abbr}</span>`}
+      </div>
       <div style="flex:1">
         <div style="font-size:13px;font-weight:600">${t.name}</div>
         <div style="font-size:11px;color:var(--muted)">${t.city} · ${formatMoney(t.budget)}</div>
@@ -82,7 +86,11 @@ function _buildSlotsPanel() {
 
       card.innerHTML = `
         <div class="slot-header">
-          <div class="slot-team-dot" style="background:${meta.teamCol}">${meta.teamAbbr}</div>
+          <div class="slot-team-dot" style="background:${meta.teamCol};overflow:hidden;display:flex;align-items:center;justify-content:center">
+            ${(TEAMS_DATA.find(t=>t.id===meta.teamId)&&TEAMS_DATA.find(t=>t.id===meta.teamId).logo)
+              ? `<img src="${TEAMS_DATA.find(t=>t.id===meta.teamId).logo}" style="width:100%;height:100%;object-fit:contain;border-radius:50%" onerror="this.style.display='none'" />`
+              : meta.teamAbbr}
+          </div>
           <div class="slot-team-info">
             <div class="slot-team-name">${meta.teamName}</div>
             <div class="slot-meta">${phaseLabel} · ${savedDate}</div>
