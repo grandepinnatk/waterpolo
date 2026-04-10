@@ -174,7 +174,16 @@ function renderPlayerSelList() {
   hdr.innerHTML = '<div title="Numero maglia">#</div><div>Giocatore</div><div>Pos / Ruolo</div><div>Forma</div><div></div>';
   container.appendChild(hdr);
 
-  roster.forEach((p, i) => {
+  const roleOrder = { POR:0, DIF:1, CEN:2, ATT:3, CB:4 };
+  const sortedRoster = roster
+    .map((p, i) => ({ p, i }))
+    .sort((a, b) => {
+      const rDiff = (roleOrder[a.p.role]??5) - (roleOrder[b.p.role]??5);
+      if (rDiff !== 0) return rDiff;
+      return b.p.overall - a.p.overall;
+    });
+
+  sortedRoster.forEach(({ p, i }) => {
     const isSel  = luState.selectedPlayer === i;
     const usedPk = usedByPos[i];
     const isConv = luState.convocati.has(i);
@@ -368,7 +377,7 @@ function autoFillLineup() {
   const used   = new Set();
 
   const por = roster.map((p, i) => ({ p, i }))
-    .filter(x => x.p.role === 'POR')
+    .filter(x => x.p.role === 'POR' && !x.p.injured)
     .sort((a, b) => b.p.overall - a.p.overall)[0];
   if (por) { luState.formation['GK'] = por.i; used.add(por.i); luState.convocati.add(por.i); }
 
@@ -377,7 +386,7 @@ function autoFillLineup() {
     const prefRole = POS_ROLE_AFFINITY[pk];
     const prefHand = posInfo && posInfo.prefHand;  // 'R', 'L' o undefined
     const cands = roster.map((p, i) => ({ p, i }))
-      .filter(x => !used.has(x.i) && x.p.role !== 'POR')
+      .filter(x => !used.has(x.i) && x.p.role !== 'POR' && !x.p.injured)
       .sort((a, b) => {
         // Score: ruolo corretto +10, mano preferita +5, AMB equivale alla mano preferita (+5), overall come base
         const scoreA = (a.p.role === prefRole ? 10 : 0)
@@ -393,7 +402,7 @@ function autoFillLineup() {
 
   // Riserve migliori
   roster.map((p, i) => ({ p, i }))
-    .filter(x => !used.has(x.i))
+    .filter(x => !used.has(x.i) && !x.p.injured)
     .sort((a, b) => b.p.overall - a.p.overall)
     .forEach(({ i }) => { if (luState.convocati.size < MAX_CONVOCATI) luState.convocati.add(i); });
 
