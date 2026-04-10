@@ -112,6 +112,13 @@ function _scadBadge(p) {
 }
 
 // Badge RIT — visibile accanto al nome in tutte le liste
+
+// ── Badge diamante grezzo ─────────────────────
+function _diamondBadge(p) {
+  if (!p || !p._diamond) return '';
+  return '<span style="font-size:11px;cursor:default" title="Diamante Grezzo — OVR basso, potenziale ' + (p.potential||'?') + '">💎</span>';
+}
+
 function _ritBadge(p) {
   if (!p || p.retirementAge === undefined) return '';
   if ((p.age + 1) < p.retirementAge) return '';
@@ -1032,7 +1039,7 @@ function renderRosa() {
     h += '<div style="min-width:0">'
       + '<div style="font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'
       + p.name + '</div>'
-      + '<div style="display:flex;gap:2px;margin-top:2px;flex-wrap:wrap">' + ritB + scadB + infB + mkB + '</div>'
+      + '<div style="display:flex;gap:2px;margin-top:2px;flex-wrap:wrap">' + ritB + scadB + infB + mkB + _diamondBadge(p) + '</div>'
       + '</div>';
 
     // Ruolo badge (con secondRole affianco)
@@ -1656,9 +1663,9 @@ function doTrain(i) {
     }
     // Il potenziale è il tetto massimo — l'OVR non può superarlo con l'allenamento
     var potCap = (p.potential !== undefined && p.potential > 0) ? p.potential : 99;
-    if (tr.eff.gk && p.role === 'POR') p.overall = Math.min(potCap, p.overall + 2);
+    if (tr.eff.gk && p.role === 'POR' && Math.random() < 0.35) p.overall = Math.min(potCap, p.overall + 1);
     p.fitness = Math.round(cap(p.fitness - (tr.fatigue || 0) + rnd(-2, 2)));
-    if (rnd(1, 100) <= 12 && p.overall < potCap) { p.overall = Math.min(potCap, p.overall + 1); improved++; }
+    if (rnd(1, 100) <= 8 && p.overall < potCap) { p.overall = Math.min(potCap, p.overall + 1); improved++; }
     // Sanity check: overall non può mai superare potential
     if (p.potential && p.overall > p.potential) p.overall = p.potential;
   });

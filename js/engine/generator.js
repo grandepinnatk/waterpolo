@@ -31,10 +31,26 @@ function _pickSecondaryRole(primaryRole) {
   return pick(options);
 }
 
+// ── Diamante grezzo ──────────────────────────
+// Probabilità per partita che nasca un talento nascosto:
+// ~5% per qualsiasi squadra, indipendente dalla forza
+// OVR basso (55-68) ma potenziale molto alto (82-96)
+// Solo giocatori giovani (17-22 anni)
+function _rollDiamond() {
+  if (Math.random() > 0.05) return null; // 5% chance
+  return {
+    ovr: 52 + rnd(0, 16),        // OVR 52-68
+    pot: 82 + rnd(0, 14),        // POT 82-96
+    age: 17 + rnd(0, 5),         // età 17-22
+  };
+}
+
 // ── Generazione singolo giocatore ────────────
 function generatePlayer(teamStrength, role) {
-  const base = cap(teamStrength + rnd(-18, 10));
-  const age  = rnd(18, 35);
+  // Controlla diamante grezzo prima di tutto
+  const diamond = _rollDiamond();
+  const base = diamond ? cap(diamond.ovr) : cap(teamStrength + rnd(-12, 5));
+  const age  = diamond ? diamond.age : rnd(18, 35);
 
   // Mano dominante: 70% destri, 25% mancini, 5% ambidestri
   const r = Math.random();
@@ -67,10 +83,23 @@ function generatePlayer(teamStrength, role) {
     // 23-27: margine fino a +6 (ancora in crescita)
     // 28-31: margine +2 (plateau)
     // 32+:   uguale all'OVR (già al picco o in declino)
-    potential: Math.max(base, Math.min(99, base + (age < 20 ? rnd(8, 20) : age < 23 ? rnd(4, 12) : age < 28 ? rnd(2, 6) : age < 32 ? rnd(1, 3) : 0))),
+    potential: diamond ? diamond.pot : Math.max(base, Math.min(99, base + (age < 20 ? rnd(8, 20) : age < 23 ? rnd(4, 12) : age < 28 ? rnd(2, 6) : age < 32 ? rnd(1, 3) : 0))),
     nat,
-    value:     Math.round(base * rnd(5000, 9000)),
-    salary:    Math.round(base * rnd(250, 550)),
+    _diamond: diamond ? true : undefined,  // flag per UI
+    // Valore iniziale con curva esponenziale (coerente con _calcPlayerValue)
+    value: (function() {
+      var expBase = Math.pow(Math.max(0, base - 40) / 30, 2.2) * 300000;
+      var v = Math.max(20000, expBase);
+      var af = age<=20?1.40: age<=23?1.25: age<=27?1.10: age<=30?1.00: age<=33?0.80: 0.50;
+      return Math.round(v * af / 1000) * 1000;
+    })(),
+    salary: (function() {
+      // Ingaggio = 10% del valore iniziale
+      var expBase = Math.pow(Math.max(0, base - 40) / 30, 2.2) * 300000;
+      var v = Math.max(20000, expBase);
+      var af = age<=20?1.40: age<=23?1.25: age<=27?1.10: age<=30?1.00: age<=33?0.80: 0.50;
+      return Math.round(Math.max(10000, v * af * 0.10) / 1000) * 1000;
+    })(),
     contractYears: Math.floor(Math.random() * 4) + 1, // durata contratto 1-4 anni
     morale:    rnd(65, 100),
     fitness:   rnd(70, 100),

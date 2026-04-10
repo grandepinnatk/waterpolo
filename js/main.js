@@ -469,10 +469,10 @@ function _simPenaltyShootout(homeId, awayId) {
 
 // Configurazione sezioni stadio
 var STADIUM_SECTIONS = {
-  nord:  { label: 'Tribuna Nord',  type: 'tribuna', capPerLevel: 2000 },
-  sud:   { label: 'Tribuna Sud',   type: 'tribuna', capPerLevel: 2000 },
-  ovest: { label: 'Curva Ovest',   type: 'curva',   capPerLevel: 1000 },
-  est:   { label: 'Curva Est',     type: 'curva',   capPerLevel: 1000 },
+  nord:  { label: 'Tribuna Nord',  type: 'tribuna', capPerLevel: 200 },
+  sud:   { label: 'Tribuna Sud',   type: 'tribuna', capPerLevel: 200 },
+  ovest: { label: 'Curva Ovest',   type: 'curva',   capPerLevel: 100 },
+  est:   { label: 'Curva Est',     type: 'curva',   capPerLevel: 100 },
 };
 
 // Costi e tempi di costruzione per livello
@@ -482,8 +482,8 @@ var STADIUM_BAR_COST      = 50000;
 var STADIUM_SHOP_COST     = 80000;
 var STADIUM_BAR_DAYS      = 2;
 var STADIUM_SHOP_DAYS     = 2;
-var STADIUM_BAR_BONUS     = 0.08;   // +8% incasso per biglietti venduti
-var STADIUM_SHOP_BONUS    = 0.12;   // +12% incasso
+var STADIUM_BAR_BONUS     = 0.06;   // +6% incasso per biglietti venduti
+var STADIUM_SHOP_BONUS    = 0.08;   // +8% incasso
 
 // Inizializza struttura stadio su G
 function _initStadium() {
@@ -528,8 +528,8 @@ function _currentMatchType() {
 
 // Fascia di prezzo ottimale per tipo di partita
 function _ticketPriceRange(matchType) {
-  if (matchType === 'final')   return { min: 15, max: 50 };
-  if (matchType === 'playoff') return { min: 10, max: 50 };
+  if (matchType === 'final')   return { min: 12, max: 30 };
+  if (matchType === 'playoff') return { min: 8,  max: 20 };
   // Regular: range dinamico in base a posizione e serie di vittorie
   var st     = (G && G.stand && G.stand[G.myId]) || {};
   var pos    = (typeof getTeamPosition === 'function') ? getTeamPosition(G.stand, G.myId) : 7;
@@ -552,9 +552,9 @@ function _ticketPriceRange(matchType) {
   // Più sei in alto e in forma → puoi alzare il prezzo
   var posBonus  = Math.max(0, (14 - pos) / 13);  // 0 (14°) → 1 (1°)
   var streakMod = streak / 5;                     // -1 → +1
-  var maxPrice  = Math.round(10 + posBonus * 8 + streakMod * 2); // 10–20€
+  var maxPrice  = Math.round(6 + posBonus * 6 + streakMod * 1); // 6–13€
   var minPrice  = Math.max(1, Math.round(maxPrice * 0.4));
-  return { min: minPrice, max: Math.min(20, maxPrice) };
+  return { min: minPrice, max: Math.min(12, maxPrice) };
 }
 
 // Percentuale riempimento (0-1) basata su performance, tipo evento e prezzo biglietto
@@ -578,7 +578,9 @@ function stadiumFillRate(matchType, ticketPrice) {
     // Malus proporzionale: ogni euro sopra il max → -1.5% di fill
     priceMalus = Math.min(0.60, (ticketPrice - range.max) * 0.015);
   }
-  return Math.min(0.98, Math.max(0.05, base - priceMalus));
+  // Cap fill per tier: evita che squadre piccole riempiano al massimo
+  var tierCap = { S: 0.82, A: 0.76, B: 0.68, C: 0.58 }[G.myTeam.tier || 'B'] || 0.68;
+  return Math.min(tierCap, Math.max(0.05, base - priceMalus));
 }
 
 // Entrate match day
@@ -876,6 +878,12 @@ function startPOMatch(type, idx) {
 
 // ── Chiusura stagione ─────────────────────────
 function closeSeason() {
+  // Aggiorna i valori di tutti i giocatori a fine stagione
+  var champId = null, relegId = null;
+  if (G.poBracket && G.poBracket.final && G.poBracket.final.winner) champId = G.poBracket.final.winner;
+  if (G.plBracket && G.plBracket.relegated) relegId = G.plBracket.relegated;
+  if (G.relegated) relegId = G.relegated;  // retrocessione diretta 14°
+  _refreshAllPlayerValues({ champion: champId, relegated: relegId });
   G.phase = 'done';
   const reward = finalizeObjectives(G.objectives, G.stand, G.myId, G.playoffResult);
   G.budget += reward;
@@ -1298,13 +1306,28 @@ function removeFromMarket(rosterIdx) {
 // ── Calcola appetibilità di un giocatore ──────
 // Restituisce un fattore 0-1 che le squadre usano per offrire
 function _playerAttractiveness(p, matchesPlayed) {
-  let score = p.overall / 100;               // base: overall
-  score *= 0.5 + (p.morale / 200);           // morale: penalizza fino a -50%
-  score *= 0.7 + (p.fitness / 333);          // fitness: penalizza fino a -30%
-  const presencePenalty = matchesPlayed > 0 && (p.goals + p.assists + p.saves) === 0
-    ? 0.80 : 1.0;                            // zero contributo: penalizza 20%
-  score *= presencePenalty;
-  return Math.min(1, Math.max(0.1, score));
+  // Appetibilità 0.5–1.3: può superare 1.0 per giocatori eccezionali
+  let score = 0.80;
+  // Morale
+  score += ((p.morale || 70) - 70) / 300;   // ±0.10 attorno alla media
+  // Fitness
+  score += ((p.fitness || 70) - 70) / 300;
+  // Contributo stagionale
+  const contrib = (p.goals || 0) + (p.assists || 0);
+  if (contrib >= 20)       score += 0.15;
+  else if (contrib >= 10)  score += 0.08;
+  else if (contrib >= 5)   score += 0.04;
+  // Presenze
+  const apps = (p.lastRatings || []).filter(r => r !== null).length;
+  if (apps >= 20)      score += 0.08;
+  else if (apps >= 10) score += 0.04;
+  // Infortuni
+  if (p.injured)             score -= 0.20;
+  else if ((p.injProb||0.04) > 0.10) score -= 0.10;
+  // Età oltre 30
+  if ((p.age||25) > 33)  score -= 0.20;
+  else if ((p.age||25) > 30) score -= 0.10;
+  return Math.min(1.30, Math.max(0.40, score));
 }
 
 // ── Genera offerte a fine giornata ───────────
@@ -1517,11 +1540,14 @@ function generateTransferOffers() {
     // Ogni giornata c'è ~40% di probabilità che arrivi un'offerta
     if (Math.random() > 0.40) return;
 
-    const attract  = _playerAttractiveness(p, matchesPlayed);
-    // Offerta: tra il 60% e il 110% del valore reale, scalata per appetibilità
-    const baseOffer = p.value * attract;
-    const offerMin  = baseOffer * 0.60;
-    const offerMax  = baseOffer * 1.10;
+    const attract   = _playerAttractiveness(p, matchesPlayed);
+    // Valore aggiornato del giocatore
+    const realValue = _calcPlayerValue(p);
+    // Range offerta: 75%–120% del valore reale, moltiplicato per l'appetibilità
+    // Un giocatore in forma top (attract 1.3) può ricevere offerte fino al 156% del valore base
+    // Un giocatore scarso (attract 0.4) riceve offerte attorno al 30–48% del valore base
+    const offerMin  = realValue * 0.75 * attract;
+    const offerMax  = realValue * 1.20 * attract;
     const offer     = Math.round((offerMin + Math.random() * (offerMax - offerMin)) / 1000) * 1000;
 
     // Scegli squadra offerente casuale (non la nostra)
@@ -1678,37 +1704,80 @@ simNextRound = function() {
 // CALCOLO INGAGGIO RINNOVO
 // ═══════════════════════════════════════════════════════
 // Formula: base OVR × 300 + bonus età + bonus prestazioni
+// ═══════════════════════════════════════════════════════
+// VALORE GIOCATORE — funzione centralizzata
+// Parametri: età, potenziale, OVR, morale, forma, presenze/gol/assist, infortuni
+// ═══════════════════════════════════════════════════════
+function _calcPlayerValue(p) {
+  if (!p) return 0;
+  const ovr  = p.overall   || 70;
+  const pot  = p.potential || ovr;
+  const age  = p.age       || 25;
+  const fit  = Math.min(100, p.fitness || 70);
+  const mor  = Math.min(100, p.morale  || 70);
+
+  // ── Base esponenziale — pivot OVR70 = 300k ────────────
+  // Curva: ((ovr-40)/30)^2.2 * 300k
+  // OVR50=55k, OVR60=140k, OVR70=300k, OVR80=530k, OVR90=840k, OVR95=1050k
+  const expBase = Math.pow(Math.max(0, ovr - 40) / 30, 2.2) * 300000;
+  let base = Math.max(20000, expBase);
+
+  // ── Età + Potenziale ──────────────────────────────────
+  const growthMargin = Math.max(0, pot - ovr);
+  if (age <= 20)       base *= 1.40 + growthMargin * 0.012;
+  else if (age <= 23)  base *= 1.25 + growthMargin * 0.008;
+  else if (age <= 27)  base *= 1.10 + growthMargin * 0.004;
+  else if (age <= 30)  base *= 1.00;
+  else if (age <= 33)  base *= 0.80 - (age - 30) * 0.04;
+  else                 base *= 0.50;
+
+  // ── Forma ─────────────────────────────────────────────
+  base *= 0.80 + (fit / 100) * 0.20;  // 0.80–1.00
+
+  // ── Morale ────────────────────────────────────────────
+  base *= 0.92 + (mor / 100) * 0.08;  // 0.92–1.00
+
+  // ── Presenze + gol + assist ───────────────────────────
+  const apps    = (p.lastRatings || []).filter(r => r !== null).length;
+  const contrib = (p.goals || 0) + (p.assists || 0);
+  if (apps >= 20)        base *= 1.10;
+  else if (apps >= 10)   base *= 1.05;
+  if (contrib >= 25)     base *= 1.12;
+  else if (contrib >= 15) base *= 1.08;
+  else if (contrib >= 8)  base *= 1.04;
+
+  // ── Infortuni ─────────────────────────────────────────
+  if (p.injured)                    base *= 0.80;
+  else if ((p.injProb||0.04)>0.12)  base *= 0.88;
+
+  // ── Nazionali ─────────────────────────────────────────
+  if (p._national) base *= 1.08;
+
+  return Math.round(Math.max(20000, base) / 1000) * 1000;
+}
+
+// Aggiorna il valore di tutti i giocatori di tutte le squadre
+function _refreshAllPlayerValues(opts) {
+  opts = opts || {};
+  G.teams.forEach(function(team) {
+    var isChamp    = opts.champion   === team.id;
+    var isRelegated= opts.relegated  === team.id;
+    var roster = G.rosters[team.id] || [];
+    roster.forEach(function(p) {
+      if (!p) return;
+      p.value = _calcPlayerValue(p);
+      if (isChamp)     p.value = Math.round(p.value * 1.10);
+      if (isRelegated) p.value = Math.round(p.value * 0.90);
+    });
+  });
+}
+
 function _calcRenewalSalary(p) {
   if (!p) return 0;
-  const ovr      = p.overall || 70;
-  // Base: proporzionale all'OVR
-  let base = ovr * 300;
-  // Età: picco 25-29, scende dopo 32
-  const age = p.age || 25;
-  if (age < 22)       base *= 0.75;  // giovane → meno esigente
-  else if (age < 26)  base *= 0.90;
-  else if (age < 30)  base *= 1.10;  // nel fiore
-  else if (age < 33)  base *= 1.00;
-  else if (age < 36)  base *= 0.85;  // calo age
-  else                base *= 0.70;
-  // Voti recenti: media delle ultime 4 partite
-  const ratings = p.lastRatings ? p.lastRatings.filter(r => r !== null) : [];
-  const avgRating = ratings.length ? ratings.reduce((s,r) => s+r, 0) / ratings.length : 6.0;
-  if (avgRating >= 7.5)      base *= 1.20;
-  else if (avgRating >= 7.0) base *= 1.10;
-  else if (avgRating >= 6.5) base *= 1.05;
-  else if (avgRating < 5.5)  base *= 0.90;
-  // Gol/assist stagionali
-  const goals   = p.goals   || 0;
-  const assists = p.assists || 0;
-  if (goals + assists >= 20) base *= 1.15;
-  else if (goals + assists >= 10) base *= 1.08;
-  // Infortuni: giocatore fragile → meno potere contrattuale
-  const injP = p.injProb || 0.04;
-  if (injP > 0.10) base *= 0.92;
-  // Internazionale (se marcato)
-  if (p._national) base *= 1.12;
-  return Math.round(Math.max(15000, base) / 1000) * 1000;
+  // Ingaggio = 10% del valore attuale
+  const currentValue = _calcPlayerValue(p);
+  const salary = Math.round(currentValue * 0.10 / 1000) * 1000;
+  return Math.max(10000, salary);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1961,19 +2030,50 @@ function _cpuMarketActivity() {
 // POPUP GIOVANI DI CATEGORIA (chiamato in startNewSeason)
 // ═══════════════════════════════════════════════════════
 function _showYouthPopup() {
-  // Genera 4 giovani (18-22 anni) dalla categoria giovanile
+  // Genera 4 giovani dalla categoria giovanile
+  // Almeno 1 su 4 ha SEMPRE probabilità aumentata di essere un diamante grezzo
+  // Gli altri seguono la logica normale (5% random)
   const youth = [];
   const roles  = ['POR','DIF','DIF','CEN','CEN','ATT','ATT','CB'];
+
   for (let i = 0; i < 4; i++) {
-    const role   = roles[Math.floor(Math.random() * roles.length)];
-    const age    = 18 + Math.floor(Math.random() * 5);
-    const ovr    = 55 + Math.floor(Math.random() * 20); // 55-74
-    const p      = typeof generatePlayer === 'function' ? generatePlayer(ovr, role) : null;
+    const role = roles[Math.floor(Math.random() * roles.length)];
+    let p;
+
+    if (i === 0) {
+      // Primo slot: 35% di probabilità di essere un diamante grezzo garantito
+      // (molto più alta della normale 5%)
+      if (Math.random() < 0.35) {
+        const dOvr = 52 + Math.floor(Math.random() * 17);  // OVR 52-68
+        const dPot = 82 + Math.floor(Math.random() * 15);  // POT 82-96
+        const dAge = 17 + Math.floor(Math.random() * 4);   // 17-20 anni
+        p = typeof generatePlayer === 'function' ? generatePlayer(dOvr, role) : null;
+        if (p) {
+          p.age       = dAge;
+          p.overall   = dOvr;
+          p.potential = dPot;
+          p._diamond  = true;
+        }
+      }
+    }
+
+    // Generazione standard se non è stato generato un diamante
+    if (!p) {
+      const ovr = 55 + Math.floor(Math.random() * 20); // 55-74
+      const age = 18 + Math.floor(Math.random() * 5);
+      p = typeof generatePlayer === 'function' ? generatePlayer(ovr, role) : null;
+      if (p) { p.age = age; p.overall = ovr; }
+    }
+
     if (!p) continue;
-    p.age     = age;
-    p.overall = ovr;
-    p.value   = Math.round(ovr * 6000); // valore di mercato
-    p.salary  = Math.round(ovr * 150);  // ingaggio ridotto giovani
+    // Ricalcola valore e ingaggio con la nuova formula
+    if (typeof _calcPlayerValue === 'function') {
+      p.value  = _calcPlayerValue(p);
+      p.salary = Math.round(Math.max(10000, p.value * 0.10) / 1000) * 1000;
+    } else {
+      p.value  = Math.round(p.overall * 6000);
+      p.salary = Math.round(p.overall * 150);
+    }
     p._fromYouth = true;
     youth.push(p);
   }
@@ -1986,32 +2086,50 @@ function _showYouthPopup() {
   function _youthCard(p, idx) {
     const roleColors = { POR:'#cc2222', DIF:'#1a6a3a', CEN:'#8b4a00', ATT:'#8b0000', CB:'#1a3a8b' };
     const rc = roleColors[p.role] || '#333';
+    const isDiamond = !!p._diamond;
     const attrBar = (val, lbl) =>
       '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">' +
       '<span style="font-size:10px;color:var(--muted);width:28px">' + lbl + '</span>' +
       '<div style="flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden">' +
-      '<div style="width:' + val + '%;height:100%;background:var(--blue);border-radius:2px"></div></div>' +
+      '<div style="width:' + val + '%;height:100%;background:' + (isDiamond?'var(--gold)':'var(--blue)') + ';border-radius:2px"></div></div>' +
       '<span style="font-size:10px;width:22px">' + val + '</span></div>';
 
-    return '<div id="yc-' + idx + '" style="background:var(--panel);border:2px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:border-color .15s" ' +
+    const diamondBadge = isDiamond
+      ? '<div style="margin-bottom:8px;background:linear-gradient(135deg,rgba(240,192,64,.15),rgba(240,192,64,.05));' +
+        'border:1px solid rgba(240,192,64,.4);border-radius:8px;padding:6px 10px;font-size:11px;color:var(--gold)">' +
+        '💎 <strong>Diamante Grezzo</strong> — Talento nascosto con alto potenziale di crescita</div>'
+      : '';
+
+    const borderCol = isDiamond ? 'rgba(240,192,64,.6)' : 'var(--border)';
+    const bgGrad    = isDiamond
+      ? 'background:linear-gradient(135deg,var(--panel) 0%,rgba(240,192,64,.06) 100%);'
+      : 'background:var(--panel);';
+
+    return '<div id="yc-' + idx + '" style="' + bgGrad + 'border:2px solid ' + borderCol + ';border-radius:12px;padding:14px;cursor:pointer;transition:border-color .15s" ' +
       'onclick="toggleYouthSelect(' + idx + ')">' +
+      diamondBadge +
       '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">' +
       '<span style="background:' + rc + ';color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px">' + p.role + '</span>' +
       '<div>' +
-      '<div style="font-weight:700;font-size:13px">' + p.name + '</div>' +
+      '<div style="font-weight:700;font-size:13px">' + p.name + (isDiamond ? ' 💎' : '') + '</div>' +
       '<div style="font-size:11px;color:var(--muted)">' + p.age + ' anni · ' + p.nat + ' · ' + (p.hand==='AMB'?'Ambidestro':p.hand==='L'?'Mancino':'Destro') + '</div>' +
       '</div>' +
       '<div style="margin-left:auto;text-align:right">' +
-      '<div style="font-size:18px;font-weight:800;color:var(--blue)">' + p.overall + '</div>' +
+      '<div style="font-size:18px;font-weight:800;color:' + (isDiamond?'var(--gold)':'var(--blue)') + '">' + p.overall + '</div>' +
       '<div style="font-size:10px;color:var(--muted)">OVR</div>' +
       '</div></div>' +
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:11px">' +
+      '<span style="color:var(--muted)">Potenziale:</span>' +
+      '<span style="font-weight:800;color:' + (isDiamond?'var(--gold)':'var(--blue)') + ';font-size:14px">' + (p.potential||'?') + '</span>' +
+      (isDiamond ? '<span style="font-size:10px;color:var(--gold);opacity:.8">(↑ alto)</span>' : '') +
+      '</div>' +
       attrBar(p.stats.att,'ATT') + attrBar(p.stats.def,'DIF') +
       attrBar(p.stats.spe,'VEL') + attrBar(p.stats.str,'FOR') +
       attrBar(p.stats.tec,'TEC') + attrBar(p.stats.res,'RES') +
       '<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px">' +
       '<span style="color:var(--muted)">Valore: <strong>' + formatMoney(p.value) + '</strong></span>' +
       '<span style="color:var(--green)">Ingaggio: <strong>' + formatMoney(p.salary) + '/anno</strong></span>' +
-      '<span style="color:var(--gold);font-weight:700">Costo acquisto: GRATIS</span>' +
+      '<span style="color:var(--gold);font-weight:700">GRATIS</span>' +
       '</div>' +
       '</div>';
   }
