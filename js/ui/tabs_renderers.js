@@ -27,13 +27,15 @@ function showTeamRosterPopup(teamId) {
   const rows = sorted.map(p => {
     const rCls = p.role==='POR'?'S': p.role==='DIF'?'A': p.role==='CB'?'B':'C';
     const hCls = p.hand==='AMB'?'AMB': p.hand==='L'?'L':'R';
+    const rCls2 = p.secondRole ? (p.secondRole==='POR'?'S':p.secondRole==='DIF'?'A':p.secondRole==='CB'?'B':'C') : null;
     return `<tr>
       <td style="font-size:12px;font-weight:600">${p.name}</td>
-      <td><span class="badge ${rCls}">${p.role}</span></td>
+      <td><span class="badge ${rCls}">${p.role}</span>${rCls2 ? ` <span class="badge ${rCls2}" style="opacity:.85">${p.secondRole}</span>` : ''}</td>
       <td><span class="badge ${hCls}">${p.hand}</span></td>
       <td style="font-size:11px;color:var(--muted);text-align:center">${p.age}</td>
       <td style="font-weight:700;color:var(--blue);text-align:center">${p.overall}</td>
       <td style="font-size:11px;color:var(--muted);text-align:right">${p.nat}</td>
+      <td style="font-size:11px;color:var(--gold);text-align:right">${formatMoney(p.salary||0)}</td>
     </tr>`;
   }).join('');
 
@@ -51,7 +53,7 @@ function showTeamRosterPopup(teamId) {
                       font-weight:700;color:#fff;flex-shrink:0">${team.abbr}</div>
           <div>
             <div style="font-weight:700;font-size:16px;color:var(--blue)">${team.name}${isMe ? ' ★' : ''}</div>
-            <div style="font-size:11px;color:var(--muted)">${team.city || ''} · OVR medio: ${avgOvr} · ${roster.length} giocatori</div>
+            <div style="font-size:11px;color:var(--muted)">${team.city || ''} · OVR medio: ${avgOvr} · ${roster.length} giocatori · Budget: ${formatMoney(team.budget||0)}</div>
           </div>
         </div>
         <button onclick="document.getElementById('team-roster-popup').remove()"
@@ -67,6 +69,7 @@ function showTeamRosterPopup(teamId) {
             <th style="text-align:center">Età</th>
             <th style="text-align:center">OVR</th>
             <th style="text-align:right">Naz.</th>
+            <th style="text-align:right">Ingaggio</th>
           </tr>
         </thead>
         <tbody>${rows}</tbody>
@@ -132,6 +135,61 @@ function _shortPlayerName(p) {
 // ─────────────────────────────────────────────
 
 // ── Popup dettaglio partita (clic sul punteggio in calendario) ──
+
+// ── Popup giocatore universale (qualsiasi squadra) ──────────────────
+function showAnyPlayerPopup(playerName, teamId) {
+  const roster = G.rosters[teamId] || [];
+  const p = roster.find(function(x){ return x && x.name === playerName; });
+  if (!p) return;
+  const isMe = teamId === G.myId;
+  const myIdx = isMe ? G.rosters[G.myId].indexOf(p) : -1;
+  if (isMe && myIdx >= 0) { showPlayerModal(myIdx); return; }
+  // Popup semplificato per giocatori avversari
+  const rl = { POR:'Portiere', DIF:'Difensore', CEN:'Centromediano', ATT:'Attaccante', CB:'Centroboa' };
+  const existing = document.getElementById('any-player-popup');
+  if (existing) existing.remove();
+  const ov = document.createElement('div');
+  ov.id = 'any-player-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:600;backdrop-filter:blur(4px)';
+  const rCls  = p.role==='POR'?'S':p.role==='DIF'?'A':p.role==='CB'?'B':'C';
+  const rCls2 = p.secondRole ? (p.secondRole==='POR'?'S':p.secondRole==='DIF'?'A':p.secondRole==='CB'?'B':'C') : null;
+  const hCls  = p.hand==='AMB'?'AMB':p.hand==='L'?'L':'R';
+  const fc    = p.fitness>70?'var(--green)':p.fitness>45?'var(--gold)':'var(--red)';
+  ov.innerHTML = `
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px 20px;max-width:340px;width:92%">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+        <div>
+          <div style="font-weight:700;font-size:15px;color:var(--blue)">${p.name}</div>
+          <div style="font-size:12px;color:var(--muted)">${rl[p.role]||p.role}${p.secondRole?' / '+(rl[p.secondRole]||p.secondRole):''} · ${p.nat} · ${p.age} anni</div>
+        </div>
+        <button onclick="document.getElementById('any-player-popup').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
+      </div>
+      <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">
+        <span class="badge ${rCls}">${p.role}</span>
+        ${rCls2 ? `<span class="badge ${rCls2}" style="opacity:.85">${p.secondRole}</span>` : ''}
+        <span class="badge ${hCls}">${p.hand}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin-bottom:10px">
+        <div class="irow" style="margin:0"><span class="ilbl">Overall</span><span style="font-size:16px;font-weight:700;color:var(--blue)">${p.overall}</span></div>
+        <div class="irow" style="margin:0"><span class="ilbl">Potenziale</span><span>${p.potential||'—'}</span></div>
+        <div class="irow" style="margin:0"><span class="ilbl">Forma</span><span style="color:${fc}">${Math.round(p.fitness||0)}%</span></div>
+        <div class="irow" style="margin:0"><span class="ilbl">Morale</span><span>${p.morale||0}%</span></div>
+        <div class="irow" style="margin:0"><span class="ilbl">Gol / Ass.</span><span>${p.goals||0} / ${p.assists||0}</span></div>
+        <div class="irow" style="margin:0"><span class="ilbl">Ingaggio</span><span style="color:var(--gold)">${formatMoney(p.salary||0)}</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;font-size:11px">
+        ${['att','def','spe','str','tec','res'].map(k=>`
+          <div style="background:rgba(255,255,255,.04);border-radius:6px;padding:4px 6px;text-align:center">
+            <div style="color:var(--muted);font-size:9px;text-transform:uppercase">${k.toUpperCase()}</div>
+            <div style="font-weight:700">${(p.stats&&p.stats[k])||'—'}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  ov.onclick = function(e){ if(e.target===ov) ov.remove(); };
+  document.body.appendChild(ov);
+}
+window.showAnyPlayerPopup = showAnyPlayerPopup;
+
 function showMatchDetailPopup(matchIdx) {
   const m  = G.schedule[matchIdx];
   if (!m || !m.played || !m.score) return;
@@ -185,8 +243,9 @@ function showMatchDetailPopup(matchIdx) {
       .map(s => {
         const goalsStr   = s.goals   > 0 ? `<span style="color:var(--blue);font-weight:700">⚽${s.goals}</span>` : '';
         const assistsStr = s.assists > 0 ? `<span style="color:var(--green);font-size:11px"> 🤝${s.assists}</span>` : '';
+        const _sTeamId = label === (hT?hT.abbr:'Casa') ? m.home : m.away;
         return `<div style="display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px">
-          <span>${s.name}</span>
+          <span style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" onclick="showAnyPlayerPopup('${s.name}','${m.home}')">${s.name}</span>
           <span style="display:flex;gap:6px;align-items:center">${goalsStr}${assistsStr}</span>
         </div>`;
       }).join('') || `<div style="color:var(--muted);font-size:12px;padding:4px 0">—</div>`;
@@ -236,11 +295,11 @@ function showMatchDetailPopup(matchIdx) {
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
         <div>
           <div style="font-size:11px;font-weight:700;color:${homeIsMe?'var(--blue)':'var(--muted)'};text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">${hT?hT.abbr:'Casa'}</div>
-          ${buildScorersList(d.home)}
+          ${buildScorersList(d.home, m.home)}
         </div>
         <div>
           <div style="font-size:11px;font-weight:700;color:${awayIsMe?'var(--blue)':'var(--muted)'};text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">${aT?aT.abbr:'Ospiti'}</div>
-          ${buildScorersList(d.away)}
+          ${buildScorersList(d.away, m.away)}
         </div>
       </div>` : '<div style="font-size:12px;color:var(--muted)">Statistiche dettagliate non disponibili per questa partita.</div>'}
 
@@ -621,7 +680,7 @@ function renderDash() {
       + '<button onclick="showTab(\'goals\')" style="padding:8px 14px;font-size:12px;font-weight:700;border-radius:8px;'
       + 'background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;cursor:pointer">📋 Obiettivi</button>'
       + '<button onclick="_confirmNewSeason()" style="padding:8px 14px;font-size:12px;font-weight:700;border-radius:8px;'
-      + 'background:linear-gradient(135deg,#2e7d32,#1b5e20);border:none;color:#fff;cursor:pointer">🏊 Nuova Stagione →</button>'
+      + 'background:linear-gradient(135deg,#2e7d32,#1b5e20);border:none;color:#fff;cursor:pointer">🤽 Nuova Stagione →</button>'
       + '</div></div>';
   }
 
@@ -704,7 +763,7 @@ function renderDash() {
       + '<div style="font-size:10px;font-weight:700;color:' + _wTitle + ';text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Focus Giocatore</div>'
       + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'
       + '<div style="width:44px;height:44px;border-radius:10px;background:rgba(0,194,255,.1);border:1px solid rgba(0,194,255,.2);'
-      + 'display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🏊</div>'
+      + 'display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🤽</div>'
       + '<div>'
       + '<div style="font-size:14px;font-weight:700;color:' + _wText + '">' + fp.name + '</div>'
       + '<div style="font-size:11px;color:' + _wMuted + '">' + fp.role + ' · ' + fp.age + 'a · OVR ' + fp.overall + '</div>'
@@ -908,7 +967,7 @@ function renderRosa() {
   // ── Header ──
   h += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(0,194,255,.12)">'
     + '<div style="width:38px;height:38px;border-radius:10px;background:rgba(0,194,255,.1);border:1px solid rgba(0,194,255,.25);'
-    + 'display:flex;align-items:center;justify-content:center;font-size:18px">🏊</div>'
+    + 'display:flex;align-items:center;justify-content:center;font-size:18px">🤽</div>'
     + '<div>'
     + '<div style="font-size:17px;font-weight:800;color:#fff;letter-spacing:-.3px">'
     + G.myTeam.name
@@ -1604,7 +1663,7 @@ function renderGoals() {
           Inizia la stagione successiva mantenendo rosa, budget, stelle e progressi.
         </div>
         <button class="btn success" onclick="_confirmNewSeason()" style="width:100%">
-          🏊 Inizia Stagione ${sNum + 1}
+          🤽 Inizia Stagione ${sNum + 1}
         </button>
       </div>
     </div>`;
@@ -1615,6 +1674,23 @@ function renderGoals() {
 // ════════════════════════════════════════════
 // CLASSIFICA
 // ════════════════════════════════════════════
+
+// ── Logo squadra inline (piccolo) ──────────────────────
+function _teamLogoHtml(teamId, size) {
+  size = size || 22;
+  var team = G.teams.find(function(t){return t.id===teamId;});
+  if (!team) return '';
+  if (team.logo) {
+    return '<img src="' + team.logo + '" style="width:' + size + 'px;height:' + size + 'px;'
+      + 'object-fit:contain;border-radius:50%;vertical-align:middle;margin-right:4px;'
+      + 'background:' + team.col + '" onerror="this.style.display=\'none\'" />';
+  }
+  return '<span style="display:inline-flex;width:' + size + 'px;height:' + size + 'px;'
+    + 'border-radius:50%;background:' + team.col + ';align-items:center;justify-content:center;'
+    + 'font-size:9px;font-weight:800;color:#fff;vertical-align:middle;margin-right:4px">'
+    + team.abbr + '</span>';
+}
+
 function renderStand() {
   document.getElementById('tab-stand').innerHTML = _buildStandContent('classifica');
 }
@@ -1647,7 +1723,7 @@ function _buildStandContent(activeTab) {
       const zone = pos <= 4 ? 'rgba(0,194,255,.08)' : pos >= 11 && pos <= 13 ? 'rgba(240,192,64,.08)' : pos === 14 ? 'rgba(231,76,60,.08)' : '';
       h += `<tr style="background:${isme ? 'rgba(0,194,255,.12)' : zone}">
         <td><div style="width:20px;height:20px;border-radius:50%;background:${pbg};display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:${pos <= 3 ? '#001220' : 'var(--muted)'}">${pos}</div></td>
-        <td style="font-weight:${isme ? 700 : 400}"><span onclick="showTeamRosterPopup('${t.id}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">${t.name}</span>${isme ? ' ★' : ''}</td>
+        <td style="font-weight:${isme ? 700 : 400}">${_teamLogoHtml(t.id, 20)}<span onclick="showTeamRosterPopup('${t.id}')" style="cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">${t.name}</span>${isme ? ' ★' : ''}</td>
         <td>${t.g}</td><td>${t.w}</td><td>${t.d}</td><td>${t.l}</td>
         <td>${t.gf}</td><td>${t.ga}</td>
         <td style="color:${t.gf - t.ga >= 0 ? 'var(--green)' : 'var(--red)'}">${t.gf - t.ga > 0 ? '+' : ''}${t.gf - t.ga}</td>
@@ -1706,7 +1782,7 @@ function _buildStandContent(activeTab) {
           <td style="font-weight:700;color:var(--muted);font-size:12px">${medal}</td>
           <td style="font-weight:${p.isMe ? 700 : 400}">${p.name}${p.isMe ? ' ★' : ''}</td>
           <td style="font-size:12px"><span onclick="showTeamRosterPopup('${p.teamId}')" style="cursor:pointer;color:var(--muted);text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">${p.teamAbbr}</span></td>
-          <td><span class="badge ${p.role === 'POR' ? 'S' : p.role === 'CB' ? 'B' : p.role === 'DIF' ? 'A' : 'C'}">${p.role}</span></td>
+          <td><span class="badge ${p.role === 'POR' ? 'S' : p.role === 'CB' ? 'B' : p.role === 'DIF' ? 'A' : 'C'}">${p.role}</span>${p.secondRole ? ` <span class="badge ${p.secondRole === 'POR' ? 'S' : p.secondRole === 'CB' ? 'B' : p.secondRole === 'DIF' ? 'A' : 'C'}">${p.secondRole}</span>` : ''}</td>
           <td style="text-align:center;font-weight:700;color:var(--blue)">${p.goals}</td>
           <td style="text-align:center;color:var(--muted)">${p.assists}</td>
         </tr>`;
@@ -2083,7 +2159,7 @@ function renderMarket() {
       h += `<tr>
         <td style="font-weight:600">${p.name} <span style="font-size:11px;color:var(--muted)">(${p.age}a)</span></td>
         <td style="font-size:12px;color:var(--muted)">${p._tname}</td>
-        <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span></td>
+        <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span>${p.secondRole ? ` <span class="badge ${p.secondRole==='POR'?'S':p.secondRole==='CB'?'B':p.secondRole==='DIF'?'A':'C'}">${p.secondRole}</span>` : ''}</td>
         <td style="font-weight:700">${p.overall}</td>
         <td style="font-size:13px;font-weight:700;color:var(--green)">${formatMoney(pp.offerAmount)}</td>
         <td style="font-size:11px;font-weight:700;color:${expCol}">${expLbl}</td>
@@ -2118,7 +2194,7 @@ function renderMarket() {
       const hasGoodOffer = bestOffer >= entry.askingPrice;
       h += `<tr>
         <td style="font-weight:600">${p.name} <span style="font-size:10px;color:var(--muted)">(${p.age}a)</span></td>
-        <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span></td>
+        <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span>${p.secondRole ? ` <span class="badge ${p.secondRole==='POR'?'S':p.secondRole==='CB'?'B':p.secondRole==='DIF'?'A':'C'}">${p.secondRole}</span>` : ''}</td>
         <td style="font-weight:700">${p.overall}</td>
         <td style="font-size:12px">${formatMoney(entry.askingPrice)}</td>
         <td><span style="font-size:12px;color:${hasGoodOffer?'var(--green)':offerCount>0?'var(--gold)':'var(--muted)'}">
@@ -2209,7 +2285,7 @@ function renderMarket() {
         ? '<span style="color:#7b2fbe;font-weight:700;font-size:11px">Svincolato</span>'
         : '<span onclick="showTeamRosterPopup(\''+p._tid+'\')" style="cursor:pointer;color:var(--muted);text-decoration:underline dotted;text-underline-offset:3px" title="Vedi rosa">'+p._tname+'</span>'
       }</td>
-      <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span></td>
+      <td><span class="badge ${p.role==='POR'?'S':p.role==='CB'?'B':p.role==='DIF'?'A':'C'}">${p.role}</span>${p.secondRole ? ` <span class="badge ${p.secondRole==='POR'?'S':p.secondRole==='CB'?'B':p.secondRole==='DIF'?'A':'C'}">${p.secondRole}</span>` : ''}</td>
       <td style="font-weight:700">${p.overall}</td>
       <td style="font-size:12px">${formatMoney(p.value)}</td>
       <td style="font-size:11px;color:var(--muted)">${formatMoney(p.salary)}/a</td>
@@ -3023,7 +3099,7 @@ function renderCredits() {
 
       <!-- Header -->
       <div class="card" style="padding:28px;text-align:center;margin-bottom:16px">
-        <div style="font-size:48px;margin-bottom:12px">🏊</div>
+        <div style="font-size:48px;margin-bottom:12px">🤽</div>
         <div style="font-size:28px;font-weight:700;color:var(--blue);margin-bottom:4px">Waterpolo Manager</div>
         <div style="font-size:14px;color:var(--muted)">Serie A1 Maschile — Stagione 2025/26</div>
         <div style="display:inline-block;margin-top:12px;padding:4px 14px;border-radius:20px;background:rgba(0,194,255,.12);border:1px solid rgba(0,194,255,.3);font-size:13px;color:var(--blue);font-weight:700">${version}</div>

@@ -1,6 +1,6 @@
 # Waterpolo Manager
 
-**Versione:** 0.6.09 beta  
+**Versione:** 0.6.11 beta  
 **Campionato:** Serie A1 Maschile — Stagione 2025/26  
 **Piattaforma:** Browser (HTML5 + CSS3 + JavaScript vanilla)  
 **Dipendenze:** Firebase Auth + Realtime Database (autenticazione e sync cloud)
@@ -92,7 +92,7 @@ G = {
 
 ---
 
-## Funzionalità — v0.6.09 beta
+## Funzionalità — v0.6.11 beta
 
 ### Campionato
 - 14 squadre della Serie A1 2025/26 con budget, tier (S/A/B/C) e forza reale

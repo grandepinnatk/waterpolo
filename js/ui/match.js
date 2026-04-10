@@ -680,7 +680,7 @@ function _renderSubLists() {
             ${(function(){ const r = (typeof calcPlayerRating==='function') ? calcPlayerRating(pi,ms) : null; const col = r?(r>=7.5?'var(--green)':r>=6.5?'var(--gold)':r>=5.5?'var(--muted)':'var(--red)'):'var(--muted)'; return '<span style="font-size:11px;font-weight:800;color:'+col+';margin-left:5px">'+( r!==null ? r.toFixed(1) : '—')+'</span>'; })()}
             ${isExp ? '<span style="color:var(--red);font-size:10px;margin-left:4px">ESPULSO</span>' : ''}
           </div>
-          <div style="font-size:11px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">${_simplePosLabel(pk)} · ${_roleBadge(p.role)} ${_handBadge(p.hand)} <span style="color:var(--muted)">${p.age}a</span></div>
+          <div style="font-size:11px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">${_simplePosLabel(pk)} · ${_roleBadge(p.role)}${p.secondRole ? " " + _roleBadge(p.secondRole) : ""} ${_handBadge(p.hand)} <span style="color:var(--muted)">${p.age}a</span></div>
         </div>
         <div style="display:flex;align-items:center;gap:6px">
           <span onclick="event.stopPropagation();showMatchPlayerInfo(${pi})"
@@ -714,7 +714,7 @@ function _renderSubLists() {
             ${targetPk ? roleBadge(pi, targetPk) : ''}
             ${isExp ? '<span style="color:var(--red);font-size:10px;margin-left:4px">ESPULSO</span>' : ''}
           </div>
-          <div style="font-size:11px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">${_roleBadge(p.role)} ${_handBadge(p.hand)} <span style="color:var(--muted)">${p.age}a · OVR ${p.overall}</span></div>
+          <div style="font-size:11px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">${_roleBadge(p.role)}${p.secondRole ? " " + _roleBadge(p.secondRole) : ""} ${_handBadge(p.hand)} <span style="color:var(--muted)">${p.age}a · OVR ${p.overall}</span></div>
         </div>
         <div style="display:flex;align-items:center;gap:6px">
           <span onclick="event.stopPropagation();showMatchPlayerInfo(${pi})"
@@ -930,7 +930,7 @@ function _doEndMatch() {
 
   // +4 stelle per giornata — assegnate per ogni tipo di partita (campionato e playoff)
   if (window.G && G.stars !== undefined) {
-    G.stars = (G.stars || 0) + 4;
+    G.stars = (G.stars || 0) + 2;
     if (typeof _updateStarsBox === 'function') _updateStarsBox();
   }
 
@@ -1178,7 +1178,7 @@ function _showPenaltyPopup() {
           (order || '·') + '</div>' +
         '<div>' +
           '<div style="font-size:13px;font-weight:600;color:#fff">' + p.name + '</div>' +
-          '<div style="font-size:10px;color:rgba(255,255,255,.4)">' + p.role + ' · ' + p.age + 'a</div>' +
+          '<div style="font-size:10px;color:rgba(255,255,255,.4)">' + p.role + (p.secondRole ? '/' + p.secondRole : '') + ' · ' + p.age + 'a</div>' +
         '</div>' +
         '<div style="font-size:11px;color:rgba(255,255,255,.5);text-align:center">' +
           '<div style="font-size:9px;color:rgba(255,255,255,.3)">TEC</div>' + (p.stats.tec||'—') + '</div>' +
@@ -1320,7 +1320,7 @@ function _finalizePenaltyMatch(myWin) {
   const ms = G.ms; if (!ms) return;
   // +4 stelle (partita playoff ai rigori)
   if (window.G && G.stars !== undefined) {
-    G.stars = (G.stars || 0) + 4;
+    G.stars = (G.stars || 0) + 2;
     if (typeof _updateStarsBox === 'function') _updateStarsBox();
   }
   const winner = myWin ? G.myId : ms.oppTeam.id;

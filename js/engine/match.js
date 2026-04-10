@@ -99,8 +99,8 @@ const COUNTER_POS_MULT = {
 };
 
 // Soglie per il controllo infortuni
-const INJ_STAMINA_THRESHOLD = 15;  // stamina % sotto cui scatta il rischio
-const INJ_FITNESS_THRESHOLD = 65;  // forma % sotto cui scatta il rischio
+const INJ_STAMINA_THRESHOLD = 30;  // stamina % sotto cui scatta il rischio
+const INJ_FITNESS_THRESHOLD = 75;  // forma % sotto cui scatta il rischio
 
 const NEUTRAL_EVENTS = [
   'Azione di attacco neutralizzata', 'Contrattacco sventato',
@@ -340,7 +340,7 @@ function generateMatchEvent(ms) {
     const injP = p.injProb !== undefined ? p.injProb : 0.04;
     // La probabilità viene scalata per il dt dell'evento (~10s su ~10min)
     // → divide per ~60 per avere una prob per-evento realistica
-    if (Math.random() < injP / 3) {  // raddoppiato: era /6
+    if (Math.random() < injP / 2) {  // aumentato: era /3
       const shirt = ms.shirtNumbers[pi] || '?';
       ms.expelled.add(pi);
       if (!ms.injuries) ms.injuries = [];

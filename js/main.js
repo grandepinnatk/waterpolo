@@ -267,6 +267,14 @@ function simNextRound() {
     m.score  = simulateResult(hT, aT, _homeBoost, G.rosters);
     m.played = true;
     updateStandings(G.stand, m.home, m.away, m.score);
+    // Aggiorna budget squadre CPU (incasso simulato partita casa)
+    if (m.home !== G.myId) {
+      var _hTeam = G.teams.find(function(t){ return t.id === m.home; });
+      if (_hTeam) {
+        var _cpuRev = Math.round((_hTeam.budget || 500000) * 0.003 * (0.8 + Math.random() * 0.4));
+        _hTeam.budget = (_hTeam.budget || 0) + _cpuRev;
+      }
+    }
 
     // Distribuisce gol/assist ai giocatori e salva i dettagli del match.
     // Per la squadra del manager usa i 13 convocati simulati; per le altre l'intera rosa.
@@ -374,7 +382,7 @@ function simNextRound() {
   const _isHomeMatch = roundMatches.some(function(m) { return m.home === G.myId; });
   if (_isHomeMatch) { _collectStadiumRevenue(); _stadiumWear(); }
   // +4 stelle per giornata
-  if (G.stars !== undefined) G.stars = (G.stars || 0) + 4;
+  if (G.stars !== undefined) G.stars = (G.stars || 0) + 2;
   refreshMarketPool();
   generateTransferOffers();
   _updateStarsBox();
@@ -1044,11 +1052,11 @@ function startNewSeason() {
       p.assists    = 0;
       p.saves      = 0;
       p.lastRatings = [];
-      // Aging: invecchia di 1 anno
+      // Aging: invecchia di 1 anno (tutte le squadre)
       if (p.age !== undefined) p.age++;
-      // Calo naturale over-30
-      if (p.age > 30 && Math.random() < 0.3) {
-        p.overall = Math.max(50, p.overall - 1);
+      // Calo naturale over-30 (tutte le squadre)
+      if ((p.age || 25) > 30 && Math.random() < 0.35) {
+        p.overall = Math.max(48, p.overall - 1);
       }
       // Segna come ritirato se ha raggiunto l'età massima
       if (p.retirementAge !== undefined && p.age >= p.retirementAge) {
@@ -1548,6 +1556,7 @@ function acceptOffer(rosterIdx, offerIdx) {
 
   G.msgs.push(`✅ ${p.name} ceduto a ${offer.teamName} per ${formatMoney(offer.amount)}!`);
   updateHeader(); autoSave();
+  if (typeof renderMarket === 'function') renderMarket();
 }
 
 // ── Rifiuta un'offerta ────────────────────────
@@ -1559,6 +1568,7 @@ function rejectOffer(rosterIdx, offerIdx) {
   if (offer) G.msgs.push(`❌ Offerta di ${offer.teamName} per ${p ? p.name : '—'} rifiutata.`);
   entry.offers.splice(offerIdx, 1);
   autoSave();
+  if (typeof renderMarket === 'function') renderMarket();
 }
 
 // ── Morale: aggiornamenti post-partita ────────
@@ -1823,6 +1833,40 @@ function _decrementContracts() {
         G.marketPool.push({ player: fp, daysLeft: 6, pendingOffer: null, offerResult: null });
         // Rimuove dalla rosa (marca per pulizia)
         p._expired = true;
+      }
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// RINNOVI CONTRATTUALI CPU (squadre avversarie)
+// ═══════════════════════════════════════════════════════
+function _cpuContractRenewals() {
+  G.teams.forEach(team => {
+    if (team.id === G.myId) return;
+    const roster = G.rosters[team.id];
+    if (!roster) return;
+    // Calcola soglia stipendio 90° percentile per questa rosa
+    const salaries = roster.filter(p => p && p.salary).map(p => p.salary).sort((a,b) => a-b);
+    const p90idx   = Math.floor(salaries.length * 0.9);
+    const sal90    = salaries[p90idx] || Infinity;
+    for (let i = roster.length - 1; i >= 0; i--) {
+      const p = roster[i];
+      if (!p) continue;
+      if (p.contractYears !== undefined) p.contractYears--;
+      if (p.contractYears <= 0) {
+        // Rinnova al 90% salvo età>30 o ingaggio nel top 10%
+        const overAge = (p.age || 25) > 30;
+        const topSal  = (p.salary || 0) >= sal90;
+        const prob    = (overAge || topSal) ? 0.50 : 0.90;
+        if (Math.random() < prob) {
+          p.contractYears = 2 + Math.floor(Math.random() * 3);
+        } else {
+          const fp = { ...p, value: 0, _fromExpiry: true, _tid: null, _tname: 'Svincolato' };
+          if (!G.marketPool) G.marketPool = [];
+          G.marketPool.push({ player: fp, daysLeft: 8, pendingOffer: null, offerResult: null });
+          roster.splice(i, 1);
+        }
       }
     }
   });

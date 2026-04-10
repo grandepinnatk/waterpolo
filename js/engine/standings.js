@@ -191,7 +191,7 @@ function simulateMatchStats(homeRoster, awayRoster, score) {
         : 0;
       const injP     = (p.injProb || 0.04) + formRisk;
       // Probabilità per partita (non per secondo): ~4-8% in condizioni normali
-      const matchProb = Math.min(0.24, injP * 1.6);  // raddoppiato: era min(0.12, injP*0.8)
+      const matchProb = Math.min(0.35, injP * 2.4);  // aumentato ulteriormente
       if (Math.random() < matchProb) {
         p.injured     = true;
         p.injuryWeeks = 1 + Math.floor(Math.random() * 4); // 1-4 giornate (più leggero della partita live)
