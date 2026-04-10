@@ -779,8 +779,23 @@ function simPOMatch(type, idx) {
   } else {
     pb.done = true;
     const wname = G.teams.find(t => t.id === m.winner)?.name;
-    if (m.winner === G.myId) { G.playoffResult = 'champion'; G.msgs.push('HAI VINTO LO SCUDETTO! 🏆'); }
-    else G.msgs.push('Campione d\'Italia: ' + wname);
+    if (m.winner === G.myId) {
+      G.playoffResult = 'champion';
+      G.msgs.push('HAI VINTO LO SCUDETTO! 🏆');
+    }
+    // Aumento ingaggi +20% per la squadra campione
+    const champRoster = G.rosters[m.winner] || [];
+    champRoster.forEach(function(p) {
+      if (p && p.salary) p.salary = Math.round(p.salary * 1.20);
+    });
+    const champTeam = G.teams.find(t => t.id === m.winner);
+    if (champTeam) {
+      const msg = (m.winner === G.myId)
+        ? '💰 Scudetto! Gli ingaggi di tutta la rosa aumentano del 20%.'
+        : '💰 ' + wname + ' campione: ingaggi rosa +20%.';
+      G.msgs.push(msg);
+    }
+    if (m.winner !== G.myId) G.msgs.push('Campione d\'Italia: ' + wname);
   }
   autoSave(); renderPlayoff();
 }
@@ -825,8 +840,16 @@ function simPLMatch(key) {
   const loser  = winner === m.home ? m.away : m.home;
   m.winner     = winner;
   if (key === 'm1') {
-    // Il vincitore della semifinale playout avanza alla finale
-    plb.m2.home = winner;
+    // Il PERDENTE dell'11° vs 13° va alla finale rischio retrocessione
+    // Il VINCITORE si salva direttamente
+    plb.m2.home = loser;
+    const savedName = G.teams.find(t => t.id === winner)?.name || '?';
+    if (winner === G.myId) {
+      G.playoffResult = 'survived';
+      G.msgs.push('✅ Vittoria nel playout! ' + savedName + ' si salva direttamente in Serie A1.');
+    } else {
+      G.msgs.push('✅ ' + savedName + ' si salva direttamente. Il perdente va alla finale playout.');
+    }
   } else {
     // Finale playout: il perdente retrocede
     plb.relegated = loser; plb.done = true;
@@ -1694,6 +1717,39 @@ function _calcRenewalSalary(p) {
 // ═══════════════════════════════════════════════════════
 // PROPOSTA DI RINNOVO (asincrona — risposta alla prossima giornata)
 // ═══════════════════════════════════════════════════════
+// ── Rinnovo con bonus firma (chiamato dal popup di conferma) ────────
+function renewContractWithBonus(rosterIdx, years) {
+  const p = (G.rosters[G.myId] || [])[rosterIdx];
+  if (!p) return;
+
+  const newSalary = _calcRenewalSalary(p);
+  const total     = newSalary * years;
+  const bonus     = Math.round(total * 0.10);
+
+  if (G.budget < bonus) {
+    alert('Budget insufficiente per pagare il bonus firma di ' + formatMoney(bonus));
+    return;
+  }
+
+  // Detrai bonus subito
+  G.budget -= bonus;
+  addLedger('rinnovo', -bonus, 'Bonus firma ' + p.name + ' (' + years + ' ann' + (years===1?'o':'i') + ')', typeof currentRound === 'function' ? currentRound() : 0);
+
+  // Segna proposta pendente
+  p._renewalPending = { years: years, salary: newSalary, bonus: bonus, round: typeof currentRound === 'function' ? currentRound() : 0 };
+  G.msgs.push('📨 Proposta di rinnovo inviata a ' + p.name + ' — ' +
+    years + ' ann' + (years===1?'o':'i') + ' · ' + formatMoney(newSalary) + '/anno · bonus firma ' + formatMoney(bonus) + ' pagato. ' +
+    'Il giocatore risponderà alla prossima giornata.');
+
+  // Chiudi popup conferma e modal giocatore
+  const cp = document.getElementById('renewal-confirm-popup');
+  if (cp) cp.remove();
+  const mp = document.getElementById('player-modal-' + rosterIdx);
+  if (mp) mp.remove();
+
+  updateHeader(); autoSave(); renderRosa();
+}
+
 function renewContract(rosterIdx, years, popupEl) {
   const p = (G.rosters[G.myId] || [])[rosterIdx];
   if (!p) return;

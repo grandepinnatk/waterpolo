@@ -377,7 +377,7 @@ function generateMatchEvent(ms) {
     myEffective *= (1 + _fillBonus);
   }
 
-  const oppStr = ms.oppTeam.str;
+  const oppStr = ms.oppTeam.str * (ms.oppTeam._staminaFactor !== undefined ? ms.oppTeam._staminaFactor : 1.0);
   const tot    = myEffective + oppStr;
   const myCh   = myEffective / tot;
   const r      = Math.random();

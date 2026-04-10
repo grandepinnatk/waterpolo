@@ -1098,6 +1098,50 @@ function renderRosa() {
   document.getElementById('tab-rosa').innerHTML = h;
 }
 
+
+// ── Popup conferma rinnovo con dettaglio bonus firma ────────────────
+function showRenewalConfirm(rosterIdx, years, popupEl) {
+  const p          = (G.rosters[G.myId] || [])[rosterIdx];
+  if (!p) return;
+  const salary     = _calcRenewalSalary(p);
+  const total      = salary * years;
+  const bonus      = Math.round(total * 0.10);
+  const canAfford  = G.budget >= bonus;
+
+  const existing = document.getElementById('renewal-confirm-popup');
+  if (existing) existing.remove();
+
+  const ov = document.createElement('div');
+  ov.id = 'renewal-confirm-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:300;backdrop-filter:blur(4px)';
+  ov.innerHTML = `
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px;max-width:360px;width:92%">
+      <div style="font-size:15px;font-weight:700;color:var(--blue);margin-bottom:4px">🔄 Rinnovo contratto</div>
+      <div style="font-size:13px;color:var(--text);margin-bottom:14px">${p.name}</div>
+      <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:12px;margin-bottom:14px;font-size:13px;display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <span style="color:var(--muted)">Durata</span><span style="font-weight:700">${years} ann${years===1?'o':'i'}</span>
+        <span style="color:var(--muted)">Ingaggio/anno</span><span style="font-weight:700;color:var(--gold)">${formatMoney(salary)}</span>
+        <span style="color:var(--muted)">Totale contratto</span><span style="font-weight:700">${formatMoney(total)}</span>
+        <span style="color:var(--muted)">Bonus firma (10%)</span><span style="font-weight:700;color:var(--red)">${formatMoney(bonus)}</span>
+      </div>
+      <div style="background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.25);border-radius:8px;padding:10px;font-size:12px;color:var(--gold);margin-bottom:14px">
+        💡 Il bonus firma di <strong>${formatMoney(bonus)}</strong> verrà detratto immediatamente dal budget al momento della proposta.
+        Budget disponibile: <strong>${formatMoney(G.budget)}</strong>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="renewContractWithBonus(${rosterIdx},${years})" style="flex:1;padding:9px;font-size:13px;font-weight:700;border-radius:8px;background:linear-gradient(135deg,var(--blue),#0080cc);border:none;color:#fff;cursor:pointer">
+          Conferma e invia proposta
+        </button>
+        <button onclick="document.getElementById('renewal-confirm-popup').remove()" style="padding:9px 14px;font-size:13px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:var(--muted);cursor:pointer">
+          Annulla
+        </button>
+      </div>
+    </div>`;
+  ov.onclick = function(e){ if(e.target===ov) ov.remove(); };
+  document.body.appendChild(ov);
+}
+window.showRenewalConfirm = showRenewalConfirm;
+
 function showPlayerModal(i) {
   const p   = G.rosters[G.myId][i];
   const rl  = { POR:'Portiere', DIF:'Difensore', CEN:'Centromediano', ATT:'Attaccante', CB:'Centroboa' };
@@ -1115,7 +1159,12 @@ function showPlayerModal(i) {
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
         <div>
           <div style="font-weight:700;font-size:15px;color:var(--blue)">${p.name}${_ritBadge(p)}${_scadBadge(p)}</div>
-          <div style="font-size:12px;color:var(--muted)">${rl[p.role]||p.role} · ${p.nat} · ${p.age} anni · <strong>${p.hand==='AMB'?'Ambidestro':p.hand==='L'?'Mancino':'Destro'}</strong></div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:5px">${p.nat} · ${p.age} anni</div>
+          <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">
+            <span class="badge ${p.role==='POR'?'S':p.role==='DIF'?'A':p.role==='CB'?'B':'C'}">${p.role}</span>
+            ${p.secondRole ? `<span class="badge ${p.secondRole==='POR'?'S':p.secondRole==='DIF'?'A':p.secondRole==='CB'?'B':'C'}" style="opacity:.85">${p.secondRole}</span>` : ''}
+            <span class="badge ${p.hand==='AMB'?'AMB':p.hand==='L'?'L':'R'}">${p.hand==='AMB'?'AMB':p.hand==='L'?'L':'R'}</span>
+          </div>
         </div>
         <button onclick="this.closest('[style*=fixed]').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
       </div>
@@ -1162,11 +1211,24 @@ function showPlayerModal(i) {
             '</div>'
           : '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">' +
             [1,2,3,4,5].map(function(y) {
-              const elId = 'player-modal-' + i;
-              return '<button onclick="renewContract(' + i + ',' + y + ',document.getElementById(&quot;' + elId + '&quot;))" style="' +
-                'padding:5px 10px;font-size:12px;font-weight:700;border-radius:6px;' +
-                'border:1.5px solid var(--blue);background:var(--panel2);color:var(--blue);cursor:pointer">' +
-                y + ' ann' + (y===1?'o':'i') + ' — ' + formatMoney(renewSalary*y) + '</button>';
+              const elId    = 'player-modal-' + i;
+              const total   = renewSalary * y;
+              const bonus   = Math.round(total * 0.10);
+              const canAfford = G.budget >= bonus;
+              const title   = canAfford
+                ? y + ' ann' + (y===1?'o':'i') + ' + bonus firma ' + formatMoney(bonus)
+                : 'Budget insufficiente (bonus: ' + formatMoney(bonus) + ')';
+              return '<button ' +
+                (canAfford
+                  ? 'onclick="showRenewalConfirm(' + i + ',' + y + ',document.getElementById(&quot;' + elId + '&quot;))"'
+                  : 'disabled title="' + title + '"') +
+                ' style="padding:5px 10px;font-size:12px;font-weight:700;border-radius:6px;' +
+                'border:1.5px solid ' + (canAfford ? 'var(--blue)' : 'rgba(255,255,255,.15)') + ';' +
+                'background:var(--panel2);color:' + (canAfford ? 'var(--blue)' : 'rgba(255,255,255,.25)') + ';' +
+                'cursor:' + (canAfford ? 'pointer' : 'not-allowed') + '">' +
+                y + ' ann' + (y===1?'o':'i') + ' — ' + formatMoney(total) +
+                (canAfford ? '' : ' 🔒') +
+                '</button>';
             }).join('') +
             '</div>'
         }
@@ -2011,9 +2073,15 @@ function _buildPOScorers(details, homeId, awayId) {
         + totalH + ' - ' + totalA + '</span>'
       : '<span style="color:var(--muted);font-size:12px">vs</span>';
 
-    // Etichetta esito: playoff → "Avanza:", playout → "Si salva:"
-    var winnerLabel = isPlayout ? 'Si salva:' : 'Avanza:';
+    // Etichetta esito — per playout m1 il vincitore si salva, il perdente va alla finale
+    var isPloutM1   = isPlayout && (m.label && m.label.indexOf('11°') >= 0);
+    var winnerLabel = isPlayout ? (isPloutM1 ? 'Si salva:' : 'Si salva:') : 'Avanza:';
     var winnerColor = isPlayout ? '#2ecc71' : 'var(--green)';
+    // Per playout m1, mostra anche chi va alla finale
+    var loserLabel  = isPloutM1 && m.winner
+      ? '<div style="color:var(--red);font-size:12px;margin-top:2px">⚠ Alla finale: <strong>'
+        + tname(m.home === m.winner ? m.away : m.home) + '</strong></div>'
+      : '';
 
     return '<div style="background:var(--panel2);border:1px solid ' + (isme ? accentColor : 'var(--border)') + ';border-radius:8px;padding:12px;margin-bottom:6px">'
       + '<div style="font-size:11px;color:var(--muted);margin-bottom:6px">' + (m.label||'') + '</div>'
@@ -2023,6 +2091,7 @@ function _buildPOScorers(details, homeId, awayId) {
       + '<span style="font-weight:' + (m.away===G.myId?700:400) + ';flex:1;text-align:right">' + tname(m.away) + '</span>'
       + '</div>'
       + (m.winner ? '<div style="color:' + winnerColor + ';font-size:12px;margin-top:6px">✔ ' + winnerLabel + ' <strong>' + tname(m.winner) + '</strong></div>' : '')
+      + loserLabel
       + '</div>';
   }
 
