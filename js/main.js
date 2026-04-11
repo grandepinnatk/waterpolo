@@ -1211,14 +1211,15 @@ function startNewSeason() {
   // Resetta lineup salvata (i ritirati potrebbero essere in campo)
   G.savedLineup = null;
 
+  // ── Ricalcola tier in base a piazzamento/rosa/budget ──
+  // DEVE essere chiamata PRIMA di resettare G.stand (usa la classifica dell'ultima stagione)
+  _recalcTiers();
+
   // ── Nuovo calendario e classifica ──
   G.schedule = generateSchedule(G.teams);
   G.stand    = initStandings(G.teams);
   // Inizializza budget simulato delle squadre avversarie per il mercato
   G.teams.forEach(t => { if (!t._budget || t.id === G.myId) t._budget = t.str * 40000; });
-
-  // ── Ricalcola tier in base a piazzamento/rosa/budget ──
-  _recalcTiers();
 
   // ── Nuovi obiettivi basati sul tier aggiornato ──
   G.objectives = initObjectives(G.myTeam.tier || 'B');
