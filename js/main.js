@@ -113,6 +113,8 @@ function confirmSimNextRound() {
 // goalsConceded: gol subiti dalla mia squadra
 function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey) {
   if (!roster) return;
+  console.log('[ASSIGN] goalsConceded=' + goalsConceded + ' scorerKey=' + scorerKey +
+              ' | details?', !!matchDetails, matchDetails ? '| home:' + (matchDetails.home||[]).length + ' away:' + (matchDetails.away||[]).length : '');
 
   // ── Costruisce la convocazione simulata (13 giocatori) ──────────────────
   // Regola: 2 POR (titolare + riserva) + 11 di campo selezionati per overall
@@ -132,6 +134,7 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
     squad13 = [...calledGK, ...calledFld];
   }
   const convocati = new Set(squad13.map(p => p.name));
+  console.log('[ASSIGN] Convocati (' + squad13.length + '):', Array.from(convocati).join(', '));
   // Portieri convocati in ordine (titolare = primo per score)
   const calledGK = squad13.filter(p => p.role === 'POR')
                            .sort((a, b) => b.overall - a.overall);
@@ -142,6 +145,12 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
     matchDetails[scorerKey].forEach(s => {
       matchMap[s.name] = { goals: s.goals || 0, assists: s.assists || 0 };
     });
+  }
+  if (Object.keys(matchMap).length) {
+    console.log('[ASSIGN] matchMap:', JSON.stringify(matchMap));
+  } else {
+    console.warn('[ASSIGN] matchMap VUOTO — nessun marcatore trovato per scorerKey=' + scorerKey);
+    if (matchDetails) console.log('[ASSIGN] matchDetails keys:', Object.keys(matchDetails));
   }
 
   // ── Assegna voti / null ────────────────────────────────────────────────
@@ -178,12 +187,16 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
       }
       rating = Math.max(3.0, Math.min(10.0, rating));
       p.lastRatings.push(Math.round(rating * 2) / 2);
+      // Conta presenza per il portiere
+      p.careerApps = (p.careerApps || 0) + 1;
     } else {
       // Giocatori di campo convocati
-      // I titolari (primi 7) giocano sempre; le riserve entrano con probabilità
-      const fieldConv = squad13.filter(pl => pl.role !== 'POR');
-      const isTitolare = fieldConv.indexOf(p) < 7;
-      const isRiserva  = !isTitolare;
+      // Usa il nome per trovare la posizione in squad13 (evita bug indexOf con oggetti)
+      const fieldConv  = squad13.filter(pl => pl.role !== 'POR');
+      const posInSquad = fieldConv.findIndex(pl => pl.name === p.name);
+      // posInSquad === -1 → non in squad13 ma era in convocati (caso impossibile, ma gestiamo)
+      const isTitolare = posInSquad >= 0 && posInSquad < 7;
+      const isRiserva  = posInSquad >= 7;
 
       // Riserva: 30% di probabilità di entrare a partita in corso
       if (isRiserva && Math.random() > 0.30) {
@@ -199,7 +212,7 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
         + contrib.assists * 0.8
         + roleBase
         + (Math.random() * 0.6 - 0.3);
-      if (isRiserva) rating -= 0.3; // lieve penalità per chi entra a partita in corso
+      if (isRiserva) rating -= 0.3;
       rating = Math.max(3.0, Math.min(10.0, rating));
       const _r = Math.round(rating * 2) / 2;
       p.lastRatings.push(_r);
@@ -259,14 +272,19 @@ function simNextRound() {
   const r = nextMyRound();
   if (!r) { G.msgs.push('Nessuna giornata rimanente.'); renderDash(); return; }
 
+  console.group('%c[SIM] Giornata ' + r, 'color:#00c2ff;font-weight:bold');
+  console.log('[SIM] Squadra:', G.myTeam?.name, '| Fase:', G.phase, '| Budget:', G.budget);
+
   // ── Convocazioni nazionali ──
   _processNationalCalls(r);
 
   // Salva posizione attuale PRIMA di aggiornare la classifica
   G.prevPos = getTeamPosition(G.stand, G.myId);
+  console.log('[SIM] Posizione pre-giornata:', G.prevPos);
 
   // Simula TUTTE le partite della giornata, inclusa quella della mia squadra
   const roundMatches = G.schedule.filter(m => m.round === r && !m.played);
+  console.log('[SIM] Partite da simulare:', roundMatches.length);
   roundMatches.forEach(m => {
     const hT = G.teams.find(t => t.id === m.home);
     const aT = G.teams.find(t => t.id === m.away);
@@ -325,10 +343,18 @@ function simNextRound() {
       }
       G.msgs.push(`G${r}: ${G.myTeam.name} ${res} vs ${opp.name} (${myScore}-${opScore})` +
                   (reward ? ` +${formatMoney(reward)}` : ''));
+      console.log('[SIM] Mia partita: ' + G.myTeam.name + ' ' + myScore + '-' + opScore + ' ' + opp.name +
+                  ' | ' + (ih ? 'Casa' : 'Trasferta') + ' | Premio: +' + (reward||0) + '€');
+      if (m.details) {
+        const myScorers = (ih ? m.details.home : m.details.away) || [];
+        if (myScorers.length) console.log('[SIM] Marcatori:', myScorers.map(s => s.name + ' ⚽' + s.goals + (s.assists?' 🤝'+s.assists:'')).join(', '));
+      }
 
       // Genera voti simulati per i giocatori della mia rosa
       const _sk = ih ? 'home' : 'away';
+      console.log('[SIM] Assegno voti simulati (scorerKey=' + _sk + ')...');
       _assignSimulatedRatings(G.rosters[G.myId], opScore, m.details, _sk);
+      console.log('[SIM] Voti assegnati:', (G.rosters[G.myId]||[]).filter(p=>p&&p.lastRatings&&p.lastRatings[p.lastRatings.length-1]!==null).map(p=>p.name+' '+p.lastRatings[p.lastRatings.length-1]).join(', '));
 
       // Simula infortuni per la nostra rosa
       if (typeof simulateInjuries === 'function') {
@@ -408,6 +434,8 @@ function simNextRound() {
   refreshMarketPool();
   generateTransferOffers();
   _updateStarsBox();
+  console.log('[SIM] ✓ Fine giornata ' + (typeof nextMyRound === 'function' ? '' : '') + ' | Budget: ' + G.budget + ' | Stelle: ' + G.stars);
+  console.groupEnd();
   updateHeader(); autoSave(); renderDash();
   // Popup convocazione nazionale
   if (G._pendingNationalPopup && G._pendingNationalPopup.length > 0) {
