@@ -38,7 +38,7 @@ function startLiveMatch(match, isHome, opp, poType = null, poMatch = null) {
   document.getElementById('btn-end').style.display   = 'none';
   document.getElementById('btn-play').style.display  = '';
   document.getElementById('btn-play').textContent    = '▶ Avvia';
-  // sub-panel rimosso — selezione ora inline
+  document.getElementById('sub-panel').style.display = 'none';
   document.getElementById('action-log').innerHTML    = '';
   document.getElementById('m-clock').textContent     = '08:00';
   _setSpeedUI(10);
@@ -156,7 +156,7 @@ function _animLoop(timestamp) {
           _appendLog(event.txt, event.cls);
           if (event.goalScored && typeof poolShootAndScore === 'function') {
             const bt = event.ballTarget || { x: 0.5, y: 0.5 };
-            var _scoringTeamName = event.goalTeam === 'opp' ? G.ms.oppTeam.name : G.ms.myTeam.name;
+            var _scoringTeamName = event.goalTeam === 'opp' ? ms.oppTeam.name : ms.myTeam.name;
             poolShootAndScore(bt.x, bt.y, event.goalScorer || '', event.goalTeam || 'my', _scoringTeamName);
             if (typeof MovementController !== 'undefined') MovementController.onPossessChange(event.goalTeam === 'my' ? 'opp' : 'my');
             showGoalAnimation(event.goalScorer || '', event.goalTeam || 'my', G.ms);
@@ -560,232 +560,151 @@ function _ritBadge(p) {
          'padding:1px 4px;border-radius:3px;margin-left:3px" title="Si ritira a fine stagione">RIT</span>';
 }
 
-
-// Inietta CSS per animazione swap e selezione righe
-(function() {
-  if (document.getElementById('swap-sub-style')) return;
-  const s = document.createElement('style');
-  s.id = 'swap-sub-style';
-  s.textContent = `
-    .player-row { cursor:default; transition:background .15s; }
-    .player-row.selectable { cursor:pointer; }
-    .player-row.selectable:hover { background:rgba(0,194,255,.07) !important; }
-    .player-row.sel-field { background:rgba(0,194,255,.18) !important; outline:1.5px solid var(--blue); border-radius:4px; }
-    .player-row.sel-bench { background:rgba(240,192,64,.18) !important; outline:1.5px solid var(--gold); border-radius:4px; }
-    .player-row.swap-anim-up   { animation: swapUp 0.35s ease-out; }
-    .player-row.swap-anim-down { animation: swapDown 0.35s ease-out; }
-    @keyframes swapUp   { 0%{transform:translateY(30px);opacity:0} 100%{transform:none;opacity:1} }
-    @keyframes swapDown { 0%{transform:translateY(-30px);opacity:0} 100%{transform:none;opacity:1} }
-    #btn-swap-sub.ready {
-      background:linear-gradient(135deg,var(--blue),#0080cc) !important;
-      border-color:var(--blue) !important;
-      color:#fff !important;
-      cursor:pointer !important;
-      box-shadow:0 2px 12px rgba(0,194,255,.4);
-      animation: pulse-swap 1.2s infinite;
-    }
-    @keyframes pulse-swap { 0%,100%{box-shadow:0 2px 12px rgba(0,194,255,.4)} 50%{box-shadow:0 2px 20px rgba(0,194,255,.7)} }
-  `;
-  document.head.appendChild(s);
-})();
-
-
-// ── Stato selezione cambio inline ──────────────
-var _subSelField = null;  // pk selezionato in campo
-var _subSelBench = null;  // pi selezionato in panchina
-
-function _updateSwapButton() {
-  const btn = document.getElementById('btn-swap-sub');
-  const status = document.getElementById('sub-status');
-  if (!btn) return;
-  if (_subSelField !== null && _subSelBench !== null) {
-    btn.disabled = false;
-    btn.classList.add('ready');
-    if (status) status.textContent = 'Pronto!';
-  } else {
-    btn.disabled = true;
-    btn.classList.remove('ready');
-    if (status) {
-      if (_subSelField === null && _subSelBench === null) status.textContent = '';
-      else if (_subSelField === null) status.textContent = 'Sel. in campo';
-      else status.textContent = 'Sel. panchina';
-    }
-  }
-}
-
-function selFieldRow(pk) {
-  const ms = G.ms; if (!ms || ms.finished) return;
-  if (ms.expelled.has(ms.onField[pk])) return;
-  _subSelField = (_subSelField === pk) ? null : pk;
-  _updateSwapButton();
-  renderFieldLists();
-}
-
-function selBenchRow(pi) {
-  const ms = G.ms; if (!ms || ms.finished) return;
-  if (ms.expelled.has(pi)) return;
-  _subSelBench = (_subSelBench === pi) ? null : pi;
-  _updateSwapButton();
-  renderFieldLists();
-}
-
-function confirmSwap() {
-  const ms = G.ms;
-  if (!ms || _subSelField === null || _subSelBench === null) return;
-  if (ms.subs >= 6) { _appendLog('⚠ Numero massimo di cambi raggiunto (6).', 'fl'); return; }
-
-  const result = performSubstitution(ms, _subSelField, _subSelBench);
-  if (!result) return;
-
-  const shirtOut = ms.shirtNumbers[result.outRosterIdx] || '?';
-  const shirtIn  = ms.shirtNumbers[result.inRosterIdx]  || '?';
-  _appendLog('↔ Cambio: #' + shirtOut + ' ' + _shortPlayerName(result.outPlayer) +
-             ' → #' + shirtIn + ' ' + _shortPlayerName(result.inPlayer), 'sub');
-
-  // Reset selezione
-  _subSelField = null;
-  _subSelBench = null;
-  _updateSwapButton();
-  // Render con animazione
-  renderFieldLists(true);
-}
-
-function renderFieldLists(withAnim) {
+function renderFieldLists() {
   const ms = G.ms; if (!ms) return;
-  const isPaused = !ms.running && !ms.finished;
 
-  // Helper badge ruolo (standard)
-  function roleBadge(role) {
-    if (!role) return '';
-    const cls = role==='POR'?'S': role==='DIF'?'A': role==='CB'?'B': 'C';
-    return `<span class="badge ${cls}" style="font-size:9px;padding:1px 3px">${role}</span>`;
-  }
-
-  // Helper badge mano (standard)
-  function handBadge(hand) {
-    const cls = hand==='AMB'?'AMB': hand==='L'?'L': 'R';
-    return `<span class="badge ${cls}" style="font-size:9px;padding:1px 3px">${hand}</span>`;
-  }
-
-  // Pallini espulsioni temporanee
+  // Costruisce pallini espulsioni temporanee
   function expDots(pi) {
     const count = ms.tempExp[pi] || 0;
-    if (count === 0) return '';
+    if (count === 0) return '<span style="color:var(--muted);font-size:11px">—</span>';
     return Array.from({ length: count }).map((_, i) => {
       const color = (count >= MAX_TEMP_EXP || i === MAX_TEMP_EXP - 1) ? '#e74c3c' : '#f0c040';
-      return `<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${color};margin-right:1px"></span>`;
+      return `<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${color};margin-right:2px;border:1px solid rgba(0,0,0,.3)"></span>`;
     }).join('');
   }
 
-  // Stamina cell
+  // Barra + percentuale stamina
   function staminaCell(pi) {
     const st  = Math.round(ms.stamina[pi] ?? 100);
     const col = st > 65 ? '#2ecc71' : st > 35 ? '#f0c040' : '#e74c3c';
-    return `<div style="display:flex;align-items:center;gap:2px">
-      <div style="width:28px;height:4px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden;flex-shrink:0">
-        <div style="width:${st}%;height:100%;background:${col};border-radius:2px;transition:width .4s"></div>
+    return `<div style="display:flex;align-items:center;gap:3px">
+      <div style="width:32px;height:5px;background:rgba(255,255,255,.15);border-radius:3px;overflow:hidden;flex-shrink:0">
+        <div style="width:${st}%;height:100%;background:${col};border-radius:3px;transition:width .4s"></div>
       </div>
-      <span style="font-size:9px;color:${col};font-weight:700;min-width:22px">${st}%</span>
+      <span style="font-size:10px;color:${col};font-weight:700;min-width:26px">${st}%</span>
     </div>`;
   }
 
-  // Griglia: #(18) | Nome(1fr) | VOT(28) | Pos(22) | Ruolo(44) | Mano(28) | Età(20) | OVR(24) | Stamina(58) | Esp(24) | ⚽(18) | 🤝(18)
-  const COL = '18px minmax(0,.75fr) 28px 22px 44px 30px 20px 24px 58px 24px 18px 18px';
+  // Intestazione colonne — IN CAMPO e PANCHINA hanno griglie diverse
+  const COL_FIELD = '24px 1fr 36px 28px 30px 28px 60px 36px 22px 22px 28px';  // aggiunta col VOTO
+  const COL_BENCH = '24px 1fr 36px 30px 28px 60px 36px 22px 22px 28px';  // aggiunta col VOT
 
-  const hdr = `<div style="display:grid;grid-template-columns:${COL};
-    gap:2px;padding:2px 3px 4px;border-bottom:1px solid var(--border);
-    font-size:8px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;user-select:none">
-    <div>#</div><div>Nome</div>
-    <div style="text-align:center;color:var(--gold)">VOT</div>
-    <div style="text-align:center">Pos</div>
-    <div>Ruolo</div>
-    <div>Mano</div>
-    <div style="text-align:center">Età</div>
-    <div style="text-align:center">OVR</div>
-    <div>Stamina</div>
-    <div style="text-align:center">Esp</div>
-    <div style="text-align:center" title="Gol">⚽</div>
-    <div style="text-align:center" title="Assist">🤝</div>
-  </div>`;
+  const fieldTableHeader = `
+    <div style="display:grid;grid-template-columns:${COL_FIELD};
+                gap:3px;padding:3px 4px 5px;border-bottom:1px solid var(--border);
+                font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px">
+      <div>#</div><div>Nome</div>
+      <div title="Voto" style="text-align:center;color:var(--gold)">VOT</div>
+      <div>Pos.</div><div>Ruolo</div><div>Mano</div>
+      <div>Stamina</div><div>Esp.</div>
+      <div title="Gol" style="text-align:center">&#x26BD;</div>
+      <div title="Assist" style="text-align:center">&#x1F91D;</div>
+      <div>OVR</div>
+    </div>`;
 
-  function playerRow(pi, pk, isBench, selClass, animClass) {
-    const p = ms.myRoster[pi]; if (!p) return '';
+  const benchTableHeader = `
+    <div style="display:grid;grid-template-columns:${COL_BENCH};
+                gap:3px;padding:3px 4px 5px;border-bottom:1px solid var(--border);
+                font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.3px">
+      <div>#</div><div>Nome</div>
+      <div title="Voto" style="text-align:center;color:var(--gold)">VOT</div>
+      <div>Ruolo</div><div>Mano</div>
+      <div>Stamina</div><div>Esp.</div>
+      <div title="Gol" style="text-align:center">&#x26BD;</div>
+      <div title="Assist" style="text-align:center">&#x1F91D;</div>
+      <div>OVR</div>
+    </div>`;
+
+  // ── IN CAMPO ──────────────────────────────
+  let fieldHtml = fieldTableHeader;
+  // Ordina: GK per primo, poi per numero maglia
+  const onFieldEntries = Object.entries(ms.onField).sort(([pkA, piA], [pkB, piB]) => {
+    if (pkA === 'GK') return -1;
+    if (pkB === 'GK') return  1;
+    return (ms.shirtNumbers[piA] || 99) - (ms.shirtNumbers[piB] || 99);
+  });
+
+  onFieldEntries.forEach(([pk, pi]) => {
+    const p     = ms.myRoster[pi]; if (!p) return;
+    const pos   = POSITIONS[pk];
     const shirt = ms.shirtNumbers[pi] || '—';
     const isExp = ms.expelled.has(pi);
-    const mGoals   = (ms.matchGoals   && ms.matchGoals[pi])   || 0;
-    const mAssists = (ms.matchAssists && ms.matchAssists[pi]) || 0;
-    const posLabel = pk ? _simplePosLabel(pk) : '';
-    const rating   = (typeof calcPlayerRating === 'function') ? calcPlayerRating(pi, ms) : 6.0;
-    const rc = rating >= 7.5 ? 'var(--green)' : rating >= 6.5 ? 'var(--gold)' : rating >= 5.5 ? 'var(--muted)' : 'var(--red)';
-    const canSel   = isPaused && !isExp;
-    const selFn    = canSel ? (isBench ? `selBenchRow(${pi})` : `selFieldRow('${pk}')`) : '';
-    const rowBg    = selClass === 'sel-field' ? 'rgba(0,194,255,.15)' : selClass === 'sel-bench' ? 'rgba(240,192,64,.15)' : '';
-    const bHasPlayed = ms._everOnField && ms._everOnField.has(pi);
-    const dispRating = isBench && !bHasPlayed ? '—' : rating.toFixed(1);
-    // Ogni cella cliccabile (eccetto il nome) chiama selFn
-    const c_ = (content, extraStyle) => canSel
-      ? `<div onclick="${selFn}" style="cursor:pointer;${extraStyle||''}">${content}</div>`
-      : `<div style="${extraStyle||''}">${content}</div>`;
-    return `<div class="player-row ${selClass} ${animClass}"
-      style="display:grid;grid-template-columns:${COL};
-             gap:2px;align-items:center;padding:4px 3px;
-             border-bottom:1px solid rgba(30,58,92,.3);
-             background:${rowBg};
-             opacity:${isExp ? '.4' : '1'}">
-      ${c_(`<span style="font-weight:700;color:${isBench?'var(--muted)':'var(--blue)'};font-size:10px">#${shirt}</span>`)}
-      <div style="font-size:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-                  cursor:pointer;color:var(--blue);text-decoration:underline dotted;text-underline-offset:2px"
-           onclick="showMatchPlayerInfo(${pi})" title="Scheda giocatore">${_shortPlayerName(p)}</div>
-      ${c_(`<span style="font-size:11px;font-weight:800;color:${rc}">${dispRating}</span>`, 'text-align:center')}
-      ${c_(`<span style="font-size:10px;font-weight:700;color:var(--blue)">${posLabel}</span>`, 'text-align:center')}
-      ${c_(`<span style="display:flex;gap:1px;flex-wrap:wrap;align-items:center">${roleBadge(p.role)}${p.secondRole ? roleBadge(p.secondRole) : ''}</span>`)}
-      ${c_(handBadge(p.hand))}
-      ${c_(`<span style="font-size:10px;color:var(--muted)">${p.age}</span>`, 'text-align:center')}
-      ${c_(`<span style="font-size:10px;font-weight:700;color:var(--blue)">${p.overall}</span>`, 'text-align:center')}
-      ${c_(isExp ? '<span style="font-size:9px;color:var(--red)">ESP</span>' : staminaCell(pi))}
-      ${c_(expDots(pi), 'text-align:center')}
-      ${c_(`<span style="font-size:10px;font-weight:700;color:${mGoals>0?'var(--blue)':'var(--muted)'}">${mGoals||'—'}</span>`, 'text-align:center')}
-      ${c_(`<span style="font-size:10px;font-weight:700;color:${mAssists>0?'var(--green)':'var(--muted)'}">${mAssists||'—'}</span>`, 'text-align:center')}
-    </div>`;
-  }
-
-  // ── IN CAMPO — ordine GK poi 1→2→3→4→5→6 ──────────────
-  const POS_ORDER = { GK:0, '1':1, '2':2, '3':3, '4':4, '5':5, '6':6 };
-  const onFieldEntries = Object.entries(ms.onField)
-    .sort(([pkA], [pkB]) => (POS_ORDER[pkA]??9) - (POS_ORDER[pkB]??9));
-
-  let fieldHtml = hdr;
-  onFieldEntries.forEach(([pk, pi]) => {
-    const selCls  = (_subSelField === pk) ? 'sel-field' : '';
-    const animCls = (withAnim && _subSelField === null) ? 'swap-anim-up' : '';
-    fieldHtml += playerRow(pi, pk, false, selCls, animCls);
+    const mGoals   = ms.matchGoals   && ms.matchGoals[pi]   || 0;
+    const mAssists = ms.matchAssists && ms.matchAssists[pi] || 0;
+    // Posizione: POR / 1-6
+    const posLabel = _simplePosLabel(pk);
+    // Colore mano
+    const handColor = p.hand === 'L' ? '#80c0ff' : p.hand === 'AMB' ? 'var(--green)' : 'var(--muted)';
+    // Voto live
+    const rating = (typeof calcPlayerRating === 'function') ? calcPlayerRating(pi, ms) : 6.0;
+    const ratingColor = rating >= 7.5 ? 'var(--green)' : rating >= 6.5 ? 'var(--gold)' : rating >= 5.5 ? 'var(--muted)' : 'var(--red)';
+    fieldHtml += `
+      <div style="display:grid;grid-template-columns:${COL_FIELD};
+                  gap:3px;align-items:center;padding:5px 4px;
+                  border-bottom:1px solid rgba(30,58,92,.35);
+                  opacity:${isExp ? '.4' : '1'}">
+        <div style="font-weight:700;color:var(--blue);font-size:11px">#${shirt}</div>
+        <div style="font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+          ${_shortPlayerName(p)}
+          ${isExp ? '<span style="font-size:9px;color:var(--red);display:block">ESP</span>' : ''}
+        </div>
+        <div style="font-size:12px;font-weight:800;color:${ratingColor};text-align:center">${rating.toFixed(1)}</div>
+        <div style="font-size:10px;font-weight:700;color:var(--blue);text-align:center">${posLabel}</div>
+        <div style="font-size:10px;font-weight:600;color:var(--muted);text-align:center">${p.role}</div>
+        <div style="font-size:10px;font-weight:600;color:${handColor};text-align:center">${p.hand}</div>
+        <div>${isExp ? '<span style="color:var(--muted);font-size:11px">—</span>' : staminaCell(pi)}</div>
+        <div>${expDots(pi)}</div>
+        <div style="font-size:11px;font-weight:700;color:${mGoals>0?'var(--blue)':'var(--muted)'};text-align:center">${mGoals > 0 ? mGoals : '—'}</div>
+        <div style="font-size:11px;font-weight:700;color:${mAssists>0?'var(--green)':'var(--muted)'};text-align:center">${mAssists > 0 ? mAssists : '—'}</div>
+        <div style="font-size:11px;font-weight:600;color:var(--muted)">${p.overall}</div>
+      </div>`;
   });
   document.getElementById('field-players').innerHTML = fieldHtml;
 
-  // ── PANCHINA — ordine POR→DIF→CEN→ATT→CB ──────────────
-  const ROLE_ORDER = { POR:0, DIF:1, CEN:2, ATT:3, CB:4 };
-  const benchSorted = [...ms.bench].sort((a, b) => {
-    const pa = ms.myRoster[a], pb = ms.myRoster[b];
-    const ra = pa ? (ROLE_ORDER[pa.role]??5) : 9;
-    const rb = pb ? (ROLE_ORDER[pb.role]??5) : 9;
-    return ra !== rb ? ra - rb : (pb?.overall||0) - (pa?.overall||0);
-  });
+  // ── PANCHINA ──────────────────────────────
+  let benchHtml = benchTableHeader;
+  const benchSorted = [...ms.bench].sort((a, b) =>
+    (ms.shirtNumbers[a] || 99) - (ms.shirtNumbers[b] || 99)
+  );
 
-  let benchHtml = hdr;
   benchSorted.forEach(pi => {
-    const selCls  = (_subSelBench === pi) ? 'sel-bench' : '';
-    const animCls = (withAnim && _subSelBench === null) ? 'swap-anim-down' : '';
-    benchHtml += playerRow(pi, null, true, selCls, animCls);
+    const p     = ms.myRoster[pi]; if (!p) return;
+    const shirt = ms.shirtNumbers[pi] || '—';
+    const isExp = ms.expelled.has(pi);
+    const bGoals   = ms.matchGoals   && ms.matchGoals[pi]   || 0;
+    const bAssists = ms.matchAssists && ms.matchAssists[pi] || 0;
+    const bHandCol = p.hand === 'L' ? '#80c0ff' : p.hand === 'AMB' ? 'var(--green)' : 'var(--muted)';
+    // Voto panchina: se ha già giocato lo calcoliamo, altrimenti '-'
+    const bHasPlayed = ms.matchDuels && ms.matchDuels[pi] !== undefined;
+    const bRating    = bHasPlayed && typeof calcPlayerRating === 'function' ? calcPlayerRating(pi, ms) : null;
+    const bRatingCol = bRating ? (bRating >= 7.5 ? 'var(--green)' : bRating >= 6.5 ? 'var(--gold)' : bRating >= 5.5 ? 'var(--muted)' : 'var(--red)') : 'var(--muted)';
+    benchHtml += `
+      <div style="display:grid;grid-template-columns:${COL_BENCH};
+                  gap:3px;align-items:center;padding:5px 4px;
+                  border-bottom:1px solid rgba(30,58,92,.35);
+                  opacity:${isExp ? '.35' : '1'};
+                  ${isExp ? 'text-decoration:line-through' : ''}">
+        <div style="font-weight:700;color:var(--muted);font-size:11px">#${shirt}</div>
+        <div style="font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+          ${_shortPlayerName(p)}
+        </div>
+        <div style="font-size:12px;font-weight:800;color:${bRatingCol};text-align:center">${bRating !== null ? bRating.toFixed(1) : '—'}</div>
+        <div style="font-size:10px;font-weight:600;color:var(--muted);text-align:center">${p.role}</div>
+        <div style="font-size:10px;font-weight:600;color:${bHandCol};text-align:center">${p.hand}</div>
+        <div>${staminaCell(pi)}</div>
+        <div>${expDots(pi)}</div>
+        <div style="font-size:11px;font-weight:700;color:${bGoals>0?'var(--blue)':'var(--muted)'};text-align:center">${bGoals > 0 ? bGoals : '—'}</div>
+        <div style="font-size:11px;font-weight:700;color:${bAssists>0?'var(--green)':'var(--muted)'};text-align:center">${bAssists > 0 ? bAssists : '—'}</div>
+        <div style="font-size:11px;font-weight:600;color:var(--muted)">${p.overall}</div>
+      </div>`;
   });
-  document.getElementById('bench-players').innerHTML =
-    benchSorted.length ? benchHtml : '<div style="color:var(--muted);font-size:12px;padding:8px">Panchina vuota</div>';
+  document.getElementById('bench-players').innerHTML = benchHtml || '<div style="color:var(--muted);font-size:12px;padding:8px">Panchina vuota</div>';
 }
 // ── Controlli partita ─────────────────────────
 function togglePlay() {
   const ms = G.ms; if (!ms || ms.finished) return;
   ms.running = !ms.running;
   document.getElementById('btn-play').textContent = ms.running ? '⏸ Pausa' : '▶ Avvia';
-  if (ms.running) { _subSelField = null; _subSelBench = null; _updateSwapButton(); }
   _lastFrameT = null;
 
   // Se stiamo avviando e il canvas è in fase 'idle' (kickoff),
@@ -825,10 +744,6 @@ function skipPeriod() {
   let simTime = 0;
 
   _appendLog('⏩ Simulazione fine ' + ms.period + '° tempo...', '');
-
-  // Registra i giocatori attualmente in campo come "hanno giocato"
-  if (!ms._everOnField) ms._everOnField = new Set();
-  Object.values(ms.onField).forEach(function(pi) { ms._everOnField.add(pi); });
 
   while (simTime < secsLeft) {
     // Avanza la stamina per questo chunk di tempo
@@ -888,18 +803,18 @@ function skipPeriod() {
 // Apre il pannello e mette in pausa la partita
 function openSub() {
   const ms = G.ms; if (!ms || ms.finished) return;
-  // Metti in pausa e reset selezione inline
+  // Metti in pausa
   if (ms.running) {
     ms.running = false;
     document.getElementById('btn-play').textContent = '▶ Avvia';
-    _lastFrameT = null;
   }
-  _subSelField = null; _subSelBench = null;
-  _updateSwapButton();
-  renderFieldLists();
+  ms.subOut = null; ms.subIn = null;
+  document.getElementById('sub-panel').style.display = 'block';
+  document.getElementById('btn-confirm-sub').disabled = true;
+  _renderSubLists();
 }
 function closeSub() {
-  // sub-panel rimosso — selezione ora inline
+  document.getElementById('sub-panel').style.display = 'none';
   if (G.ms) { G.ms.subOut = null; G.ms.subIn = null; }
 }
 
@@ -1054,15 +969,15 @@ function showMatchPlayerInfo(pi) {
 
 function selSubOut(pk) {
   if (!G.ms || G.ms.expelled.has(G.ms.onField[pk])) return;
-  selFieldRow(pk);
+  G.ms.subOut = pk; _checkSubReady(); _renderSubLists();
 }
 function selSubIn(pi) {
   if (!G.ms || G.ms.expelled.has(pi)) return;
-  selBenchRow(pi);
+  G.ms.subIn = pi; _checkSubReady(); _renderSubLists();
 }
 function _checkSubReady() {
   const ready = G.ms && G.ms.subOut !== null && G.ms.subIn !== null;
-  // btn-confirm-sub rimosso — usa btn-swap-sub inline
+  document.getElementById('btn-confirm-sub').disabled = !ready;
 }
 
 function confirmSub() {
@@ -1366,8 +1281,7 @@ function _doEndMatch() {
       }
     });
     simulateRound(G.schedule, G.stand, G.teams, ms.match.round, G.myId, G.rosters);
-    _subSelField = null; _subSelBench = null;
-  G.ms = null;
+    G.ms = null;
     showScreen('sc-game'); updateHeader(); showTab('dash');
   }
   autoSave();
