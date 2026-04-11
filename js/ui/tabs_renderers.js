@@ -903,53 +903,105 @@ function renderRosa() {
   // Sparkline dai voti
   function sparkline(ratings) {
     var all = ratings || [];
+    // all può contenere null (non convocato/non giocato) o numeri (voto)
+    if (all.length === 0) return '<span style="color:rgba(255,255,255,.2);font-size:10px;letter-spacing:2px">· · · ·</span>';
+
     var pts = all.filter(function(r) { return r !== null; });
     if (pts.length === 0) return '<span style="color:rgba(255,255,255,.2);font-size:10px;letter-spacing:2px">· · · ·</span>';
 
     // Con un solo voto mostriamo solo il numero colorato
-    if (pts.length === 1) {
-      var v = pts[0];
-      var sc = v >= 7.5 ? '#2ecc71' : v >= 6.5 ? '#f0c040' : v >= 5.5 ? '#7a9bb5' : '#e74c3c';
-      return '<span style="font-size:12px;font-weight:800;color:' + sc + '">' + v.toFixed(1) + '</span>';
+    if (all.length === 1 && pts.length === 1) {
+      var v0 = pts[0];
+      var sc0 = v0 >= 7.5 ? '#2ecc71' : v0 >= 6.5 ? '#f0c040' : v0 >= 5.5 ? '#7a9bb5' : '#e74c3c';
+      return '<span style="font-size:12px;font-weight:800;color:' + sc0 + '">' + v0.toFixed(1) + '</span>';
     }
 
     var W = 72, H = 28, padX = 4, padY = 6;
+    // Scala basata solo sui voti reali
     var mn = Math.min.apply(null, pts), mx = Math.max.apply(null, pts), rng = mx - mn || 0.1;
-    var xs = pts.map(function(_, j) { return padX + j * (W - padX*2) / (pts.length - 1); });
-    var ys = pts.map(function(v)    { return H - padY - (v - mn) / rng * (H - padY*2); });
-    var poly = xs.map(function(x, j) { return x.toFixed(1) + ',' + ys[j].toFixed(1); }).join(' ');
+    // Posizione X uniforme su tutte le partite (inclusi null)
+    var N = all.length;
+    var xFor = function(j) { return padX + j * (W - padX*2) / Math.max(1, N - 1); };
+    var yFor = function(v) { return H - padY - (v - mn) / rng * (H - padY*2); };
+
     var last = pts[pts.length - 1];
     var col  = last >= 7.5 ? '#2ecc71' : last >= 6.5 ? '#f0c040' : last >= 5.5 ? '#7a9bb5' : '#e74c3c';
 
     var svg = '<svg width="' + W + '" height="' + H + '" style="overflow:visible;display:block;cursor:default">';
 
-    // Area fill sotto la linea
-    var areaD = 'M' + xs[0].toFixed(1) + ',' + ys[0].toFixed(1);
-    xs.forEach(function(x, j) { if (j > 0) areaD += ' L' + x.toFixed(1) + ',' + ys[j].toFixed(1); });
-    areaD += ' L' + xs[xs.length-1].toFixed(1) + ',' + (H-padY+2) + ' L' + xs[0].toFixed(1) + ',' + (H-padY+2) + ' Z';
-    svg += '<path d="' + areaD + '" fill="' + col + '" opacity=".12"/>';
+    // Costruisce segmenti di linea spezzati: salta i null
+    // Ogni segmento connette voti consecutivi non-null
+    var segStart = null;
+    var segPoints = [];
+    all.forEach(function(v, j) {
+      var x = xFor(j);
+      if (v !== null) {
+        var y = yFor(v);
+        segPoints.push({ x: x, y: y, v: v });
+        if (segStart === null) segStart = segPoints.length - 1;
+      } else {
+        // Null: chiudi il segmento corrente se ha almeno 2 punti
+        segStart = null;
+      }
+    });
 
-    // Linea
-    svg += '<polyline points="' + poly + '" fill="none" stroke="' + col + '" stroke-width="1.8"'
-      + ' stroke-linejoin="round" stroke-linecap="round"/>';
+    // Ridisegna i segmenti in modo corretto: linee tra punti consecutivi non-null
+    var lineSegs = []; // array di array di punti connessi
+    var currentSeg = [];
+    all.forEach(function(v, j) {
+      if (v !== null) {
+        currentSeg.push({ x: xFor(j), y: yFor(v), v: v, j: j });
+      } else {
+        if (currentSeg.length > 0) { lineSegs.push(currentSeg); currentSeg = []; }
+      }
+    });
+    if (currentSeg.length > 0) lineSegs.push(currentSeg);
 
-    // Punto + etichetta per ogni voto
-    pts.forEach(function(v, j) {
-      var cx = xs[j].toFixed(1), cy = ys[j].toFixed(1);
-      var pc = v >= 7.5 ? '#2ecc71' : v >= 6.5 ? '#f0c040' : v >= 5.5 ? '#7a9bb5' : '#e74c3c';
-      var isLast = j === pts.length - 1;
-      var r = isLast ? 3 : 2;
-      // Etichetta: posizionata sopra/sotto il punto per non sovrapporsi alla linea
-      var labelY = ys[j] - 5; // default sopra
-      if (labelY < 2) labelY = ys[j] + 10; // se troppo in alto, metti sotto
-      svg += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="' + pc + '"'
-        + (isLast ? ' style="filter:drop-shadow(0 0 3px ' + pc + ')"' : '')
-        + '><title>Voto: ' + v.toFixed(1) + '</title></circle>';
-      // Etichetta testo sopra/sotto il punto
-      svg += '<text x="' + cx + '" y="' + labelY.toFixed(1) + '"'
-        + ' text-anchor="middle" font-size="7" font-weight="700" fill="' + pc + '"'
-        + ' style="pointer-events:none;text-shadow:0 0 3px rgba(0,0,0,.8)">'
-        + v.toFixed(1) + '</text>';
+    // Area fill: solo per l'ultimo segmento (quello più recente)
+    if (lineSegs.length > 0) {
+      var lastSeg = lineSegs[lineSegs.length - 1];
+      if (lastSeg.length >= 2) {
+        var areaD = 'M' + lastSeg[0].x.toFixed(1) + ',' + lastSeg[0].y.toFixed(1);
+        lastSeg.forEach(function(pt, k) { if (k > 0) areaD += ' L' + pt.x.toFixed(1) + ',' + pt.y.toFixed(1); });
+        areaD += ' L' + lastSeg[lastSeg.length-1].x.toFixed(1) + ',' + (H-padY+2)
+               + ' L' + lastSeg[0].x.toFixed(1) + ',' + (H-padY+2) + ' Z';
+        svg += '<path d="' + areaD + '" fill="' + col + '" opacity=".12"/>';
+      }
+    }
+
+    // Linee per ogni segmento continuo
+    lineSegs.forEach(function(seg) {
+      if (seg.length < 2) return;
+      var poly = seg.map(function(pt) { return pt.x.toFixed(1) + ',' + pt.y.toFixed(1); }).join(' ');
+      svg += '<polyline points="' + poly + '" fill="none" stroke="' + col + '" stroke-width="1.8"'
+        + ' stroke-linejoin="round" stroke-linecap="round"/>';
+    });
+
+    // Punti per tutte le partite
+    all.forEach(function(v, j) {
+      var cx = xFor(j);
+      var isLast = j === all.length - 1;
+      if (v !== null) {
+        // Punto voto reale
+        var cy = yFor(v);
+        var pc = v >= 7.5 ? '#2ecc71' : v >= 6.5 ? '#f0c040' : v >= 5.5 ? '#7a9bb5' : '#e74c3c';
+        var r  = isLast ? 3 : 2;
+        var labelY = cy - 5;
+        if (labelY < 2) labelY = cy + 10;
+        svg += '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r + '" fill="' + pc + '"'
+          + (isLast ? ' style="filter:drop-shadow(0 0 3px ' + pc + ')"' : '')
+          + '><title>Voto: ' + v.toFixed(1) + '</title></circle>';
+        svg += '<text x="' + cx.toFixed(1) + '" y="' + labelY.toFixed(1) + '"'
+          + ' text-anchor="middle" font-size="7" font-weight="700" fill="' + pc + '"'
+          + ' style="pointer-events:none;text-shadow:0 0 3px rgba(0,0,0,.8)">'
+          + v.toFixed(1) + '</text>';
+      } else {
+        // Punto null: piccolo trattino grigio a metà altezza, con tooltip
+        var midY = (H / 2).toFixed(1);
+        svg += '<line x1="' + (cx-2).toFixed(1) + '" y1="' + midY + '" x2="' + (cx+2).toFixed(1) + '" y2="' + midY + '"'
+          + ' stroke="rgba(255,255,255,.2)" stroke-width="1.5" stroke-linecap="round">'
+          + '<title>Non convocato</title></line>';
+      }
     });
 
     svg += '</svg>';
