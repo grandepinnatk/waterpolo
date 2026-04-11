@@ -161,6 +161,8 @@ function _migratePayload(p) {
     Object.values(p.rosters).forEach(function(roster) {
       (roster || []).forEach(function(pl) {
         if (pl && pl.contractYears === undefined) pl.contractYears = Math.floor(Math.random() * 3) + 1;
+        // Resetta sempre il flag nazionale al caricamento: viene riassegnato da simNextRound
+        if (pl) { pl._national = false; pl._nationalNat = undefined; }
       });
     });
   } // stelle: default 5 per salvataggi vecchi
