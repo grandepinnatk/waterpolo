@@ -833,7 +833,13 @@ function simPOMatch(type, idx) {
 function simPLMatch(key) {
   const plb = G.plBracket;
   const m   = plb[key];
-  if (!m.home) m.home = plb.m1.winner;
+  // m2.home = perdente di m1 (chi va alla finale di salvezza)
+  if (!m.home) {
+    const m1w = plb.m1.winner;
+    if (m1w) {
+      m.home = (plb.m1.home === m1w) ? plb.m1.away : plb.m1.home; // perdente
+    }
+  }
   const hT   = G.teams.find(t => t.id === m.home);
   const aT   = G.teams.find(t => t.id === m.away);
   const sc  = simulateResult(hT, aT, 0, G.rosters);
@@ -897,7 +903,13 @@ function startPOMatch(type, idx) {
   let m;
   if (type === 'sf')    m = pb.sf[idx];
   else if (type === 'final') m = pb.final;
-  else { m = plb[idx]; if (!m.home) m.home = plb.m1.winner; }
+  else {
+    m = plb[idx];
+    if (!m.home) {
+      const m1w = plb.m1.winner;
+      if (m1w) m.home = (plb.m1.home === m1w) ? plb.m1.away : plb.m1.home; // perdente di m1
+    }
+  }
 
   const ih  = m.home === G.myId;
   const opp = G.teams.find(t => t.id === (ih ? m.away : m.home));
@@ -2285,9 +2297,11 @@ function _clearNationalCalls() {
 
 // Seleziona i migliori giocatori per la nazionale
 function _processNationalCalls(round) {
-  if (!NATIONAL_ROUNDS.includes(round)) return;
-
+  // Resetta sempre il flag della chiamata precedente (qualunque giornata)
+  // I giocatori convocati nella giornata nazionale precedente tornano disponibili
   _clearNationalCalls();
+
+  if (!NATIONAL_ROUNDS.includes(round)) return;
 
   const allPlayers = []; // { p, teamId, rosterIdx }
   Object.entries(G.rosters).forEach(([teamId, roster]) => {
@@ -2307,6 +2321,7 @@ function _processNationalCalls(round) {
     pool.forEach(({ p, teamId }) => {
       p._national    = true;
       p._nationalNat = 'ITA';
+      p.nationalCaps = (p.nationalCaps || 0) + 1;
       if (teamId === G.myId) myCalledNames.push({ name: p.name, role: p.role, nat: 'ITA', ita: true });
     });
   });
@@ -2320,6 +2335,7 @@ function _processNationalCalls(round) {
     if (best) {
       best.p._national    = true;
       best.p._nationalNat = nat;
+      best.p.nationalCaps = (best.p.nationalCaps || 0) + 1;
       if (best.teamId === G.myId) myCalledNames.push({ name: best.p.name, role: best.p.role, nat, ita: false });
     }
   });

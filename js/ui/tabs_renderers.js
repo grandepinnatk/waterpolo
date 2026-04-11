@@ -194,6 +194,7 @@ function showAnyPlayerPopup(playerName, teamId) {
         <div class="irow" style="margin:0"><span class="ilbl">Morale</span><span>${p.morale||0}%</span></div>
         <div class="irow" style="margin:0"><span class="ilbl">Gol / Ass.</span><span>${p.goals||0} / ${p.assists||0}</span></div>
         <div class="irow" style="margin:0"><span class="ilbl">Ingaggio</span><span style="color:var(--gold)">${formatMoney(p.salary||0)}</span></div>
+        ${(p.nationalCaps||0)>0 ? '<div class="irow" style="margin:0"><span class="ilbl">Naz.</span><span style="color:#1565c0;font-weight:700">'+(p.nationalCaps||0)+' caps ' + ({'ITA':'🇮🇹','CRO':'🇭🇷','SRB':'🇷🇸','HUN':'🇭🇺','GRE':'🇬🇷','MNE':'🇲🇪','ESP':'🇪🇸'}[p._nationalNat]||'🏳')+'</span></div>' : ''}
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;font-size:11px">
         ${['att','def','spe','str','tec','res'].map(k=>`
@@ -1196,6 +1197,8 @@ function showPlayerModal(i) {
         <div class="irow" style="margin:0"><span class="ilbl">Forma</span><span style="color:${p.fitness>70?'var(--green)':'var(--gold)'}">${p.fitness}%</span></div>
         <div class="irow" style="margin:0"><span class="ilbl">Morale</span><span>${p.morale}%</span></div>
         <div class="irow" style="margin:0"><span class="ilbl">Gol / Assist</span><span>${p.goals} / ${p.assists}</span></div>
+      ${(p.nationalCaps||0)>0 ? '<div class="irow"><span class="ilbl">Naz.</span><span style="color:#1565c0;font-weight:700">'+(p.nationalCaps||0)+' caps ' + ({'ITA':'🇮🇹','CRO':'🇭🇷','SRB':'🇷🇸','HUN':'🇭🇺','GRE':'🇬🇷','MNE':'🇲🇪','ESP':'🇪🇸'}[p._nationalNat]||'🏳')+'</span></div>' : ''}
+        ${(p.nationalCaps||0)>0 ? '<div class="irow" style="margin:0"><span class="ilbl">Naz.</span><span style="color:#1565c0;font-weight:700">'+(p.nationalCaps||0)+' caps ' + ({'ITA':'🇮🇹','CRO':'🇭🇷','SRB':'🇷🇸','HUN':'🇭🇺','GRE':'🇬🇷','MNE':'🇲🇪','ESP':'🇪🇸'}[p._nationalNat]||'🏳')+'</span></div>' : ''}
         <div class="irow" style="margin:0"><span class="ilbl">Contratto</span>
           <span style="font-weight:700;color:${isExpiring?'#7b2fbe':'var(--text)'}">
             ${cy} ${cy===1?'anno':'anni'}${isExpiring?' ⚠️':''}
@@ -2168,7 +2171,10 @@ function _buildPOScorers(details, homeId, awayId) {
     else
       h += '<button class="btn" onclick="simPLMatch(\'m1\')">Simula PL1</button>';
   } else if (plb.m1.winner && !plb.m2.winner) {
-    if (!plb.m2.home) plb.m2.home = plb.m1.winner;
+    // m2.home = perdente di m1 (chi va alla finale salvezza), NON il vincitore
+    if (!plb.m2.home && plb.m1.winner) {
+      plb.m2.home = (plb.m1.home === plb.m1.winner) ? plb.m1.away : plb.m1.home;
+    }
     if (plb.m2.home === G.myId || plb.m2.away === G.myId)
       h += '<button class="btn danger" onclick="startPOMatch(\'pl\',\'m2\')">▶ Gioca Play-out Finale</button>';
     else
