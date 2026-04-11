@@ -452,6 +452,9 @@ function simNextRound() {
   console.log('[SIM] ✓ Fine giornata | Budget: ' + G.budget + ' | Stelle: ' + G.stars);
   console.groupEnd();
   updateHeader(); autoSave(); renderDash();
+  // Resetta i badge nazionali subito dopo il render — il badge compariva solo
+  // durante la giornata di convocazione, ora scompare dalla dashboard
+  _clearNationalCalls();
   // Popup convocazione nazionale
   if (G._pendingNationalPopup && G._pendingNationalPopup.length > 0) {
     const _toShow = G._pendingNationalPopup;
@@ -1791,15 +1794,7 @@ function updateMoraleAfterMatch(ms) {
   }
 }
 
-// ── Hook: genera offerte dopo ogni giornata ───
-// Sovrascriviamo simNextRound e il hook di endMatch
-const _origSimNextRound = simNextRound;
-simNextRound = function() {
-  _origSimNextRound();
-  generateTransferOffers();
-  refreshMarketPool();
-  if (G.transferList && G.transferList.length) renderDash();
-};
+// generateTransferOffers è già chiamata dentro simNextRound — nessun wrapper necessario
 
 // ═══════════════════════════════════════════════════════
 // CALCOLO INGAGGIO RINNOVO

@@ -195,9 +195,9 @@ function renderPlayerSelList() {
       'display:grid', 'grid-template-columns:34px 1fr 76px 38px 22px',
       'gap:4px', 'align-items:center', 'padding:5px 6px',
       'border-radius:8px', 'margin-bottom:3px', 'transition:all .12s',
-      'border:1.5px solid ' + (p.injured ? 'rgba(192,57,43,.3)' : isSel ? 'var(--blue)' : usedPk ? '#185FA5' : isConv ? 'rgba(255,255,255,.1)' : 'transparent'),
-      'background:' + (p.injured ? 'rgba(192,57,43,.06)' : isSel ? 'rgba(0,194,255,.12)' : usedPk ? 'rgba(24,95,165,.15)' : isConv ? 'rgba(255,255,255,.04)' : 'transparent'),
-      'cursor:' + (p.injured ? 'not-allowed' : usedPk || isConv ? 'grab' : 'pointer'),
+      'border:1.5px solid ' + (p.injured ? 'rgba(192,57,43,.3)' : p._national ? 'rgba(21,101,192,.25)' : isSel ? 'var(--blue)' : usedPk ? '#185FA5' : isConv ? 'rgba(255,255,255,.1)' : 'transparent'),
+      'background:' + (p.injured ? 'rgba(192,57,43,.06)' : p._national ? 'rgba(21,101,192,.06)' : isSel ? 'rgba(0,194,255,.12)' : usedPk ? 'rgba(24,95,165,.15)' : isConv ? 'rgba(255,255,255,.04)' : 'transparent'),
+      'cursor:' + ((p.injured || p._national) ? 'not-allowed' : usedPk || isConv ? 'grab' : 'pointer'),
     ].join(';');
 
     // Cella numero maglia
@@ -261,7 +261,7 @@ function renderPlayerSelList() {
     row.appendChild(infoCell);
 
     // Click per selezionare / aggiungere ai convocati
-    row.onclick = () => selectPlayerLu(i);
+    row.onclick = () => { if (!p.injured && !p._national) selectPlayerLu(i); };
 
     // Doppio click: rimuovi dai convocati
     row.ondblclick = e => {
@@ -318,7 +318,7 @@ function selectPos(pk) {
 function selectPlayerLu(i) {
   const roster = G.rosters[G.myId];
   // Non si possono convocare/schierare giocatori infortunati
-  if (roster && roster[i] && roster[i].injured) return;
+  if (roster && roster[i] && (roster[i].injured || roster[i]._national)) return;
   if (luState.selectedPlayer === i) {
     luState.selectedPlayer = null;
   } else {
