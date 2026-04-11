@@ -119,15 +119,15 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
   // ── Costruisce la convocazione simulata (13 giocatori) ──────────────────
   // Regola: 2 POR (titolare + riserva) + 11 di campo selezionati per overall
   // Rispecchia il limite reale di convocazione in pallanuoto A1 (max 13).
-  const goalies  = roster.filter(p => p && p.role === 'POR' && !p.injured)
+  const goalies  = roster.filter(p => p && p.role === 'POR' && !p.injured && !p._national)
                          .sort((a, b) => b.overall - a.overall);
-  const field    = roster.filter(p => p && p.role !== 'POR' && !p.injured)
+  const field    = roster.filter(p => p && p.role !== 'POR' && !p.injured && !p._national)
                          .sort((a, b) => b.overall - a.overall);
 
   // Usa _buildSimSquad se disponibile per la selezione convocati
   let squad13;
   if (typeof _buildSimSquad === 'function') {
-    squad13 = _buildSimSquad(roster.filter(p => p && !p.injured));
+    squad13 = _buildSimSquad(roster.filter(p => p && !p.injured && !p._national));
   } else {
     const calledGK  = goalies.slice(0, 2);
     const calledFld = field.slice(0, 11);
@@ -204,7 +204,9 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
       const isRiserva  = posInSquad >= 7;
 
       // Riserva: 30% di probabilità di entrare a partita in corso
-      if (isRiserva && Math.random() > 0.30) {
+      // ECCEZIONE: se ha segnato o fatto assist è SICURAMENTE entrato → voto garantito
+      const hasContrib = !!(matchMap[p.name] && (matchMap[p.name].goals || matchMap[p.name].assists));
+      if (isRiserva && !hasContrib && Math.random() > 0.30) {
         p.lastRatings.push(null);
         if (p.lastRatings.length > 4) p.lastRatings.shift();
         return;
@@ -325,7 +327,7 @@ function simNextRound() {
       // Usa _buildSimSquad se disponibile (ruoli minimi + score composito)
       if (typeof _buildSimSquad === 'function') return _buildSimSquad(roster);
       // Fallback: POR + migliori per OVR
-      const available = roster.filter(p => p && !p.injured);
+      const available = roster.filter(p => p && !p.injured && !p._national);
       const gk  = available.filter(p => p.role === 'POR').sort((a,b) => b.overall - a.overall).slice(0, 2);
       const fld = available.filter(p => p.role !== 'POR').sort((a,b) => b.overall - a.overall).slice(0, 11);
       return [...gk, ...fld];

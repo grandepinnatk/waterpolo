@@ -1248,8 +1248,8 @@ function showPlayerModal(i) {
         <div class="irow" style="margin:0"><span class="ilbl">Stipendio</span><span style="font-size:12px">${formatMoney(p.salary)}/a</span></div>
         <div class="irow" style="margin:0"><span class="ilbl">Forma</span><span style="color:${p.fitness>70?'var(--green)':'var(--gold)'}">${p.fitness}%</span></div>
         <div class="irow" style="margin:0"><span class="ilbl">Morale</span><span>${p.morale}%</span></div>
-        <div class="irow" style="margin:0"><span class="ilbl">Gol / Assist</span><span>${p.goals} / ${p.assists}</span></div>
-      ${(p.nationalCaps||0)>0 ? '<div class="irow"><span class="ilbl">Naz.</span><span style="color:#1565c0;font-weight:700">'+(p.nationalCaps||0)+' caps ' + ({'ITA':'🇮🇹','CRO':'🇭🇷','SRB':'🇷🇸','HUN':'🇭🇺','GRE':'🇬🇷','MNE':'🇲🇪','ESP':'🇪🇸'}[p._nationalNat]||'🏳')+'</span></div>' : ''}
+        <div class="irow" style="margin:0"><span class="ilbl">Presenze</span><span style="font-weight:700">${p.careerApps||0}</span></div>
+        <div class="irow" style="margin:0"><span class="ilbl">Gol / Assist</span><span>${p.goals||0} / ${p.assists||0}</span></div>
         ${(p.nationalCaps||0)>0 ? '<div class="irow" style="margin:0"><span class="ilbl">Naz.</span><span style="color:#1565c0;font-weight:700">'+(p.nationalCaps||0)+' caps ' + ({'ITA':'🇮🇹','CRO':'🇭🇷','SRB':'🇷🇸','HUN':'🇭🇺','GRE':'🇬🇷','MNE':'🇲🇪','ESP':'🇪🇸'}[p._nationalNat]||'🏳')+'</span></div>' : ''}
         <div class="irow" style="margin:0"><span class="ilbl">Contratto</span>
           <span style="font-weight:700;color:${isExpiring?'#7b2fbe':'var(--text)'}">

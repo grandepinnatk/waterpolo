@@ -22,7 +22,7 @@ function _playerScore(p) {
 // I restanti slot (max 13 totali) vengono riempiti dai migliori disponibili per score.
 function _buildSimSquad(roster) {
   if (!roster || !roster.length) return [];
-  const avail = roster.filter(p => p && !p.injured);
+  const avail = roster.filter(p => p && !p.injured && !p._national);
   if (!avail.length) return [];
 
   // Raggruppa per ruolo primario, con fallback secondRole
