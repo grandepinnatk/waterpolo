@@ -1827,7 +1827,7 @@ function renewContractWithBonus(rosterIdx, years) {
 
   // Segna proposta pendente
   p._renewalPending = { years: years, salary: newSalary, bonus: bonus, round: typeof currentRound === 'function' ? currentRound() : 0 };
-  p._justRenewed = true;  // nasconde badge scadenza durante l'attesa risposta
+  p._justRenewed = false;  // non nascondere SCAD — verrà mostrato 📨 da _scadBadge
   G.msgs.push('📨 Proposta di rinnovo inviata a ' + p.name + ' — ' +
     years + ' ann' + (years===1?'o':'i') + ' · ' + formatMoney(newSalary) + '/anno · bonus firma ' + formatMoney(bonus) + ' pagato. ' +
     'Il giocatore risponderà alla prossima giornata.');
@@ -1853,6 +1853,7 @@ function renewContract(rosterIdx, years, popupEl) {
 
   const newSalary = _calcRenewalSalary(p);
   // Segna proposta pendente — nessun confirm(), risposta alla giornata successiva
+  p._justRenewed = false;  // non nascondere SCAD — verrà mostrato 📨 da _scadBadge
   p._renewalPending = { years: years, salary: newSalary, round: typeof currentRound === 'function' ? currentRound() : 0 };
   G.msgs.push('📨 Proposta di rinnovo inviata a ' + p.name + ' — ' +
     years + ' ann' + (years===1?'o':'i') + ' · ' + formatMoney(newSalary) + '/anno. ' +
@@ -1918,6 +1919,7 @@ function _processRenewalResponses() {
         offer.years + ' ann' + (offer.years===1?'o':'i') + ' a ' + formatMoney(offer.salary) + '/anno. Il giocatore è soddisfatto.');
     } else {
       p._renewalPending = null;
+      p._justRenewed = false;  // ripristina badge SCAD dopo il rifiuto
       // Motivo principale del rifiuto
       const ambition   = p.ambition !== undefined ? p.ambition : 50;
       const tierScore  = { S: 100, A: 75, B: 45, C: 20 }[G.myTeam.tier || 'B'] || 50;
