@@ -409,11 +409,17 @@ function simNextRound() {
   generateTransferOffers();
   _updateStarsBox();
   updateHeader(); autoSave(); renderDash();
-  // Popup convocazione nazionale (se presenti giocatori della mia squadra)
+  // Popup convocazione nazionale
   if (G._pendingNationalPopup && G._pendingNationalPopup.length > 0) {
     const _toShow = G._pendingNationalPopup;
     G._pendingNationalPopup = null;
     setTimeout(() => _showNationalPopup(_toShow), 300);
+  }
+  // Popup offerte di mercato (sequenziali)
+  if (G._pendingOfferPopups && G._pendingOfferPopups.length > 0) {
+    const _offers = G._pendingOfferPopups;
+    G._pendingOfferPopups = [];
+    setTimeout(() => _showOfferPopupQueue(_offers, 0), 500);
   }
 }
 
@@ -1611,6 +1617,16 @@ function generateTransferOffers() {
       ? `(${pct}% del prezzo richiesto ✓)`
       : `(${pct}% del prezzo richiesto)`;
     G.msgs.push(`💼 ${buyer.name} offre ${formatMoney(offer)} per ${p.name} ${vs}`);
+    // Accumula per popup dedicato
+    if (!G._pendingOfferPopups) G._pendingOfferPopups = [];
+    G._pendingOfferPopups.push({
+      buyerName: buyer.name,
+      playerName: p.name,
+      amount: offer,
+      askingPrice: entry.askingPrice,
+      pct: Math.round((offer / entry.askingPrice) * 100),
+      meetsPrice: offer >= entry.askingPrice,
+    });
   });
 }
 
@@ -2423,4 +2439,85 @@ function _showNationalPopup(called) {
     }
     drawConfetti();
   }, 100);
+}
+
+// ═══════════════════════════════════════════════════════
+// POPUP OFFERTE DI MERCATO
+// ═══════════════════════════════════════════════════════
+
+function _showOfferPopupQueue(offers, idx) {
+  if (!offers || idx >= offers.length) return;
+  const o = offers[idx];
+  const isGood = o.meetsPrice;
+
+  const ov = document.createElement('div');
+  ov.id = 'offer-popup-' + idx;
+  ov.style.cssText = [
+    'position:fixed;inset:0;background:rgba(20,24,40,.80)',
+    'display:flex;align-items:center;justify-content:center',
+    'z-index:9998;backdrop-filter:blur(3px)',
+    'animation:offerOverlayIn .2s ease-out',
+  ].join(';');
+
+  const pctColor = isGood ? '#2ecc71' : o.pct >= 80 ? '#f0c040' : 'var(--muted)';
+  const pctIcon  = isGood ? '✅' : o.pct >= 80 ? '⚠️' : '💼';
+
+  ov.innerHTML = `
+    <div id="offer-card-${idx}" style="
+      background:var(--panel);
+      border:1px solid ${isGood ? 'rgba(46,204,113,.4)' : 'rgba(255,255,255,.1)'};
+      border-radius:16px;padding:24px 28px;
+      max-width:360px;width:92%;
+      text-align:center;
+      animation:offerBounceIn .45s cubic-bezier(.34,1.56,.64,1) both;
+      box-shadow:0 8px 40px rgba(0,0,0,.5)">
+      <div style="font-size:32px;margin-bottom:10px">${pctIcon}</div>
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Offerta di mercato</div>
+      <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:4px">${o.playerName}</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:16px">${o.buyerName}</div>
+      <div style="background:rgba(255,255,255,.05);border-radius:10px;padding:14px;margin-bottom:16px">
+        <div style="font-size:26px;font-weight:800;color:var(--blue);margin-bottom:4px">${formatMoney(o.amount)}</div>
+        <div style="font-size:12px;color:${pctColor};font-weight:600">
+          ${o.pct}% del prezzo richiesto${isGood ? ' — Offerta accettabile ✓' : ''}
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:18px">
+        Vai al <strong>Mercato → Lista Trasferimenti</strong> per accettare o rifiutare.
+      </div>
+      <button onclick="_closeOfferPopup(${JSON.stringify(offers).replace(/"/g,'&quot;')},${idx+1})"
+        style="width:100%;padding:11px;background:var(--blue);border:none;border-radius:8px;
+               color:#fff;font-weight:700;font-size:14px;cursor:pointer;
+               transition:background .15s"
+        onmouseover="this.style.background='#0080cc'"
+        onmouseout="this.style.background='var(--blue)'">
+        OK
+      </button>
+    </div>
+    <style id="offer-popup-style">
+      @keyframes offerOverlayIn  { from{opacity:0} to{opacity:1} }
+      @keyframes offerBounceIn   {
+        0%   { transform:scale(.5) translateY(40px); opacity:0; }
+        60%  { transform:scale(1.06) translateY(-6px); opacity:1; }
+        80%  { transform:scale(.97) translateY(2px); }
+        100% { transform:scale(1) translateY(0); opacity:1; }
+      }
+    </style>`;
+
+  document.body.appendChild(ov);
+}
+
+function _closeOfferPopup(offers, nextIdx) {
+  // Rimuovi popup corrente con fade-out
+  const cur = document.getElementById('offer-popup-' + (nextIdx - 1));
+  if (cur) {
+    cur.style.transition = 'opacity .2s';
+    cur.style.opacity = '0';
+    setTimeout(() => {
+      if (cur.parentNode) cur.parentNode.removeChild(cur);
+      // Mostra il prossimo dopo una pausa
+      setTimeout(() => _showOfferPopupQueue(offers, nextIdx), 120);
+    }, 200);
+  } else {
+    setTimeout(() => _showOfferPopupQueue(offers, nextIdx), 120);
+  }
 }
