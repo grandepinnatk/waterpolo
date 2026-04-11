@@ -133,6 +133,7 @@ function createMatchState({ match, isHome, myTeam, oppTeam, myRoster, oppRoster,
     period: 1, totalSeconds: 0,
     running: false, finished: false,
     myShots: 0, oppShots: 0, mySaves: 0, myFouls: 0,
+    gkSaves: {},   // { rosterIndex: savesCount } — per ogni GK che ha parato
     tactic: 'balanced',
     actions: [],
     myRoster, oppRoster,
@@ -300,14 +301,17 @@ function calcPlayerRating(pi, ms) {
   const duels   = ms.matchDuels[pi]   || { won: 0, lost: 0 };
   const saves   = ms.mySaves          || 0;
 
-  if (isGK) {
-    // Portiere: parate alzano, gol subiti abbassano
+  if (isGK || ms.onField['GK'] === pi) {
+    // Portiere (o giocatore di movimento in porta): usa le parate specifiche di questo slot
+    const myGkSaves = (ms.gkSaves && ms.gkSaves[pi]) || 0;
     const goalsConceded = ms.oppScore || 0;
-    rating += saves        * 0.4;   // ogni parata +0.4
-    rating -= goalsConceded * 0.3;  // ogni gol subito -0.3
-    // Bonus clean sheet o quasi
-    if (goalsConceded === 0) rating += 1.0;
-    else if (goalsConceded <= 3) rating += 0.3;
+    rating += myGkSaves    * 0.4;   // parate di questo portiere +0.4 cad.
+    rating -= goalsConceded * 0.25; // gol subiti (divisi tra i portieri se ci sono stati cambi)
+    // Bonus clean sheet: solo se la partita è finita (ms.finished) o a fine periodo
+    if (ms.finished || ms.period > 1) {
+      if (goalsConceded === 0) rating += 0.8;
+      else if (goalsConceded <= 2) rating += 0.3;
+    }
   } else {
     // Giocatori di movimento
     rating += goals   * 1.5;
@@ -499,8 +503,15 @@ function generateMatchEvent(ms) {
       }
       return { txt: '⚽ ' + ms.oppTeam.name + ' segna! Gol subito' + (oppScorer ? ' (' + oppScorer + ')' : '') + '.', cls: 'og', ballTarget: { x: 0.04, y: 0.40 + rnd(0, 0.20) }, goalScored: true, goalTeam: 'opp', goalScorer: oppScorer || ms.oppTeam.abbr || ms.oppTeam.name };
     } else {
-      const myGk = ms.myRoster[ms.onField['GK']];
-      if (myGk) { ms.mySaves++; myGk.saves++; }
+      const myGkIdx = ms.onField['GK'];
+      const myGk = myGkIdx !== undefined ? ms.myRoster[myGkIdx] : null;
+      if (myGk) {
+        ms.mySaves++;
+        myGk.saves = (myGk.saves || 0) + 1;
+        // Traccia per portiere corrente (chiunque sia in porta, anche giocatore di movimento)
+        if (!ms.gkSaves) ms.gkSaves = {};
+        ms.gkSaves[myGkIdx] = (ms.gkSaves[myGkIdx] || 0) + 1;
+      }
       return {
         txt: 'Parata' + (myGk ? ' di ' + myGk.name : '') + '!',
         cls: 'sv', ballTarget: { x: 0.22, y: 0.38 + rnd(0, 0.24) },   // parata

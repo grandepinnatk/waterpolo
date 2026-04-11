@@ -70,4 +70,50 @@ function showScreen(id) {
     if (!el) return;
     el.style.display = s === id ? SCREEN_DISPLAY[s] : 'none';
   });
+  // Quando si torna alla lobby, ricarica gli slot con overlay di attesa
+  if (id === 'sc-welcome') {
+    _showSlotsLoadingOverlay();
+    setTimeout(function() {
+      if (typeof _buildSlotsPanel === 'function') _buildSlotsPanel();
+      if (typeof _buildTeamList   === 'function') _buildTeamList();
+      _hideSlotsLoadingOverlay();
+    }, 350); // breve delay per render animazione
+  }
+}
+
+function _showSlotsLoadingOverlay() {
+  var existing = document.getElementById('slots-loading-overlay');
+  if (existing) return;
+  var ov = document.createElement('div');
+  ov.id = 'slots-loading-overlay';
+  ov.style.cssText = [
+    'position:fixed;inset:0;background:rgba(10,20,40,.82)',
+    'display:flex;flex-direction:column;align-items:center;justify-content:center',
+    'z-index:9999;backdrop-filter:blur(4px)',
+    'transition:opacity .25s'
+  ].join(';');
+  ov.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;gap:18px">
+      <div style="position:relative;width:56px;height:56px">
+        <div style="position:absolute;inset:0;border-radius:50%;border:4px solid rgba(0,194,255,.15)"></div>
+        <div style="position:absolute;inset:0;border-radius:50%;border:4px solid transparent;
+             border-top-color:var(--blue);animation:slots-spin .9s linear infinite"></div>
+        <div style="position:absolute;inset:8px;display:flex;align-items:center;justify-content:center;font-size:22px">🤽</div>
+      </div>
+      <div style="font-size:14px;font-weight:700;color:rgba(255,255,255,.9);letter-spacing:.5px">
+        Caricamento lista salvataggi in corso…
+      </div>
+      <div style="font-size:12px;color:rgba(255,255,255,.4)">Attendere</div>
+    </div>
+    <style>
+      @keyframes slots-spin { to { transform:rotate(360deg); } }
+    </style>`;
+  document.body.appendChild(ov);
+}
+
+function _hideSlotsLoadingOverlay() {
+  var ov = document.getElementById('slots-loading-overlay');
+  if (!ov) return;
+  ov.style.opacity = '0';
+  setTimeout(function(){ if (ov.parentNode) ov.parentNode.removeChild(ov); }, 280);
 }

@@ -463,7 +463,6 @@
   <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:8px;padding:8px;background:var(--panel2);border-radius:10px;border:1px solid var(--border)">
     <button class="btn primary" id="btn-play" onclick="togglePlay()">▶ Avvia</button>
     <button class="btn" onclick="skipPeriod()">⏭ Fine Periodo</button>
-    <button class="btn warn" onclick="openSub()">↔ Cambio</button>
     <button class="btn danger" id="btn-end" onclick="endMatch()" style="display:none">Fine Partita</button>
     <div style="display:flex;gap:4px;align-items:center;margin-left:8px">
       <span style="font-size:11px;color:var(--muted)">Velocità:</span>
@@ -478,37 +477,26 @@
     </div>
   </div>
 
-  <!-- ── RIGA 4: in campo + panchina ── -->
-  <div class="g2" style="gap:8px;margin-bottom:8px">
-    <div class="card" style="padding:10px">
+  <!-- ── RIGA 4: in campo + panchina con cambio inline ── -->
+  <div style="position:relative;display:grid;grid-template-columns:1fr 44px 1fr;gap:0;margin-bottom:8px;align-items:start">
+    <!-- IN CAMPO -->
+    <div class="card" style="padding:10px;border-radius:10px 0 0 10px;border-right:none">
       <div class="slbl" style="margin-top:0;color:var(--blue)">In campo — <span id="my-team-lbl">—</span></div>
       <div id="field-players" style="font-size:12px"></div>
     </div>
-    <div class="card" style="padding:10px">
+    <!-- BOTTONE CAMBIO CENTRALE -->
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:36px;gap:6px">
+      <button id="btn-swap-sub" onclick="confirmSwap()" disabled
+        style="width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.2);
+               background:rgba(255,255,255,.06);color:rgba(255,255,255,.3);
+               font-size:18px;cursor:not-allowed;transition:all .2s;display:flex;align-items:center;justify-content:center"
+        title="Seleziona un giocatore da ogni lista per abilitare il cambio">⇄</button>
+      <div id="sub-status" style="font-size:9px;color:var(--muted);text-align:center;max-width:40px;line-height:1.2"></div>
+    </div>
+    <!-- PANCHINA -->
+    <div class="card" style="padding:10px;border-radius:0 10px 10px 0;border-left:none">
       <div class="slbl" style="margin-top:0;color:var(--muted)">Panchina</div>
       <div id="bench-players" style="font-size:12px"></div>
-    </div>
-  </div>
-
-  <!-- ── RIGA 5: pannello cambi (fondo pagina, visibile solo quando aperto) ── -->
-  <div id="sub-panel" style="display:none;border:1px solid var(--gold);border-radius:12px;padding:14px;background:rgba(240,192,64,.06);margin-top:4px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-      <div style="font-weight:700;color:var(--gold);font-size:14px">⏸ Partita in pausa — Effettua Cambio</div>
-      <button class="btn sm" onclick="closeSub()">✕ Chiudi</button>
-    </div>
-    <div class="g2" style="gap:10px">
-      <div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600">Esce dal campo</div>
-        <div id="sub-out-list"></div>
-      </div>
-      <div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:600">Entra in campo</div>
-        <div id="sub-in-list"></div>
-      </div>
-    </div>
-    <div style="margin-top:12px;display:flex;gap:8px">
-      <button class="btn success" onclick="confirmSub()" id="btn-confirm-sub" disabled>✓ Conferma Cambio</button>
-      <button class="btn" onclick="closeSub()">Annulla</button>
     </div>
   </div>
 
@@ -547,7 +535,7 @@
 
   <!-- Footer versione -->
   <div class="wp-version-footer" style="text-align:center;padding:10px 0 16px;font-size:11px;color:rgba(255,255,255,.2);user-select:none">
-    v0.6.18 beta
+    v0.6.19 beta
   </div>
 
   <!-- Firebase modules (type="module") — caricati dopo tutti gli script vanilla -->

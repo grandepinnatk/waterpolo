@@ -102,8 +102,10 @@ function _linkTeamNames(text) {
 
 
 // Badge SCAD — contratto in scadenza a fine stagione (contractYears <= 1)
+// Non mostra il badge se il contratto è stato appena rinnovato questa stagione
 function _scadBadge(p) {
   if (!p || (p.contractYears === undefined) || p.contractYears > 1) return '';
+  if (p._justRenewed) return '';  // rinnovato di recente, non è in scadenza
   if (p._renewalPending)
     return ' <span style="font-size:9px;background:#0a6a2a;color:#fff;font-weight:700;' +
            'padding:1px 4px;border-radius:3px;margin-left:3px" title="Proposta di rinnovo inviata">📨</span>';
@@ -1153,7 +1155,7 @@ function showPlayerModal(i) {
   const p   = G.rosters[G.myId][i];
   const rl  = { POR:'Portiere', DIF:'Difensore', CEN:'Centromediano', ATT:'Attaccante', CB:'Centroboa' };
   const cy  = p.contractYears !== undefined ? p.contractYears : 1;
-  const isExpiring = cy <= 1;
+  const isExpiring = cy <= 1 && !p._justRenewed;
   // Calcola ingaggio richiesto per rinnovo
   const renewSalary = _calcRenewalSalary(p);
 

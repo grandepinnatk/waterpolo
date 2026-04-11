@@ -1100,6 +1100,8 @@ function startNewSeason() {
       p.lastRatings = [];
       // Aging: invecchia di 1 anno (tutte le squadre)
       if (p.age !== undefined) p.age++;
+      // Reset flag rinnovo: la stagione è ricominciata
+      if (p._justRenewed) p._justRenewed = false;
       // Calo naturale over-30 (tutte le squadre)
       if ((p.age || 25) > 30 && Math.random() < 0.35) {
         p.overall = Math.max(48, p.overall - 1);
@@ -1821,6 +1823,7 @@ function renewContractWithBonus(rosterIdx, years) {
 
   // Segna proposta pendente
   p._renewalPending = { years: years, salary: newSalary, bonus: bonus, round: typeof currentRound === 'function' ? currentRound() : 0 };
+  p._justRenewed = true;  // nasconde badge scadenza durante l'attesa risposta
   G.msgs.push('📨 Proposta di rinnovo inviata a ' + p.name + ' — ' +
     years + ' ann' + (years===1?'o':'i') + ' · ' + formatMoney(newSalary) + '/anno · bonus firma ' + formatMoney(bonus) + ' pagato. ' +
     'Il giocatore risponderà alla prossima giornata.');
@@ -1905,6 +1908,7 @@ function _processRenewalResponses() {
       p.contractYears    = offer.years;
       p.salary           = offer.salary;
       p._renewalPending  = null;
+      p._justRenewed     = true;  // evita badge scadenza finché non passa una stagione
       const tierLabels   = { S:'Elite', A:'Alta', B:'Media', C:'Bassa' };
       G.msgs.push('✅ ' + p.name + ' ha accettato il rinnovo: ' +
         offer.years + ' ann' + (offer.years===1?'o':'i') + ' a ' + formatMoney(offer.salary) + '/anno. Il giocatore è soddisfatto.');
