@@ -465,7 +465,39 @@ function generateMatchEvent(ms) {
       if (ms.periodScores && ms.period >= 1 && ms.period <= 4) {
         ms.periodScores[ms.period - 1].opp++;
       }
-      return { txt: '⚽ ' + ms.oppTeam.name + ' segna! Gol subito.', cls: 'og', ballTarget: { x: 0.04, y: 0.40 + rnd(0, 0.20) }, goalScored: true, goalTeam: 'opp', goalScorer: ms.oppTeam.name };
+      // Sceglie un marcatore reale dall'oppRoster (se disponibile)
+      var oppScorer = '';
+      if (ms.oppRoster && ms.oppRoster.length > 0) {
+        var oppFieldPlayers = ms._oppOnField
+          ? ms._oppOnField.map(function(i){ return ms.oppRoster[i]; }).filter(function(p){ return p && p.role !== 'POR'; })
+          : ms.oppRoster.filter(function(p){ return p && p.role !== 'POR'; });
+        if (oppFieldPlayers.length > 0) {
+          // Pesa per ruolo: ATT più propensi a segnare
+          var weights = oppFieldPlayers.map(function(p){ return p.role==='ATT'?4: p.role==='CB'?2: p.role==='CEN'?3: 1; });
+          var totalW = weights.reduce(function(s,w){ return s+w; }, 0);
+          var oppGoalRnd = Math.random() * totalW;
+          var chosen = oppFieldPlayers[0];
+          for (var wi=0; wi<oppFieldPlayers.length; wi++) { oppGoalRnd -= weights[wi]; if (oppGoalRnd <= 0) { chosen = oppFieldPlayers[wi]; break; } }
+          if (chosen) {
+            oppScorer = chosen.name;
+            // Aggiorna statistiche stagionali avversario
+            chosen.goals = (chosen.goals || 0) + 1;
+            // Traccia in oppMatchGoals per il dettaglio calendario
+            if (!ms.oppMatchGoals) ms.oppMatchGoals = {};
+            ms.oppMatchGoals[oppScorer] = (ms.oppMatchGoals[oppScorer] || 0) + 1;
+            // Assign assist: 75% di probabilità, giocatore casuale tra quelli in campo
+            if (Math.random() < 0.75 && oppFieldPlayers.length > 1) {
+              var assister = oppFieldPlayers.find(function(p){ return p !== chosen; });
+              if (assister) {
+                assister.assists = (assister.assists || 0) + 1;
+                if (!ms.oppMatchAssists) ms.oppMatchAssists = {};
+                ms.oppMatchAssists[assister.name] = (ms.oppMatchAssists[assister.name] || 0) + 1;
+              }
+            }
+          }
+        }
+      }
+      return { txt: '⚽ ' + ms.oppTeam.name + ' segna! Gol subito' + (oppScorer ? ' (' + oppScorer + ')' : '') + '.', cls: 'og', ballTarget: { x: 0.04, y: 0.40 + rnd(0, 0.20) }, goalScored: true, goalTeam: 'opp', goalScorer: oppScorer || ms.oppTeam.abbr || ms.oppTeam.name };
     } else {
       const myGk = ms.myRoster[ms.onField['GK']];
       if (myGk) { ms.mySaves++; myGk.saves++; }

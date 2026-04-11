@@ -325,7 +325,7 @@ function poolGetPhase()  { return _phase; }
 function poolGetTokens() { return _tokens; }  // per MovementController
 
 // ── Tiro: anima la palla verso la porta, goal dichiarato solo all'ingresso ──
-function poolShootAndScore(targetX, targetY, scorer, team) {
+function poolShootAndScore(targetX, targetY, scorer, team, teamName) {
   _ball.tx = _clamp(targetX, PLAY.x0, PLAY.x1);
   _ball.ty = _clamp(targetY, PLAY.y0, PLAY.y1);
   _pendingGoal = { scorer: scorer || '', team: team || 'my' };
@@ -334,7 +334,7 @@ function poolShootAndScore(targetX, targetY, scorer, team) {
 // ── Goal: dichiarato quando la palla è entrata in rete ────────────
 function poolShowGoal(scorer, team) {
   _pendingGoal = null;
-  _goalAnim = { timer: 0, total: 2.5, scorer: scorer || '', team: team || 'my' };
+  _goalAnim = { timer: 0, total: 2.5, scorer: scorer || '', team: team || 'my', teamName: teamName || '' };
   _phase = 'goal';
   var mySubito = (team === 'opp');
 
@@ -571,19 +571,35 @@ function drawPool(canvas, myTeamAbbr, oppTeamAbbr) {
   if (_goalAnim) {
     var t=_goalAnim.timer/_goalAnim.total;
     var pulse=0.5+0.5*Math.abs(Math.sin(t*Math.PI*6));
-    var alpha=t<0.8?1:1-(t-0.8)/0.2;
+    var alpha=t<0.85?1:1-(t-0.85)/0.15;
     ctx.save(); ctx.globalAlpha=alpha;
-    ctx.fillStyle=_goalAnim.team==='my'?'rgba(0,80,20,.45)':'rgba(80,0,0,.45)';
+    // Overlay scuro pieno per leggibilità massima
+    ctx.fillStyle='rgba(0,0,0,.72)';
     ctx.fillRect(0,0,W,H);
-    var fs=Math.round(72+pulse*18);
-    ctx.font='bold '+fs+'px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.shadowColor='rgba(0,0,0,.8)'; ctx.shadowBlur=12;
-    ctx.fillStyle=_goalAnim.team==='my'?'#fdd835':'#ff5252';
-    ctx.fillText('GOAL!!!',W/2,H/2-24);
-    ctx.font='bold 22px sans-serif'; ctx.fillStyle='#fff'; ctx.shadowBlur=6;
-    ctx.fillText(_goalAnim.scorer,W/2,H/2+30);
-    ctx.font='15px sans-serif'; ctx.fillStyle='rgba(255,255,255,.8)';
-    ctx.fillText('Rimessa dal centrocampo',W/2,H/2+62);
+    // Pannello colorato centrato
+    var myGoal=_goalAnim.team==='my';
+    var panW=W*0.82, panH=H*0.52, panX=(W-panW)/2, panY=(H-panH)/2;
+    ctx.fillStyle=myGoal?'rgba(0,100,30,.85)':'rgba(120,20,20,.85)';
+    ctx.beginPath(); ctx.roundRect(panX,panY,panW,panH,14); ctx.fill();
+    ctx.strokeStyle=myGoal?'rgba(100,220,100,.6)':'rgba(255,80,80,.6)';
+    ctx.lineWidth=2; ctx.stroke();
+    // Testo GOAL
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    var fs=Math.round(58+pulse*14);
+    ctx.font='900 '+fs+'px sans-serif';
+    ctx.shadowColor='rgba(0,0,0,.9)'; ctx.shadowBlur=16;
+    ctx.fillStyle=myGoal?'#fdd835':'#ff6b6b';
+    ctx.fillText('GOAL!!!',W/2,panY+panH*0.32);
+    // Scorer
+    if (_goalAnim.scorer) {
+      ctx.font='bold 20px sans-serif'; ctx.fillStyle='#fff'; ctx.shadowBlur=8;
+      ctx.fillText('⚽  '+_goalAnim.scorer,W/2,panY+panH*0.60);
+    }
+    // Team name
+    if (_goalAnim.teamName) {
+      ctx.font='14px sans-serif'; ctx.fillStyle='rgba(255,255,255,.75)'; ctx.shadowBlur=4;
+      ctx.fillText(_goalAnim.teamName,W/2,panY+panH*0.82);
+    }
     ctx.restore();
   }
 }

@@ -156,7 +156,8 @@ function _animLoop(timestamp) {
           _appendLog(event.txt, event.cls);
           if (event.goalScored && typeof poolShootAndScore === 'function') {
             const bt = event.ballTarget || { x: 0.5, y: 0.5 };
-            poolShootAndScore(bt.x, bt.y, event.goalScorer || '', event.goalTeam || 'my');
+            var _scoringTeamName = event.goalTeam === 'opp' ? ms.oppTeam.name : ms.myTeam.name;
+            poolShootAndScore(bt.x, bt.y, event.goalScorer || '', event.goalTeam || 'my', _scoringTeamName);
             if (typeof MovementController !== 'undefined') MovementController.onPossessChange(event.goalTeam === 'my' ? 'opp' : 'my');
             showGoalAnimation(event.goalScorer || '', event.goalTeam || 'my', G.ms);
           } else if (event.ballTarget) {
@@ -875,7 +876,7 @@ function _renderSubLists() {
             ${(function(){ const r = (typeof calcPlayerRating==='function') ? calcPlayerRating(pi,ms) : null; const col = r?(r>=7.5?'var(--green)':r>=6.5?'var(--gold)':r>=5.5?'var(--muted)':'var(--red)'):'var(--muted)'; return '<span style="font-size:11px;font-weight:800;color:'+col+';margin-left:5px">'+( r!==null ? r.toFixed(1) : '—')+'</span>'; })()}
             ${isExp ? '<span style="color:var(--red);font-size:10px;margin-left:4px">ESPULSO</span>' : ''}
           </div>
-          <div style="font-size:11px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">${_simplePosLabel(pk)} · ${_roleBadge(p.role)}${p.secondRole ? " " + _roleBadge(p.secondRole) : ""} ${_handBadge(p.hand)} <span style="color:var(--muted)">${p.age}a</span></div>
+          <div style="font-size:11px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">${_simplePosLabel(pk)} · ${_roleBadge(p.role)}${p.secondRole ? " " + _roleBadge(p.secondRole) : ""} ${_handBadge(p.hand)} <span style="color:var(--muted)">${p.age}a · OVR <strong style="color:var(--blue)">${p.overall}</strong></span></div>
         </div>
         <div style="display:flex;align-items:center;gap:6px">
           <span onclick="event.stopPropagation();showMatchPlayerInfo(${pi})"
@@ -1171,10 +1172,17 @@ function _doEndMatch() {
         (isHomeMe ? homeScorers : awayScorers).push({ name: p.name, goals, assists });
       }
     });
-    // Marcatori avversari: generiamo dai gol totali (non tracciati individualmente)
-    if (typeof simulateMatchStats === 'function') {
+    // Marcatori avversari: usa quelli tracciati durante la partita live
+    if (ms.oppMatchGoals && Object.keys(ms.oppMatchGoals).length > 0) {
+      Object.entries(ms.oppMatchGoals).forEach(([name, goals]) => {
+        if (goals > 0) {
+          const assists = (ms.oppMatchAssists && ms.oppMatchAssists[name]) || 0;
+          (isHomeMe ? awayScorers : homeScorers).push({ name, goals, assists });
+        }
+      });
+    } else if (typeof simulateMatchStats === 'function') {
+      // Fallback: simula se non ci sono dati reali (non dovrebbe accadere)
       const oppRoster = G.rosters[ms.oppTeam.id] || [];
-      const fakeOppScore = isHomeMe ? { home: 0, away: ms.oppScore } : { home: ms.oppScore, away: 0 };
       const det = simulateMatchStats(oppRoster, oppRoster, { home: ms.oppScore, away: 0 });
       if (det) (isHomeMe ? awayScorers : homeScorers).push(...det.home);
     }
