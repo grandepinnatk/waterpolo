@@ -208,6 +208,21 @@ function advanceTime(ms, dt) {
 // ── posMult (posizione × tattica contropiede) ─────────────────────
 //   In contropiede: ali(1,5)×1.35, centro(3)×1.25, CB(6)×1.10
 //
+
+// ── Recupero stamina a fine periodo (intervallo) ─────────────────────
+// Intervalli: T1→T2 e T3→T4 = 2 min, T2→T3 (cambio campo) = 5 min
+function applyPeriodBreakRecovery(ms) {
+  if (!ms) return;
+  const period = ms.period; // periodo APPENA finito (prima dell'incremento)
+  // Durata intervallo in secondi di gioco
+  const breakSecs = (period === 2) ? 300 : 120; // T2→T3 = 5min, altri = 2min
+  ms.myRoster.forEach(function(p, pi) {
+    if (!p) return;
+    // Tutti recuperano: in campo, panchina, espulsi temporanei
+    ms.stamina[pi] = Math.min(100, (ms.stamina[pi] || 0) + STAMINA_BENCH_RECOVERY * breakSecs);
+  });
+}
+
 function _drainStamina(ms, dtGame) {
   const tactic     = ms.tactic || 'balanced';
   const tacticMult = TACTIC_STAMINA_MULT[tactic] || 1.0;

@@ -135,7 +135,12 @@ function _animLoop(timestamp) {
       G.ms.running = false;
       document.getElementById('btn-play').textContent = '▶ Avvia';
       _lastFrameT = null;
-      _appendLog('⏸ Fine ' + (G.ms.period - 1) + '° Tempo — Partita in pausa. Puoi effettuare sostituzioni.', 'sv');
+      // Applica recupero stamina durante l'intervallo (period - 1 = periodo appena finito)
+      if (typeof applyPeriodBreakRecovery === 'function') {
+        applyPeriodBreakRecovery({ ...G.ms, period: G.ms.period - 1 });
+      }
+      const _breakMin = (G.ms.period - 1) === 2 ? '5' : '2';
+      _appendLog('⏸ Fine ' + (G.ms.period - 1) + '° Tempo — Intervallo ' + _breakMin + ' min. Puoi effettuare sostituzioni.', 'sv');
       if (typeof MovementController !== 'undefined') MovementController.onPeriodStart();
     }
     if (matchEnded) {
@@ -641,18 +646,28 @@ function confirmSwap() {
   const shirtIn  = ms.shirtNumbers[result.inRosterIdx]  || '?';
   _appendLog('↔ Cambio: #' + shirtOut + ' ' + _shortPlayerName(result.outPlayer) +
              ' → #' + shirtIn + ' ' + _shortPlayerName(result.inPlayer), 'sub');
+  // Congela il voto del giocatore uscente al momento del cambio
+  if (!ms.frozenRatings) ms.frozenRatings = {};
+  if (typeof calcPlayerRating === 'function') {
+    ms.frozenRatings[result.outRosterIdx] = calcPlayerRating(result.outRosterIdx, ms);
+  }
 
   // Reset selezione
+  const _animIn  = result.inRosterIdx;
+  const _animOut = result.outRosterIdx;
   _subSelField = null;
   _subSelBench = null;
   _updateSwapButton();
-  // Render con animazione
-  renderFieldLists(true);
+  // Render con animazione solo sulle righe coinvolte
+  renderFieldLists({ animIn: _animIn, animOut: _animOut });
 }
 
-function renderFieldLists(withAnim) {
+function renderFieldLists(anim) {
   const ms = G.ms; if (!ms) return;
   const isPaused = !ms.running && !ms.finished;
+  // anim: { animIn: pi, animOut: pi } oppure undefined
+  const _animIn  = anim && anim.animIn  !== undefined ? anim.animIn  : null;
+  const _animOut = anim && anim.animOut !== undefined ? anim.animOut : null;
 
   // Helper badge ruolo (standard)
   function roleBadge(role) {
@@ -721,7 +736,14 @@ function renderFieldLists(withAnim) {
     const selFn    = canSel ? (isBench ? `selBenchRow(${pi})` : `selFieldRow('${pk}')`) : '';
     const rowBg    = selClass === 'sel-field' ? 'rgba(0,194,255,.15)' : selClass === 'sel-bench' ? 'rgba(240,192,64,.15)' : '';
     const bHasPlayed = ms._everOnField && ms._everOnField.has(pi);
-    const dispRating = isBench && !bHasPlayed ? '—' : rating.toFixed(1);
+    // Per chi è in panchina dopo essere uscito: usa il voto congelato al momento del cambio
+    const frozenRating = ms.frozenRatings && ms.frozenRatings[pi] !== undefined ? ms.frozenRatings[pi] : null;
+    const dispRating = isBench
+      ? (frozenRating !== null ? frozenRating.toFixed(1) : (bHasPlayed ? rating.toFixed(1) : '—'))
+      : rating.toFixed(1);
+    const dispRc = isBench && frozenRating !== null
+      ? (frozenRating >= 7.5 ? 'var(--green)' : frozenRating >= 6.5 ? 'var(--gold)' : frozenRating >= 5.5 ? 'var(--muted)' : 'var(--red)')
+      : rc;
     // Ogni cella cliccabile (eccetto il nome) chiama selFn
     const c_ = (content, extraStyle) => canSel
       ? `<div onclick="${selFn}" style="cursor:pointer;${extraStyle||''}">${content}</div>`
@@ -736,13 +758,18 @@ function renderFieldLists(withAnim) {
       <div style="font-size:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
                   cursor:pointer;color:var(--blue);text-decoration:underline dotted;text-underline-offset:2px"
            onclick="showMatchPlayerInfo(${pi})" title="Scheda giocatore">${_shortPlayerName(p)}</div>
-      ${c_(`<span style="font-size:11px;font-weight:800;color:${rc}">${dispRating}</span>`, 'text-align:center')}
+      ${c_(`<span style="font-size:11px;font-weight:800;color:${dispRc}">${dispRating}</span>`, 'text-align:center')}
       ${c_(`<span style="font-size:10px;font-weight:700;color:var(--blue)">${posLabel}</span>`, 'text-align:center')}
       ${c_(`<span style="display:flex;gap:1px;flex-wrap:wrap;align-items:center">${roleBadge(p.role)}${p.secondRole ? roleBadge(p.secondRole) : ''}</span>`)}
       ${c_(handBadge(p.hand))}
       ${c_(`<span style="font-size:10px;color:var(--muted)">${p.age}</span>`, 'text-align:center')}
       ${c_(`<span style="font-size:10px;font-weight:700;color:var(--blue)">${p.overall}</span>`, 'text-align:center')}
-      ${c_(isExp ? '<span style="font-size:9px;color:var(--red)">ESP</span>' : staminaCell(pi))}
+      ${c_(isExp
+        ? '<span style="font-size:9px;color:var(--red)">ESP</span>'
+        : staminaCell(pi) + (p.injured
+            ? '<span style="font-size:8px;background:#e74c3c;color:#fff;font-weight:700;padding:0 3px;border-radius:2px;margin-left:2px">INF</span>'
+            : '')
+      )}
       ${c_(expDots(pi), 'text-align:center')}
       ${c_(`<span style="font-size:10px;font-weight:700;color:${mGoals>0?'var(--blue)':'var(--muted)'}">${mGoals||'—'}</span>`, 'text-align:center')}
       ${c_(`<span style="font-size:10px;font-weight:700;color:${mAssists>0?'var(--green)':'var(--muted)'}">${mAssists||'—'}</span>`, 'text-align:center')}
@@ -757,7 +784,7 @@ function renderFieldLists(withAnim) {
   let fieldHtml = hdr;
   onFieldEntries.forEach(([pk, pi]) => {
     const selCls  = (_subSelField === pk) ? 'sel-field' : '';
-    const animCls = (withAnim && _subSelField === null) ? 'swap-anim-up' : '';
+    const animCls = (_animIn === pi) ? 'swap-anim-up' : '';
     fieldHtml += playerRow(pi, pk, false, selCls, animCls);
   });
   document.getElementById('field-players').innerHTML = fieldHtml;
@@ -774,7 +801,7 @@ function renderFieldLists(withAnim) {
   let benchHtml = hdr;
   benchSorted.forEach(pi => {
     const selCls  = (_subSelBench === pi) ? 'sel-bench' : '';
-    const animCls = (withAnim && _subSelBench === null) ? 'swap-anim-down' : '';
+    const animCls = (_animOut === pi) ? 'swap-anim-down' : '';
     benchHtml += playerRow(pi, null, true, selCls, animCls);
   });
   document.getElementById('bench-players').innerHTML =
@@ -865,10 +892,15 @@ function skipPeriod() {
 
   // Triggera la fine periodo come fa il game loop
   if (ms.period < TOTAL_PERIODS) {
+    // Applica recupero stamina durante l'intervallo
+    if (typeof applyPeriodBreakRecovery === 'function') {
+      applyPeriodBreakRecovery(ms); // ms.period è ancora il periodo appena finito
+    }
     ms.period++;
     if (typeof poolStartPeriod === 'function') poolStartPeriod();
     _autoSubsPeriodEnd(ms);
-    _appendLog('⏸ Fine ' + (ms.period - 1) + '° Tempo — Partita in pausa. Puoi effettuare ulteriori sostituzioni.', 'sv');
+    const _skipBreakMin = (ms.period - 1) === 2 ? '5' : '2';
+    _appendLog('⏸ Fine ' + (ms.period - 1) + '° Tempo — Intervallo ' + _skipBreakMin + ' min. Puoi effettuare ulteriori sostituzioni.', 'sv');
   } else {
     ms.finished = true;
     document.getElementById('btn-end').style.display  = '';
@@ -1012,30 +1044,60 @@ function _renderSubLists() {
 function showMatchPlayerInfo(pi) {
   const ms = G.ms; if (!ms) return;
   const p  = ms.myRoster[pi]; if (!p) return;
-  const rl = { POR:'Portiere', DIF:'Difensore', CEN:'Centromediano', ATT:'Attaccante', CB:'Centroboa' };
-  const hand = p.hand === 'AMB' ? 'Ambidestro' : p.hand === 'L' ? 'Mancino' : 'Destro';
-  const mc = p.morale > 70 ? 'var(--green)' : p.morale > 40 ? 'var(--gold)' : 'var(--red)';
+  const mc   = p.morale > 70 ? 'var(--green)' : p.morale > 40 ? 'var(--gold)' : 'var(--red)';
   const shirt = ms.shirtNumbers[pi] || '—';
   const stam  = Math.round(ms.stamina[pi] ?? p.fitness);
   const mGoals   = ms.matchGoals?.[pi]   || 0;
   const mAssists = ms.matchAssists?.[pi] || 0;
+  const piSaves  = (ms.gkSaves && ms.gkSaves[pi]) || 0;
+  // Voto: congelato se è uscito, calcolato live se è ancora in campo
+  const frozen = ms.frozenRatings && ms.frozenRatings[pi] !== undefined ? ms.frozenRatings[pi] : null;
+  const liveRating = typeof calcPlayerRating === 'function' ? calcPlayerRating(pi, ms) : null;
+  const dispRat = frozen !== null ? frozen : (ms._everOnField && ms._everOnField.has(pi) ? liveRating : null);
+  const ratCol  = dispRat === null ? 'var(--muted)' : dispRat >= 7.5 ? 'var(--green)' : dispRat >= 6.5 ? 'var(--gold)' : dispRat >= 5.5 ? 'var(--muted)' : 'var(--red)';
+  const potLabel = p.potential ? `<span style="font-size:11px;color:var(--gold);font-weight:600">${p.potential}</span>` : '';
 
   const ov = document.createElement('div');
-  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:400;backdrop-filter:blur(4px)';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:9000;backdrop-filter:blur(4px)';
   ov.innerHTML = `
     <div style="background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;max-width:320px;width:90%;max-height:80vh;overflow-y:auto">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
         <div>
-          <div style="font-weight:700;font-size:15px;color:var(--blue)">#${shirt} ${p.name}${_ritBadge(p)}</div>
-          <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;flex-wrap:wrap">${rl[p.role]||p.role} · ${p.nat} · ${p.age}a · ${_handBadge(p.hand)}</div>
+          <div style="font-weight:700;font-size:15px;color:var(--blue);display:flex;align-items:center;gap:4px;flex-wrap:wrap">
+            #${shirt} ${p.name} ${_ritBadge(p)} ${p._diamond ? '💎' : ''}
+            ${p.injured ? `<span style="font-size:9px;background:#e74c3c;color:#fff;font-weight:700;padding:1px 4px;border-radius:3px">INF${p.injuryWeeks ? '+' + p.injuryWeeks + 'G' : ''}</span>` : ''}
+          </div>
+          <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:3px">
+            ${_roleBadge(p.role)}${p.secondRole ? ' ' + _roleBadge(p.secondRole) : ''}
+            ${_handBadge(p.hand)}
+            <span>${p.nat} · ${p.age}a</span>
+          </div>
         </div>
         <button onclick="this.closest('[style*=fixed]').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted)">✕</button>
       </div>
-      <div class="irow"><span class="ilbl">Overall</span>   <span style="font-size:16px;font-weight:700;color:var(--blue)">${p.overall}</span></div>
-      <div class="irow"><span class="ilbl">Stamina</span>   <span style="color:${stam>60?'var(--green)':stam>30?'var(--gold)':'var(--red)'};font-weight:700">${stam}%</span></div>
-      <div class="irow"><span class="ilbl">Morale</span>    <span style="color:${mc}">${p.morale}%</span></div>
-      <div class="irow"><span class="ilbl">Gol partita</span><span style="color:var(--blue);font-weight:700">${mGoals}</span></div>
-      <div class="irow"><span class="ilbl">Assist partita</span><span style="color:var(--green);font-weight:700">${mAssists}</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px">
+        <div style="background:rgba(0,194,255,.08);border-radius:8px;padding:8px;text-align:center">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px">OVR</div>
+          <div style="font-size:22px;font-weight:800;color:var(--blue)">${p.overall}</div>
+        </div>
+        <div style="background:rgba(240,192,64,.08);border-radius:8px;padding:8px;text-align:center">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px">Potenziale</div>
+          <div style="font-size:22px;font-weight:800;color:var(--gold)">${p.potential || '—'}</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:8px;text-align:center">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px">Voto</div>
+          <div style="font-size:20px;font-weight:800;color:${ratCol}">${dispRat !== null ? dispRat.toFixed(1) : '—'}</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border-radius:8px;padding:8px;text-align:center">
+          <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px">Stamina</div>
+          <div style="font-size:20px;font-weight:800;color:${stam>60?'var(--green)':stam>30?'var(--gold)':'var(--red)'}">${stam}%</div>
+        </div>
+      </div>
+      <div class="irow"><span class="ilbl">Morale</span>   <span style="color:${mc};font-weight:700">${p.morale}%</span></div>
+      <div class="irow"><span class="ilbl">Fitness</span>  <span>${p.fitness}%</span></div>
+      <div class="irow"><span class="ilbl">Gol</span>      <span style="color:var(--blue);font-weight:700">${mGoals}</span></div>
+      <div class="irow"><span class="ilbl">Assist</span>   <span style="color:var(--green);font-weight:700">${mAssists}</span></div>
+      ${piSaves > 0 ? `<div class="irow"><span class="ilbl">Parate</span><span style="color:var(--gold);font-weight:700">${piSaves}</span></div>` : ''}
       <div style="margin-top:10px">
         <div class="slbl" style="margin-top:0">Attributi</div>
         ${[['att','ATT'],['def','DIF'],['spe','VEL'],['str','FOR'],['tec','TEC'],['res','RES']].map(([a,lbl]) => `
@@ -1368,8 +1430,13 @@ function _doEndMatch() {
       }
     });
     simulateRound(G.schedule, G.stand, G.teams, ms.match.round, G.myId, G.rosters);
+    // Avanza alla giornata successiva (stelle, decadimento forma, rinnovi, costruzioni)
+    // Il flag evita di fare doppio su ingaggi e infortuni già processati sopra
+    G._skipWageAndInjury = true;
+    if (typeof simNextRound === 'function') simNextRound();
+    G._skipWageAndInjury = false;
     _subSelField = null; _subSelBench = null;
-  G.ms = null;
+    G.ms = null;
     showScreen('sc-game'); updateHeader(); showTab('dash');
   }
   autoSave();

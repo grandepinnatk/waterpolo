@@ -356,15 +356,18 @@ function simNextRound() {
   _processRenewalResponses();
 
   // ── Aggiorna infortuni: decrementa settimane e riabilita guariti ──
-  (G.rosters[G.myId] || []).forEach(p => {
-    if (!p || !p.injured) return;
-    p.injuryWeeks = (p.injuryWeeks || 1) - 1;
-    if (p.injuryWeeks <= 0) {
-      p.injured     = false;
-      p.injuryWeeks = 0;
-      G.msgs.push('✅ ' + p.name + ' è guarito — torna disponibile.');
-    }
-  });
+  // Saltato se la partita è stata giocata dal vivo (già gestito in _doEndMatch)
+  if (!G._skipWageAndInjury) {
+    (G.rosters[G.myId] || []).forEach(p => {
+      if (!p || !p.injured) return;
+      p.injuryWeeks = (p.injuryWeeks || 1) - 1;
+      if (p.injuryWeeks <= 0) {
+        p.injured     = false;
+        p.injuryWeeks = 0;
+        G.msgs.push('✅ ' + p.name + ' è guarito — torna disponibile.');
+      }
+    });
+  }
 
   // ── Decadimento forma se non allenato ─────────────────────────────
   // Ogni giornata senza allenamento la forma cala in base all'età:
@@ -382,7 +385,8 @@ function simNextRound() {
   }
 
   // ── Deduzione monte ingaggi (solo regular season) ──
-  if (G.phase === 'regular') {
+  // Saltata se la partita è stata giocata dal vivo (già detratta in _doEndMatch)
+  if (!G._skipWageAndInjury && G.phase === 'regular') {
     const wage = calcWageBill();
     if (wage > 0) {
       G.budget -= wage;
