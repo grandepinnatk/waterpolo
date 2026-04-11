@@ -284,8 +284,9 @@ function simNextRound() {
   console.group('%c[SIM] Giornata ' + r, 'color:#00c2ff;font-weight:bold');
   console.log('[SIM] Squadra:', G.myTeam?.name, '| Fase:', G.phase, '| Budget:', G.budget);
 
-  // Resetta flag nazionali della giornata precedente prima di simulare
-  _clearNationalCalls();
+  // Converti _nationalNext → _national: la giornata nazionale inizia ora
+  // (resetta _national precedente, promuove _nationalNext ad _national)
+  _activateNationalCalls();
 
   // Salva posizione attuale PRIMA di aggiornare la classifica
   G.prevPos = getTeamPosition(G.stand, G.myId);
@@ -2344,10 +2345,26 @@ function _nationalScore(p) {
 }
 
 // Resetta convocazioni precedenti
+function _activateNationalCalls() {
+  // Resetta i flag _national della giornata precedente
+  // e promuove _nationalNext (badge anticipato) a _national (indisponibile)
+  Object.values(G.rosters).forEach(roster => {
+    (roster || []).forEach(p => {
+      if (!p) return;
+      p._national     = p._nationalNext || false;
+      p._nationalNext = false;
+    });
+  });
+}
+
 function _clearNationalCalls() {
   Object.values(G.rosters).forEach(roster => {
     (roster || []).forEach(p => {
-      if (p) { p._national = false; p._nationalNat = undefined; }
+      if (p) {
+        p._national     = false;
+        p._nationalNext = false;
+        p._nationalNat  = undefined;
+      }
     });
   });
 }
@@ -2372,9 +2389,9 @@ function _processNationalCalls(round) {
       .sort((a, b) => _nationalScore(b.p) - _nationalScore(a.p))
       .slice(0, count);
     pool.forEach(({ p, teamId }) => {
-      p._national    = true;
-      p._nationalNat = 'ITA';
-      p.nationalCaps = (p.nationalCaps || 0) + 1;
+      p._nationalNext = true;   // badge anticipato — diventa _national all'inizio della giornata
+      p._nationalNat  = 'ITA';
+      p.nationalCaps  = (p.nationalCaps || 0) + 1;
       if (teamId === G.myId) myCalledNames.push({ name: p.name, role: p.role, nat: 'ITA', ita: true });
     });
   });
@@ -2386,9 +2403,9 @@ function _processNationalCalls(round) {
       .filter(({ p }) => p.nat === nat && !p._national)
       .sort((a, b) => _nationalScore(b.p) - _nationalScore(a.p))[0];
     if (best) {
-      best.p._national    = true;
-      best.p._nationalNat = nat;
-      best.p.nationalCaps = (best.p.nationalCaps || 0) + 1;
+      best.p._nationalNext = true;
+      best.p._nationalNat  = nat;
+      best.p.nationalCaps  = (best.p.nationalCaps || 0) + 1;
       if (best.teamId === G.myId) myCalledNames.push({ name: best.p.name, role: best.p.role, nat, ita: false });
     }
   });

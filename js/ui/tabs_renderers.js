@@ -117,7 +117,7 @@ function _scadBadge(p) {
 
 // ── Badge nazionale ──────────────────────────
 function _nationalBadge(p) {
-  if (!p || !p._national) return '';
+  if (!p || (!p._national && !p._nationalNext)) return '';
   const flags = { ITA:'🇮🇹', CRO:'🇭🇷', SRB:'🇷🇸', HUN:'🇭🇺', GRE:'🇬🇷', MNE:'🇲🇪', ESP:'🇪🇸' };
   const flag = flags[p._nationalNat] || '';
   return ' <span style="font-size:9px;background:#1565c0;color:#fff;font-weight:700;' +
@@ -1089,7 +1089,7 @@ function renderRosa() {
       : '';
     var rc  = ROLE_COL[p.role] || '#555';
     var hc  = p.hand === 'L' ? '#4db6ff' : p.hand === 'AMB' ? '#69f0ae' : 'rgba(255,255,255,.38)';
-    var bg  = onMarket ? 'rgba(240,192,64,.05)' : p.injured ? 'rgba(229,57,53,.04)' : p._national ? 'rgba(21,101,192,.06)' : 'rgba(255,255,255,.025)';
+    var bg  = onMarket ? 'rgba(240,192,64,.05)' : p.injured ? 'rgba(229,57,53,.04)' : (p._national||p._nationalNext) ? 'rgba(21,101,192,.06)' : 'rgba(255,255,255,.025)';
 
     h += '<div onclick="showPlayerModal(' + i + ')" style="'
       + 'display:grid;grid-template-columns:1.8fr 62px 54px 40px 36px 50px 98px 64px 38px 38px 80px 96px;'

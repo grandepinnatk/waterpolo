@@ -195,9 +195,9 @@ function renderPlayerSelList() {
       'display:grid', 'grid-template-columns:34px 1fr 76px 38px 22px',
       'gap:4px', 'align-items:center', 'padding:5px 6px',
       'border-radius:8px', 'margin-bottom:3px', 'transition:all .12s',
-      'border:1.5px solid ' + (p.injured ? 'rgba(192,57,43,.3)' : p._national ? 'rgba(21,101,192,.25)' : isSel ? 'var(--blue)' : usedPk ? '#185FA5' : isConv ? 'rgba(255,255,255,.1)' : 'transparent'),
-      'background:' + (p.injured ? 'rgba(192,57,43,.06)' : p._national ? 'rgba(21,101,192,.06)' : isSel ? 'rgba(0,194,255,.12)' : usedPk ? 'rgba(24,95,165,.15)' : isConv ? 'rgba(255,255,255,.04)' : 'transparent'),
-      'cursor:' + ((p.injured || p._national) ? 'not-allowed' : usedPk || isConv ? 'grab' : 'pointer'),
+      'border:1.5px solid ' + (p.injured ? 'rgba(192,57,43,.3)' : (p._national||p._nationalNext) ? 'rgba(21,101,192,.25)' : isSel ? 'var(--blue)' : usedPk ? '#185FA5' : isConv ? 'rgba(255,255,255,.1)' : 'transparent'),
+      'background:' + (p.injured ? 'rgba(192,57,43,.06)' : (p._national||p._nationalNext) ? 'rgba(21,101,192,.06)' : isSel ? 'rgba(0,194,255,.12)' : usedPk ? 'rgba(24,95,165,.15)' : isConv ? 'rgba(255,255,255,.04)' : 'transparent'),
+      'cursor:' + ((p.injured || p._national || p._nationalNext) ? 'not-allowed' : usedPk || isConv ? 'grab' : 'pointer'),
     ].join(';');
 
     // Cella numero maglia
@@ -225,8 +225,8 @@ function renderPlayerSelList() {
     nameCell.style.cssText = 'min-width:0';
     const infTag = p.injured ? ' <span style="font-size:9px;background:#c0392b;color:#fff;font-weight:700;padding:1px 4px;border-radius:3px;margin-left:3px" title="Infortunato — non disponibile">INF+</span>' : '';
     const flags = { ITA:'🇮🇹', CRO:'🇭🇷', SRB:'🇷🇸', HUN:'🇭🇺', GRE:'🇬🇷', MNE:'🇲🇪', ESP:'🇪🇸' };
-    const nazTag = p._national ? ' <span style="font-size:9px;background:#1565c0;color:#fff;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:3px" title="Convocato in Nazionale — non disponibile">NAZ ' + (flags[p._nationalNat]||'') + '</span>' : '';
-    const rowOpacity = (p.injured || p._national) ? '.45' : '1';
+    const nazTag = (p._national || p._nationalNext) ? ' <span style="font-size:9px;background:#1565c0;color:#fff;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:3px" title="Convocato in Nazionale — non disponibile">NAZ ' + (flags[p._nationalNat]||'') + '</span>' : '';
+    const rowOpacity = (p.injured || p._national || p._nationalNext) ? '.45' : '1';
     nameCell.innerHTML = `
       <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:${rowOpacity}">${p.name}${_ritBadge(p)}${_scadBadge(p)}${infTag}${nazTag}</div>
       <div style="font-size:10px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:2px">
@@ -264,7 +264,7 @@ function renderPlayerSelList() {
     row.appendChild(infoCell);
 
     // Click per selezionare / aggiungere ai convocati
-    row.onclick = () => { if (!p.injured && !p._national) selectPlayerLu(i); };
+    row.onclick = () => { if (!p.injured && !p._national && !p._nationalNext) selectPlayerLu(i); };
 
     // Doppio click: rimuovi dai convocati
     row.ondblclick = e => {
@@ -321,7 +321,7 @@ function selectPos(pk) {
 function selectPlayerLu(i) {
   const roster = G.rosters[G.myId];
   // Non si possono convocare/schierare giocatori infortunati
-  if (roster && roster[i] && (roster[i].injured || roster[i]._national)) return;
+  if (roster && roster[i] && (roster[i].injured || roster[i]._national || roster[i]._nationalNext)) return;
   if (luState.selectedPlayer === i) {
     luState.selectedPlayer = null;
   } else {
@@ -380,7 +380,7 @@ function autoFillLineup() {
   const used   = new Set();
 
   const por = roster.map((p, i) => ({ p, i }))
-    .filter(x => x.p.role === 'POR' && !x.p.injured && !x.p._national)
+    .filter(x => x.p.role === 'POR' && !x.p.injured && !x.p._national && !x.p._nationalNext)
     .sort((a, b) => b.p.overall - a.p.overall)[0];
   if (por) { luState.formation['GK'] = por.i; used.add(por.i); luState.convocati.add(por.i); }
 
@@ -389,7 +389,7 @@ function autoFillLineup() {
     const prefRole = POS_ROLE_AFFINITY[pk];
     const prefHand = posInfo && posInfo.prefHand;  // 'R', 'L' o undefined
     const cands = roster.map((p, i) => ({ p, i }))
-      .filter(x => !used.has(x.i) && x.p.role !== 'POR' && !x.p.injured && !x.p._national)
+      .filter(x => !used.has(x.i) && x.p.role !== 'POR' && !x.p.injured && !x.p._national && !x.p._nationalNext)
       .sort((a, b) => {
         // Score: ruolo corretto +10, mano preferita +5, AMB equivale alla mano preferita (+5), overall come base
         const scoreA = (a.p.role === prefRole ? 10 : 0)
@@ -405,7 +405,7 @@ function autoFillLineup() {
 
   // Riserve migliori
   roster.map((p, i) => ({ p, i }))
-    .filter(x => !used.has(x.i) && !x.p.injured && !x.p._national)
+    .filter(x => !used.has(x.i) && !x.p.injured && !x.p._national && !x.p._nationalNext)
     .sort((a, b) => b.p.overall - a.p.overall)
     .forEach(({ i }) => { if (luState.convocati.size < MAX_CONVOCATI) luState.convocati.add(i); });
 
