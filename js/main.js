@@ -284,13 +284,8 @@ function simNextRound() {
   console.group('%c[SIM] Giornata ' + r, 'color:#00c2ff;font-weight:bold');
   console.log('[SIM] Squadra:', G.myTeam?.name, '| Fase:', G.phase, '| Budget:', G.budget);
 
-  // ── Convocazioni nazionali ──
-  // Resetta sempre i flag della giornata precedente
+  // Resetta flag nazionali della giornata precedente prima di simulare
   _clearNationalCalls();
-  // Se è giornata di convocazione, assegna i nuovi flag
-  if (NATIONAL_ROUNDS.includes(r)) {
-    _processNationalCalls(r);
-  }
 
   // Salva posizione attuale PRIMA di aggiornare la classifica
   G.prevPos = getTeamPosition(G.stand, G.myId);
@@ -455,9 +450,14 @@ function simNextRound() {
   // dove _processNationalCalls chiama _clearNationalCalls prima di tutto
   console.log('[SIM] ✓ Fine giornata | Budget: ' + G.budget + ' | Stelle: ' + G.stars);
   console.groupEnd();
+  // ── Convocazioni nazionali per la giornata SUCCESSIVA ──
+  // Vengono assegnate ADESSO così il manager vede i badge prima di giocare
+  const _nextR = nextMyRound();
+  if (_nextR && NATIONAL_ROUNDS.includes(_nextR)) {
+    _processNationalCalls(_nextR);
+  }
+
   updateHeader(); autoSave(); renderDash();
-  // I flag _national restano attivi fino all'inizio della prossima simNextRound
-  // così il badge NAZ è visibile nelle convocazioni per tutta la giornata
   // Popup convocazione nazionale
   if (G._pendingNationalPopup && G._pendingNationalPopup.length > 0) {
     const _toShow = G._pendingNationalPopup;
