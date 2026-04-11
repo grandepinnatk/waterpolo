@@ -191,10 +191,15 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
       p.careerApps = (p.careerApps || 0) + 1;
     } else {
       // Giocatori di campo convocati
-      // Usa il nome per trovare la posizione in squad13 (evita bug indexOf con oggetti)
-      const fieldConv  = squad13.filter(pl => pl.role !== 'POR');
+      // Nella simulazione tutti i convocati sono considerati potenzialmente in campo.
+      // La squad13 può avere max 13 giocatori: i primi 7 di campo titolari,
+      // gli altri 4 riserve con 30% probabilità di entrare.
+      // Ordiniamo per OVR per determinare chi è titolare, indipendentemente dall'ordine
+      // di inserimento nel Set restituito da _buildSimSquad.
+      const fieldConv = squad13
+        .filter(pl => pl.role !== 'POR')
+        .sort((a, b) => (b.overall || 0) - (a.overall || 0));
       const posInSquad = fieldConv.findIndex(pl => pl.name === p.name);
-      // posInSquad === -1 → non in squad13 ma era in convocati (caso impossibile, ma gestiamo)
       const isTitolare = posInSquad >= 0 && posInSquad < 7;
       const isRiserva  = posInSquad >= 7;
 
@@ -220,6 +225,8 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
       p.careerApps = (p.careerApps || 0) + 1;
       p.goals   = (p.goals   || 0) + (contrib.goals   || 0);
       p.assists = (p.assists || 0) + (contrib.assists || 0);
+      console.log('[ASSIGN]', p.name, '| pos:', posInSquad, isTitolare ? '(TIT)' : '(RIS)',
+                  '| voto:', _r, contrib.goals ? '⚽'+contrib.goals : '', contrib.assists ? '🤝'+contrib.assists : '');
     }
 
     if (p.lastRatings.length > 4) p.lastRatings.shift();
