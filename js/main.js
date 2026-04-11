@@ -285,8 +285,12 @@ function simNextRound() {
   console.log('[SIM] Squadra:', G.myTeam?.name, '| Fase:', G.phase, '| Budget:', G.budget);
 
   // ── Convocazioni nazionali ──
-  // _processNationalCalls resetta i flag precedenti e assegna quelli nuovi
-  _processNationalCalls(r);
+  // Resetta sempre i flag della giornata precedente
+  _clearNationalCalls();
+  // Se è giornata di convocazione, assegna i nuovi flag
+  if (NATIONAL_ROUNDS.includes(r)) {
+    _processNationalCalls(r);
+  }
 
   // Salva posizione attuale PRIMA di aggiornare la classifica
   G.prevPos = getTeamPosition(G.stand, G.myId);
@@ -452,9 +456,8 @@ function simNextRound() {
   console.log('[SIM] ✓ Fine giornata | Budget: ' + G.budget + ' | Stelle: ' + G.stars);
   console.groupEnd();
   updateHeader(); autoSave(); renderDash();
-  // Resetta i badge nazionali subito dopo il render — il badge compariva solo
-  // durante la giornata di convocazione, ora scompare dalla dashboard
-  _clearNationalCalls();
+  // I flag _national restano attivi fino all'inizio della prossima simNextRound
+  // così il badge NAZ è visibile nelle convocazioni per tutta la giornata
   // Popup convocazione nazionale
   if (G._pendingNationalPopup && G._pendingNationalPopup.length > 0) {
     const _toShow = G._pendingNationalPopup;
@@ -2351,7 +2354,6 @@ function _clearNationalCalls() {
 
 // Seleziona i migliori giocatori per la nazionale
 function _processNationalCalls(round) {
-  // Nota: _clearNationalCalls() è già stata chiamata prima di questa funzione
   if (!NATIONAL_ROUNDS.includes(round)) return;
 
   const allPlayers = []; // { p, teamId, rosterIdx }
