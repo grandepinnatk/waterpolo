@@ -334,7 +334,7 @@ function poolShootAndScore(targetX, targetY, scorer, team) {
 // ── Goal: dichiarato quando la palla è entrata in rete ────────────
 function poolShowGoal(scorer, team) {
   _pendingGoal = null;
-  _goalAnim = { timer: 0, total: 2.4, scorer: scorer || '', team: team || 'my' };
+  _goalAnim = { timer: 0, total: 2.5, scorer: scorer || '', team: team || 'my' };
   _phase = 'goal';
   var mySubito = (team === 'opp');
 

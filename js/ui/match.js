@@ -21,7 +21,7 @@ function startLiveMatch(match, isHome, opp, poType = null, poMatch = null) {
   });
   G.ms.poType  = poType;
   G.ms.poMatch = poMatch;
-  G.ms.speed   = 10;
+  G.ms.speed   = 192;  // 2.5s reali per periodo
 
   poolInitTokens(G.ms);
   if (typeof MovementController !== 'undefined') MovementController.init(G.ms);
@@ -52,6 +52,73 @@ function startLiveMatch(match, isHome, opp, poType = null, poMatch = null) {
 }
 
 // ── Loop animazione ───────────────────────────
+
+// ── Animazione GOAL ──────────────────────────────────────────────────
+let _goalAnimTimer = null;
+
+function showGoalAnimation(scorerName, teamType, ms) {
+  const overlay  = document.getElementById('goal-overlay');
+  const textEl   = document.getElementById('goal-text-el');
+  const scorerEl = document.getElementById('goal-scorer-el');
+  const splashEl = document.getElementById('goal-splash');
+  const logoWrap = document.getElementById('goal-logo-wrap');
+  if (!overlay || !textEl) return;
+
+  // Determina se è la squadra di casa o ospite
+  const isHome = teamType === 'my' ? ms.isHome : !ms.isHome;
+  const side   = isHome ? 'home' : 'away';
+
+  // Logo squadra che ha segnato
+  const teamId  = teamType === 'my' ? ms.myTeam.id : ms.oppTeam.id;
+  const teamDat = G.teams.find(function(t){ return t.id === teamId; });
+  logoWrap.innerHTML = '';
+  if (teamDat && teamDat.logo) {
+    const img = document.createElement('img');
+    img.src = teamDat.logo;
+    img.className = 'goal-logo';
+    img.onerror = function() {
+      img.style.display = 'none';
+      const span = document.createElement('div');
+      span.className = 'goal-logo-placeholder';
+      span.style.background = teamDat.col || '#00c2ff';
+      span.textContent = teamDat.abbr || '⚽';
+      logoWrap.appendChild(span);
+    };
+    logoWrap.appendChild(img);
+  }
+
+  // Testo e scorer
+  textEl.textContent = 'GOAL!';
+  textEl.className   = 'goal-text ' + side;
+  scorerEl.textContent = scorerName || '';
+  splashEl.className = 'water-splash' + (side === 'away' ? ' away' : '');
+
+  // Reset animazioni riapplicando le classi
+  [textEl, scorerEl, splashEl, logoWrap.firstChild].forEach(function(el) {
+    if (!el) return;
+    el.style.animation = 'none';
+    void el.offsetWidth; // reflow
+    el.style.animation = '';
+  });
+
+  overlay.classList.add('visible');
+
+  // Pausa il gioco durante l'animazione
+  const wasPaused = ms.running === false;
+  ms.running = false;
+
+  if (_goalAnimTimer) clearTimeout(_goalAnimTimer);
+  _goalAnimTimer = setTimeout(function() {
+    overlay.classList.remove('visible');
+    // Riprendi alla velocità precedente solo se non era già in pausa prima
+    if (!wasPaused && ms && !ms.finished) {
+      ms.running = true;
+      document.getElementById('btn-play').textContent = '⏸ Pausa';
+    }
+    _goalAnimTimer = null;
+  }, 1800); // durata animazione 1.8s
+}
+
 function _animLoop(timestamp) {
   _animReqId = requestAnimationFrame(_animLoop);
   const rawDt = _lastFrameT ? Math.min((timestamp - _lastFrameT) / 1000, 0.1) : 0;
@@ -68,8 +135,7 @@ function _animLoop(timestamp) {
       G.ms.running = false;
       document.getElementById('btn-play').textContent = '▶ Avvia';
       _lastFrameT = null;
-      _autoSubsPeriodEnd(G.ms);
-      _appendLog('⏸ Fine ' + (G.ms.period - 1) + '° Tempo — Partita in pausa. Puoi effettuare ulteriori sostituzioni.', 'sv');
+      _appendLog('⏸ Fine ' + (G.ms.period - 1) + '° Tempo — Partita in pausa. Puoi effettuare sostituzioni.', 'sv');
       if (typeof MovementController !== 'undefined') MovementController.onPeriodStart();
     }
     if (matchEnded) {
@@ -92,6 +158,7 @@ function _animLoop(timestamp) {
             const bt = event.ballTarget || { x: 0.5, y: 0.5 };
             poolShootAndScore(bt.x, bt.y, event.goalScorer || '', event.goalTeam || 'my');
             if (typeof MovementController !== 'undefined') MovementController.onPossessChange(event.goalTeam === 'my' ? 'opp' : 'my');
+            showGoalAnimation(event.goalScorer || '', event.goalTeam || 'my', G.ms);
           } else if (event.ballTarget) {
             poolMoveBall(event.ballTarget.x, event.ballTarget.y);
             if (event.cls === 'myg' || event.cls === 'og') {
@@ -107,7 +174,11 @@ function _animLoop(timestamp) {
           if (typeof poolSetSpeeds === 'function') poolSetSpeeds(G.ms);
         }
       }
-      renderFieldLists();
+      // Aggiorna _everOnField con chi è attualmente in campo
+    if (G.ms && G.ms._everOnField) {
+      Object.values(G.ms.onField).forEach(pi => G.ms._everOnField.add(pi));
+    }
+    renderFieldLists();
     }
 
     poolAnimStep(rawDt); // l'animazione visiva resta fluida indipendentemente da speed
@@ -695,10 +766,8 @@ function skipPeriod() {
     if (event && event.txt) {
       _appendLog(event.txt, event.cls);
       // Aggiorna animazione canvas
-      if (event.ballTarget) poolMoveBall(event.ballTarget.x, event.ballTarget.y);
-      if (event.goalScored && typeof poolShowGoal === 'function') {
-        poolShowGoal(event.goalScorer || '', event.goalTeam || 'my');
-      }
+      // Skip: nessuna animazione — solo aggiornamento posizione finale palla
+      // (poolShowGoal e poolMoveToken non vengono chiamati)
       if (event.expelled !== undefined) _handleExpulsion(event.expelled, event.moverKey);
     }
 
@@ -773,8 +842,14 @@ function _renderSubLists() {
     const p = ms.myRoster[pi]; if (!p) return '';
     const nativeRole = POS_NATIVE_ROLE[pk];
     if (!nativeRole) return '';
-    const adj = ROLE_ADJACENCY[p.role];
-    const eff = adj ? (adj[nativeRole] || 0.6) : 1.0;
+    // Se il ruolo primario O il secondRole corrisponde alla posizione → nessun avviso
+    if (p.role === nativeRole || p.secondRole === nativeRole) return '';
+    // Prendi l'efficacia migliore tra ruolo primario e secondario
+    const adj1 = ROLE_ADJACENCY[p.role];
+    const adj2 = p.secondRole ? ROLE_ADJACENCY[p.secondRole] : null;
+    const eff1 = adj1 ? (adj1[nativeRole] || 0.6) : 1.0;
+    const eff2 = adj2 ? (adj2[nativeRole] || 0.6) : 0;
+    const eff  = Math.max(eff1, eff2);
     if (eff >= 0.85) return '';
     const label = eff >= 0.70 ? '⚠ fuori ruolo' : '⚠⚠ molto fuori ruolo';
     const col   = eff >= 0.70 ? '#f0c040' : '#e74c3c';
@@ -1152,12 +1227,29 @@ function _doEndMatch() {
         if (!convocati.has(pi)) {
           // Non convocato → null
           p.lastRatings.push(null);
+        } else if (!ms._everOnField || !ms._everOnField.has(pi)) {
+          // Convocato ma rimasto in panchina tutta la partita → null (nessun voto)
+          p.lastRatings.push(null);
         } else {
-          // Convocato → voto calcolato
+          // Ha giocato → voto calcolato
           const _lr = calcPlayerRating(pi, ms);
           p.lastRatings.push(_lr);
-          // Conta presenza se ha ricevuto un voto reale (non null)
-          if (_lr !== null) p.careerApps = (p.careerApps || 0) + 1;
+          // Conta presenza e aggiorna statistiche stagionali
+          if (_lr !== null) {
+            p.careerApps = (p.careerApps || 0) + 1;
+            // Gol e assist stagionali
+            const pGoals   = (ms.matchGoals   && ms.matchGoals[pi])   || 0;
+            const pAssists = (ms.matchAssists && ms.matchAssists[pi]) || 0;
+            p.goals   = (p.goals   || 0) + pGoals;
+            p.assists = (p.assists || 0) + pAssists;
+            // Parate stagionali (solo portiere titolare)
+            if (p.role === 'POR' && ms.onField['GK'] === pi) {
+              p.saves = (p.saves || 0) + (ms.mySaves || 0);
+            }
+            // Career stats
+            p.careerGoals   = (p.careerGoals   || 0) + pGoals;
+            p.careerAssists = (p.careerAssists || 0) + pAssists;
+          }
         }
         if (p.lastRatings.length > 4) p.lastRatings.shift();
       });

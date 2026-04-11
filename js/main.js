@@ -180,6 +180,18 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
       p.lastRatings.push(Math.round(rating * 2) / 2);
     } else {
       // Giocatori di campo convocati
+      // I titolari (primi 7) giocano sempre; le riserve entrano con probabilità
+      const fieldConv = squad13.filter(pl => pl.role !== 'POR');
+      const isTitolare = fieldConv.indexOf(p) < 7;
+      const isRiserva  = !isTitolare;
+
+      // Riserva: 30% di probabilità di entrare a partita in corso
+      if (isRiserva && Math.random() > 0.30) {
+        p.lastRatings.push(null);
+        if (p.lastRatings.length > 4) p.lastRatings.shift();
+        return;
+      }
+
       const contrib  = matchMap[p.name] || { goals: 0, assists: 0 };
       const roleBase = p.role === 'ATT' ? 0.2 : p.role === 'CB' ? 0.15 : p.role === 'CEN' ? 0.1 : 0;
       let rating = 6.0
@@ -187,11 +199,14 @@ function _assignSimulatedRatings(roster, goalsConceded, matchDetails, scorerKey)
         + contrib.assists * 0.8
         + roleBase
         + (Math.random() * 0.6 - 0.3);
+      if (isRiserva) rating -= 0.3; // lieve penalità per chi entra a partita in corso
       rating = Math.max(3.0, Math.min(10.0, rating));
       const _r = Math.round(rating * 2) / 2;
       p.lastRatings.push(_r);
-      // Conta presenza: voto reale assegnato
+      // Conta presenza e aggiorna statistiche stagionali
       p.careerApps = (p.careerApps || 0) + 1;
+      p.goals   = (p.goals   || 0) + (contrib.goals   || 0);
+      p.assists = (p.assists || 0) + (contrib.assists || 0);
     }
 
     if (p.lastRatings.length > 4) p.lastRatings.shift();

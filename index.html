@@ -401,6 +401,13 @@
     <div style="flex:1;min-width:0">
       <div style="position:relative;width:100%">
         <canvas id="pool-canvas" width="760" height="430" style="width:100%;height:auto;display:block;border-radius:10px"></canvas>
+        <!-- Overlay animazione goal -->
+        <div id="goal-overlay">
+          <div id="goal-logo-wrap"></div>
+          <div id="goal-text-el" class="goal-text"></div>
+          <div id="goal-scorer-el" class="goal-scorer-name"></div>
+          <div id="goal-splash" class="water-splash"></div>
+        </div>
       </div>
     </div>
 
@@ -540,7 +547,7 @@
 
   <!-- Footer versione -->
   <div class="wp-version-footer" style="text-align:center;padding:10px 0 16px;font-size:11px;color:rgba(255,255,255,.2);user-select:none">
-    v0.6.17 beta
+    v0.6.18 beta
   </div>
 
   <!-- Firebase modules (type="module") — caricati dopo tutti gli script vanilla -->
