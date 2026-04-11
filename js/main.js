@@ -259,6 +259,9 @@ function simNextRound() {
   const r = nextMyRound();
   if (!r) { G.msgs.push('Nessuna giornata rimanente.'); renderDash(); return; }
 
+  // ── Convocazioni nazionali ──
+  _processNationalCalls(r);
+
   // Salva posizione attuale PRIMA di aggiornare la classifica
   G.prevPos = getTeamPosition(G.stand, G.myId);
 
@@ -406,6 +409,12 @@ function simNextRound() {
   generateTransferOffers();
   _updateStarsBox();
   updateHeader(); autoSave(); renderDash();
+  // Popup convocazione nazionale (se presenti giocatori della mia squadra)
+  if (G._pendingNationalPopup && G._pendingNationalPopup.length > 0) {
+    const _toShow = G._pendingNationalPopup;
+    G._pendingNationalPopup = null;
+    setTimeout(() => _showNationalPopup(_toShow), 300);
+  }
 }
 
 function simEntireSeason() {
@@ -2233,4 +2242,169 @@ function _showYouthPopup() {
   };
 
   document.body.appendChild(ov);
+}
+
+// ═══════════════════════════════════════════════════════
+// SISTEMA NAZIONALI
+// ═══════════════════════════════════════════════════════
+
+const NATIONAL_ROUNDS = [5, 10, 17, 23]; // giornate con convocazioni
+
+// Slot nazionali ITA: { role, count }
+const ITA_NATIONAL_SLOTS = [
+  { role: 'POR', count: 2 },
+  { role: 'DIF', count: 4 },
+  { role: 'CEN', count: 3 },
+  { role: 'ATT', count: 4 },
+  { role: 'CB',  count: 3 },
+];
+
+// Score convocazione: bilancia OVR, media voto, presenze, gol, assist
+function _nationalScore(p) {
+  const ovr       = p.overall || 50;
+  const apps      = p.careerApps || 0;
+  const goals     = p.goals || 0;
+  const assists   = p.assists || 0;
+  const ratings   = (p.lastRatings || []).filter(r => r !== null);
+  const avgRating = ratings.length > 0 ? ratings.reduce((s,r) => s+r, 0) / ratings.length : 6.0;
+  // Formula: OVR pesa 50%, media voto 25%, contributi 15%, presenze 10%
+  return ovr * 0.50
+       + (avgRating - 6.0) * 10 * 0.25   // normalizzato 0-40 → 0-10
+       + Math.min(apps, 20) * 0.5 * 0.10
+       + Math.min(goals + assists * 0.7, 30) * 0.30 * 0.15;
+}
+
+// Resetta convocazioni precedenti
+function _clearNationalCalls() {
+  Object.values(G.rosters).forEach(roster => {
+    (roster || []).forEach(p => {
+      if (p) { p._national = false; p._nationalNat = undefined; }
+    });
+  });
+}
+
+// Seleziona i migliori giocatori per la nazionale
+function _processNationalCalls(round) {
+  if (!NATIONAL_ROUNDS.includes(round)) return;
+
+  _clearNationalCalls();
+
+  const allPlayers = []; // { p, teamId, rosterIdx }
+  Object.entries(G.rosters).forEach(([teamId, roster]) => {
+    (roster || []).forEach((p, idx) => {
+      if (p && !p.injured) allPlayers.push({ p, teamId, rosterIdx: idx });
+    });
+  });
+
+  const myCalledNames = [];
+
+  // ── 1. Nazionale ITA — selezione per ruolo ──
+  ITA_NATIONAL_SLOTS.forEach(({ role, count }) => {
+    const pool = allPlayers
+      .filter(({ p }) => p.nat === 'ITA' && p.role === role)
+      .sort((a, b) => _nationalScore(b.p) - _nationalScore(a.p))
+      .slice(0, count);
+    pool.forEach(({ p, teamId }) => {
+      p._national    = true;
+      p._nationalNat = 'ITA';
+      if (teamId === G.myId) myCalledNames.push({ name: p.name, role: p.role, nat: 'ITA', ita: true });
+    });
+  });
+
+  // ── 2. Altre nazionalità — miglior 1 per nazione ──
+  const otherNats = ['CRO','SRB','HUN','GRE','MNE','ESP'];
+  otherNats.forEach(nat => {
+    const best = allPlayers
+      .filter(({ p }) => p.nat === nat && !p._national)
+      .sort((a, b) => _nationalScore(b.p) - _nationalScore(a.p))[0];
+    if (best) {
+      best.p._national    = true;
+      best.p._nationalNat = nat;
+      if (best.teamId === G.myId) myCalledNames.push({ name: best.p.name, role: best.p.role, nat, ita: false });
+    }
+  });
+
+  // ── 3. Notizie e popup ──
+  if (myCalledNames.length > 0) {
+    myCalledNames.forEach(({ name, role, nat, ita }) => {
+      const flag = _natFlag(nat);
+      const tagTxt = ita
+        ? `🏊 ${name} (${role}) convocato in Nazionale Italiana ${flag}! Sarà indisponibile questa giornata.`
+        : `🏊 ${name} convocato dalla Nazionale ${nat} ${flag}! Sarà indisponibile questa giornata.`;
+      G.msgs.push(tagTxt);
+    });
+    // Popup celebrativo (mostrato dopo renderDash)
+    G._pendingNationalPopup = myCalledNames;
+  }
+}
+
+const _NAT_FLAGS = { ITA:'🇮🇹', CRO:'🇭🇷', SRB:'🇷🇸', HUN:'🇭🇺', GRE:'🇬🇷', MNE:'🇲🇪', ESP:'🇪🇸' };
+function _natFlag(nat) { return _NAT_FLAGS[nat] || '🏳'; }
+
+// Popup celebrativo convocazione nazionale
+function _showNationalPopup(called) {
+  const ov = document.createElement('div');
+  ov.id = 'national-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(30,30,50,.88);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(6px)';
+
+  const itaPlayers = called.filter(c => c.ita);
+  const othPlayers = called.filter(c => !c.ita);
+
+  const makeRow = (c) => `
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,.06);border-radius:8px;margin-bottom:6px">
+      <span style="font-size:22px">${_natFlag(c.nat)}</span>
+      <div>
+        <div style="font-weight:700;font-size:14px">${c.name}</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.55)">${c.role} · ${c.nat}</div>
+      </div>
+      ${c.ita ? '<span style="margin-left:auto;font-size:10px;font-weight:700;background:#1565c0;color:#fff;padding:2px 7px;border-radius:4px;letter-spacing:.5px">NAZIONALE ITA</span>' : '<span style="margin-left:auto;font-size:10px;font-weight:700;background:#37474f;color:#fff;padding:2px 7px;border-radius:4px">NAZ</span>'}
+    </div>`;
+
+  ov.innerHTML = `
+    <div style="background:var(--panel);border:1px solid rgba(0,194,255,.3);border-radius:16px;padding:24px;max-width:400px;width:92%;max-height:85vh;overflow-y:auto;position:relative">
+      <div style="text-align:center;margin-bottom:18px">
+        <div style="font-size:36px;margin-bottom:4px">🏊🇮🇹</div>
+        <div style="font-weight:800;font-size:18px;color:var(--blue)">Convocazione in Nazionale!</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">Giornata ${NATIONAL_ROUNDS.includes(G.round||0) ? G.round||'' : ''} — i tuoi giocatori sono stati selezionati</div>
+      </div>
+      ${itaPlayers.length ? `<div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">🇮🇹 Nazionale Italiana</div>${itaPlayers.map(makeRow).join('')}` : ''}
+      ${othPlayers.length ? `<div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin:10px 0 6px">Altre nazionali</div>${othPlayers.map(makeRow).join('')}` : ''}
+      <div style="margin-top:16px;font-size:11px;color:rgba(255,255,255,.4);text-align:center">I giocatori torneranno disponibili alla prossima giornata.</div>
+      <button onclick="document.getElementById('national-popup').remove()" style="width:100%;margin-top:14px;padding:10px;background:var(--blue);border:none;border-radius:8px;color:#fff;font-weight:700;font-size:14px;cursor:pointer">
+        Ottimo! 💪
+      </button>
+      <canvas id="national-confetti" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;border-radius:16px"></canvas>
+    </div>`;
+
+  document.body.appendChild(ov);
+  ov.onclick = e => { if (e.target === ov) ov.remove(); };
+
+  // Effetto coriandoli
+  setTimeout(() => {
+    const canvas = document.getElementById('national-confetti');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    const particles = Array.from({ length: 60 }, () => ({
+      x: Math.random() * canvas.width, y: -10,
+      vx: (Math.random()-0.5)*3, vy: 1.5 + Math.random()*2,
+      color: ['#1565c0','#fdd835','#e53935','#2ecc71','#00c2ff'][Math.floor(Math.random()*5)],
+      size: 4 + Math.random()*5, rot: Math.random()*360, vr: (Math.random()-0.5)*8,
+    }));
+    let frame = 0;
+    function drawConfetti() {
+      if (frame++ > 120 || !document.getElementById('national-confetti')) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+        if (p.y > canvas.height) { p.y = -10; p.x = Math.random()*canvas.width; }
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot * Math.PI/180);
+        ctx.fillStyle = p.color; ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+        ctx.restore();
+      });
+      requestAnimationFrame(drawConfetti);
+    }
+    drawConfetti();
+  }, 100);
 }

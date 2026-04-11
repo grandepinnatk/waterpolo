@@ -437,8 +437,8 @@ tr:last-child td { border-bottom: none; }
   font-family:   monospace;
 }
 .ae       { padding: 2px 0; border-bottom: 1px solid rgba(30, 58, 92, .3); color: var(--muted); }
-.ae.myg   { color: #00c2ff; font-weight: 600; }
-.ae.og    { color: #e74c3c; font-weight: 600; }
+.ae.myg   { color: #00c2ff; font-weight: 700; background: rgba(0,194,255,.10); padding: 4px 6px; border-radius: 4px; border-left: 3px solid #00c2ff; margin: 2px 0; }
+.ae.og    { color: #e74c3c; font-weight: 700; background: rgba(231,76,60,.10); padding: 4px 6px; border-radius: 4px; border-left: 3px solid #e74c3c; margin: 2px 0; }
 .ae.sv    { color: #2ecc71; }
 .ae.fl    { color: #f0c040; }
 .ae.sub   { color: #a855f7; font-style: italic; }

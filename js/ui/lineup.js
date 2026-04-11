@@ -377,7 +377,7 @@ function autoFillLineup() {
   const used   = new Set();
 
   const por = roster.map((p, i) => ({ p, i }))
-    .filter(x => x.p.role === 'POR' && !x.p.injured)
+    .filter(x => x.p.role === 'POR' && !x.p.injured && !x.p._national)
     .sort((a, b) => b.p.overall - a.p.overall)[0];
   if (por) { luState.formation['GK'] = por.i; used.add(por.i); luState.convocati.add(por.i); }
 
@@ -386,7 +386,7 @@ function autoFillLineup() {
     const prefRole = POS_ROLE_AFFINITY[pk];
     const prefHand = posInfo && posInfo.prefHand;  // 'R', 'L' o undefined
     const cands = roster.map((p, i) => ({ p, i }))
-      .filter(x => !used.has(x.i) && x.p.role !== 'POR' && !x.p.injured)
+      .filter(x => !used.has(x.i) && x.p.role !== 'POR' && !x.p.injured && !x.p._national)
       .sort((a, b) => {
         // Score: ruolo corretto +10, mano preferita +5, AMB equivale alla mano preferita (+5), overall come base
         const scoreA = (a.p.role === prefRole ? 10 : 0)
@@ -402,7 +402,7 @@ function autoFillLineup() {
 
   // Riserve migliori
   roster.map((p, i) => ({ p, i }))
-    .filter(x => !used.has(x.i) && !x.p.injured)
+    .filter(x => !used.has(x.i) && !x.p.injured && !x.p._national)
     .sort((a, b) => b.p.overall - a.p.overall)
     .forEach(({ i }) => { if (luState.convocati.size < MAX_CONVOCATI) luState.convocati.add(i); });
 

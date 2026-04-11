@@ -231,7 +231,7 @@ function refreshMatchUI() {
   const aS = ms.isHome ? ms.oppScore : ms.myScore;
   document.getElementById('m-score').textContent   = hS + ' - ' + aS;
   document.getElementById('m-period').textContent  = ms.period + '° Tempo';
-  document.getElementById('sub-count').textContent = ms.subs;
+  const _subEl = document.getElementById('sub-count'); if (_subEl) _subEl.textContent = ms.subs;
 
   // ── Timer countdown: mostra secondi rimanenti nel periodo corrente ──
   const elapsed  = ms.totalSeconds - (ms.period - 1) * PERIOD_SECONDS;
@@ -357,6 +357,20 @@ function _appendLog(txt, cls) {
   el.textContent = '[' + formatMatchTime(ms.totalSeconds) + '] ' + txt;
   log.insertBefore(el, log.firstChild);
   while (log.children.length > 40) log.removeChild(log.lastChild);
+
+  // Overlay flash grigio sul log per eventi goal
+  if (cls === 'myg' || cls === 'og') {
+    const logWrap = log.parentElement;
+    if (logWrap) {
+      const flash = document.createElement('div');
+      flash.style.cssText = 'position:absolute;inset:0;border-radius:inherit;pointer-events:none;' +
+        'background:rgba(180,180,200,.22);z-index:10;transition:opacity .5s';
+      logWrap.style.position = 'relative';
+      logWrap.appendChild(flash);
+      setTimeout(() => { flash.style.opacity = '0'; }, 80);
+      setTimeout(() => { if (flash.parentNode) flash.parentNode.removeChild(flash); }, 600);
+    }
+  }
 }
 
 // ── Liste in campo / panchina ─────────────────
@@ -383,42 +397,59 @@ function _shortPlayerName(p) {
 // tenendo conto del ruolo (non si toglie il POR salvo necessità)
 function _autoSubsPeriodEnd(ms) {
   if (!ms || ms.finished) return;
-  const MAX_SUBS_PER_PERIOD = 3;
-  let subsDone = 0;
 
-  // ── Cambi squadra del manager ──
-  // Trova i giocatori in campo con stamina più bassa (escluso portiere se non esausto)
+  // ── Efficacia effettiva: stessa formula del motore di gioco ──────────────
+  // eff = overall × roleFactor × staminaFactor  (staminaFactor: 0.40–1.00)
+  function _eff(p, pk, stamina) {
+    if (!p) return 0;
+    const rf = (typeof _roleEffectiveness === 'function') ? _roleEffectiveness(p, pk) : 1.0;
+    const sf = 0.40 + (Math.min(100, Math.max(0, stamina)) / 100) * 0.60;
+    return p.overall * rf * sf;
+  }
+
+  // ── Cambi squadra del manager ──────────────────────────────────────────
+  // Valuta se esiste un sostituto che migliora l'efficacia sulla posizione
   const fieldEntries = Object.entries(ms.onField)
     .filter(([pk, pi]) => !ms.expelled.has(pi) && pk !== 'GK')
-    .map(([pk, pi]) => ({ pk, pi, stamina: ms.stamina[pi] ?? 100 }))
-    .sort((a, b) => a.stamina - b.stamina);  // dal più stanco
+    .map(([pk, pi]) => {
+      const p = ms.myRoster[pi];
+      const stamina = ms.stamina[pi] ?? 100;
+      return { pk, pi, p, stamina, eff: _eff(p, pk, stamina) };
+    });
 
-  // Panchina disponibile: ordina per stamina decrescente (i più freschi prima)
   const benchAvail = ms.bench
     .filter(pi => !ms.expelled.has(pi) && ms.myRoster[pi]?.role !== 'POR')
-    .map(pi => ({ pi, stamina: ms.stamina[pi] ?? (ms.myRoster[pi]?.fitness ?? 80) }))
-    .sort((a, b) => b.stamina - a.stamina);
+    .map(pi => {
+      const p = ms.myRoster[pi];
+      // Per il sostituto: stima la sua stamina nella posizione
+      // (in panchina ha recuperato, quindi usiamo la stamina attuale)
+      const stamina = ms.stamina[pi] ?? (p?.fitness ?? 80);
+      return { pi, p, stamina };
+    });
 
-  for (const { pk, pi, stamina } of fieldEntries) {
-    if (subsDone >= MAX_SUBS_PER_PERIOD || benchAvail.length === 0) break;
-    // Cambia solo se la stamina è < 45% o se c'è qualcuno in panchina con almeno 20 punti in più
-    const bestBench = benchAvail[0];
-    if (stamina < 45 || (bestBench && bestBench.stamina > stamina + 20)) {
-      const outP  = ms.myRoster[pi];
-      const inP   = ms.myRoster[bestBench.pi];
-      if (!outP || !inP) continue;
-      // Preferenza per ruoli compatibili
-      const posRole = ms.positionRoles ? ms.positionRoles[pk] : null;
-      const sameRole = benchAvail.find(b =>
-        !ms.expelled.has(b.pi) &&
-        (posRole ? ms.myRoster[b.pi]?.role === posRole || ms.myRoster[b.pi]?.secondRole === posRole : true) &&
-        b.stamina > stamina + 10
-      );
-      const chosen = sameRole || (bestBench.stamina > stamina + 10 ? bestBench : null);
-      if (!chosen) continue;
+  for (const { pk, pi, p: outP, stamina: outSt, eff: outEff } of fieldEntries) {
+    if (benchAvail.length === 0) break;
 
-      const result = performSubstitution(ms, pk, chosen.pi);
-      if (result) {
+    // Per ogni riserva disponibile, calcola la sua efficacia stimata in questa posizione
+    const candidates = benchAvail
+      .map(b => ({
+        ...b,
+        eff: _eff(b.p, pk, b.stamina),
+      }))
+      .filter(b => b.eff > outEff) // entra solo se migliora l'efficacia
+      .sort((a, b) => b.eff - a.eff); // il migliore primo
+
+    if (candidates.length === 0) continue; // nessun sostituto vantaggioso
+
+    // Preferenza per ruoli compatibili tra i candidati vantaggiosi
+    const posRole = outP?.role;
+    const sameRole = candidates.find(b =>
+      b.p?.role === posRole || b.p?.secondRole === posRole
+    );
+    const chosen = sameRole || candidates[0];
+
+    const result = performSubstitution(ms, pk, chosen.pi);
+    if (result) {
         const outName = _shortPlayerName(result.outPlayer);
         const inName  = _shortPlayerName(result.inPlayer);
         const outSt   = Math.round(ms.stamina[pi] ?? 0);
@@ -427,11 +458,8 @@ function _autoSubsPeriodEnd(ms) {
         // Rimuovi chosen da benchAvail
         const idx = benchAvail.indexOf(chosen);
         if (idx >= 0) benchAvail.splice(idx, 1);
-        // Aggiungi l'uscito alla panchina virtuale (già fatto da performSubstitution)
-        subsDone++;
       }
     }
-  }
 
   // ── Cambi CPU (avversario) ──
   // La CPU ha un oppRoster ma non un ms.onField per loro — simuliamo con fatigue
@@ -468,9 +496,14 @@ function _autoSubsPeriodEnd(ms) {
       .sort((a,b) => b.stamina - a.stamina);
 
     for (const { i: outIdx, stamina } of oppFieldSorted) {
-      if (cpuSubs >= MAX_SUBS_PER_PERIOD || oppBenchSorted.length === 0) break;
+      if (oppBenchSorted.length === 0) break;
       const bestIn = oppBenchSorted[0];
-      if (stamina < 45 || (bestIn && bestIn.stamina > stamina + 15)) {
+      // CPU cambia solo se il sostituto ha efficacia stimata superiore
+      const outP2 = ms.oppRoster[outIdx];
+      const inP2  = ms.oppRoster[bestIn.i];
+      const outEff2 = outP2 ? outP2.overall * (0.40 + stamina/100*0.60) : 0;
+      const inEff2  = inP2  ? inP2.overall  * (0.40 + bestIn.stamina/100*0.60) : 0;
+      if (inEff2 > outEff2) {
         const outP = ms.oppRoster[outIdx];
         const inP  = ms.oppRoster[bestIn.i];
         if (!outP || !inP) continue;
@@ -638,8 +671,6 @@ function selBenchRow(pi) {
 function confirmSwap() {
   const ms = G.ms;
   if (!ms || _subSelField === null || _subSelBench === null) return;
-  if (ms.subs >= 6) { _appendLog('⚠ Numero massimo di cambi raggiunto (6).', 'fl'); return; }
-
   const result = performSubstitution(ms, _subSelField, _subSelBench);
   if (!result) return;
 
@@ -1068,6 +1099,7 @@ function showMatchPlayerInfo(pi) {
           <div style="font-weight:700;font-size:15px;color:var(--blue);display:flex;align-items:center;gap:4px;flex-wrap:wrap">
             #${shirt} ${p.name} ${_ritBadge(p)} ${p._diamond ? '💎' : ''}
             ${p.injured ? `<span style="font-size:9px;background:#e74c3c;color:#fff;font-weight:700;padding:1px 4px;border-radius:3px">INF${p.injuryWeeks ? '+' + p.injuryWeeks + 'G' : ''}</span>` : ''}
+            ${p._national ? (typeof _nationalBadge === 'function' ? _nationalBadge(p) : '') : ''}
           </div>
           <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:3px">
             ${_roleBadge(p.role)}${p.secondRole ? ' ' + _roleBadge(p.secondRole) : ''}
