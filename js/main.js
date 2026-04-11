@@ -325,15 +325,18 @@ function simNextRound() {
     // Per la squadra del manager usa i 13 convocati simulati; per le altre l'intera rosa.
     const _simRoster = (roster) => {
       // Usa _buildSimSquad se disponibile (ruoli minimi + score composito)
-      if (typeof _buildSimSquad === 'function') return _buildSimSquad(roster);
+      // Passa sempre il roster pre-filtrato (no injured, no _national)
+      const filtered = (roster || []).filter(p => p && !p.injured && !p._national);
+      if (typeof _buildSimSquad === 'function') return _buildSimSquad(filtered);
       // Fallback: POR + migliori per OVR
-      const available = roster.filter(p => p && !p.injured && !p._national);
+      const available = filtered;
       const gk  = available.filter(p => p.role === 'POR').sort((a,b) => b.overall - a.overall).slice(0, 2);
       const fld = available.filter(p => p.role !== 'POR').sort((a,b) => b.overall - a.overall).slice(0, 11);
       return [...gk, ...fld];
     };
-    const homeRoster = (m.home === G.myId) ? _simRoster(G.rosters[m.home]) : G.rosters[m.home];
-    const awayRoster = (m.away === G.myId) ? _simRoster(G.rosters[m.away]) : G.rosters[m.away];
+    // Filtra sempre injured e _national da entrambe le squadre
+    const homeRoster = _simRoster(G.rosters[m.home] || []);
+    const awayRoster = _simRoster(G.rosters[m.away] || []);
     const det = simulateMatchStats(homeRoster, awayRoster, m.score);
     if (det) m.details = det;
 
