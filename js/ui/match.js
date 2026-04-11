@@ -690,7 +690,7 @@ function renderFieldLists(withAnim) {
   }
 
   // Griglia: #(18) | Nome(1fr) | VOT(28) | Pos(22) | Ruolo(44) | Mano(28) | Età(20) | OVR(24) | Stamina(58) | Esp(24) | ⚽(18) | 🤝(18)
-  const COL = '18px minmax(0,1fr) 28px 22px 44px 30px 20px 24px 58px 24px 18px 18px';
+  const COL = '18px minmax(0,.75fr) 28px 22px 44px 30px 20px 24px 58px 24px 18px 18px';
 
   const hdr = `<div style="display:grid;grid-template-columns:${COL};
     gap:2px;padding:2px 3px 4px;border-bottom:1px solid var(--border);
@@ -718,30 +718,34 @@ function renderFieldLists(withAnim) {
     const rating   = (typeof calcPlayerRating === 'function') ? calcPlayerRating(pi, ms) : 6.0;
     const rc = rating >= 7.5 ? 'var(--green)' : rating >= 6.5 ? 'var(--gold)' : rating >= 5.5 ? 'var(--muted)' : 'var(--red)';
     const canSel   = isPaused && !isExp;
-    const clickFn  = canSel ? (isBench ? `selBenchRow(${pi})` : `selFieldRow('${pk}')`) : '';
+    const selFn    = canSel ? (isBench ? `selBenchRow(${pi})` : `selFieldRow('${pk}')`) : '';
     const rowBg    = selClass === 'sel-field' ? 'rgba(0,194,255,.15)' : selClass === 'sel-bench' ? 'rgba(240,192,64,.15)' : '';
     const bHasPlayed = ms._everOnField && ms._everOnField.has(pi);
     const dispRating = isBench && !bHasPlayed ? '—' : rating.toFixed(1);
-    return `<div class="player-row ${canSel ? 'selectable' : ''} ${selClass} ${animClass}"
-      onclick="${clickFn}"
+    // Ogni cella cliccabile (eccetto il nome) chiama selFn
+    const c_ = (content, extraStyle) => canSel
+      ? `<div onclick="${selFn}" style="cursor:pointer;${extraStyle||''}">${content}</div>`
+      : `<div style="${extraStyle||''}">${content}</div>`;
+    return `<div class="player-row ${selClass} ${animClass}"
       style="display:grid;grid-template-columns:${COL};
              gap:2px;align-items:center;padding:4px 3px;
              border-bottom:1px solid rgba(30,58,92,.3);
              background:${rowBg};
              opacity:${isExp ? '.4' : '1'}">
-      <div style="font-weight:700;color:${isBench?'var(--muted)':'var(--blue)'};font-size:10px">#${shirt}</div>
-      <div style="font-size:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px"
-           onclick="event.stopPropagation();showMatchPlayerInfo(${pi})" title="Scheda giocatore">${_shortPlayerName(p)}</div>
-      <div style="font-size:11px;font-weight:800;color:${rc};text-align:center">${dispRating}</div>
-      <div style="font-size:10px;font-weight:700;color:var(--blue);text-align:center">${posLabel}</div>
-      <div style="display:flex;gap:1px;flex-wrap:wrap;align-items:center">${roleBadge(p.role)}${p.secondRole ? roleBadge(p.secondRole) : ''}</div>
-      <div>${handBadge(p.hand)}</div>
-      <div style="font-size:10px;color:var(--muted);text-align:center">${p.age}</div>
-      <div style="font-size:10px;font-weight:700;color:var(--blue);text-align:center">${p.overall}</div>
-      <div>${isExp ? '<span style="font-size:9px;color:var(--red)">ESP</span>' : staminaCell(pi)}</div>
-      <div style="text-align:center">${expDots(pi)}</div>
-      <div style="font-size:10px;font-weight:700;color:${mGoals>0?'var(--blue)':'var(--muted)'};text-align:center">${mGoals||'—'}</div>
-      <div style="font-size:10px;font-weight:700;color:${mAssists>0?'var(--green)':'var(--muted)'};text-align:center">${mAssists||'—'}</div>
+      ${c_(`<span style="font-weight:700;color:${isBench?'var(--muted)':'var(--blue)'};font-size:10px">#${shirt}</span>`)}
+      <div style="font-size:10px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+                  cursor:pointer;color:var(--blue);text-decoration:underline dotted;text-underline-offset:2px"
+           onclick="showMatchPlayerInfo(${pi})" title="Scheda giocatore">${_shortPlayerName(p)}</div>
+      ${c_(`<span style="font-size:11px;font-weight:800;color:${rc}">${dispRating}</span>`, 'text-align:center')}
+      ${c_(`<span style="font-size:10px;font-weight:700;color:var(--blue)">${posLabel}</span>`, 'text-align:center')}
+      ${c_(`<span style="display:flex;gap:1px;flex-wrap:wrap;align-items:center">${roleBadge(p.role)}${p.secondRole ? roleBadge(p.secondRole) : ''}</span>`)}
+      ${c_(handBadge(p.hand))}
+      ${c_(`<span style="font-size:10px;color:var(--muted)">${p.age}</span>`, 'text-align:center')}
+      ${c_(`<span style="font-size:10px;font-weight:700;color:var(--blue)">${p.overall}</span>`, 'text-align:center')}
+      ${c_(isExp ? '<span style="font-size:9px;color:var(--red)">ESP</span>' : staminaCell(pi))}
+      ${c_(expDots(pi), 'text-align:center')}
+      ${c_(`<span style="font-size:10px;font-weight:700;color:${mGoals>0?'var(--blue)':'var(--muted)'}">${mGoals||'—'}</span>`, 'text-align:center')}
+      ${c_(`<span style="font-size:10px;font-weight:700;color:${mAssists>0?'var(--green)':'var(--muted)'}">${mAssists||'—'}</span>`, 'text-align:center')}
     </div>`;
   }
 
@@ -822,6 +826,10 @@ function skipPeriod() {
 
   _appendLog('⏩ Simulazione fine ' + ms.period + '° tempo...', '');
 
+  // Registra i giocatori attualmente in campo come "hanno giocato"
+  if (!ms._everOnField) ms._everOnField = new Set();
+  Object.values(ms.onField).forEach(function(pi) { ms._everOnField.add(pi); });
+
   while (simTime < secsLeft) {
     // Avanza la stamina per questo chunk di tempo
     if (typeof _drainStaminaChunk === 'function') {
@@ -880,15 +888,15 @@ function skipPeriod() {
 // Apre il pannello e mette in pausa la partita
 function openSub() {
   const ms = G.ms; if (!ms || ms.finished) return;
-  // Metti in pausa
+  // Metti in pausa e reset selezione inline
   if (ms.running) {
     ms.running = false;
     document.getElementById('btn-play').textContent = '▶ Avvia';
+    _lastFrameT = null;
   }
-  ms.subOut = null; ms.subIn = null;
-  document.getElementById('sub-panel').style.display = 'block';
-  document.getElementById('btn-confirm-sub').disabled = true;
-  _renderSubLists();
+  _subSelField = null; _subSelBench = null;
+  _updateSwapButton();
+  renderFieldLists();
 }
 function closeSub() {
   // sub-panel rimosso — selezione ora inline
@@ -1046,15 +1054,15 @@ function showMatchPlayerInfo(pi) {
 
 function selSubOut(pk) {
   if (!G.ms || G.ms.expelled.has(G.ms.onField[pk])) return;
-  G.ms.subOut = pk; _checkSubReady(); _renderSubLists();
+  selFieldRow(pk);
 }
 function selSubIn(pi) {
   if (!G.ms || G.ms.expelled.has(pi)) return;
-  G.ms.subIn = pi; _checkSubReady(); _renderSubLists();
+  selBenchRow(pi);
 }
 function _checkSubReady() {
   const ready = G.ms && G.ms.subOut !== null && G.ms.subIn !== null;
-  document.getElementById('btn-confirm-sub').disabled = !ready;
+  // btn-confirm-sub rimosso — usa btn-swap-sub inline
 }
 
 function confirmSub() {
