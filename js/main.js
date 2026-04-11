@@ -285,6 +285,7 @@ function simNextRound() {
   console.log('[SIM] Squadra:', G.myTeam?.name, '| Fase:', G.phase, '| Budget:', G.budget);
 
   // ── Convocazioni nazionali ──
+  // _processNationalCalls resetta i flag precedenti e assegna quelli nuovi
   _processNationalCalls(r);
 
   // Salva posizione attuale PRIMA di aggiornare la classifica
@@ -446,7 +447,9 @@ function simNextRound() {
   refreshMarketPool();
   generateTransferOffers();
   _updateStarsBox();
-  console.log('[SIM] ✓ Fine giornata ' + (typeof nextMyRound === 'function' ? '' : '') + ' | Budget: ' + G.budget + ' | Stelle: ' + G.stars);
+  // I flag nazionali restano attivi fino all'inizio della prossima simNextRound
+  // dove _processNationalCalls chiama _clearNationalCalls prima di tutto
+  console.log('[SIM] ✓ Fine giornata | Budget: ' + G.budget + ' | Stelle: ' + G.stars);
   console.groupEnd();
   updateHeader(); autoSave(); renderDash();
   // Popup convocazione nazionale
@@ -2353,10 +2356,7 @@ function _clearNationalCalls() {
 
 // Seleziona i migliori giocatori per la nazionale
 function _processNationalCalls(round) {
-  // Resetta sempre il flag della chiamata precedente (qualunque giornata)
-  // I giocatori convocati nella giornata nazionale precedente tornano disponibili
-  _clearNationalCalls();
-
+  // Nota: _clearNationalCalls() è già stata chiamata prima di questa funzione
   if (!NATIONAL_ROUNDS.includes(round)) return;
 
   const allPlayers = []; // { p, teamId, rosterIdx }

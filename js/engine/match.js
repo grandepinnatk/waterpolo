@@ -260,9 +260,15 @@ function _drainStamina(ms, dtGame) {
       // Età: deficit sopra soglia 28 aumenta il drain
       const ageFactor  = 1 + defAge * STAMINA_K_AGE;
 
+      // Con uomo in meno i giocatori in campo si affaticano di più
+      const _onFieldCount = Object.values(ms.onField)
+        .filter(pi2 => !ms.expelled.has(pi2)).length;
+      const _undermanned = Math.max(0, 7 - _onFieldCount);
+      const underMannedDrain = 1 + _undermanned * 0.25; // +25% drain per ogni mancante
       const drain = STAMINA_BASE_DRAIN
         * tacticMult * posMult
         * resFactor * formFactor * ageFactor
+        * underMannedDrain
         * dtGame;
 
       ms.stamina[pi] = Math.max(0, ms.stamina[pi] - drain);
@@ -388,7 +394,14 @@ function generateMatchEvent(ms) {
     myEffective += eff;
     if (pk !== 'GK') activePlayers.push({ pk, pi, p, eff });
   });
-  myEffective = (myEffective / 7) + tacticBoost;
+  // Conta giocatori attivi (esclusi espulsi)
+  const activeCount = Object.entries(ms.onField)
+    .filter(([pk, pi]) => !ms.expelled.has(pi)).length;
+  // Normalizza sulla forza dei giocatori in campo
+  // Se meno di 7: penalità esponenziale uomo in meno (~20% per giocatore mancante)
+  const liveShortage = Math.max(0, 7 - activeCount);
+  const liveShortageFactor = Math.pow(0.80, liveShortage);
+  myEffective = (myEffective / Math.max(1, activeCount)) * activeCount / 7 * liveShortageFactor + tacticBoost;
 
   // Bonus spettatori in casa: fino al +5% sulla forza (proporzionale al riempimento)
   if (ms.isHome && ms.attendance > 0 && ms.capacity > 0) {

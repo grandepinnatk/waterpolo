@@ -79,8 +79,12 @@ function _effectiveStr(team, rosters) {
   const avgOvr = squad.reduce((s, p) => s + (p.overall || 70), 0) / squad.length;
   // Applica anche il contributo medio di forma e morale
   const avgScore = squad.reduce((s, p) => s + _playerScore(p), 0) / squad.length;
+  // Penalità uomo in meno: esponenziale — in pallanuoto giocare in inferiorità
+  // numerica è uno svantaggio enorme (espulsioni, nazionali, infortuni)
   const shortage = Math.max(0, 7 - squad.length);
-  return Math.max(10, avgScore - shortage * 8);
+  // Ogni giocatore mancante riduce l'efficacia del ~20% moltiplicativo
+  const shortageFactor = Math.pow(0.80, shortage);
+  return Math.max(10, avgScore * shortageFactor);
 }
 
 // ── Simulazione risultato ─────────────────────
