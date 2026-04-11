@@ -141,6 +141,7 @@ function _animLoop(timestamp) {
       }
       const _breakMin = (G.ms.period - 1) === 2 ? '5' : '2';
       _appendLog('⏸ Fine ' + (G.ms.period - 1) + '° Tempo — Intervallo ' + _breakMin + ' min. Puoi effettuare sostituzioni.', 'sv');
+      renderFieldLists(); // re-render con isPaused=true per abilitare i click
       if (typeof MovementController !== 'undefined') MovementController.onPeriodStart();
     }
     if (matchEnded) {
@@ -813,6 +814,7 @@ function togglePlay() {
   ms.running = !ms.running;
   document.getElementById('btn-play').textContent = ms.running ? '⏸ Pausa' : '▶ Avvia';
   if (ms.running) { _subSelField = null; _subSelBench = null; _updateSwapButton(); }
+  if (!ms.running) renderFieldLists(); // re-render con isPaused=true per abilitare i click
   _lastFrameT = null;
 
   // Se stiamo avviando e il canvas è in fase 'idle' (kickoff),
