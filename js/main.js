@@ -2593,39 +2593,37 @@ function _closeOfferPopup(offers, nextIdx) {
  * Coordinatore principale del ciclo di gioco e delle animazioni
  */
 
-var _lastFrameTime = 0;
+v// js/main.js
 
-/**
- * Inizializzazione al caricamento della pagina
- */
+var _lastTime = 0;
+
 window.addEventListener('load', function() {
-    console.log("Waterpolo Game Initialized");
-    
-    // Inizializza i componenti UI se necessario
-    if (typeof WelcomeUI !== 'undefined') WelcomeUI.init();
-    
-    // Avvia il loop principale
     requestAnimationFrame(mainLoop);
 });
 
-/**
- * Loop principale (60 FPS circa)
- * Gestisce il calcolo del Delta Time (dt) per movimenti fluidi e realistici
- */
-function mainLoop(timestamp) {
-    if (!_lastFrameTime) _lastFrameTime = timestamp;
-    var dt = (timestamp - _lastFrameTime) / 1000;
-    _lastFrameTime = timestamp;
+function mainLoop(t) {
+    if (!_lastTime) _lastTime = t;
+    let dt = (t - _lastTime) / 1000;
+    _lastTime = t;
     if (dt > 0.1) dt = 0.1;
 
+    // Esegue i calcoli di movimento
     if (typeof MovementController !== 'undefined') MovementController.update(dt);
     if (typeof poolAnimStep === 'function') poolAnimStep(dt);
 
-    var canvas = document.getElementById('pool-canvas');
+    // Disegna
+    let canvas = document.getElementById('pool-canvas');
     if (canvas && typeof drawPool === 'function') drawPool(canvas);
 
     requestAnimationFrame(mainLoop);
 }
+
+// Funzione richiamata dalla UI per iniziare
+window.startMatchVisuals = function(ms) {
+    poolInitTokens(ms);
+    MovementController.init(ms);
+    poolStartPeriod();
+};
 
 /**
  * Gestisce il disegno sul canvas richiamando pool.js
@@ -2665,16 +2663,6 @@ function startMatchVisuals(matchState) {
     }
 }
 
-// Esponiamo la funzione di avvio globalmente per essere usata da js/ui/match.js
-// Funzione ponte per attivare lo sprint quando si preme "Inizia"
-window.startMatchVisuals = function(ms) {
-    poolInitTokens(ms);
-    MovementController.init(ms);
-    poolStartPeriod();
-};
-
-// Dentro js/main.js (Trova il loop principale)
-var lastTime = performance.now();
 
 function gameLoop() {
     var now = performance.now();
