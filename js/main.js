@@ -2613,28 +2613,17 @@ window.addEventListener('load', function() {
  * Gestisce il calcolo del Delta Time (dt) per movimenti fluidi e realistici
  */
 function mainLoop(timestamp) {
-    // Calcola il tempo trascorso dall'ultimo frame in secondi
     if (!_lastFrameTime) _lastFrameTime = timestamp;
     var dt = (timestamp - _lastFrameTime) / 1000;
     _lastFrameTime = timestamp;
-
-    // Limita il dt per evitare salti enormi in caso di lag
     if (dt > 0.1) dt = 0.1;
 
-    // 1. Aggiorna la logica di intelligenza artificiale e sprint
-    if (typeof MovementController !== 'undefined') {
-        MovementController.update(dt);
-    }
+    if (typeof MovementController !== 'undefined') MovementController.update(dt);
+    if (typeof poolAnimStep === 'function') poolAnimStep(dt);
 
-    // 2. Aggiorna le posizioni fisiche dei segnalini e della palla
-    if (typeof poolAnimStep === 'function') {
-        poolAnimStep(dt);
-    }
+    var canvas = document.getElementById('pool-canvas');
+    if (canvas && typeof drawPool === 'function') drawPool(canvas);
 
-    // 3. Rendering grafico sul canvas
-    renderCanvas();
-
-    // Ricorsione per il frame successivo
     requestAnimationFrame(mainLoop);
 }
 
@@ -2677,7 +2666,12 @@ function startMatchVisuals(matchState) {
 }
 
 // Esponiamo la funzione di avvio globalmente per essere usata da js/ui/match.js
-window.startMatchVisuals = startMatchVisuals;
+// Funzione ponte per attivare lo sprint quando si preme "Inizia"
+window.startMatchVisuals = function(ms) {
+    poolInitTokens(ms);
+    MovementController.init(ms);
+    poolStartPeriod();
+};
 
 // Dentro js/main.js (Trova il loop principale)
 var lastTime = performance.now();

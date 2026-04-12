@@ -9,31 +9,36 @@ var _bgImg = new Image(); _bgImg.src = 'campo-per-pallanuoto.jpg';
 var _ballImg = new Image(); _ballImg.src = 'palla.png';
 
 function poolInitTokens(ms) {
-    _tokens = {}; _ballOwner = null;
+    _tokens = {}; _ballOwner = null; _phase = 'idle';
+    _ball = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
     Object.entries(ms.onField).forEach(([pk, pi]) => {
-        _tokens['my_'+pk] = { x:0.1, y:0.5, tx:0.1, ty:0.5, team:'my', pk:pk, shirt:ms.shirtNumbers[pi]||pk };
+        _tokens['my_'+pk] = { x:0.1, y:0.5, tx:0.1, ty:0.5, team:'my', pk:pk, pi:pi, shirt:ms.shirtNumbers[pi]||pk, isGK:pk==='GK' };
     });
     ['GK','1','2','3','4','5','6'].forEach(pk => {
-        _tokens['opp_'+pk] = { x:0.9, y:0.5, tx:0.9, ty:0.5, team:'opp', pk:pk, shirt:pk };
+        _tokens['opp_'+pk] = { x:0.9, y:0.5, tx:0.9, ty:0.5, team:'opp', pk:pk, pi:-1, shirt:pk, isGK:pk==='GK' };
     });
     poolSetSpeeds(ms);
 }
 
 function poolSetSpeeds(ms) {
-    const BASE = 0.08; // 10 secondi per il lato lungo
+    const BASE = 0.08; // 10 secondi per il lato lungo con 100 speed
     Object.keys(_tokens).forEach(key => {
         let spe = 70;
-        if (key.startsWith('my') && ms) {
-            let p = ms.myRoster[ms.onField[key.split('_')[1]]];
+        if (key.startsWith('my') && ms && _tokens[key].pi !== -1) {
+            let p = ms.myRoster[_tokens[key].pi];
             if (p && p.stats) spe = p.stats.spe;
         }
         _tokenSpeeds[key] = BASE * (spe / 100);
     });
 }
 
+// Questa funzione risolve l'errore: ReferenceError poolSyncTokens
+function poolSyncTokens(ms) {
+    poolSetSpeeds(ms);
+}
+
 function poolAnimStep(dt) {
     let f = Math.min(dt, 0.1);
-    // Movimento Giocatori
     Object.keys(_tokens).forEach(key => {
         let t = _tokens[key];
         let spd = _tokenSpeeds[key] || 0.05;
@@ -42,31 +47,36 @@ function poolAnimStep(dt) {
         if (dist > 0.002) {
             t.x += (dx / dist) * spd * f;
             t.y += (dy / dist) * spd * f;
+        } else {
+            t.x = t.tx; t.y = t.ty;
         }
     });
-    // Gestione Palla
+
     if (_ballOwner && _tokens[_ballOwner]) {
         _ball.x = _tokens[_ballOwner].x; _ball.y = _tokens[_ballOwner].y;
+        _ball.tx = _ball.x; _ball.ty = _ball.y;
     } else {
-        _ball.x += (_ball.tx - _ball.x) * f * 5;
-        _ball.y += (_ball.ty - _ball.y) * f * 5;
+        _ball.x += (_ball.tx - _ball.x) * f * 6;
+        _ball.y += (_ball.ty - _ball.y) * f * 6;
     }
 }
 
 function poolSetBallOwner(key) { _ballOwner = key; }
 function poolMoveBall(tx, ty) { _ballOwner = null; _ball.tx = tx; _ball.ty = ty; }
 function poolGetTokens() { return _tokens; }
-function poolStartSprint() { _phase = 'sprint'; }
+function poolStartPeriod() { _phase = 'sprint'; }
 function poolGetPhase() { return _phase; }
 
 function drawPool(canvas) {
     let ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, POOL_W, POOL_H);
     ctx.drawImage(_bgImg, 0, 0, POOL_W, POOL_H);
     Object.values(_tokens).forEach(t => {
-        ctx.beginPath(); ctx.arc(t.x * POOL_W, t.y * POOL_H, 15, 0, 7);
-        ctx.fillStyle = t.team === 'my' ? 'white' : 'blue'; ctx.fill();
-        ctx.stroke(); ctx.fillStyle = 'black';
-        ctx.textAlign='center'; ctx.fillText(t.shirt, t.x*POOL_W, t.y*POOL_H+5);
+        ctx.beginPath(); ctx.arc(t.x * POOL_W, t.y * POOL_H, 18, 0, 7);
+        ctx.fillStyle = t.isGK ? 'red' : (t.team === 'my' ? 'white' : 'blue');
+        ctx.fill(); ctx.stroke();
+        ctx.fillStyle = (t.team === 'my' && !t.isGK) ? 'black' : 'white';
+        ctx.textAlign='center'; ctx.fillText(t.shirt, t.x * POOL_W, t.y * POOL_H + 5);
     });
-    ctx.drawImage(_ballImg, _ball.x*POOL_W-10, _ball.y*POOL_H-10, 20, 20);
+    ctx.drawImage(_ballImg, _ball.x * POOL_W - 12, _ball.y * POOL_H - 12, 24, 24);
 }
