@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────
-// canvas/movement.js — Logica Sprint e AI
+// canvas/movement.js — Logica di Movimento AI
 // ─────────────────────────────────────────────
 
 var MovementController = (function() {
@@ -10,46 +10,49 @@ var MovementController = (function() {
 
   function update(dt) {
     if (!_active || !_ms) return;
-    let phase = poolGetPhase();
+    var phase = poolGetPhase();
+    var t = poolGetTokens();
 
     if (phase === 'sprint') {
-      let t = poolGetTokens();
-      let my3 = t['my_3'], opp3 = t['opp_3'];
-      
-      // Entrambi puntano la palla al centro
+      // Entrambi i numeri 3 scattano verso la palla al centro
+      var my3 = t['my_3'], opp3 = t['opp_3'];
       if (my3) { my3.tx = 0.5; my3.ty = 0.5; }
       if (opp3) { opp3.tx = 0.5; opp3.ty = 0.5; }
 
-      // Chi tocca la palla vince lo sprint
-      let dMy = my3 ? Math.sqrt(Math.pow(my3.x-0.5,2)+Math.pow(my3.y-0.5,2)) : 1;
-      let dOpp = opp3 ? Math.sqrt(Math.pow(opp3.x-0.5,2)+Math.pow(opp3.y-0.5,2)) : 1;
-
-      if (dMy < 0.03) {
+      // Chi tocca la palla (distanza < 0.03) vince il possesso
+      if (my3 && _distCenter(my3) < 0.03) {
         poolSetBallOwner('my_3');
         _endSprint('my');
-      } else if (dOpp < 0.03) {
+      } else if (opp3 && _distCenter(opp3) < 0.03) {
         poolSetBallOwner('opp_3');
         _endSprint('opp');
       }
     }
   }
 
-  function _endSprint(winner) {
-    // Passaggio al numero 4 della stessa squadra
-    let receiver = winner + '_4';
-    setTimeout(() => {
-      let target = poolGetTokens()[receiver];
+  function _distCenter(tok) {
+    return Math.sqrt(Math.pow(tok.x - 0.5, 2) + Math.pow(tok.y - 0.5, 2));
+  }
+
+  function _endSprint(winnerTeam) {
+    // Simula un passaggio immediato dopo la conquista
+    var receiver = winnerTeam + '_4';
+    setTimeout(function() {
+      var target = poolGetTokens()[receiver];
       if (target) {
         poolMoveBall(target.x, target.y);
-        setTimeout(() => poolSetBallOwner(receiver), 800);
+        setTimeout(function() { poolSetBallOwner(receiver); }, 700);
       }
-    }, 500);
-    // Cambia fase (gestito internamente da pool.js o tramite setter)
+    }, 400);
+    // Nota: lo stato 'play' viene impostato dopo lo sprint
   }
 
-  function onPeriodStart() {
-    poolStartPeriod();
-  }
-
-  return { init, stop, update, onPeriodStart };
+  return { 
+    init: init, 
+    stop: stop, 
+    update: update,
+    onPeriodStart: function() { poolStartPeriod(); }
+  };
 })();
+
+window.MovementController = MovementController;
