@@ -1,73 +1,55 @@
 // ─────────────────────────────────────────────
-// canvas/movement.js — AI e Logica di Gioco
+// canvas/movement.js — Logica Sprint e AI
 // ─────────────────────────────────────────────
 
 var MovementController = (function() {
   var _ms = null, _active = false;
-  var _sprintDone = false;
 
-  function init(ms) { _ms = ms; _active = true; _sprintDone = false; }
+  function init(ms) { _ms = ms; _active = true; }
   function stop() { _active = false; }
 
   function update(dt) {
-    if (!_active || !_ms || !_ms.running) return;
-    var phase = poolGetPhase();
+    if (!_active || !_ms) return;
+    let phase = poolGetPhase();
 
-    if (phase === 'idle') return;
+    if (phase === 'sprint') {
+      let t = poolGetTokens();
+      let my3 = t['my_3'], opp3 = t['opp_3'];
+      
+      // Entrambi puntano la palla al centro
+      if (my3) { my3.tx = 0.5; my3.ty = 0.5; }
+      if (opp3) { opp3.tx = 0.5; opp3.ty = 0.5; }
 
-    if (phase === 'sprint' && !_sprintDone) {
-      _handleSprint();
-    } else if (phase === 'play') {
-      _handlePlayLogic();
+      // Chi tocca la palla vince lo sprint
+      let dMy = my3 ? Math.sqrt(Math.pow(my3.x-0.5,2)+Math.pow(my3.y-0.5,2)) : 1;
+      let dOpp = opp3 ? Math.sqrt(Math.pow(opp3.x-0.5,2)+Math.pow(opp3.y-0.5,2)) : 1;
+
+      if (dMy < 0.03) {
+        poolSetBallOwner('my_3');
+        _endSprint('my');
+      } else if (dOpp < 0.03) {
+        poolSetBallOwner('opp_3');
+        _endSprint('opp');
+      }
     }
   }
 
-  function _handleSprint() {
-    var my3 = _getToken('my_3');
-    var opp3 = _getToken('opp_3');
-    if (!my3 || !opp3) return;
-
-    // Entrambi i '3' puntano al pallone al centro (0.5, 0.5)
-    my3.tx = 0.5; my3.ty = 0.5;
-    opp3.tx = 0.5; opp3.ty = 0.5;
-
-    // Chi arriva prima a distanza di contatto (0.02)
-    var dMy = Math.sqrt(Math.pow(my3.x-0.5,2)+Math.pow(my3.y-0.5,2));
-    var dOpp = Math.sqrt(Math.pow(opp3.x-0.5,2)+Math.pow(opp3.y-0.5,2));
-
-    if (dMy < 0.025) {
-      _sprintDone = true;
-      poolSetBallOwner('my_3');
-      _firstPass('my');
-    } else if (dOpp < 0.025) {
-      _sprintDone = true;
-      poolSetBallOwner('opp_3');
-      _firstPass('opp');
-    }
-  }
-
-  function _firstPass(team) {
-    // Dopo aver preso la palla al centro, passala al numero 4
-    var receiverKey = team + '_4';
-    var receiver = _getToken(receiverKey);
-    setTimeout(function() {
-       poolSetBallOwner(null); // lancia
-       poolMoveBall(receiver.x, receiver.y);
-       setTimeout(function() { poolSetBallOwner(receiverKey); }, 600);
+  function _endSprint(winner) {
+    // Passaggio al numero 4 della stessa squadra
+    let receiver = winner + '_4';
+    setTimeout(() => {
+      let target = poolGetTokens()[receiver];
+      if (target) {
+        poolMoveBall(target.x, target.y);
+        setTimeout(() => poolSetBallOwner(receiver), 800);
+      }
     }, 500);
+    // Cambia fase (gestito internamente da pool.js o tramite setter)
   }
 
-  function _handlePlayLogic() {
-    // Qui andrebbe la logica dei tiri e delle parate attivata dal motore di gioco
-    // Esempio parata: se il motore rileva parata, chiama poolSetBallOwner('my_GK')
+  function onPeriodStart() {
+    poolStartPeriod();
   }
 
-  function _getToken(key) {
-    if (typeof poolGetTokens === 'function') return poolGetTokens()[key];
-    return null;
-  }
-
-  return { init: init, stop: stop, update: update };
+  return { init, stop, update, onPeriodStart };
 })();
-
-window.MovementController = MovementController;
