@@ -2586,3 +2586,117 @@ function _closeOfferPopup(offers, nextIdx) {
     setTimeout(() => _showOfferPopupQueue(offers, nextIdx), 120);
   }
 }
+
+
+/**
+ * js/main.js
+ * Coordinatore principale del ciclo di gioco e delle animazioni
+ */
+
+var _lastFrameTime = 0;
+
+/**
+ * Inizializzazione al caricamento della pagina
+ */
+window.addEventListener('load', function() {
+    console.log("Waterpolo Game Initialized");
+    
+    // Inizializza i componenti UI se necessario
+    if (typeof WelcomeUI !== 'undefined') WelcomeUI.init();
+    
+    // Avvia il loop principale
+    requestAnimationFrame(mainLoop);
+});
+
+/**
+ * Loop principale (60 FPS circa)
+ * Gestisce il calcolo del Delta Time (dt) per movimenti fluidi e realistici
+ */
+function mainLoop(timestamp) {
+    // Calcola il tempo trascorso dall'ultimo frame in secondi
+    if (!_lastFrameTime) _lastFrameTime = timestamp;
+    var dt = (timestamp - _lastFrameTime) / 1000;
+    _lastFrameTime = timestamp;
+
+    // Limita il dt per evitare salti enormi in caso di lag
+    if (dt > 0.1) dt = 0.1;
+
+    // 1. Aggiorna la logica di intelligenza artificiale e sprint
+    if (typeof MovementController !== 'undefined') {
+        MovementController.update(dt);
+    }
+
+    // 2. Aggiorna le posizioni fisiche dei segnalini e della palla
+    if (typeof poolAnimStep === 'function') {
+        poolAnimStep(dt);
+    }
+
+    // 3. Rendering grafico sul canvas
+    renderCanvas();
+
+    // Ricorsione per il frame successivo
+    requestAnimationFrame(mainLoop);
+}
+
+/**
+ * Gestisce il disegno sul canvas richiamando pool.js
+ */
+function renderCanvas() {
+    var canvas = document.getElementById('pool-canvas'); // Assicurati che l'ID sia corretto come nel tuo HTML
+    if (!canvas) return;
+
+    if (typeof drawPool === 'function') {
+        // Passa i nomi delle squadre se disponibili nello stato globale
+        var homeTag = (window.MatchEngine && window.MatchEngine.homeTeam) ? window.MatchEngine.homeTeam.abbr : "HOME";
+        var awayTag = (window.MatchEngine && window.MatchEngine.awayTeam) ? window.MatchEngine.awayTeam.abbr : "AWAY";
+        
+        drawPool(canvas, homeTag, awayTag);
+    }
+}
+
+/**
+ * Funzione di utilità per avviare una nuova partita/tempo
+ * Viene chiamata solitamente dai pulsanti della UI
+ */
+function startMatchVisuals(matchState) {
+    if (typeof poolInitTokens === 'function') {
+        poolInitTokens(matchState);
+    }
+    
+    if (typeof MovementController !== 'undefined') {
+        MovementController.init(matchState);
+    }
+    
+    // Attiva la fase di sprint iniziale (nuoto verso il centro)
+    if (typeof poolStartPeriod === 'function') {
+        poolStartPeriod();
+    } else if (typeof poolGetPhase === 'function') {
+        // Fallback se la funzione specifica non esiste
+        console.log("Inizio fase Sprint");
+    }
+}
+
+// Esponiamo la funzione di avvio globalmente per essere usata da js/ui/match.js
+window.startMatchVisuals = startMatchVisuals;
+
+// Dentro js/main.js (Trova il loop principale)
+var lastTime = performance.now();
+
+function gameLoop() {
+    var now = performance.now();
+    var dt = (now - lastTime) / 1000; // Calcola il tempo reale passato
+    lastTime = now;
+
+    // Aggiorna la logica di movimento
+    MovementController.update(dt);
+    
+    // Aggiorna le posizioni dei segnalini
+    poolAnimStep(dt);
+
+    // Disegna il campo
+    var canvas = document.getElementById('poolCanvas');
+    if (canvas) drawPool(canvas);
+
+    requestAnimationFrame(gameLoop);
+}
+requestAnimationFrame(gameLoop);
