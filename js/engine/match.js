@@ -649,14 +649,3 @@ function getMatchReward(myScore, oppScore) {
   if (myScore === oppScore) return 25000;
   return 0;
 }
-
-
-// Cerca dove vengono aggiornati i giocatori e assicurati che usino .tx e .ty
-// Esempio:
-function updateMatchLogic(player, newX, newY) {
-    var token = poolGetTokens()['my_' + player.id];
-    if (token) {
-        token.tx = newX; 
-        token.ty = newY;
-    }
-}
