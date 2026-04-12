@@ -2393,6 +2393,9 @@ function _processNationalCalls(round) {
       p._nationalNext = true;   // badge anticipato — diventa _national all'inizio della giornata
       p._nationalNat  = 'ITA';
       p.nationalCaps  = (p.nationalCaps || 0) + 1;
+      // Bonus convocazione: +5% valore, +15% morale (fino al massimo)
+      if (p.value)  p.value  = Math.round(p.value  * 1.05);
+      if (p.morale !== undefined) p.morale = Math.min(100, Math.round((p.morale || 70) * 1.15));
       if (teamId === G.myId) myCalledNames.push({ name: p.name, role: p.role, nat: 'ITA', ita: true });
     });
   });
@@ -2407,6 +2410,9 @@ function _processNationalCalls(round) {
       best.p._nationalNext = true;
       best.p._nationalNat  = nat;
       best.p.nationalCaps  = (best.p.nationalCaps || 0) + 1;
+      // Bonus convocazione: +5% valore, +15% morale (fino al massimo)
+      if (best.p.value)  best.p.value  = Math.round(best.p.value  * 1.05);
+      if (best.p.morale !== undefined) best.p.morale = Math.min(100, Math.round((best.p.morale || 70) * 1.15));
       if (best.teamId === G.myId) myCalledNames.push({ name: best.p.name, role: best.p.role, nat, ita: false });
     }
   });
@@ -2432,7 +2438,7 @@ function _natFlag(nat) { return _NAT_FLAGS[nat] || '🏳'; }
 function _showNationalPopup(called) {
   const ov = document.createElement('div');
   ov.id = 'national-popup';
-  ov.style.cssText = 'position:fixed;inset:0;background:rgba(30,30,50,.88);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(6px)';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(30,30,50,.88);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(6px);overflow:hidden';
 
   const itaPlayers = called.filter(c => c.ita);
   const othPlayers = called.filter(c => !c.ita);
@@ -2444,53 +2450,57 @@ function _showNationalPopup(called) {
         <div style="font-weight:700;font-size:14px">${c.name}</div>
         <div style="font-size:11px;color:rgba(255,255,255,.55)">${c.role} · ${c.nat}</div>
       </div>
-      ${c.ita ? '<span style="margin-left:auto;font-size:10px;font-weight:700;background:#1565c0;color:#fff;padding:2px 7px;border-radius:4px;letter-spacing:.5px">NAZIONALE ITA</span>' : '<span style="margin-left:auto;font-size:10px;font-weight:700;background:#37474f;color:#fff;padding:2px 7px;border-radius:4px">NAZ</span>'}
+      ${c.ita ? '<span style="margin-left:auto;font-size:10px;font-weight:700;background:#1565c0;color:#fff;padding:2px 7px;border-radius:4px;letter-spacing:.5px">NAZIONALE ITA</span>' : '<span style="margin-left:auto;font-size:10px;font-weight:700;background:#1565c0;color:#fff;padding:2px 7px;border-radius:4px">NAZ ' + _natFlag(c.nat) + '</span>'}
     </div>`;
 
   ov.innerHTML = `
-    <div style="background:var(--panel);border:1px solid rgba(0,194,255,.3);border-radius:16px;padding:24px;max-width:400px;width:92%;max-height:85vh;overflow-y:auto;position:relative">
+    <canvas id="national-confetti" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1"></canvas>
+    <div style="background:var(--panel);border:1px solid rgba(0,194,255,.3);border-radius:16px;padding:24px;max-width:400px;width:92%;max-height:85vh;overflow-y:auto;position:relative;z-index:2">
       <div style="text-align:center;margin-bottom:18px">
-        <div style="font-size:36px;margin-bottom:4px">🏊🇮🇹</div>
+        <div style="font-size:40px;margin-bottom:6px">🤽</div>
         <div style="font-weight:800;font-size:18px;color:var(--blue)">Convocazione in Nazionale!</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:4px">Giornata ${NATIONAL_ROUNDS.includes(G.round||0) ? G.round||'' : ''} — i tuoi giocatori sono stati selezionati</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5">I tuoi giocatori sono stati selezionati per la nazionale.<br>Non sarà possibile schierarli per la prossima gara.</div>
       </div>
       ${itaPlayers.length ? `<div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">🇮🇹 Nazionale Italiana</div>${itaPlayers.map(makeRow).join('')}` : ''}
       ${othPlayers.length ? `<div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin:10px 0 6px">Altre nazionali</div>${othPlayers.map(makeRow).join('')}` : ''}
-      <div style="margin-top:16px;font-size:11px;color:rgba(255,255,255,.4);text-align:center">I giocatori torneranno disponibili alla prossima giornata.</div>
-      <button onclick="document.getElementById('national-popup').remove()" style="width:100%;margin-top:14px;padding:10px;background:var(--blue);border:none;border-radius:8px;color:#fff;font-weight:700;font-size:14px;cursor:pointer">
+      <button onclick="document.getElementById('national-popup').remove()" style="width:100%;margin-top:18px;padding:10px;background:var(--blue);border:none;border-radius:8px;color:#fff;font-weight:700;font-size:14px;cursor:pointer">
         Ottimo! 💪
       </button>
-      <canvas id="national-confetti" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;border-radius:16px"></canvas>
     </div>`;
 
   document.body.appendChild(ov);
   ov.onclick = e => { if (e.target === ov) ov.remove(); };
 
-  // Effetto coriandoli
+  // Coriandoli a tutto schermo
   setTimeout(() => {
     const canvas = document.getElementById('national-confetti');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-    const particles = Array.from({ length: 60 }, () => ({
-      x: Math.random() * canvas.width, y: -10,
-      vx: (Math.random()-0.5)*3, vy: 1.5 + Math.random()*2,
-      color: ['#1565c0','#fdd835','#e53935','#2ecc71','#00c2ff'][Math.floor(Math.random()*5)],
-      size: 4 + Math.random()*5, rot: Math.random()*360, vr: (Math.random()-0.5)*8,
+    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+    resize();
+    window.addEventListener('resize', resize);
+    const colors = ['#1565c0','#fdd835','#e53935','#2ecc71','#00c2ff','#ff6b35','#a855f7'];
+    const particles = Array.from({ length: 120 }, () => ({
+      x: Math.random() * canvas.width,
+      y: -20 - Math.random() * canvas.height * 0.5,
+      vx: (Math.random()-0.5) * 3,
+      vy: 2 + Math.random() * 3,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      w: 6 + Math.random() * 8, h: 3 + Math.random() * 4,
+      rot: Math.random() * 360, vr: (Math.random()-0.5) * 10,
     }));
-    let frame = 0;
     function drawConfetti() {
-      if (frame++ > 120 || !document.getElementById('national-confetti')) return;
+      if (!document.getElementById('national-confetti')) { window.removeEventListener('resize', resize); return; }
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let alive = false;
       particles.forEach(p => {
         p.x += p.vx; p.y += p.vy; p.rot += p.vr;
-        if (p.y > canvas.height) { p.y = -10; p.x = Math.random()*canvas.width; }
-        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot * Math.PI/180);
-        ctx.fillStyle = p.color; ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+        if (p.y < canvas.height + 20) alive = true;
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot * Math.PI / 180);
+        ctx.fillStyle = p.color; ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
         ctx.restore();
       });
-      requestAnimationFrame(drawConfetti);
+      if (alive) requestAnimationFrame(drawConfetti);
     }
     drawConfetti();
   }, 100);

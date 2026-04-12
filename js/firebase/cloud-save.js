@@ -94,6 +94,14 @@ export async function syncOnLogin() {
     }
 
     if (cloudJson && !localJson) {
+      // Controlla se è un marcatore di cancellazione
+      try {
+        const parsed = JSON.parse(cloudJson);
+        if (parsed._deleted) {
+          console.log(`[CloudSave] Slot ${i}: marcatore cancellazione — slot vuoto`);
+          continue; // non ripristinare lo slot cancellato
+        }
+      } catch(e) {}
       console.log(`[CloudSave] Slot ${i}: cloud → locale (nuovo dispositivo)`);
       localStorage.setItem(SLOT_PREFIX + i, cloudJson);
       downloaded++;
@@ -113,7 +121,21 @@ export async function syncOnLogin() {
 
     console.log(`[CloudSave] Slot ${i}: cloud=${cloudTime} locale=${localTime}`);
 
-    if (cloudTime > localTime) {
+    // Controlla se il cloud ha un marcatore di cancellazione
+    let cloudIsDeleted = false;
+    try { cloudIsDeleted = JSON.parse(cloudJson)._deleted === true; } catch(e) {}
+
+    if (cloudIsDeleted && cloudTime > localTime) {
+      // La cancellazione cloud è più recente del salvataggio locale → rispetta la cancellazione
+      console.log(`[CloudSave] Slot ${i}: cancellazione cloud più recente → rimuovo locale`);
+      localStorage.removeItem(SLOT_PREFIX + i);
+      downloaded++;
+    } else if (cloudIsDeleted && localTime >= cloudTime) {
+      // Il salvataggio locale è più recente della cancellazione → ripristina sul cloud
+      console.log(`[CloudSave] Slot ${i}: salvataggio locale più recente della cancellazione → carico`);
+      await cloudWrite(i, localJson);
+      uploaded++;
+    } else if (cloudTime > localTime) {
       console.log(`[CloudSave] Slot ${i}: cloud più recente → scarico`);
       localStorage.setItem(SLOT_PREFIX + i, cloudJson);
       downloaded++;
@@ -138,10 +160,19 @@ export async function saveSlot(slotN, jsonStr) {
 }
 
 // ── Cancella uno slot da localStorage e cloud ──
+// Scrive un marcatore di cancellazione con timestamp così altri dispositivi
+// non riscaricano il vecchio salvataggio al prossimo login
 export async function deleteSlot(slotN) {
   localStorage.removeItem(SLOT_PREFIX + slotN);
   if (auth.currentUser) {
-    await cloudDelete(slotN);
+    // Marcatore tombstone: il cloud sa che lo slot è stato cancellato deliberatamente
+    const tombstone = JSON.stringify({ _deleted: true, savedAtMs: Date.now() });
+    try {
+      await cloudWrite(slotN, tombstone);
+    } catch(e) {
+      // Fallback: prova a cancellare direttamente
+      await cloudDelete(slotN).catch(() => {});
+    }
   }
 }
 
