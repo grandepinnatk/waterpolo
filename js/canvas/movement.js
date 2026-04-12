@@ -1,133 +1,73 @@
 // ─────────────────────────────────────────────
-// canvas/movement.js
-// Gestione autonoma dei movimenti dei segnalini
-// durante la partita (AI tattica + micro-movimenti).
-// Si interfaccia con pool.js tramite le funzioni
-// poolMoveToken / poolMoveBall / poolStartPeriod.
+// canvas/movement.js — AI e Logica di Gioco
 // ─────────────────────────────────────────────
 
 var MovementController = (function() {
+  var _ms = null, _active = false;
+  var _sprintDone = false;
 
-  // ── Stato interno ─────────────────────────
-  var _ms          = null;   // riferimento allo stato partita
-  var _active      = false;
-  var _ticker      = 0;      // timer accumulatore in secondi di gioco
-  var _microTick   = 0;
-  var _lastPossess = 'my';   // chi aveva la palla l'ultimo tick
+  function init(ms) { _ms = ms; _active = true; _sprintDone = false; }
+  function stop() { _active = false; }
 
-  // Intervalli (secondi di gioco reale)
-  var TACTICAL_INTERVAL = 4.0;   // riposizionamento tattico
-  var MICRO_INTERVAL    = 1.8;   // micro-movimenti
-
-  // ── API pubblica ───────────────────────────
-
-  function init(ms) {
-    _ms     = ms;
-    _active = true;
-    _ticker = 0;
-    _microTick = 0;
-    _lastPossess = 'my';
-  }
-
-  function stop() {
-    _active = false;
-    _ms = null;
-  }
-
-  // Chiamata ogni frame con dt in secondi (già moltiplicato per speed se necessario)
   function update(dt) {
     if (!_active || !_ms || !_ms.running) return;
+    var phase = poolGetPhase();
 
-    _ticker    += dt;
-    _microTick += dt;
+    if (phase === 'idle') return;
 
-    // ── Micro-movimenti ──────────────────────
-    if (_microTick >= MICRO_INTERVAL) {
-      _microTick = 0;
-      _applyMicroMovements();
-    }
-
-    // ── Riposizionamento tattico ─────────────
-    if (_ticker >= TACTICAL_INTERVAL) {
-      _ticker = 0;
-      _applyTacticalPosition();
+    if (phase === 'sprint' && !_sprintDone) {
+      _handleSprint();
+    } else if (phase === 'play') {
+      _handlePlayLogic();
     }
   }
 
-  // Chiamata quando c'è un cambio di possesso esplicito
-  function onPossessChange(team) {
-    _lastPossess = team;
-    _applyTacticalPosition();
-  }
+  function _handleSprint() {
+    var my3 = _getToken('my_3');
+    var opp3 = _getToken('opp_3');
+    if (!my3 || !opp3) return;
 
-  // Chiamata a inizio periodo
-  function onPeriodStart() {
-    if (typeof poolStartPeriod === 'function') poolStartPeriod();
-    _ticker = 0;
-    _microTick = 0;
-  }
+    // Entrambi i '3' puntano al pallone al centro (0.5, 0.5)
+    my3.tx = 0.5; my3.ty = 0.5;
+    opp3.tx = 0.5; opp3.ty = 0.5;
 
-  // ── Logica interna ─────────────────────────
+    // Chi arriva prima a distanza di contatto (0.02)
+    var dMy = Math.sqrt(Math.pow(my3.x-0.5,2)+Math.pow(my3.y-0.5,2));
+    var dOpp = Math.sqrt(Math.pow(opp3.x-0.5,2)+Math.pow(opp3.y-0.5,2));
 
-  // Piccoli aggiustamenti casuali per simulare il nuotare sul posto
-  function _applyMicroMovements() {
-    if (typeof poolMoveToken !== 'function') return;
-    var PLAY_X0 = 0.10, PLAY_X1 = 0.90;
-    var PLAY_Y0 = 0.12, PLAY_Y1 = 0.88;
-
-    ['1','2','3','4','5','6'].forEach(function(pk) {
-      // Nostra squadra
-      var myTok = _getToken('my_' + pk);
-      if (myTok && !myTok.expelled) {
-        var nx = _clampV(myTok.tx + _rndV(-0.018, 0.018), PLAY_X0 + 0.02, PLAY_X1 - 0.02);
-        var ny = _clampV(myTok.ty + _rndV(-0.015, 0.015), PLAY_Y0 + 0.02, PLAY_Y1 - 0.02);
-        poolMoveToken('my_' + pk, nx, ny);
-      }
-      // Avversario
-      var oppTok = _getToken('opp_' + pk);
-      if (oppTok && !oppTok.expelled) {
-        var ox = _clampV(oppTok.tx + _rndV(-0.018, 0.018), PLAY_X0 + 0.02, PLAY_X1 - 0.02);
-        var oy = _clampV(oppTok.ty + _rndV(-0.015, 0.015), PLAY_Y0 + 0.02, PLAY_Y1 - 0.02);
-        poolMoveToken('opp_' + pk, ox, oy);
-      }
-    });
-  }
-
-  // Riposizionamento basato su chi ha il possesso
-  // Legge la posizione corrente della palla da pool.js se disponibile
-  function _applyTacticalPosition() {
-    // Non fare nulla se siamo in fase goal/kickoff
-    if (typeof poolGetPhase === 'function') {
-      var phase = poolGetPhase();
-      if (phase === 'goal' || phase === 'kickoff' || phase === 'idle') return;
+    if (dMy < 0.025) {
+      _sprintDone = true;
+      poolSetBallOwner('my_3');
+      _firstPass('my');
+    } else if (dOpp < 0.025) {
+      _sprintDone = true;
+      poolSetBallOwner('opp_3');
+      _firstPass('opp');
     }
-    // Il riposizionamento tattico vero è già gestito da pool.js
-    // tramite poolMoveBall → _triggerTactical.
-    // Qui gestiamo solo un eventuale refresh periodico leggero
-    // per mantenere le posizioni aggiornate se la palla non si muove.
   }
 
-  // ── Helpers ───────────────────────────────
+  function _firstPass(team) {
+    // Dopo aver preso la palla al centro, passala al numero 4
+    var receiverKey = team + '_4';
+    var receiver = _getToken(receiverKey);
+    setTimeout(function() {
+       poolSetBallOwner(null); // lancia
+       poolMoveBall(receiver.x, receiver.y);
+       setTimeout(function() { poolSetBallOwner(receiverKey); }, 600);
+    }, 500);
+  }
+
+  function _handlePlayLogic() {
+    // Qui andrebbe la logica dei tiri e delle parate attivata dal motore di gioco
+    // Esempio parata: se il motore rileva parata, chiama poolSetBallOwner('my_GK')
+  }
+
   function _getToken(key) {
-    // Accede ai token interni di pool.js (esposti tramite variabile globale
-    // oppure tramite funzione helper se disponibile)
     if (typeof poolGetTokens === 'function') return poolGetTokens()[key];
     return null;
   }
 
-  function _clampV(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
-  function _rndV(lo, hi)      { return lo + Math.random() * (hi - lo); }
-
-  // ── Esportazione ──────────────────────────
-  return {
-    init:             init,
-    stop:             stop,
-    update:           update,
-    onPossessChange:  onPossessChange,
-    onPeriodStart:    onPeriodStart,
-  };
-
+  return { init: init, stop: stop, update: update };
 })();
 
-// Esponi globalmente
 window.MovementController = MovementController;
