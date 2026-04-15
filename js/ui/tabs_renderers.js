@@ -1728,13 +1728,12 @@ function doTrain(i) {
       const ceiling = p.maxTec !== undefined ? p.maxTec : 99;
       p.stats.tec   = Math.min(ceiling, cap(p.stats.tec + rnd(0, tr.eff.tec)));
     }
-    // Il potenziale è il tetto massimo — l'OVR non può superarlo con l'allenamento
-    var potCap = (p.potential !== undefined && p.potential > 0) ? p.potential : 99;
-    if (tr.eff.gk && p.role === 'POR' && Math.random() < 0.35) p.overall = Math.min(potCap, p.overall + 1);
     p.fitness = Math.round(cap(p.fitness - (tr.fatigue || 0) + rnd(-2, 2)));
-    if (rnd(1, 100) <= 8 && p.overall < potCap) { p.overall = Math.min(potCap, p.overall + 1); improved++; }
-    // Sanity check: overall non può mai superare potential
-    if (p.potential && p.overall > p.potential) p.overall = p.potential;
+    // Ricalcola overall dagli attributi aggiornati (formula pesata per ruolo)
+    const potCap = (p.potential !== undefined && p.potential > 0) ? p.potential : 99;
+    const newOvr = _calcOverallFromStats(p);
+    if (newOvr > p.overall) improved++;
+    p.overall = Math.min(potCap, newOvr);
   });
 
   const effDesc = tr.eff ? Object.entries(tr.eff).map(([k, v]) => '+' + v + ' ' + k).join(', ') : '';
