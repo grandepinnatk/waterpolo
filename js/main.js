@@ -12,6 +12,41 @@ let G = {};
 
 // ── Utility globali ───────────────────────────
 // Disponibili a tutti i moduli senza import (vanilla JS).
+// ── Calcola overall da attributi pesati per ruolo ────────────────────────
+// Usata da allenamento, invecchiamento e caricamento salvataggio
+function _calcOverallFromStats(p) {
+  if (!p || !p.stats) return p ? (p.overall || 60) : 60;
+  const s = p.stats;
+  const weights = {
+    POR: { att:0.05, def:0.30, spe:0.15, str:0.20, tec:0.15, res:0.15 },
+    DIF: { att:0.10, def:0.35, spe:0.15, str:0.20, tec:0.10, res:0.10 },
+    CEN: { att:0.20, def:0.20, spe:0.20, str:0.15, tec:0.15, res:0.10 },
+    ATT: { att:0.35, def:0.05, spe:0.20, str:0.15, tec:0.15, res:0.10 },
+    CB:  { att:0.25, def:0.15, spe:0.20, str:0.15, tec:0.15, res:0.10 },
+  };
+  const w = weights[p.role] || weights['CEN'];
+  const raw = (s.att||0)*w.att + (s.def||0)*w.def + (s.spe||0)*w.spe +
+              (s.str||0)*w.str + (s.tec||0)*w.tec + (s.res||0)*w.res;
+  const potCap = (p.potential !== undefined && p.potential > 0) ? p.potential : 99;
+  return Math.min(potCap, Math.max(40, Math.round(raw)));
+}
+
+// Versione senza cap potential — usata per aggiornare il potential stesso
+function _calcOverallRaw(p) {
+  if (!p || !p.stats) return p ? (p.overall || 60) : 60;
+  const s = p.stats;
+  const weights = {
+    POR: { att:0.05, def:0.30, spe:0.15, str:0.20, tec:0.15, res:0.15 },
+    DIF: { att:0.10, def:0.35, spe:0.15, str:0.20, tec:0.10, res:0.10 },
+    CEN: { att:0.20, def:0.20, spe:0.20, str:0.15, tec:0.15, res:0.10 },
+    ATT: { att:0.35, def:0.05, spe:0.20, str:0.15, tec:0.15, res:0.10 },
+    CB:  { att:0.25, def:0.15, spe:0.20, str:0.15, tec:0.15, res:0.10 },
+  };
+  const w = weights[p.role] || weights['CEN'];
+  return Math.max(40, Math.round((s.att||0)*w.att + (s.def||0)*w.def + (s.spe||0)*w.spe +
+              (s.str||0)*w.str + (s.tec||0)*w.tec + (s.res||0)*w.res));
+}
+
 function rnd(a, b)  { return Math.floor(Math.random() * (b - a + 1)) + a; }
 function pick(arr)  { return arr[Math.floor(Math.random() * arr.length)]; }
 function cap(n)     { return Math.min(100, Math.max(0, Math.round(n))); }
@@ -1183,9 +1218,18 @@ function startNewSeason() {
       if (p.age !== undefined) p.age++;
       // Reset flag rinnovo: la stagione è ricominciata
       if (p._justRenewed) p._justRenewed = false;
-      // Calo naturale over-30 (tutte le squadre)
-      if ((p.age || 25) > 30 && Math.random() < 0.35) {
-        p.overall = Math.max(48, p.overall - 1);
+      // Calo naturale over-30: decrementa un attributo casuale e ricalcola overall
+      if ((p.age || 25) > 30 && Math.random() < 0.35 && p.stats) {
+        const attrs = ['att','def','spe','str','tec','res'];
+        const attr = attrs[Math.floor(Math.random() * attrs.length)];
+        p.stats[attr] = Math.max(40, (p.stats[attr] || 60) - 1);
+        // Ricalcola overall dagli attributi
+        if (typeof _calcOverallFromStats === 'function') {
+          const potCap = (p.potential || 99);
+          p.overall = Math.min(potCap, Math.max(48, _calcOverallFromStats(p)));
+        } else {
+          p.overall = Math.max(48, p.overall - 1);
+        }
       }
       // Segna come ritirato se ha raggiunto l'età massima
       if (p.retirementAge !== undefined && p.age >= p.retirementAge) {

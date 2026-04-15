@@ -163,27 +163,13 @@ function _migratePayload(p) {
         if (pl && pl.contractYears === undefined) pl.contractYears = Math.floor(Math.random() * 3) + 1;
         // Resetta sempre il flag nazionale al caricamento: viene riassegnato da simNextRound
         if (pl) { pl._national = false; pl._nationalNext = false; pl._nationalNat = undefined; }
-        // Riallinea potential: se gli attributi medi superano il potential, aggiornalo
-        if (pl && pl.stats) {
-          var weights = {
-            POR:{att:.05,def:.30,spe:.15,str:.20,tec:.15,res:.15},
-            DIF:{att:.10,def:.35,spe:.15,str:.20,tec:.10,res:.10},
-            CEN:{att:.20,def:.20,spe:.20,str:.15,tec:.15,res:.10},
-            ATT:{att:.35,def:.05,spe:.20,str:.15,tec:.15,res:.10},
-            CB: {att:.25,def:.15,spe:.20,str:.15,tec:.15,res:.10},
-          };
-          var w = weights[pl.role] || weights['CEN'];
-          var s = pl.stats;
-          var calcOvr = Math.max(40, Math.round(
-            (s.att||0)*w.att + (s.def||0)*w.def + (s.spe||0)*w.spe +
-            (s.str||0)*w.str + (s.tec||0)*w.tec + (s.res||0)*w.res
-          ));
-          // Se gli attributi danno un overall calcolato > potential, allinea il potential
-          if (calcOvr > (pl.potential || 0)) {
-            pl.potential = Math.min(99, calcOvr);
-          }
-          // Aggiorna overall calcolato (capped al potential)
-          pl.overall = Math.min(pl.potential || 99, calcOvr);
+        // Riallinea overall/potential dagli attributi (usa funzioni globali da main.js)
+        if (pl && pl.stats && typeof _calcOverallRaw === 'function') {
+          var rawOvr = _calcOverallRaw(pl);  // senza cap potential
+          // Se gli attributi superano il potential, aggiorna il potential
+          if (rawOvr > (pl.potential || 0)) pl.potential = Math.min(99, rawOvr);
+          // Overall = raw capped al potential aggiornato
+          pl.overall = Math.min(pl.potential || 99, rawOvr);
         }
       });
     });

@@ -1,6 +1,21 @@
 // ─────────────────────────────────────────────
 // data/training.js  —  tipi di allenamento
 // ─────────────────────────────────────────────
+// Bilanciamento: ogni tipo cresce attributi specifici.
+// L'OVR è la media ponderata per ruolo → allenamenti specializzati
+// danno più OVR al ruolo corretto (es. difesa → molto OVR per DIF/POR)
+// ma meno agli altri. Questo crea scelte tattiche reali.
+//
+// Range ΔOVR stagione (26 sess) per ruolo principale:
+//   Preparazione Atletica : ~8  per tutti (fitness + spread)
+//   Allenamento Attacco   : ~6 POR / ~8 DIF / ~13 CEN / ~19 ATT / ~15 CB
+//   Allenamento Difesa    : ~19 POR / ~21 DIF / ~13 CEN / ~7 ATT / ~11 CB
+//   Sessione Tattica      : ~11 per tutti (bilanciato, minor boost)
+//   Allenamento Portieri  : ~15 POR, ~0 altri
+//   Allenamento Tecnico   : ~8 per tutti (tec impatta uguale su tutti)
+//   Riposo e Recupero     : 0 OVR, recupero fitness/morale
+//   Allenamento Resistenza: ~7 per tutti
+// ─────────────────────────────────────────────
 const TRAINING_TYPES = [
   {
     id:      'physical',
@@ -9,7 +24,7 @@ const TRAINING_TYPES = [
     desc:    'Migliora fitness e resistenza di tutta la rosa',
     icon:    '💪',
     cost:    15000,
-    eff:     { fitness:8, att:1, def:1, res:2 },
+    eff:     { fitness:8, att:1, def:1, spe:1, str:1, res:1 },
     fatigue: 5,
   },
   {
@@ -29,24 +44,24 @@ const TRAINING_TYPES = [
     desc:    'Migliora copertura difensiva e forza fisica',
     icon:    '🛡️',
     cost:    12000,
-    eff:     { def:4, str:2, res:1 },
+    eff:     { def:4, str:2 },
     fatigue: 6,
   },
   {
     id:      'tactics',
-    stars:   1,
+    stars:   2,
     name:    'Sessione Tattica',
     desc:    'Migliora intesa collettiva e movimenti coordinati',
     icon:    '📋',
-    cost:    8000,
-    eff:     { att:2, def:2, spe:2, str:2 },
-    fatigue: 3,
+    cost:    12000,
+    eff:     { att:2, def:2, spe:1, str:1 },
+    fatigue: 4,
   },
   {
     id:      'gk',
     stars:   2,
     name:    'Allenamento Portieri',
-    desc:    'Sessione specifica: migliora overall dei portieri',
+    desc:    'Sessione specifica per portieri: difesa, forza e riflessi',
     icon:    '🥅',
     cost:    10000,
     eff:     { gk:5 },
@@ -56,10 +71,10 @@ const TRAINING_TYPES = [
     id:      'technique',
     stars:   2,
     name:    'Allenamento Tecnico',
-    desc:    'Sessione di perfezionamento tecnico: migliora la precisione nei passaggi e la finalizzazione',
+    desc:    'Perfezionamento tecnico: precisione, passaggi, finalizzazione',
     icon:    '🤽',
     cost:    14000,
-    eff:     { tec: 4 },
+    eff:     { tec:5, spe:1 },
     fatigue: 5,
   },
   {
@@ -76,10 +91,10 @@ const TRAINING_TYPES = [
     id:      'endurance',
     stars:   2,
     name:    'Allenamento Resistenza',
-    desc:    'Lavoro fisico intensivo: migliora la resistenza ai carichi prolungati e riduce l\'affaticamento in partita',
+    desc:    'Lavoro fisico intensivo: migliora resistenza e forza atletica',
     icon:    '🏊',
     cost:    13000,
-    eff:     { res:5, fitness:3 },
+    eff:     { res:4, str:2, fitness:3 },
     fatigue: 7,
   },
 ];
